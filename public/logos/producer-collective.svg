@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="Northside Beats Producer Collective">
+  <rect x="24" y="28" width="72" height="64" rx="6" stroke="#1A3A4A" stroke-width="3"/>
+  <circle cx="48" cy="60" r="14" stroke="#0E7C6B" stroke-width="3"/>
+  <circle cx="48" cy="60" r="4" fill="#E23D2F"/>
+  <rect x="70" y="44" width="16" height="8" rx="1" fill="#1A3A4A"/>
+  <rect x="70" y="58" width="16" height="8" rx="1" fill="#0E7C6B"/>
+  <rect x="70" y="72" width="16" height="8" rx="1" fill="#E23D2F"/>
+</svg>

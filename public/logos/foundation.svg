@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="The Northside Foundation">
+  <path d="M20 88 H100" stroke="#1A3A4A" stroke-width="4"/>
+  <path d="M28 88 V52 L60 28 L92 52 V88" stroke="#0E7C6B" stroke-width="4" fill="none"/>
+  <rect x="52" y="60" width="16" height="28" fill="#E23D2F"/>
+</svg>

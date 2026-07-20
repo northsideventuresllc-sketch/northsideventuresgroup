@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="AXON">
+  <circle cx="60" cy="60" r="38" stroke="#1A3A4A" stroke-width="3"/>
+  <circle cx="60" cy="60" r="10" fill="#0E7C6B"/>
+  <path d="M60 22 V42 M60 78 V98 M22 60 H42 M78 60 H98" stroke="#E23D2F" stroke-width="3" stroke-linecap="round"/>
+  <path d="M34 34 L46 46 M86 34 L74 46 M34 86 L46 74 M86 86 L74 74" stroke="#1A3A4A" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

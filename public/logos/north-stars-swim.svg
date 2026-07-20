@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="North Stars Swim School">
+  <path d="M20 70 C35 55, 45 85, 60 70 C75 55, 85 85, 100 70" stroke="#0E7C6B" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M20 86 C35 71, 45 101, 60 86 C75 71, 85 101, 100 86" stroke="#1A3A4A" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.7"/>
+  <path d="M60 22 L64 34 L76 34 L66 42 L70 54 L60 46 L50 54 L54 42 L44 34 L56 34 Z" fill="#E23D2F"/>
+</svg>

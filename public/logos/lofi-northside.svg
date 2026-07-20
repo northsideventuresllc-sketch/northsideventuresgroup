@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="LoFi by NORTHSiDE">
+  <circle cx="60" cy="60" r="40" stroke="#0E7C6B" stroke-width="3"/>
+  <path d="M42 68 C48 48, 72 48, 78 68" stroke="#1A3A4A" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <circle cx="48" cy="52" r="4" fill="#E23D2F"/>
+  <circle cx="72" cy="52" r="4" fill="#E23D2F"/>
+  <path d="M36 82 H84" stroke="#1A3A4A" stroke-width="2" opacity="0.5"/>
+</svg>
