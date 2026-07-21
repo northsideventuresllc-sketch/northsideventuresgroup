@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="Northside Ventures Group">
   <defs>
     <linearGradient id="nvgBeam" x1="20" y1="100" x2="100" y2="20" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#0E7C6B"/>
-      <stop offset="0.55" stop-color="#1A3A4A"/>
-      <stop offset="1" stop-color="#E23D2F"/>
+      <stop stop-color="#4FC7FF"/>
+      <stop offset="0.55" stop-color="#BFE8FF"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
     </linearGradient>
   </defs>
   <!-- Transparent mark: N formed by northern compass notch -->
   <path d="M28 92 V28 L60 68 L92 28 V92" stroke="url(#nvgBeam)" stroke-width="7" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
-  <circle cx="60" cy="22" r="4" fill="#E23D2F"/>
-  <path d="M60 26 V40" stroke="#E23D2F" stroke-width="2.5"/>
+  <circle cx="60" cy="22" r="4" fill="#4FC7FF"/>
+  <path d="M60 26 V40" stroke="#4FC7FF" stroke-width="2.5"/>
 </svg>

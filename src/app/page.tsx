@@ -28,7 +28,7 @@ export default function HomePage() {
                 className="h-full w-full"
                 style={{
                   background:
-                    "radial-gradient(ellipse 70% 55% at 50% 45%, rgba(14,124,107,0.22), transparent 70%), radial-gradient(ellipse 40% 30% at 70% 30%, rgba(226,61,47,0.14), transparent 60%)",
+                    "radial-gradient(ellipse 70% 55% at 50% 45%, rgba(79,199,255,0.22), transparent 70%), radial-gradient(ellipse 40% 30% at 70% 30%, rgba(191,232,255,0.14), transparent 60%)",
                 }}
               />
             </div>
@@ -79,7 +79,7 @@ export default function HomePage() {
         <footer className="flex flex-col items-center gap-6 px-5 py-16 text-center">
           <ContactButton />
           <p className="text-xs tracking-wide text-ink-soft">
-            © {new Date().getFullYear()} {SITE.name}
+            © {new Date().getFullYear()} {SITE.legalName}
           </p>
         </footer>
       </main>

@@ -27,7 +27,7 @@ export default function ProjectsPage() {
       </main>
 
       <footer className="px-5 py-12 text-center text-xs text-ink-soft">
-        © {new Date().getFullYear()} {SITE.name}
+        © {new Date().getFullYear()} {SITE.legalName}
       </footer>
     </div>
   );

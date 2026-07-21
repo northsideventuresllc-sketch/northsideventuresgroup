@@ -35,8 +35,9 @@ export const CONTACT_EMAIL = "jb@northsideventuresgroup.com";
 
 export const SITE = {
   name: "Northside Ventures Group",
+  legalName: "Northside Ventures Group LLC",
   shortName: "NVG",
-  tagline: "Building north of the ordinary.",
+  tagline: "The collective of north stars guiding ventures to a bright future.",
   overview:
     "Northside Ventures Group is the parent house for ventures across intelligence products, community foundations, and creator culture. We invent, operate, and grow companies that fill real gaps — from athletic matching and streaming tools to music collectives and local impact.",
   logo: "/logos/nvg.svg",
