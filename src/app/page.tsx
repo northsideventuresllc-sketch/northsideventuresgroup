@@ -34,7 +34,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="relative z-10 mx-auto w-full max-w-5xl">
+          <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center text-center">
             <Image
               src={SITE.logo}
               alt=""
@@ -49,7 +49,7 @@ export default function HomePage() {
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft sm:text-xl">
               {SITE.tagline}
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-6">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-6">
               <Link href="/projects" className="cta-see-all">
                 See all projects
               </Link>
@@ -57,9 +57,12 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Brief overview */}
-        <section className="mx-auto max-w-3xl px-5 py-8 sm:px-10">
-          <p className="text-lg leading-relaxed text-ink sm:text-xl">
+        {/* Mission statement */}
+        <section className="mx-auto max-w-3xl px-5 py-8 text-center sm:px-10">
+          <p className="font-[family-name:var(--font-display)] text-xs font-bold tracking-[0.22em] text-teal uppercase">
+            Mission Statement
+          </p>
+          <p className="mt-4 text-lg leading-relaxed text-ink sm:text-xl">
             {SITE.overview}
           </p>
         </section>
@@ -73,6 +76,20 @@ export default function HomePage() {
         </div>
 
         <BioSection />
+
+        {/* Portfolio of ventures — leads into the scrolling logo banner */}
+        <section className="mx-auto max-w-3xl px-5 pb-8 pt-16 text-center sm:px-10">
+          <p className="font-[family-name:var(--font-display)] text-xs font-bold tracking-[0.22em] text-teal uppercase">
+            Portfolio of Ventures
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+            Intelligence products, community foundations, and creator
+            ventures under one house — including{" "}
+            <strong className="text-ink">The Northside Foundation Inc.</strong>
+            , NVG&rsquo;s nonprofit affiliate that carries the group&rsquo;s
+            community and impact work.
+          </p>
+        </section>
 
         <LogoBanner items={bannerItems} />
 

@@ -1,13 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="Northside Ventures Group">
   <defs>
-    <linearGradient id="nvgBeam" x1="20" y1="100" x2="100" y2="20" gradientUnits="userSpaceOnUse">
+    <linearGradient id="nvgSky" x1="8" y1="88" x2="112" y2="18" gradientUnits="userSpaceOnUse">
       <stop stop-color="#4FC7FF"/>
-      <stop offset="0.55" stop-color="#BFE8FF"/>
-      <stop offset="1" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#BFE8FF"/>
     </linearGradient>
   </defs>
-  <!-- Transparent mark: N formed by northern compass notch -->
-  <path d="M28 92 V28 L60 68 L92 28 V92" stroke="url(#nvgBeam)" stroke-width="7" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
-  <circle cx="60" cy="22" r="4" fill="#4FC7FF"/>
-  <path d="M60 26 V40" stroke="#4FC7FF" stroke-width="2.5"/>
+  <!-- Chicago-inspired skyline silhouette, NVG wordmark embedded at the base -->
+  <g fill="url(#nvgSky)">
+    <rect x="9" y="62" width="10" height="27"/>
+    <rect x="21" y="50" width="12" height="39"/>
+    <rect x="35" y="58" width="9" height="31"/>
+    <!-- twin cylindrical towers -->
+    <rect x="46" y="45" width="8" height="44" rx="4"/>
+    <rect x="56" y="45" width="8" height="44" rx="4"/>
+    <!-- tallest tapered tower with antenna spire -->
+    <path d="M67 89 V40 L71 40 V30 L74 30 V40 L78 40 V89 Z"/>
+    <rect x="72" y="16" width="2" height="14"/>
+    <rect x="83" y="53" width="11" height="36"/>
+    <rect x="96" y="61" width="9" height="28"/>
+    <rect x="107" y="68" width="6" height="21"/>
+  </g>
+  <rect x="8" y="89" width="105" height="2" fill="#4FC7FF" opacity="0.55"/>
+  <text x="60" y="110" text-anchor="middle" font-family="'Space Grotesk', system-ui, sans-serif" font-size="21" font-weight="700" letter-spacing="2" fill="#F2F7FB">NVG</text>
 </svg>

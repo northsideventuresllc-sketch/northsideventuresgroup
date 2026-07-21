@@ -39,7 +39,7 @@ export const SITE = {
   shortName: "NVG",
   tagline: "The collective of north stars guiding ventures to a bright future.",
   overview:
-    "Northside Ventures Group is the parent house for ventures across intelligence products, community foundations, and creator culture. We invent, operate, and grow companies that fill real gaps — from athletic matching and streaming tools to music collectives and local impact.",
+    "Northside Ventures Group is the home for various for profit ventures and social enterprises that empower all industries with innovation and forward movement.",
   logo: "/logos/nvg.svg",
 } as const;
 
