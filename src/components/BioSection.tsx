@@ -53,7 +53,7 @@ function AccordionRow({
       </button>
       <div className="accordion-panel" id={`${id}-panel`}>
         <div className="accordion-panel-inner">
-          <p className="pb-4 text-[0.95rem] leading-relaxed text-ink-soft">
+          <p className="pb-4 text-center text-[0.95rem] leading-relaxed text-ink-soft">
             {children}
           </p>
         </div>
@@ -82,8 +82,8 @@ export function BioSection() {
   const [openCofounder, toggleCofounder] = useOpenSet();
 
   return (
-    <section className="mx-auto grid w-full max-w-5xl gap-10 px-5 py-16 sm:grid-cols-2 sm:px-10">
-      <div>
+    <section className="mx-auto flex w-full max-w-2xl flex-col items-center gap-16 px-5 py-16 text-center sm:px-10">
+      <div className="w-full">
         <p className="font-[family-name:var(--font-display)] text-xs font-bold tracking-[0.22em] text-signal uppercase">
           Founder
         </p>
@@ -105,7 +105,7 @@ export function BioSection() {
           ))}
         </div>
       </div>
-      <div>
+      <div className="w-full">
         <p className="font-[family-name:var(--font-display)] text-xs font-bold tracking-[0.22em] text-signal uppercase">
           Co-founders
         </p>
