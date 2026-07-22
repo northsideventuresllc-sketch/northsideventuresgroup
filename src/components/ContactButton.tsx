@@ -26,7 +26,7 @@ export function ContactButton() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Clipboard API unavailable — the visible email text is the fallback.
+      // Clipboard API unavailable — nothing further to fall back to here.
     }
   };
 
@@ -64,18 +64,14 @@ export function ContactButton() {
               ✕
             </button>
 
-            <p className="font-[family-name:var(--font-display)] text-xs font-bold tracking-[0.22em] text-teal uppercase">
+            <p
+              id="contact-portal-heading"
+              className="brand-display text-3xl font-bold uppercase tracking-wide text-teal sm:text-4xl"
+            >
               Get in touch
             </p>
-            <h2
-              id="contact-portal-heading"
-              className="brand-display mt-2 text-2xl text-ink"
-            >
-              Reach Northside
-            </h2>
             <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-              Ventures, press, or partnership inquiries — send a note directly
-              to JB.
+              Contact us for all inquiries
             </p>
 
             <a
@@ -86,18 +82,13 @@ export function ContactButton() {
               <span aria-hidden="true">↗</span>
             </a>
 
-            <div className="contact-email-row">
-              <span className="min-w-0 flex-1 truncate text-sm text-ink-soft">
-                {CONTACT_EMAIL}
-              </span>
-              <button
-                type="button"
-                onClick={copyEmail}
-                className="shrink-0 font-[family-name:var(--font-display)] text-xs font-bold tracking-wider text-teal uppercase hover:text-ice-soft"
-              >
-                {copied ? "Copied" : "Copy"}
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={copyEmail}
+              className="cta-secondary mt-3 w-full justify-center"
+            >
+              {copied ? "Copied" : "Copy Email"}
+            </button>
           </div>
         </div>
       ) : null}

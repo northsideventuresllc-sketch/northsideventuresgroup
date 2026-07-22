@@ -36,11 +36,11 @@ export default function HomePage() {
 
           <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center text-center">
             <Image
-              src={SITE.logo}
+              src="/hero-skyline.svg"
               alt=""
-              width={64}
-              height={64}
-              className="mb-6 h-14 w-14 sm:h-16 sm:w-16"
+              width={960}
+              height={240}
+              className="mb-4 w-full max-w-3xl sm:mb-6"
               priority
             />
             <h1 className="brand-display max-w-4xl uppercase text-[clamp(2.8rem,9vw,6.5rem)] text-ink">

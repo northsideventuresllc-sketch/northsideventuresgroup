@@ -46,15 +46,43 @@ export const SITE = {
 export const BIO = {
   founderName: "J B",
   founderTitle: "Founder",
-  /** Replace with real bio copy when ready */
-  founderBio:
-    "[Founder bio placeholder — a short note on why Northside exists, the through-line across ventures, and how you lead the group.]",
+  /**
+   * Each entry is a collapsible section under the Founder Bio, in
+   * order. Replace with the real bio copy (with its subtitles) when
+   * ready — one entry per subtitle.
+   */
+  founderSections: [
+    {
+      heading: "Bio",
+      body: "[Founder bio placeholder — a short note on why Northside exists, the through-line across ventures, and how you lead the group.]",
+    },
+  ],
+  /**
+   * Each co-founder is collapsible; clicking their name reveals their
+   * contribution. Replace the placeholder contribution copy as it's
+   * written.
+   */
   cofounders: [
-    "Dr. Brenda E. Booth",
-    "Jonathan M. Booth",
-    "Dora L. Ellington",
-    "Lisa Mona Kelly",
-    "A.F. (requested to stay anonymous)",
+    {
+      name: "Dr. Brenda E. Booth",
+      contribution: "[Contribution details coming soon.]",
+    },
+    {
+      name: "Jonathan M. Booth",
+      contribution: "[Contribution details coming soon.]",
+    },
+    {
+      name: "Dora L. Ellington",
+      contribution: "[Contribution details coming soon.]",
+    },
+    {
+      name: "Lisa Mona Kelly",
+      contribution: "[Contribution details coming soon.]",
+    },
+    {
+      name: "A.F. (requested to stay anonymous)",
+      contribution: "[Contribution details coming soon.]",
+    },
   ],
   cofoundersNote:
     "(More co-founders will be written here and contributions will be added over time.)",

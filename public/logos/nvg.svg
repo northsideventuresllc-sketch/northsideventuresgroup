@@ -1,33 +1,49 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="Northside Ventures Group">
   <defs>
-    <linearGradient id="nvgSky" x1="6" y1="86" x2="114" y2="24" gradientUnits="userSpaceOnUse">
+    <linearGradient id="nvgSky" x1="6" y1="90" x2="114" y2="8" gradientUnits="userSpaceOnUse">
       <stop stop-color="#4FC7FF"/>
       <stop offset="1" stop-color="#EAF7FF"/>
     </linearGradient>
   </defs>
-  <!-- Chicago-inspired skyline silhouette, NVG wordmark embedded at the base -->
   <g fill="url(#nvgSky)">
-    <rect x="6" y="66" width="9" height="20"/>
-    <rect x="16" y="58" width="8" height="28"/>
-    <rect x="26" y="72" width="11" height="14"/>
-    <rect x="29.5" y="62" width="4" height="10"/>
-    <rect x="39" y="56" width="9" height="30"/>
-    <path d="M39 56 L43.5 48 L48 56 Z"/>
-    <rect x="53" y="40" width="8" height="46"/>
-    <rect x="55.2" y="27" width="1.3" height="13"/>
-    <rect x="58.5" y="27" width="1.3" height="13"/>
-    <rect x="65" y="60" width="10" height="26"/>
-    <rect x="78" y="68" width="8" height="18"/>
+    <rect x="6" y="72" width="8" height="18"/>
+
+    <!-- Marina City twin towers -->
+    <path d="M16,49 A5,5 0 0 1 26,49 Z"/>
+    <rect x="16" y="49" width="10" height="41"/>
+    <path d="M27,49 A5,5 0 0 1 37,49 Z"/>
+    <rect x="27" y="49" width="10" height="41"/>
+
+    <rect x="39" y="76" width="7" height="14"/>
+
+    <!-- Willis Tower -->
+    <rect x="48" y="34" width="13" height="56"/>
+    <rect x="48" y="20" width="8" height="14"/>
+    <rect x="52" y="8" width="1.4" height="12"/>
+    <rect x="55" y="8" width="1.4" height="12"/>
+
+    <rect x="78" y="70" width="7" height="20"/>
+
+    <!-- stepped filler -->
+    <rect x="87" y="66" width="9" height="24"/>
+    <path d="M87,66 L96,66 L91.5,58 Z"/>
   </g>
-  <!-- Ferris wheel, a nod to Navy Pier -->
-  <g stroke="#4FC7FF" stroke-width="1.6" fill="none">
-    <circle cx="99" cy="66" r="14"/>
-    <line x1="99" y1="52" x2="99" y2="80"/>
-    <line x1="85" y1="66" x2="113" y2="66"/>
-    <line x1="89" y1="56" x2="109" y2="76"/>
-    <line x1="89" y1="76" x2="109" y2="56"/>
-    <path d="M94 86 L99 80 L104 86"/>
+
+  <!-- John Hancock, tapered with brace -->
+  <path d="M63,90 L74,90 L72,54 L65,54 Z" fill="url(#nvgSky)"/>
+  <path d="M66.5,80 L70.5,68 M70.5,80 L66.5,68" stroke="#0b121b" stroke-width="1" opacity="0.55"/>
+
+  <!-- Ferris wheel -->
+  <g stroke="#4FC7FF" stroke-width="1.5">
+    <circle cx="106" cy="62" r="11" fill="none"/>
+    <circle cx="106" cy="62" r="2" fill="none"/>
+    <line x1="106" y1="51" x2="106" y2="73"/>
+    <line x1="95" y1="62" x2="117" y2="62"/>
+    <line x1="98.2" y1="54.2" x2="113.8" y2="69.8"/>
+    <line x1="113.8" y1="54.2" x2="98.2" y2="69.8"/>
+    <path d="M100,90 L106,73 L112,90" stroke-width="1.6"/>
   </g>
-  <rect x="6" y="86" width="108" height="2" fill="#4FC7FF" opacity="0.55"/>
-  <text x="60" y="107" text-anchor="middle" font-family="'Space Grotesk', system-ui, sans-serif" font-size="21" font-weight="700" letter-spacing="2" fill="#F2F7FB">NVG</text>
+
+  <rect x="6" y="89" width="108" height="2" fill="#4FC7FF" opacity="0.6"/>
+  <text x="60" y="108" text-anchor="middle" font-family="'Space Grotesk', system-ui, sans-serif" font-size="20" font-weight="700" letter-spacing="2" fill="#F2F7FB">NVG</text>
 </svg>
