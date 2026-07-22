@@ -43,7 +43,7 @@ export default function HomePage() {
               className="mb-6 h-14 w-14 sm:h-16 sm:w-16"
               priority
             />
-            <h1 className="brand-display max-w-4xl text-[clamp(2.8rem,9vw,6.5rem)] text-ink">
+            <h1 className="brand-display max-w-4xl uppercase text-[clamp(2.8rem,9vw,6.5rem)] text-ink">
               {SITE.name}
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft sm:text-xl">
@@ -95,7 +95,7 @@ export default function HomePage() {
 
         <footer className="flex flex-col items-center gap-6 px-5 py-16 text-center">
           <ContactButton />
-          <p className="text-xs tracking-wide text-ink-soft">
+          <p className="text-xs uppercase tracking-wide text-ink-soft">
             © {new Date().getFullYear()} {SITE.legalName}
           </p>
         </footer>

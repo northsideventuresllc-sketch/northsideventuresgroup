@@ -49,8 +49,15 @@ export const BIO = {
   /** Replace with real bio copy when ready */
   founderBio:
     "[Founder bio placeholder — a short note on why Northside exists, the through-line across ventures, and how you lead the group.]",
+  cofounders: [
+    "Dr. Brenda E. Booth",
+    "Jonathan M. Booth",
+    "Dora L. Ellington",
+    "Lisa Mona Kelly",
+    "A.F. (requested to stay anonymous)",
+  ],
   cofoundersNote:
-    "[Co-founders acknowledgement placeholder — credit partners and co-builders across Northside Intelligence, Foundation, and Creator Collective.]",
+    "(More co-founders will be written here and contributions will be added over time.)",
 } as const;
 
 /**

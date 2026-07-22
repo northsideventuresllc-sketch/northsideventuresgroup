@@ -12,7 +12,7 @@ export function Glossary({ tree }: Props) {
       <div className="mb-10 flex flex-col items-center gap-4 text-center">
         <Image src={SITE.logo} alt={SITE.name} width={72} height={72} priority />
         <div>
-          <h1 className="brand-display text-4xl text-ink sm:text-5xl">{SITE.name}</h1>
+          <h1 className="brand-display uppercase text-4xl text-ink sm:text-5xl">{SITE.name}</h1>
           <p className="mt-3 text-sm tracking-[0.18em] text-ink-soft uppercase">
             Project glossary
           </p>

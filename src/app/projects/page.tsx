@@ -26,7 +26,7 @@ export default function ProjectsPage() {
         <Glossary tree={VENTURE_TREE} />
       </main>
 
-      <footer className="px-5 py-12 text-center text-xs text-ink-soft">
+      <footer className="px-5 py-12 text-center text-xs uppercase text-ink-soft">
         © {new Date().getFullYear()} {SITE.legalName}
       </footer>
     </div>
