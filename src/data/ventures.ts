@@ -35,10 +35,11 @@ export const CONTACT_EMAIL = "jb@northsideventuresgroup.com";
 
 export const SITE = {
   name: "Northside Ventures Group",
+  legalName: "Northside Ventures Group LLC",
   shortName: "NVG",
-  tagline: "Building north of the ordinary.",
+  tagline: "The collective of north stars guiding ventures to a bright future.",
   overview:
-    "Northside Ventures Group is the parent house for ventures across intelligence products, community foundations, and creator culture. We invent, operate, and grow companies that fill real gaps — from athletic matching and streaming tools to music collectives and local impact.",
+    "Northside Ventures Group is the home for various for profit ventures and social enterprises that empower all industries with innovation and forward movement.",
   logo: "/logos/nvg.svg",
 } as const;
 
@@ -48,8 +49,15 @@ export const BIO = {
   /** Replace with real bio copy when ready */
   founderBio:
     "[Founder bio placeholder — a short note on why Northside exists, the through-line across ventures, and how you lead the group.]",
+  cofounders: [
+    "Dr. Brenda E. Booth",
+    "Jonathan M. Booth",
+    "Dora L. Ellington",
+    "Lisa Mona Kelly",
+    "A.F. (requested to stay anonymous)",
+  ],
   cofoundersNote:
-    "[Co-founders acknowledgement placeholder — credit partners and co-builders across Northside Intelligence, Foundation, and Creator Collective.]",
+    "(More co-founders will be written here and contributions will be added over time.)",
 } as const;
 
 /**

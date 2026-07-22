@@ -1,13 +1,33 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="Northside Ventures Group">
   <defs>
-    <linearGradient id="nvgBeam" x1="20" y1="100" x2="100" y2="20" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#0E7C6B"/>
-      <stop offset="0.55" stop-color="#1A3A4A"/>
-      <stop offset="1" stop-color="#E23D2F"/>
+    <linearGradient id="nvgSky" x1="6" y1="86" x2="114" y2="24" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4FC7FF"/>
+      <stop offset="1" stop-color="#EAF7FF"/>
     </linearGradient>
   </defs>
-  <!-- Transparent mark: N formed by northern compass notch -->
-  <path d="M28 92 V28 L60 68 L92 28 V92" stroke="url(#nvgBeam)" stroke-width="7" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
-  <circle cx="60" cy="22" r="4" fill="#E23D2F"/>
-  <path d="M60 26 V40" stroke="#E23D2F" stroke-width="2.5"/>
+  <!-- Chicago-inspired skyline silhouette, NVG wordmark embedded at the base -->
+  <g fill="url(#nvgSky)">
+    <rect x="6" y="66" width="9" height="20"/>
+    <rect x="16" y="58" width="8" height="28"/>
+    <rect x="26" y="72" width="11" height="14"/>
+    <rect x="29.5" y="62" width="4" height="10"/>
+    <rect x="39" y="56" width="9" height="30"/>
+    <path d="M39 56 L43.5 48 L48 56 Z"/>
+    <rect x="53" y="40" width="8" height="46"/>
+    <rect x="55.2" y="27" width="1.3" height="13"/>
+    <rect x="58.5" y="27" width="1.3" height="13"/>
+    <rect x="65" y="60" width="10" height="26"/>
+    <rect x="78" y="68" width="8" height="18"/>
+  </g>
+  <!-- Ferris wheel, a nod to Navy Pier -->
+  <g stroke="#4FC7FF" stroke-width="1.6" fill="none">
+    <circle cx="99" cy="66" r="14"/>
+    <line x1="99" y1="52" x2="99" y2="80"/>
+    <line x1="85" y1="66" x2="113" y2="66"/>
+    <line x1="89" y1="56" x2="109" y2="76"/>
+    <line x1="89" y1="76" x2="109" y2="56"/>
+    <path d="M94 86 L99 80 L104 86"/>
+  </g>
+  <rect x="6" y="86" width="108" height="2" fill="#4FC7FF" opacity="0.55"/>
+  <text x="60" y="107" text-anchor="middle" font-family="'Space Grotesk', system-ui, sans-serif" font-size="21" font-weight="700" letter-spacing="2" fill="#F2F7FB">NVG</text>
 </svg>

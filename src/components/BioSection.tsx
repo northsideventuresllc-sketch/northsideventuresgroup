@@ -20,9 +20,12 @@ export function BioSection() {
           Co-founders
         </p>
         <h2 className="brand-display mt-2 text-3xl text-ink">Acknowledgements</h2>
-        <p className="mt-5 text-[0.95rem] leading-relaxed text-ink-soft">
-          {BIO.cofoundersNote}
-        </p>
+        <ul className="mt-5 space-y-2 text-[0.95rem] leading-relaxed text-ink-soft">
+          {BIO.cofounders.map((name) => (
+            <li key={name}>{name}</li>
+          ))}
+        </ul>
+        <p className="mt-5 text-sm italic text-ink-soft">{BIO.cofoundersNote}</p>
       </div>
     </section>
   );

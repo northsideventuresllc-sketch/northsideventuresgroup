@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Syne, Literata } from "next/font/google";
+import { Space_Grotesk, Inter } from "next/font/google";
 import { SITE } from "@/data/ventures";
 import "./globals.css";
 
-const syne = Syne({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
 });
 
-const literata = Literata({
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${syne.variable} ${literata.variable} antialiased`}>
+      <body className={`${spaceGrotesk.variable} ${inter.variable} antialiased`}>
         {children}
       </body>
     </html>

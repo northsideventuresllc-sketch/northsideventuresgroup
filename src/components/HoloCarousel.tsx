@@ -47,16 +47,8 @@ export function HoloCarousel({ items, minMs = 3000, maxMs = 5000 }: Props) {
       aria-roledescription="carousel"
       aria-label="Ventures holographic carousel"
     >
-      <div className="mb-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
-        <div>
-          <p className="font-[family-name:var(--font-display)] text-xs font-bold tracking-[0.22em] text-teal uppercase">
-            Ventures
-          </p>
-          <h2 className="brand-display mt-2 text-3xl text-ink sm:text-4xl">
-            Spin the house
-          </h2>
-        </div>
-        <p className="max-w-sm text-sm leading-relaxed text-ink-soft">
+      <div className="mb-8 flex justify-center">
+        <p className="max-w-sm text-center text-sm leading-relaxed text-ink-soft">
           Center link rotates every few seconds. Click any face to open the
           venture — or wait and watch the hologram shift.
         </p>
