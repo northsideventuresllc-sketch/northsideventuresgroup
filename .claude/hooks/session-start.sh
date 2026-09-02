@@ -11,3 +11,7 @@ cd "$CLAUDE_PROJECT_DIR"
 # Prefer npm install over npm ci: the container is cached after this hook
 # completes, so a mutating install is fine and faster on repeat boots.
 npm install
+
+echo "[session-start] NVG BOOT CONTRACT v2 (2026-09-02) — identical in every repo and every routine"
+echo "[session-start] 1. Invoke skill nvg-operator-core — binding law. If it fails to load: stop, say so, assert nothing."
+echo "[session-start] 2. select * from v_boot; on NI-Brain kxijunwgbrlfzvgkhklo — live rules, switches, open jobs, health. The one door."
