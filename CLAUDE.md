@@ -55,5 +55,11 @@ exact node shape. No other files need touching for a new venture entry.
 ## Deploy
 
 Push to `main` → Vercel git-integration auto-deploy (zero-config Next.js, no `vercel.json` in
-this repo). No CI workflow currently configured — `npm run lint` / `npm run build` before
-merging is manual discipline, not an enforced gate.
+this repo).
+
+**CI (FRONTIER-05-TESTS-ALL-REPOS, 2026-09-25):** `.github/workflows/test.yml` runs
+`npm test` (`scripts/verify-live.mjs`) on every `pull_request`. It statically parses
+`src/data/ventures.ts` and checks every logo path resolves under `public/logos/` and every
+live `href` is a well-formed `https` URL — the most common mistake per
+`ADDING-A-PROJECT.md` (forgetting the logo file, or a typo'd path). `npm run lint` /
+`npm run build` before merging is still manual discipline, not yet an enforced gate.
