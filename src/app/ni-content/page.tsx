@@ -288,7 +288,9 @@ const INITIAL_POSTS: ContentPost[] = [
     platforms: ["LinkedIn", "Instagram", "Threads", "Facebook"],
     title: "Signal Desk: 6-Slide Competitor Intelligence Radar",
     hook: "By the time a competitor makes an announcement, you're already 3 months behind.",
-    status: "approved",
+    status: "published",
+    postedAt: "Thursday, Oct 1, 2026 @ 6:40 PM ET",
+    postingMethod: "manual",
     pillar: "Drop in your market notes and identify your competitors. Get one ranked brief on what matters next.",
     caption: `By the time a competitor makes an official press announcement, you're already 3 months behind.
 
