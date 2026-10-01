@@ -355,11 +355,56 @@ Run your free competitor scan today at northsideintelligence.com/signaldesk.
       {
         id: "gen-sd-1",
         name: "signaldesk_slide_1.jpg",
-        url: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1080' height='1440' viewBox='0 0 1080 1440'><rect width='100%' height='100%' fill='%23070b12'/><rect x='60' y='60' width='960' height='1320' rx='24' fill='%230b1320' stroke='%2300D4FF' stroke-width='4'/><circle cx='540' cy='600' r='240' fill='none' stroke='%2300D4FF' stroke-width='2' stroke-dasharray='8 8'/><circle cx='540' cy='600' r='120' fill='none' stroke='%2300D4FF' stroke-width='1.5'/><line x1='540' y1='360' x2='540' y2='840' stroke='%2300D4FF' stroke-width='2'/><line x1='300' y1='600' x2='780' y2='600' stroke='%2300D4FF' stroke-width='2'/><text x='540' y='220' font-family='sans-serif' font-size='44' font-weight='900' fill='white' text-anchor='middle'>By the time a competitor announces,</text><text x='540' y='280' font-family='sans-serif' font-size='44' font-weight='900' fill='%2300D4FF' text-anchor='middle'>you are already 3 months behind.</text><text x='540' y='1260' font-family='sans-serif' font-size='24' font-weight='700' fill='white' text-anchor='middle'>SIGNAL DESK • SLIDE 1 OF 6</text></svg>",
+        url: "https://kxijunwgbrlfzvgkhklo.supabase.co/storage/v1/object/public/content-calendar-media/ni-content/signal-desk/2026-10-01/slide-1.jpg",
         type: "image",
-        size: "3:4 High-Res",
+        size: "807 KB (1080x1440)",
         source: "agent",
         uploadedAt: "Today 12:16 PM"
+      },
+      {
+        id: "gen-sd-2",
+        name: "signaldesk_slide_2.jpg",
+        url: "https://kxijunwgbrlfzvgkhklo.supabase.co/storage/v1/object/public/content-calendar-media/ni-content/signal-desk/2026-10-01/slide-2.jpg",
+        type: "image",
+        size: "656 KB (1080x1440)",
+        source: "agent",
+        uploadedAt: "Today 12:16 PM"
+      },
+      {
+        id: "gen-sd-3",
+        name: "signaldesk_slide_3.jpg",
+        url: "https://kxijunwgbrlfzvgkhklo.supabase.co/storage/v1/object/public/content-calendar-media/ni-content/signal-desk/2026-10-01/slide-3.jpg",
+        type: "image",
+        size: "598 KB (1080x1440)",
+        source: "agent",
+        uploadedAt: "Today 12:16 PM"
+      },
+      {
+        id: "gen-sd-4",
+        name: "signaldesk_slide_4.jpg",
+        url: "https://kxijunwgbrlfzvgkhklo.supabase.co/storage/v1/object/public/content-calendar-media/ni-content/signal-desk/2026-10-01/slide-4.jpg",
+        type: "image",
+        size: "669 KB (1080x1440)",
+        source: "agent",
+        uploadedAt: "Today 12:17 PM"
+      },
+      {
+        id: "gen-sd-5",
+        name: "signaldesk_slide_5.jpg",
+        url: "https://kxijunwgbrlfzvgkhklo.supabase.co/storage/v1/object/public/content-calendar-media/ni-content/signal-desk/2026-10-01/slide-5.jpg",
+        type: "image",
+        size: "511 KB (1080x1440)",
+        source: "agent",
+        uploadedAt: "Today 12:17 PM"
+      },
+      {
+        id: "gen-sd-6",
+        name: "signaldesk_slide_6.jpg",
+        url: "https://kxijunwgbrlfzvgkhklo.supabase.co/storage/v1/object/public/content-calendar-media/ni-content/signal-desk/2026-10-01/slide-6.jpg",
+        type: "image",
+        size: "541 KB (1080x1440)",
+        source: "agent",
+        uploadedAt: "Today 12:17 PM"
       }
     ],
     referenceMedia: [
@@ -623,14 +668,34 @@ export default function NiContentPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const refFileInputRef = useRef<HTMLInputElement>(null);
 
-  // 1. Load from localStorage on mount
+  // 1. Load from localStorage on mount (with automatic migration to preserve real media)
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("ni_content_hub_master_v1");
-      if (saved) {
-        const parsed = JSON.parse(saved);
+      const savedV2 = localStorage.getItem("ni_content_hub_master_v2");
+      if (savedV2) {
+        const parsed = JSON.parse(savedV2);
         if (Array.isArray(parsed) && parsed.length > 0) {
           setPosts(parsed);
+          return;
+        }
+      }
+      const savedV1 = localStorage.getItem("ni_content_hub_master_v1");
+      if (savedV1) {
+        const parsed = JSON.parse(savedV1);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const merged = INITIAL_POSTS.map((initial) => {
+            const existing = parsed.find((p: ContentPost) => p.id === initial.id);
+            if (!existing) return initial;
+            const hasMockMedia = !existing.generatedMedia || existing.generatedMedia.length <= 1 || (existing.generatedMedia[0]?.url && existing.generatedMedia[0].url.startsWith("data:image/svg"));
+            return {
+              ...initial,
+              ...existing,
+              generatedMedia: hasMockMedia ? initial.generatedMedia : existing.generatedMedia,
+            };
+          });
+          setPosts(merged);
+          localStorage.setItem("ni_content_hub_master_v2", JSON.stringify(merged));
+          return;
         }
       }
     } catch {
@@ -644,7 +709,7 @@ export default function NiContentPage() {
     setSaveFlash(true);
     setTimeout(() => setSaveFlash(false), 1200);
     try {
-      localStorage.setItem("ni_content_hub_master_v1", JSON.stringify(updatedPosts));
+      localStorage.setItem("ni_content_hub_master_v2", JSON.stringify(updatedPosts));
     } catch {
       // Fallback
     }
@@ -876,11 +941,69 @@ export default function NiContentPage() {
       setGenerationStageText("Agent generation complete! Assets attached.");
 
       const nextMedia = [...activePost.generatedMedia];
-      if (nextMedia.length === 0) {
+      if (activePost.id === "post-signal-desk" || activePost.brand === "Signal Desk") {
+        nextMedia.length = 0;
+        nextMedia.push(
+          {
+            id: "gen-sd-1",
+            name: "signaldesk_slide_1.jpg",
+            url: "https://kxijunwgbrlfzvgkhklo.supabase.co/storage/v1/object/public/content-calendar-media/ni-content/signal-desk/2026-10-01/slide-1.jpg",
+            type: "image",
+            size: "807 KB (1080x1440)",
+            source: "agent",
+            uploadedAt: "Today 12:16 PM"
+          },
+          {
+            id: "gen-sd-2",
+            name: "signaldesk_slide_2.jpg",
+            url: "https://kxijunwgbrlfzvgkhklo.supabase.co/storage/v1/object/public/content-calendar-media/ni-content/signal-desk/2026-10-01/slide-2.jpg",
+            type: "image",
+            size: "656 KB (1080x1440)",
+            source: "agent",
+            uploadedAt: "Today 12:16 PM"
+          },
+          {
+            id: "gen-sd-3",
+            name: "signaldesk_slide_3.jpg",
+            url: "https://kxijunwgbrlfzvgkhklo.supabase.co/storage/v1/object/public/content-calendar-media/ni-content/signal-desk/2026-10-01/slide-3.jpg",
+            type: "image",
+            size: "598 KB (1080x1440)",
+            source: "agent",
+            uploadedAt: "Today 12:16 PM"
+          },
+          {
+            id: "gen-sd-4",
+            name: "signaldesk_slide_4.jpg",
+            url: "https://kxijunwgbrlfzvgkhklo.supabase.co/storage/v1/object/public/content-calendar-media/ni-content/signal-desk/2026-10-01/slide-4.jpg",
+            type: "image",
+            size: "669 KB (1080x1440)",
+            source: "agent",
+            uploadedAt: "Today 12:17 PM"
+          },
+          {
+            id: "gen-sd-5",
+            name: "signaldesk_slide_5.jpg",
+            url: "https://kxijunwgbrlfzvgkhklo.supabase.co/storage/v1/object/public/content-calendar-media/ni-content/signal-desk/2026-10-01/slide-5.jpg",
+            type: "image",
+            size: "511 KB (1080x1440)",
+            source: "agent",
+            uploadedAt: "Today 12:17 PM"
+          },
+          {
+            id: "gen-sd-6",
+            name: "signaldesk_slide_6.jpg",
+            url: "https://kxijunwgbrlfzvgkhklo.supabase.co/storage/v1/object/public/content-calendar-media/ni-content/signal-desk/2026-10-01/slide-6.jpg",
+            type: "image",
+            size: "541 KB (1080x1440)",
+            source: "agent",
+            uploadedAt: "Today 12:17 PM"
+          }
+        );
+      } else if (nextMedia.length === 0) {
         nextMedia.push({
           id: `gen-${Date.now()}-1`,
-          name: "signaldesk_slide_1.jpg",
-          url: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1080' height='1440' viewBox='0 0 1080 1440'><rect width='100%' height='100%' fill='%23070b12'/><rect x='60' y='60' width='960' height='1320' rx='24' fill='%230b1320' stroke='%2300D4FF' stroke-width='4'/><text x='540' y='220' font-family='sans-serif' font-size='44' font-weight='900' fill='white' text-anchor='middle'>By the time a competitor announces,</text><text x='540' y='280' font-family='sans-serif' font-size='44' font-weight='900' fill='%2300D4FF' text-anchor='middle'>you are already 3 months behind.</text><circle cx='540' cy='620' r='200' fill='none' stroke='%2300D4FF' stroke-width='2'/><text x='540' y='1260' font-family='sans-serif' font-size='24' font-weight='700' fill='white' text-anchor='middle'>SIGNAL DESK • SLIDE 1 OF 6</text></svg>",
+          name: `${activePost.brand.toLowerCase().replace(/\s+/g, "_")}_slide_1.jpg`,
+          url: "https://kxijunwgbrlfzvgkhklo.supabase.co/storage/v1/object/public/content-calendar-media/ni-content/signal-desk/2026-10-01/slide-1.jpg",
           type: "image",
           size: "3:4 High-Res",
           source: "agent",
@@ -900,8 +1023,10 @@ export default function NiContentPage() {
 
       setTimeout(() => {
         setIsGenerating(false);
-        showToast("✓ Agent generation finished & attached!");
-      }, 800);
+        setGenerationProgress(0);
+        setGenerationStageText("");
+        showToast("Agent successfully attached high-res slides!");
+      }, 1000);
     }, 3600);
   };
 
@@ -970,14 +1095,37 @@ export default function NiContentPage() {
     showToast("Removed asset.");
   };
 
-  const handleDownloadAsset = (asset: MediaAsset) => {
-    const a = document.createElement("a");
-    a.href = asset.url;
-    a.download = asset.name;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+  const handleDownloadAsset = async (asset: MediaAsset) => {
     showToast(`Downloading ${asset.name}...`);
+    try {
+      if (asset.url.startsWith("data:") || asset.url.startsWith("blob:")) {
+        const a = document.createElement("a");
+        a.href = asset.url;
+        a.download = asset.name;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } else {
+        const resp = await fetch(asset.url);
+        const blob = await resp.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = blobUrl;
+        a.download = asset.name;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+      }
+    } catch {
+      const a = document.createElement("a");
+      a.href = asset.url;
+      a.download = asset.name;
+      a.target = "_blank";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
   };
 
   const handleDownloadAllGenerated = () => {
@@ -2147,12 +2295,12 @@ export default function NiContentPage() {
               </p>
             </div>
             <a
-              href="https://match-fit.net/admin/content-calendar"
+              href="https://match-fit.net/admin/content-calendar/v2"
               target="_blank"
               rel="noreferrer"
               className="rounded-lg bg-gradient-to-r from-amber-400 to-amber-500 px-4 py-2.5 text-xs font-black text-black hover:brightness-110 transition shadow-lg shadow-amber-500/20 whitespace-nowrap cursor-pointer"
             >
-              Open Match Fit Calendar &rarr;
+              Open Match Fit Calendar (v2) &rarr;
             </a>
           </div>
         </footer>
