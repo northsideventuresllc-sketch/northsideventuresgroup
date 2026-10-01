@@ -7,7 +7,20 @@ import Link from "next/link";
 /* TYPES & INTERFACES                                                        */
 /* -------------------------------------------------------------------------- */
 
+export type VentureName =
+  | "Northside Intelligence"
+  | "The Northside Foundation Inc."
+  | "Northside Creator Collective";
+
 export type ContentFormat = "Carousel" | "Static" | "Video" | "Text";
+
+export type WorkflowStage =
+  | "hub"
+  | "impromptu"
+  | "pending"
+  | "publishing"
+  | "scheduled"
+  | "archives";
 
 export interface SlideSpec {
   slideNumber: string;
@@ -48,17 +61,22 @@ export interface MediaAsset {
 
 export interface ContentPost {
   id: string;
-  week: number;
-  day: string;
-  date: string;
-  channel: "IT" | "Store";
+  venture: VentureName;
+  year: number;
+  month: string; // e.g. "October 2026"
+  weekNumber: number; // e.g. 1
+  day: string; // "Thursday"
+  date: string; // "Thu Oct 1, 2026"
+  dayOfMonth: number; // 1
+  scheduledTime: string; // "5:00 PM ET"
+  channel: "IT" | "Store" | "Community" | "Creators";
   slot: string;
   brand: string;
   format: ContentFormat;
   platforms: string[];
   title: string;
   hook: string;
-  status: "draft" | "pending" | "approved" | "scheduled" | "published";
+  status: "draft" | "pending" | "approved" | "scheduled" | "published" | "archived";
   pillar: string;
   caption: string;
   hashtags: string;
@@ -83,14 +101,22 @@ export interface ContentPost {
   notes: string;
 }
 
+export interface DpmoProduct {
+  name: string;
+  slug: string;
+  sector: string;
+  phase: string;
+  targetAudience: string;
+  offerHook: string;
+  ctaUrl: string;
+  conversionBenefit: string;
+}
+
 /* -------------------------------------------------------------------------- */
 /* CANONICAL TEMPLATE BUILDERS                                                */
 /* -------------------------------------------------------------------------- */
 
-export function buildCarouselSlidePrompt(
-  slide: SlideSpec,
-  specs: ProductionSpecs
-): string {
+export function buildCarouselSlidePrompt(slide: SlideSpec, specs: ProductionSpecs): string {
   return `Carousel Images Format
 • Slide Number: ${slide.slideNumber}
 • Main Prompt: ${slide.mainPrompt}
@@ -104,10 +130,7 @@ Production Specs:
   • ${specs.rules.join("\n  • ")}`;
 }
 
-export function buildFullCarouselPrompt(
-  slides: SlideSpec[],
-  specs: ProductionSpecs
-): string {
+export function buildFullCarouselPrompt(slides: SlideSpec[], specs: ProductionSpecs): string {
   const slidesBlock = slides
     .map(
       (s) =>
@@ -142,10 +165,7 @@ Production Specs:
   • ${specs.rules.join("\n  • ")}`;
 }
 
-export function buildVideoPrompt(
-  scenes: VideoScene[],
-  specs: ProductionSpecs
-): string {
+export function buildVideoPrompt(scenes: VideoScene[], specs: ProductionSpecs): string {
   const scenesBlock = scenes
     .map(
       (sc) =>
@@ -189,16 +209,78 @@ Production Specs:
 }
 
 /* -------------------------------------------------------------------------- */
-/* INITIAL PRE-POPULATED DATA WITH 4 CONTENT TYPES                            */
+/* DPMO PRODUCTS DATA                                                         */
+/* -------------------------------------------------------------------------- */
+
+const DPMO_PRODUCTS: DpmoProduct[] = [
+  {
+    name: "Signal Desk",
+    slug: "signaldesk",
+    sector: "Sector 3 (IT Tools)",
+    phase: "Scale",
+    targetAudience: "Founders, C-Suite Executives, B2B Operators",
+    offerHook: "Turn quiet competitor moves into your next offensive move before press announcements.",
+    ctaUrl: "https://northsideintelligence.com/signaldesk",
+    conversionBenefit: "Free automated competitor scan + executive briefing radar.",
+  },
+  {
+    name: "BridgeAI",
+    slug: "bridgeai",
+    sector: "Sector 3 (IT Tools)",
+    phase: "Scale",
+    targetAudience: "Small Business Owners & Ops Managers",
+    offerHook: "Connect fragmented SaaS tools into one synchronized, autonomous pipeline.",
+    ctaUrl: "https://northsideintelligence.com/bridgeai",
+    conversionBenefit: "Save 10+ hours/week by eliminating manual copy-paste across 5 logins.",
+  },
+  {
+    name: "GrantBot",
+    slug: "grantbot",
+    sector: "Sector 3 (IT Tools)",
+    phase: "Scale",
+    targetAudience: "Nonprofits, Creators, Small Businesses",
+    offerHook: "Scan 1,000+ active grants and generate criteria-matched application drafts in minutes.",
+    ctaUrl: "https://northsideintelligence.com/grantbot",
+    conversionBenefit: "Instant 0–100% eligibility score + criteria-matched draft generator.",
+  },
+  {
+    name: "Smart Store",
+    slug: "store",
+    sector: "Sector 4 (Autonomous Dropship)",
+    phase: "Scale",
+    targetAudience: "Online Consumers & Everyday Shoppers",
+    offerHook: "The Cheaper Twin: finds the identical factory product for 70-90% less than retail.",
+    ctaUrl: "https://northsideintelligence.com/store",
+    conversionBenefit: "Curated catalog of top 10 viral lifestyle products refreshed daily.",
+  },
+  {
+    name: "ReplyFlow",
+    slug: "replyflow",
+    sector: "Sector 3 (IT Tools)",
+    phase: "Scale",
+    targetAudience: "Solo Operators & Agencies",
+    offerHook: "Keeps warm leads from going cold with 1-click contextual DM follow-up replies.",
+    ctaUrl: "https://northsideintelligence.com/replyflow",
+    conversionBenefit: "Free 10 replies/month + unlimited operator bundles.",
+  },
+];
+
+/* -------------------------------------------------------------------------- */
+/* INITIAL POSTS MATRIX (OCTOBER 2026 - WEEK 1 HERO)                         */
 /* -------------------------------------------------------------------------- */
 
 const INITIAL_POSTS: ContentPost[] = [
   // 1. CAROUSEL: THURSDAY OCT 1 (HERO POST - SIGNAL DESK)
   {
-    id: "ni-w1-thu-it",
-    week: 1,
+    id: "post-signal-desk",
+    venture: "Northside Intelligence",
+    year: 2026,
+    month: "October 2026",
+    weekNumber: 1,
     day: "Thursday",
     date: "Thu Oct 1, 2026",
+    dayOfMonth: 1,
+    scheduledTime: "5:00 PM ET",
     channel: "IT",
     slot: "Sector 3 IT Post (Hero Today)",
     brand: "Signal Desk",
@@ -278,15 +360,6 @@ Run your free competitor scan today at northsideintelligence.com/signaldesk.
         size: "3:4 High-Res",
         source: "agent",
         uploadedAt: "Today 12:16 PM"
-      },
-      {
-        id: "gen-sd-2",
-        name: "signaldesk_slide_2.jpg",
-        url: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1080' height='1440' viewBox='0 0 1080 1440'><rect width='100%' height='100%' fill='%23070b12'/><rect x='60' y='60' width='960' height='1320' rx='24' fill='%230b1320' stroke='%2300D4FF' stroke-width='3'/><text x='540' y='240' font-family='sans-serif' font-size='42' font-weight='900' fill='white' text-anchor='middle'>Drop in your market notes &amp; competitors.</text><text x='540' y='300' font-family='sans-serif' font-size='38' font-weight='700' fill='%2300D4FF' text-anchor='middle'>Instant Automated Monitoring</text><rect x='160' y='460' width='760' height='160' rx='16' fill='%2305080e' stroke='rgba(255,255,255,0.15)'/><text x='200' y='530' font-family='monospace' font-size='26' fill='%234fc7ff'>&gt; Ingesting 14 live web and hiring signals...</text><text x='540' y='1260' font-family='sans-serif' font-size='24' font-weight='700' fill='white' text-anchor='middle'>SIGNAL DESK • SLIDE 2 OF 6</text></svg>",
-        type: "image",
-        size: "3:4 High-Res",
-        source: "agent",
-        uploadedAt: "Today 12:16 PM"
       }
     ],
     referenceMedia: [
@@ -305,10 +378,15 @@ Run your free competitor scan today at northsideintelligence.com/signaldesk.
 
   // 2. VIDEO: WEDNESDAY SEP 30 (SMART STORE VERTICAL REEL)
   {
-    id: "ni-w1-wed-store",
-    week: 1,
+    id: "post-smart-store",
+    venture: "Northside Intelligence",
+    year: 2026,
+    month: "October 2026",
+    weekNumber: 1,
     day: "Wednesday",
     date: "Wed Sep 30, 2026",
+    dayOfMonth: 30,
+    scheduledTime: "8:00 PM ET",
     channel: "Store",
     slot: "Smart Store Video (Cheaper Twin)",
     brand: "Smart Store",
@@ -383,10 +461,15 @@ Pay less for what you were already going to buy.
 
   // 3. STATIC: FRIDAY OCT 2 (STATIC IMAGE POST - BRIDGE AI)
   {
-    id: "ni-w1-fri-static",
-    week: 1,
+    id: "post-bridge-ai",
+    venture: "Northside Intelligence",
+    year: 2026,
+    month: "October 2026",
+    weekNumber: 1,
     day: "Friday",
     date: "Fri Oct 2, 2026",
+    dayOfMonth: 2,
+    scheduledTime: "5:00 PM ET",
     channel: "IT",
     slot: "Sector 3 IT Post (Static Image)",
     brand: "BridgeAI",
@@ -433,10 +516,15 @@ Start free at northsideintelligence.com/bridgeai.
 
   // 4. TEXT: FRIDAY OCT 2 (PURE TEXT THOUGHT LEADERSHIP)
   {
-    id: "ni-w1-fri-text",
-    week: 1,
+    id: "post-ni-thought-leadership",
+    venture: "Northside Intelligence",
+    year: 2026,
+    month: "October 2026",
+    weekNumber: 1,
     day: "Friday",
     date: "Fri Oct 2, 2026",
+    dayOfMonth: 2,
+    scheduledTime: "8:00 PM ET",
     channel: "IT",
     slot: "Thought Leadership (Pure Text)",
     brand: "Northside Intelligence",
@@ -499,9 +587,27 @@ One autonomous pipeline. Zero manual copy-paste.`,
 
 export default function NiContentPage() {
   const [posts, setPosts] = useState<ContentPost[]>(INITIAL_POSTS);
-  const [activeSlotId, setActiveSlotId] = useState<string>("ni-w1-thu-it");
+  const [activeSlotId, setActiveSlotId] = useState<string>("post-signal-desk");
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
-  const [filterChannel, setFilterChannel] = useState<string>("all");
+
+  // Time Navigation States
+  const [activeVenture, setActiveVenture] = useState<VentureName>("Northside Intelligence");
+  const [selectedYear, setSelectedYear] = useState<number>(2026);
+  const [selectedMonth, setSelectedMonth] = useState<string>("October 2026");
+  const [selectedWeek, setSelectedWeek] = useState<number>(1);
+
+  // Workflow Stage Navigation
+  const [workflowStage, setWorkflowStage] = useState<WorkflowStage>("hub");
+
+  // Impromptu Idea State
+  const [impromptuText, setImpromptuText] = useState<string>("");
+  const [impromptuFormat, setImpromptuFormat] = useState<ContentFormat>("Carousel");
+
+  // Calendar Zoom Drawer State
+  const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
+  const [hoveredCalendarPost, setHoveredCalendarPost] = useState<ContentPost | null>(null);
+
+  // Copy & Notification States
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [saveFlash, setSaveFlash] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -514,17 +620,13 @@ export default function NiContentPage() {
   // Lightbox Preview State
   const [previewAsset, setPreviewAsset] = useState<MediaAsset | null>(null);
 
-  // Intelligence Panel Drawer State
-  const [isIntelOpen, setIsIntelOpen] = useState<boolean>(false);
-  const [learningSignals, setLearningSignals] = useState<Array<{ id: string; signal_type: string; edited_text?: string; created_at: string }>>([]);
-
   const fileInputRef = useRef<HTMLInputElement>(null);
   const refFileInputRef = useRef<HTMLInputElement>(null);
 
   // 1. Load from localStorage on mount
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("ni_content_console_v5");
+      const saved = localStorage.getItem("ni_content_hub_master_v1");
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
@@ -532,22 +634,8 @@ export default function NiContentPage() {
         }
       }
     } catch {
-      // LocalStorage access fallback
+      // Fallback
     }
-  }, []);
-
-  // 2. Fetch live NI-Brain learning signals
-  useEffect(() => {
-    fetch("/api/ni-content/learning")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data && Array.isArray(data.signals)) {
-          setLearningSignals(data.signals);
-        }
-      })
-      .catch(() => {
-        // Fallback gracefully
-      });
   }, []);
 
   // Save changes to localStorage & trigger autosave flash
@@ -556,7 +644,7 @@ export default function NiContentPage() {
     setSaveFlash(true);
     setTimeout(() => setSaveFlash(false), 1200);
     try {
-      localStorage.setItem("ni_content_console_v5", JSON.stringify(updatedPosts));
+      localStorage.setItem("ni_content_hub_master_v1", JSON.stringify(updatedPosts));
     } catch {
       // Fallback
     }
@@ -574,7 +662,7 @@ export default function NiContentPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         signalType,
-        brandSlug: "ni",
+        brandSlug: activeVenture === "Northside Intelligence" ? "ni" : activeVenture === "The Northside Foundation Inc." ? "nfi" : "ncc",
         originalText,
         editedText,
         metaJson: meta || {},
@@ -590,7 +678,30 @@ export default function NiContentPage() {
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  const activePost = posts.find((p) => p.id === activeSlotId) || posts[0];
+  // Filter posts based on active venture, year, month, week, or stage
+  const postsInScope = posts.filter((p) => {
+    if (p.venture !== activeVenture) return false;
+    if (workflowStage === "pending") return p.status === "pending" || p.status === "draft";
+    if (workflowStage === "publishing") return p.status === "approved";
+    if (workflowStage === "scheduled") return p.status === "scheduled";
+    if (workflowStage === "archives") return p.status === "published" || p.status === "archived";
+    // Default Hub: Match Year, Month, Week
+    return p.year === selectedYear && p.month === selectedMonth && p.weekNumber === selectedWeek;
+  });
+
+  const activePost = posts.find((p) => p.id === activeSlotId) || postsInScope[0] || posts[0];
+
+  /* -------------------------------------------------------------------------- */
+  /* JUMP TO POST HELPER                                                        */
+  /* -------------------------------------------------------------------------- */
+
+  const scrollToPost = (postId: string) => {
+    setActiveSlotId(postId);
+    const element = document.getElementById(postId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   /* -------------------------------------------------------------------------- */
   /* COPY HANDLERS                                                              */
@@ -603,11 +714,6 @@ export default function NiContentPage() {
     setTimeout(() => setCopiedKey(null), 2500);
   };
 
-  /**
-   * Requirement 1: "When I say copy prompt, the entire template needs to be put in.
-   * We need to make sure each of the 4 types of content has their artifact templates
-   * and they work exactly the same when I click copy prompt..."
-   */
   const handleCopyPromptTemplate = (fullPost = false) => {
     let promptString = "";
     let toastDesc = "";
@@ -645,7 +751,7 @@ export default function NiContentPage() {
   };
 
   /* -------------------------------------------------------------------------- */
-  /* FIELD EDITING & DIFF LOGGING                                              */
+  /* EDITING & UPDATE HANDLERS                                                  */
   /* -------------------------------------------------------------------------- */
 
   const handleFieldChange = (field: keyof ContentPost, value: unknown) => {
@@ -653,7 +759,6 @@ export default function NiContentPage() {
     const updated = posts.map((p) => (p.id === activePost.id ? { ...p, [field]: value } : p));
     saveToStorage(updated);
 
-    // Debounced diff logging
     if (typeof value === "string" && originalValue !== value && value.length > 5) {
       logLearningSignal("EDIT_DIFF", originalValue, value, { field });
     }
@@ -738,13 +843,13 @@ export default function NiContentPage() {
   };
 
   /* -------------------------------------------------------------------------- */
-  /* GENERATION CONTROLS (MANUAL & AGENT)                                       */
+  /* GENERATION & UPLOAD HANDLERS                                              */
   /* -------------------------------------------------------------------------- */
 
   const handleManualGenerate = () => {
     handleCopyPromptTemplate(true);
-    showToast("Prompt copied! Run in your visual tool, then upload below.");
-    logLearningSignal("MEDIA_GENERATED", undefined, "Manual generation initiated by operator", {
+    showToast("Prompt copied! Run in Midjourney/Imagen/Chrome, then upload below.");
+    logLearningSignal("MEDIA_GENERATED", undefined, "Manual generation initiated", {
       method: "manual",
       postId: activePost.id,
     });
@@ -770,7 +875,6 @@ export default function NiContentPage() {
       setGenerationProgress(100);
       setGenerationStageText("Agent generation complete! Assets attached.");
 
-      // If it's Signal Desk and has fewer than 6 images, attach full set
       const nextMedia = [...activePost.generatedMedia];
       if (nextMedia.length === 0) {
         nextMedia.push({
@@ -801,10 +905,6 @@ export default function NiContentPage() {
     }, 3600);
   };
 
-  /* -------------------------------------------------------------------------- */
-  /* MEDIA UPLOADS & FILE HANDLING                                              */
-  /* -------------------------------------------------------------------------- */
-
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, isReference = false) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
@@ -832,11 +932,9 @@ export default function NiContentPage() {
         const updated = posts.map((p) => {
           if (p.id === activePost.id) {
             if (isReference) {
-              const nextRef = [...p.referenceMedia, newAsset];
-              return { ...p, referenceMedia: nextRef };
+              return { ...p, referenceMedia: [...p.referenceMedia, newAsset] };
             } else {
-              const nextGen = [...p.generatedMedia, newAsset];
-              return { ...p, generatedMedia: nextGen };
+              return { ...p, generatedMedia: [...p.generatedMedia, newAsset] };
             }
           }
           return p;
@@ -909,7 +1007,7 @@ export default function NiContentPage() {
       p.id === activePost.id ? { ...p, status: "approved" as const, approvedAt: timestamp } : p
     );
     saveToStorage(updated);
-    logLearningSignal("APPROVED_FOR_POSTING", undefined, `Approved post for publication: ${activePost.title}`, {
+    logLearningSignal("APPROVED_FOR_POSTING", undefined, `Approved post: ${activePost.title}`, {
       approvedAt: timestamp,
       format: activePost.format,
     });
@@ -956,7 +1054,7 @@ export default function NiContentPage() {
         : p
     );
     saveToStorage(updated);
-    logLearningSignal("POSTED", undefined, `Queued for agent publishing in ${slot} slot`, {
+    logLearningSignal("POSTED", undefined, `Queued for agent publishing at ${slot}`, {
       method: "agentic",
       slot,
       platforms: activePost.platforms,
@@ -964,23 +1062,108 @@ export default function NiContentPage() {
     showToast(`✓ Queued for Autonomous Agent Posting at ${slot.toUpperCase()} slot!`);
   };
 
-  const handleResetDefaults = () => {
-    if (confirm("Reset all content back to original locked templates?")) {
-      try {
-        localStorage.removeItem("ni_content_console_v5");
-      } catch {}
-      setPosts(INITIAL_POSTS);
-      setSaveFlash(true);
-      setTimeout(() => setSaveFlash(false), 1500);
-      showToast("Defaults restored.");
-    }
-  };
+  /* -------------------------------------------------------------------------- */
+  /* IMPROMPTU GENERATOR                                                        */
+  /* -------------------------------------------------------------------------- */
 
-  const filteredPosts = posts.filter((p) => {
-    if (filterChannel === "IT") return p.channel === "IT";
-    if (filterChannel === "Store") return p.channel === "Store";
-    return true;
-  });
+  const handleCreateImpromptu = () => {
+    if (!impromptuText.trim()) {
+      showToast("Please enter an impromptu topic or market insight.");
+      return;
+    }
+    const newId = `post-impromptu-${Date.now()}`;
+    const newPost: ContentPost = {
+      id: newId,
+      venture: activeVenture,
+      year: selectedYear,
+      month: selectedMonth,
+      weekNumber: selectedWeek,
+      day: "Today",
+      date: new Date().toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" }),
+      dayOfMonth: new Date().getDate(),
+      scheduledTime: "8:00 PM ET",
+      channel: "IT",
+      slot: "Impromptu Market Scan",
+      brand: activeVenture === "Northside Intelligence" ? "Signal Desk" : activeVenture,
+      format: impromptuFormat,
+      platforms: ["LinkedIn", "Instagram", "Threads"],
+      title: `Impromptu: ${impromptuText.slice(0, 45)}...`,
+      hook: impromptuText.slice(0, 100),
+      status: "draft",
+      pillar: "Live impromptu market intelligence based on real-time external data and social scans.",
+      caption: `${impromptuText}\n\nWhat are your thoughts on this market shift? 👇\n\n#Operations #MarketIntelligence #BusinessGrowth #Strategy #Northside`,
+      hashtags: "#Operations #MarketIntelligence #BusinessGrowth #Strategy #Northside",
+      productionSpecs: {
+        dimensionsAndFormat: impromptuFormat === "Video" ? "1080x1920 px, 9:16 vertical" : "1080x1440 px, 3:4 portrait",
+        branding: "Dark carbon canvas with radiant electric cyan and emerald accents. Zero numeric color codes.",
+        references: "northsideintelligence.com",
+        rules: [
+          "All text stays in top 3/4 of the frame",
+          "ALL TEXT AND UI DETAILS COMPLETELY RENDERED WITHOUT AI SLOP"
+        ]
+      },
+      slides: impromptuFormat === "Carousel" ? [
+        {
+          slideNumber: "Slide 1 of 4",
+          mainPrompt: `Cinematic high-contrast visualization of: ${impromptuText}. Deep dark carbon background with luminous cyan accents.`,
+          onScreenText: `"${impromptuText.slice(0, 60)}..." Crisp modern sans-serif typography in titanium white.`
+        },
+        {
+          slideNumber: "Slide 2 of 4",
+          mainPrompt: "Strategic breakdown card showing market friction and data streams.",
+          onScreenText: "\"The real move happens quietly before the market catches on.\" Clean Swiss typography."
+        },
+        {
+          slideNumber: "Slide 3 of 4",
+          mainPrompt: "Actionable execution funnel diagram with glowing indicator nodes.",
+          onScreenText: "\"Turn impromptu shifts into your competitive advantage.\" High-impact typography."
+        },
+        {
+          slideNumber: "Slide 4 of 4",
+          mainPrompt: "Authoritative closing brand card with interactive button mockup.",
+          onScreenText: "\"Stay ahead with Northside Intelligence. Explore more at northsideintelligence.com\""
+        }
+      ] : undefined,
+      staticPrompt: impromptuFormat === "Static" ? {
+        mainPrompt: `High-contrast executive graphic: ${impromptuText}. Dark carbon background with glowing cyan orchestration nodes.`,
+        onScreenText: `"${impromptuText.slice(0, 80)}" Crisp titanium white typography.`
+      } : undefined,
+      scenes: impromptuFormat === "Video" ? [
+        {
+          sceneNum: "Scene 1",
+          description: "Close-up of operator analyzing sudden market shift on ultra-wide display.",
+          dialogue: "\"Did anyone else see this move just happen?\"",
+          narrator: "\"When the market shifts quietly, move fast.\"",
+          transition: "Rapid whip pan to data screen"
+        },
+        {
+          sceneNum: "Scene 2",
+          description: "Over-the-shoulder view of software dashboard executing automated response.",
+          dialogue: "\"Handled in seconds instead of a two-week meeting.\"",
+          narrator: "\"Build the bridge before everyone else reacts.\"",
+          transition: "Fade to authoritative closing logo"
+        }
+      ] : undefined,
+      textContent: impromptuFormat === "Text" ? {
+        hook: impromptuText.slice(0, 90),
+        mainBody: `${impromptuText}\n\nWhy this matters right now:\n1. Early signals beat lagging metrics\n2. Speed is the only real defensibility\n3. Autonomous pipelines remove friction`,
+        callToAction: "What is your take on this? 👇"
+      } : undefined,
+      generatedMedia: [],
+      referenceMedia: [],
+      notes: "Generated via Social Media Impromptu Research workspace."
+    };
+
+    const nextPosts = [newPost, ...posts];
+    saveToStorage(nextPosts);
+    setActiveSlotId(newId);
+    setImpromptuText("");
+    setWorkflowStage("hub");
+    showToast("✓ Impromptu post created and ready for editing!");
+    logLearningSignal("SOCIAL_SCAN", undefined, `Created impromptu post: ${newPost.title}`, {
+      format: impromptuFormat,
+    });
+  };
 
   return (
     <div className="min-h-screen bg-[#06080d] text-[#f2f7fb] font-sans antialiased selection:bg-[#4fc7ff] selection:text-black">
@@ -992,8 +1175,57 @@ export default function NiContentPage() {
         </div>
       )}
 
-      {/* TOP STATUS NAV */}
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#0a0f18]/95 backdrop-blur-md px-5 py-3">
+      {/* TOP VENTURE HYPERLINK MENU */}
+      <nav className="border-b border-white/10 bg-[#080d16] px-5 py-2.5">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 flex-wrap">
+          <div className="flex items-center gap-1 font-mono text-xs tracking-wider uppercase">
+            <span className="text-white/40 mr-2 font-bold">Ventures:</span>
+            {(
+              [
+                "Northside Intelligence",
+                "The Northside Foundation Inc.",
+                "Northside Creator Collective",
+              ] as VentureName[]
+            ).map((v) => {
+              const isActive = activeVenture === v;
+              return (
+                <button
+                  key={v}
+                  onClick={() => {
+                    setActiveVenture(v);
+                    showToast(`Switched to ${v}`);
+                  }}
+                  className={`rounded-md px-3 py-1 font-bold transition cursor-pointer ${
+                    isActive
+                      ? "bg-[#4fc7ff]/20 text-[#4fc7ff] border border-[#4fc7ff]/50 shadow-sm"
+                      : "text-white/60 hover:bg-white/5 hover:text-white"
+                  }`}
+                >
+                  {v}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="flex items-center gap-3 text-xs">
+            {saveFlash && (
+              <span className="rounded bg-cyan-950 px-2 py-0.5 font-mono text-[10px] font-bold text-cyan-300 border border-cyan-700 animate-pulse">
+                ✓ Autosaved
+              </span>
+            )}
+            <button
+              onClick={() => setIsCalendarOpen(true)}
+              className="rounded-md border border-cyan-500/40 bg-cyan-950/40 px-3 py-1 font-mono font-bold text-cyan-300 hover:bg-cyan-900/60 transition flex items-center gap-1.5 cursor-pointer shadow-sm"
+            >
+              <span>📅</span>
+              <span>Month Calendar Zoom</span>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* HEADER: TIME CONTROLS (YEAR / MONTH / WEEK) & JUMP BAR */}
+      <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0a0f18]/95 backdrop-blur-md px-5 py-3">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link
@@ -1006,822 +1238,1040 @@ export default function NiContentPage() {
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#4fc7ff]">
-                  Northside Intelligence
+                  {activeVenture}
                 </span>
                 <span className="rounded bg-emerald-950/80 px-2 py-0.5 font-mono text-[10px] font-bold text-emerald-300 border border-emerald-800/60">
-                  LIVE CONSOLE
+                  CONTENT HUB
                 </span>
-                {saveFlash && (
-                  <span className="rounded bg-cyan-950 px-2 py-0.5 font-mono text-[10px] font-bold text-cyan-300 border border-cyan-700 animate-pulse">
-                    ✓ Autosaved
-                  </span>
-                )}
               </div>
               <h1 className="text-sm font-bold tracking-tight text-white sm:text-base">
-                Content Engine &bull; 4 Formats &bull; Telemetry
+                Autonomous Content Operations &bull; Master Calendar
               </h1>
             </div>
           </div>
 
-          {/* Quick Metrics & Global Controls */}
-          <div className="flex items-center gap-2.5 text-xs flex-wrap">
-            <button
-              onClick={() => setIsIntelOpen(!isIntelOpen)}
-              className="rounded-md border border-[#4fc7ff]/40 bg-[#4fc7ff]/10 px-3 py-1.5 font-bold text-[#4fc7ff] hover:bg-[#4fc7ff]/20 transition flex items-center gap-1.5 cursor-pointer"
-            >
-              <span>🧠</span>
-              <span>NI-Brain Intelligence</span>
-            </button>
-            <button
-              onClick={handleResetDefaults}
-              className="rounded-md border border-white/20 bg-white/5 px-2.5 py-1.5 text-xs text-white/70 hover:bg-white/10 hover:text-white transition cursor-pointer"
-              title="Reset all fields to original template"
-            >
-              ↺ Reset
-            </button>
-            <button
-              onClick={() => handleCopyText(activePost.caption, "top-caption", "✓ Copied Active Caption!")}
-              className="rounded-md bg-gradient-to-r from-[#4fc7ff] to-[#3a8fc2] px-3.5 py-1.5 text-xs font-bold text-black shadow-sm hover:brightness-110 transition cursor-pointer"
-            >
-              Copy Caption
-            </button>
+          {/* TIME HIERARCHY SELECTORS: YEAR -> MONTH -> WEEK */}
+          <div className="flex items-center gap-2 text-xs flex-wrap">
+            {/* Year */}
+            <div className="flex items-center rounded-md border border-white/10 bg-black/40 px-2.5 py-1">
+              <span className="text-white/40 mr-1.5 font-mono">Year:</span>
+              <select
+                value={selectedYear}
+                onChange={(e) => setSelectedYear(Number(e.target.value))}
+                className="bg-transparent font-bold text-[#4fc7ff] focus:outline-none cursor-pointer"
+              >
+                <option value={2026} className="bg-black text-white">2026</option>
+                <option value={2027} className="bg-black text-white">2027</option>
+              </select>
+            </div>
+
+            {/* Month */}
+            <div className="flex items-center rounded-md border border-white/10 bg-black/40 px-2.5 py-1">
+              <span className="text-white/40 mr-1.5 font-mono">Month:</span>
+              <select
+                value={selectedMonth}
+                onChange={(e) => setSelectedMonth(e.target.value)}
+                className="bg-transparent font-bold text-[#4fc7ff] focus:outline-none cursor-pointer"
+              >
+                <option value="September 2026" className="bg-black text-white">September 2026</option>
+                <option value="October 2026" className="bg-black text-white">October 2026</option>
+                <option value="November 2026" className="bg-black text-white">November 2026</option>
+              </select>
+            </div>
+
+            {/* Week */}
+            <div className="flex items-center rounded-md border border-white/10 bg-black/40 px-2.5 py-1">
+              <span className="text-white/40 mr-1.5 font-mono">Week:</span>
+              <select
+                value={selectedWeek}
+                onChange={(e) => setSelectedWeek(Number(e.target.value))}
+                className="bg-transparent font-bold text-[#4fc7ff] focus:outline-none cursor-pointer"
+              >
+                <option value={1} className="bg-black text-white">Week 1 (Sep 28 - Oct 4)</option>
+                <option value={2} className="bg-black text-white">Week 2 (Oct 5 - Oct 11)</option>
+                <option value={3} className="bg-black text-white">Week 3 (Oct 12 - Oct 18)</option>
+                <option value={4} className="bg-black text-white">Week 4 (Oct 19 - Oct 25)</option>
+              </select>
+            </div>
           </div>
+        </div>
+
+        {/* ON-PAGE JUMP LINKS BAR */}
+        <div className="mx-auto mt-2.5 max-w-7xl flex items-center gap-2 overflow-x-auto pt-2 border-t border-white/5 text-xs">
+          <span className="text-white/40 font-mono text-[11px] whitespace-nowrap">Jump to Post:</span>
+          {postsInScope.map((p) => {
+            const isSelected = p.id === activeSlotId;
+            return (
+              <button
+                key={p.id}
+                onClick={() => scrollToPost(p.id)}
+                className={`rounded px-2.5 py-1 font-mono text-[11px] font-bold whitespace-nowrap transition cursor-pointer flex items-center gap-1.5 ${
+                  isSelected
+                    ? "bg-[#4fc7ff] text-black shadow-sm"
+                    : "bg-white/5 text-white/70 hover:bg-white/15 hover:text-white"
+                }`}
+              >
+                <span>{p.day}:</span>
+                <span className="truncate max-w-[130px]">{p.brand}</span>
+                <span className="text-[9px] opacity-70">({p.scheduledTime})</span>
+              </button>
+            );
+          })}
         </div>
       </header>
 
-      {/* INTELLIGENCE DRAWER (DPMO, BRANDING, RECENT LEARNINGS) */}
-      {isIntelOpen && (
-        <div className="border-b border-[#4fc7ff]/30 bg-gradient-to-b from-[#09111e] to-[#060a12] px-5 py-4 transition animate-fade-in">
-          <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-            {/* DPMO Phase */}
-            <div className="rounded-lg border border-white/10 bg-black/40 p-3 space-y-1">
-              <div className="font-bold uppercase tracking-wider text-cyan-300 font-mono flex items-center gap-2">
-                <span>🎯 DPMO Framework Phase:</span>
-                <span className="rounded bg-cyan-900/60 px-1.5 py-0.2 text-[10px] text-cyan-200">Scale</span>
-              </div>
-              <p className="text-white/70 leading-relaxed text-[11px]">
-                Focus on high-leverage B2B tools (Signal Desk, BridgeAI, GrantBot) and automated dropship conversion (Smart Store). Content emphasizes real-world cost and time reduction.
-              </p>
-            </div>
-
-            {/* Locked Brand Rules */}
-            <div className="rounded-lg border border-white/10 bg-black/40 p-3 space-y-1">
-              <div className="font-bold uppercase tracking-wider text-emerald-300 font-mono">
-                🛡️ Locked Prompting Standards:
-              </div>
-              <ul className="text-white/70 space-y-0.5 text-[11px] list-disc pl-4">
-                <li><strong className="text-white">Zero Numeric Codes:</strong> Descriptive color names only.</li>
-                <li><strong className="text-white">White Border Deleted:</strong> Full bleed composition.</li>
-                <li><strong className="text-white">Top 3/4 Rule:</strong> All UI &amp; typography in upper zone.</li>
-                <li><strong className="text-white">Zero AI Slop:</strong> Authentic words, 2-4 emojis, no asterisks (**).</li>
-              </ul>
-            </div>
-
-            {/* Live NI-Brain Telemetry Feed */}
-            <div className="rounded-lg border border-white/10 bg-black/40 p-3 space-y-1 overflow-y-auto max-h-28">
-              <div className="font-bold uppercase tracking-wider text-amber-300 font-mono flex items-center justify-between">
-                <span>📡 Live Learning Signals:</span>
-                <span className="text-[10px] text-white/50">{learningSignals.length} recorded</span>
-              </div>
-              {learningSignals.length > 0 ? (
-                <div className="space-y-1 text-[10px] font-mono text-white/60">
-                  {learningSignals.slice(0, 4).map((s, idx) => (
-                    <div key={idx} className="truncate border-b border-white/5 pb-0.5">
-                      <span className="text-cyan-400 font-bold">[{s.signal_type}]</span> {s.edited_text || "Signal recorded"}
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-white/40 text-[11px]">Telemetry connected &amp; ready to capture edits.</p>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* MAIN CONTAINER */}
-      <main className="mx-auto max-w-7xl px-5 py-6 space-y-6">
-        {/* POST SELECTION TABS & CHANNEL FILTER */}
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
-          <div className="flex gap-2 overflow-x-auto pb-1">
-            {posts.map((p) => {
-              const isActive = p.id === activeSlotId;
+      {/* WORKFLOW STAGE TABS BAR */}
+      <div className="border-b border-white/10 bg-[#070b13] px-5 py-2">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 overflow-x-auto text-xs font-mono">
+          <div className="flex gap-2">
+            {[
+              { id: "hub", label: "Content Schedule", icon: "📑" },
+              { id: "impromptu", label: "Social Media Impromptu", icon: "💡" },
+              { id: "pending", label: "Pending Review", icon: "⏳" },
+              { id: "publishing", label: "Publishing Queue", icon: "🚀" },
+              { id: "scheduled", label: "Scheduled Posts", icon: "📅" },
+              { id: "archives", label: "Archives", icon: "📦" },
+            ].map((tab) => {
+              const isActive = workflowStage === tab.id;
               return (
                 <button
-                  key={p.id}
-                  onClick={() => {
-                    setActiveSlotId(p.id);
-                    setActiveSlideIndex(0);
-                  }}
-                  className={`rounded-lg px-3.5 py-2 text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
+                  key={tab.id}
+                  onClick={() => setWorkflowStage(tab.id as WorkflowStage)}
+                  className={`rounded-lg px-3 py-1.5 font-bold transition flex items-center gap-1.5 cursor-pointer ${
                     isActive
-                      ? "bg-gradient-to-r from-[#4fc7ff] to-[#2585b5] text-black shadow-lg shadow-[#4fc7ff]/20"
-                      : "bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
+                      ? "bg-white/15 text-white border border-white/30 shadow-sm"
+                      : "text-white/50 hover:bg-white/5 hover:text-white"
                   }`}
                 >
-                  <span>
-                    {p.format === "Carousel" ? "🎨" : p.format === "Video" ? "🎬" : p.format === "Static" ? "🖼️" : "✍️"}
-                  </span>
-                  <span>{p.brand}</span>
-                  <span
-                    className={`rounded px-1.5 py-0.5 text-[9px] uppercase font-mono ${
-                      isActive ? "bg-black/30 text-black font-extrabold" : "bg-black/40 text-white/50"
-                    }`}
-                  >
-                    {p.format}
-                  </span>
+                  <span>{tab.icon}</span>
+                  <span>{tab.label}</span>
                 </button>
               );
             })}
           </div>
 
-          {/* Status Badge */}
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-white/50">Status:</span>
-            <span
-              className={`rounded-full px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase border ${
-                activePost.status === "published"
-                  ? "bg-purple-950/80 text-purple-300 border-purple-700/60"
-                  : activePost.status === "approved"
-                  ? "bg-emerald-950/80 text-emerald-300 border-emerald-700/60"
-                  : activePost.status === "scheduled"
-                  ? "bg-amber-950/80 text-amber-300 border-amber-700/60"
-                  : "bg-cyan-950/80 text-cyan-300 border-cyan-700/60"
-              }`}
-            >
-              {activePost.status}
-            </span>
+          <div className="text-[11px] text-white/40">
+            Showing <strong className="text-white">{postsInScope.length}</strong> items in scope
           </div>
         </div>
+      </div>
 
-        {/* HERO COMMAND CARD */}
-        <div className="relative overflow-hidden rounded-xl border border-[#4fc7ff]/40 bg-gradient-to-r from-[#0b1424] via-[#09101d] to-[#060a12] p-5 shadow-xl shadow-[#4fc7ff]/5">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div className="flex-1 min-w-[300px]">
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="inline-block h-2 w-2 rounded-full bg-cyan-400 animate-pulse"></span>
-                <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#4fc7ff]">
-                  {activePost.slot} &bull; {activePost.date}
-                </span>
-                <span className="rounded bg-white/10 px-2 py-0.5 text-[10px] font-mono text-white/80">
-                  Format: {activePost.format}
-                </span>
-                {activePost.approvedAt && (
-                  <span className="rounded bg-emerald-900/60 px-2 py-0.5 text-[10px] font-mono text-emerald-300 border border-emerald-700">
-                    Approved at {activePost.approvedAt}
-                  </span>
-                )}
+      {/* MAIN CONTAINER */}
+      <main className="mx-auto max-w-7xl px-5 py-6 space-y-8">
+        {/* VIEW 1: IMPROMPTU RESEARCH WORKSPACE */}
+        {workflowStage === "impromptu" && (
+          <div className="rounded-xl border border-cyan-500/40 bg-gradient-to-br from-[#0c1527] to-[#070b14] p-6 shadow-2xl space-y-4 animate-fade-in">
+            <div className="border-b border-white/10 pb-3 flex items-center justify-between">
+              <div>
+                <h2 className="text-base font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                  <span>💡 Social Media Research &amp; Impromptu Generator</span>
+                </h2>
+                <p className="text-xs text-white/60">
+                  Drop impromptu breaking market signals, trending hooks, or competitor movements to instantly create a canonical draft.
+                </p>
               </div>
+              <span className="rounded bg-cyan-950 px-2.5 py-1 text-xs font-mono font-bold text-cyan-300 border border-cyan-700">
+                IMPROMPTU ENGINE
+              </span>
+            </div>
 
-              {/* EDITABLE POST TITLE */}
-              <div className="mt-2.5">
-                <input
-                  type="text"
-                  value={activePost.title}
-                  onChange={(e) => handleFieldChange("title", e.target.value)}
-                  className="w-full rounded-lg border border-white/15 bg-black/50 px-3 py-1.5 text-base font-extrabold text-white focus:border-[#4fc7ff] focus:bg-[#0d1627] focus:outline-none transition"
-                  placeholder="Post title..."
+            <div className="space-y-3">
+              <div>
+                <label className="text-xs font-bold uppercase tracking-wider text-white/80 block mb-1">
+                  Raw Signal / Topic / Competitor Move / Social Trend:
+                </label>
+                <textarea
+                  rows={4}
+                  value={impromptuText}
+                  onChange={(e) => setImpromptuText(e.target.value)}
+                  className="w-full rounded-lg border border-white/15 bg-black/60 p-3 text-xs leading-relaxed text-white font-mono focus:border-[#4fc7ff] focus:outline-none"
+                  placeholder="Paste market finding, competitor pricing restructuring, customer complaint trend, or raw voiceover..."
                 />
               </div>
 
-              {/* EDITABLE HOOK LINE */}
-              <div className="mt-2">
-                <input
-                  type="text"
-                  value={activePost.hook}
-                  onChange={(e) => handleFieldChange("hook", e.target.value)}
-                  className="w-full rounded-md border border-white/10 bg-black/40 px-3 py-1 text-xs text-white/80 focus:border-[#4fc7ff] focus:bg-[#0d1627] focus:outline-none transition"
-                  placeholder="Hook line..."
-                />
-              </div>
-            </div>
-
-            {/* GENERATION & POSTING ACTION CONTROLS */}
-            <div className="flex flex-col gap-2 items-end">
-              {/* REQUIREMENT 2 & 4: GENERATION BUTTONS & APPROVAL CONTROLS */}
-              <div className="flex items-center gap-2 flex-wrap justify-end">
-                {/* MANUAL GENERATE BUTTON */}
-                <button
-                  onClick={handleManualGenerate}
-                  className="rounded-lg border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-bold text-white hover:bg-white/20 transition flex items-center gap-1.5 cursor-pointer shadow-sm"
-                  title="Copy prompt & open manual generation"
-                >
-                  <span>🛠️</span>
-                  <span>Manual Generate</span>
-                </button>
-
-                {/* AGENT GENERATION BUTTON */}
-                <button
-                  onClick={handleAgentGeneration}
-                  disabled={isGenerating}
-                  className="rounded-lg bg-gradient-to-r from-[#4fc7ff] to-[#00a6e6] px-3.5 py-1.5 text-xs font-bold text-black hover:brightness-110 transition flex items-center gap-1.5 cursor-pointer shadow-md shadow-[#4fc7ff]/25 disabled:opacity-50"
-                  title="Run automated agent generation pipeline"
-                >
-                  <span>{isGenerating ? "⏳" : "⚡"}</span>
-                  <span>{isGenerating ? "Agent Working..." : "Agent Generation"}</span>
-                </button>
-
-                {/* APPROVE FOR POSTING */}
-                {activePost.status !== "approved" && activePost.status !== "published" && (
-                  <button
-                    onClick={handleApproveForPosting}
-                    className="rounded-lg border border-emerald-500/60 bg-emerald-950/80 px-3 py-1.5 text-xs font-bold text-emerald-300 hover:bg-emerald-900 transition flex items-center gap-1 cursor-pointer"
-                  >
-                    <span>✓</span>
-                    <span>Approve for Posting</span>
-                  </button>
-                )}
-              </div>
-
-              {/* POSTING ACTIONS (MANUAL OR AGENTIC) */}
-              <div className="flex items-center gap-2 flex-wrap justify-end">
-                <button
-                  onClick={handleManualPost}
-                  className="rounded-md border border-cyan-500/40 bg-cyan-950/40 px-2.5 py-1 text-[11px] font-bold text-cyan-300 hover:bg-cyan-900/60 transition flex items-center gap-1 cursor-pointer"
-                  title="Copy full caption & mark as Posted"
-                >
-                  <span>📤</span>
-                  <span>Post Manually</span>
-                </button>
-
-                <div className="relative inline-flex items-center rounded-md border border-amber-500/40 bg-amber-950/30 text-[11px] font-bold text-amber-300">
-                  <span className="px-2 py-1 flex items-center gap-1">
-                    <span>🤖</span>
-                    <span>Agent Post:</span>
-                  </span>
-                  <button
-                    onClick={() => handleAgenticPost("5pm")}
-                    className="px-2 py-1 hover:bg-amber-900/60 transition border-l border-amber-500/20 cursor-pointer"
-                    title="Queue for 5pm nightly run"
-                  >
-                    5 PM
-                  </button>
-                  <button
-                    onClick={() => handleAgenticPost("8pm")}
-                    className="px-2 py-1 hover:bg-amber-900/60 transition border-l border-amber-500/20 cursor-pointer"
-                    title="Queue for 8pm nightly run"
-                  >
-                    8 PM
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* AGENT PROGRESS BAR */}
-          {isGenerating && (
-            <div className="mt-4 pt-3 border-t border-white/10 space-y-1.5 animate-fade-in">
-              <div className="flex justify-between text-xs font-mono">
-                <span className="text-[#4fc7ff] font-bold">{generationStageText}</span>
-                <span className="text-white/60">{generationProgress}%</span>
-              </div>
-              <div className="h-1.5 w-full rounded-full bg-black/60 overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-[#4fc7ff] to-emerald-400 transition-all duration-300 rounded-full"
-                  style={{ width: `${generationProgress}%` }}
-                ></div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* WORKSPACE GRID */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
-          {/* LEFT COLUMN: PROMPT INSPECTOR & TEMPLATE GENERATION (7 cols) */}
-          <div className="space-y-6 lg:col-span-7">
-            {/* 1. CAROUSEL FORMAT INSPECTOR */}
-            {activePost.format === "Carousel" && activePost.slides && (
-              <div className="rounded-xl border border-white/10 bg-[#0b121b] p-5 shadow-lg space-y-4">
-                <div className="flex items-center justify-between border-b border-white/10 pb-3 flex-wrap gap-2">
-                  <div>
-                    <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                      <span>🎨 Carousel Images Format</span>
-                    </h3>
-                    <p className="text-xs text-white/50">
-                      Matches AI Content Generation Template (Slide # &bull; Main Prompt &bull; On Screen Text &bull; Production Specs).
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2">
+              <div className="flex items-center justify-between flex-wrap gap-3">
+                <div className="flex items-center gap-3">
+                  <span className="text-xs text-white/60 font-mono">Target Format:</span>
+                  {(["Carousel", "Static", "Video", "Text"] as ContentFormat[]).map((fmt) => (
                     <button
-                      onClick={() => handleCopyPromptTemplate(false)}
-                      className="rounded border border-[#4fc7ff]/40 bg-[#4fc7ff]/10 px-2.5 py-1 text-xs font-bold text-[#4fc7ff] hover:bg-[#4fc7ff]/20 transition cursor-pointer"
-                      title="Copy canonical template for the active slide"
-                    >
-                      Copy Slide Template
-                    </button>
-                    <button
-                      onClick={() => handleCopyPromptTemplate(true)}
-                      className="rounded border border-cyan-400 bg-cyan-500/20 px-2.5 py-1 text-xs font-bold text-cyan-200 hover:bg-cyan-500/30 transition cursor-pointer"
-                      title="Copy full carousel prompt with all 6 slides"
-                    >
-                      Copy Full Carousel
-                    </button>
-                  </div>
-                </div>
-
-                {/* SLIDE TABS */}
-                <div className="flex gap-2 overflow-x-auto pb-1">
-                  {activePost.slides.map((s, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setActiveSlideIndex(idx)}
-                      className={`rounded-lg px-3 py-1.5 text-xs font-bold whitespace-nowrap transition cursor-pointer ${
-                        activeSlideIndex === idx
-                          ? "bg-[#4fc7ff] text-black shadow-md shadow-[#4fc7ff]/20"
-                          : "bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
+                      key={fmt}
+                      onClick={() => setImpromptuFormat(fmt)}
+                      className={`rounded px-3 py-1 text-xs font-bold transition cursor-pointer ${
+                        impromptuFormat === fmt
+                          ? "bg-[#4fc7ff] text-black shadow-sm"
+                          : "bg-white/5 text-white/70 hover:bg-white/10"
                       }`}
                     >
-                      {s.slideNumber}
+                      {fmt}
                     </button>
                   ))}
                 </div>
 
-                {/* ACTIVE SLIDE FIELDS */}
-                {activePost.slides[activeSlideIndex] && (
-                  <div className="rounded-lg border border-cyan-500/30 bg-black/50 p-4 space-y-4">
-                    <div className="flex items-center justify-between">
-                      <label className="text-[11px] font-mono uppercase tracking-wider text-[#4fc7ff] font-bold">
-                        Slide Number:
-                      </label>
+                <button
+                  onClick={handleCreateImpromptu}
+                  className="rounded-lg bg-gradient-to-r from-[#4fc7ff] to-[#009bd6] px-4 py-2 text-xs font-bold text-black hover:brightness-110 transition cursor-pointer shadow-md shadow-[#4fc7ff]/20"
+                >
+                  ⚡ Generate Impromptu Draft
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* VIEW 2: POSTS FEED (CONTENT SCHEDULE, PENDING, PUBLISHING, SCHEDULED, ARCHIVES) */}
+        {postsInScope.length === 0 ? (
+          <div className="rounded-xl border border-white/10 bg-[#090d16] p-12 text-center space-y-3">
+            <span className="text-4xl">📭</span>
+            <h3 className="text-base font-bold text-white">No content posts in this view</h3>
+            <p className="text-xs text-white/50 max-w-md mx-auto">
+              There are currently no items under {activeVenture} for {selectedMonth} &bull; Week {selectedWeek} in the {workflowStage} stage.
+            </p>
+          </div>
+        ) : (
+          postsInScope.map((post) => {
+            const isTarget = post.id === activeSlotId;
+            return (
+              <section
+                key={post.id}
+                id={post.id}
+                className={`rounded-2xl border transition-all duration-300 p-6 space-y-6 ${
+                  isTarget
+                    ? "border-[#4fc7ff] bg-gradient-to-b from-[#0b1426] via-[#080e1b] to-[#060910] shadow-2xl shadow-[#4fc7ff]/10"
+                    : "border-white/10 bg-[#080d16] hover:border-white/20"
+                }`}
+              >
+                {/* POST HEADER: TITLE, SCHEDULED POSTING TIME, STATUS, GENERATE CONTROLS */}
+                <div className="flex flex-wrap items-start justify-between gap-4 border-b border-white/10 pb-4">
+                  <div className="flex-1 min-w-[320px]">
+                    <div className="flex items-center gap-2 flex-wrap mb-2">
+                      <span className="inline-block h-2.5 w-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                      <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#4fc7ff]">
+                        {post.slot} &bull; {post.date}
+                      </span>
+                      <span className="rounded bg-white/10 px-2 py-0.5 text-[10px] font-mono text-white/80">
+                        {post.format}
+                      </span>
+
+                      {/* REQUIREMENT: EXACT SCHEDULED POST TIME CLEARLY VISIBLE */}
+                      <span className="rounded bg-gradient-to-r from-amber-950/90 to-amber-900/60 border border-amber-500/50 px-2.5 py-0.5 text-[11px] font-mono font-bold text-amber-200 shadow-sm">
+                        📅 Scheduled to Post: {post.day}, {post.date} @ {post.scheduledTime}
+                      </span>
+
+                      {post.status === "published" && (
+                        <span className="rounded bg-purple-900/60 px-2 py-0.5 text-[10px] font-mono text-purple-300 border border-purple-700">
+                          Posted &bull; Retained 48h
+                        </span>
+                      )}
+                    </div>
+
+                    {/* EDITABLE TITLE */}
+                    <input
+                      type="text"
+                      value={post.title}
+                      onChange={(e) => handleFieldChange("title", e.target.value)}
+                      className="w-full rounded-lg border border-white/15 bg-black/50 px-3.5 py-2 text-lg font-black text-white focus:border-[#4fc7ff] focus:bg-[#0d1627] focus:outline-none transition"
+                      placeholder="Post title..."
+                    />
+
+                    {/* EDITABLE HOOK */}
+                    <div className="mt-2">
                       <input
                         type="text"
-                        value={activePost.slides[activeSlideIndex].slideNumber}
-                        onChange={(e) => handleSlideChange(activeSlideIndex, "slideNumber", e.target.value)}
-                        className="rounded border border-white/15 bg-black/40 px-2 py-0.5 text-xs font-mono text-white/90 focus:border-[#4fc7ff] focus:outline-none"
+                        value={post.hook}
+                        onChange={(e) => handleFieldChange("hook", e.target.value)}
+                        className="w-full rounded-md border border-white/10 bg-black/40 px-3 py-1.5 text-xs text-white/80 focus:border-[#4fc7ff] focus:bg-[#0d1627] focus:outline-none transition"
+                        placeholder="Hook line..."
                       />
                     </div>
+                  </div>
 
-                    <div>
-                      <label className="text-[11px] font-bold uppercase tracking-wider text-white/80 block mb-1">
-                        Main Prompt (Detailed scene; zero numeric color codes):
-                      </label>
-                      <textarea
-                        rows={5}
-                        value={activePost.slides[activeSlideIndex].mainPrompt}
-                        onChange={(e) => handleSlideChange(activeSlideIndex, "mainPrompt", e.target.value)}
-                        className="w-full rounded-md border border-white/15 bg-[#07090e] p-3 text-xs leading-relaxed text-white/90 font-mono focus:border-[#4fc7ff] focus:bg-[#09101d] focus:outline-none transition"
-                        placeholder="Describe what the photo is to optimize best image generation..."
-                      />
+                  {/* ACTION BAR: GENERATE BUTTONS & POSTING WORKFLOWS */}
+                  <div className="flex flex-col gap-2 items-end">
+                    <div className="flex items-center gap-2 flex-wrap justify-end">
+                      {/* MANUAL GENERATE BUTTON */}
+                      <button
+                        onClick={handleManualGenerate}
+                        className="rounded-lg border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-bold text-white hover:bg-white/20 transition flex items-center gap-1.5 cursor-pointer shadow-sm"
+                        title="Copy canonical template & run manual generation"
+                      >
+                        <span>🛠️</span>
+                        <span>Manual Generate</span>
+                      </button>
+
+                      {/* AGENT GENERATION BUTTON */}
+                      <button
+                        onClick={handleAgentGeneration}
+                        disabled={isGenerating}
+                        className="rounded-lg bg-gradient-to-r from-[#4fc7ff] to-[#00a6e6] px-3.5 py-1.5 text-xs font-bold text-black hover:brightness-110 transition flex items-center gap-1.5 cursor-pointer shadow-md shadow-[#4fc7ff]/25 disabled:opacity-50"
+                        title="Trigger automated agent generation pipeline"
+                      >
+                        <span>{isGenerating ? "⏳" : "⚡"}</span>
+                        <span>{isGenerating ? "Agent Working..." : "Agent Generation"}</span>
+                      </button>
+
+                      {/* APPROVAL TOGGLE */}
+                      {post.status !== "approved" && post.status !== "published" && (
+                        <button
+                          onClick={handleApproveForPosting}
+                          className="rounded-lg border border-emerald-500/60 bg-emerald-950/80 px-3 py-1.5 text-xs font-bold text-emerald-300 hover:bg-emerald-900 transition flex items-center gap-1 cursor-pointer"
+                        >
+                          <span>✓</span>
+                          <span>Approve for Posting</span>
+                        </button>
+                      )}
                     </div>
 
-                    <div>
-                      <label className="text-[11px] font-bold uppercase tracking-wider text-cyan-300 block mb-1">
-                        On Screen Text (In quotations, font &amp; coloring described):
-                      </label>
-                      <textarea
-                        rows={3}
-                        value={activePost.slides[activeSlideIndex].onScreenText}
-                        onChange={(e) => handleSlideChange(activeSlideIndex, "onScreenText", e.target.value)}
-                        className="w-full rounded-md border border-cyan-800/60 bg-cyan-950/20 p-2.5 text-xs font-medium text-cyan-200 focus:border-[#4fc7ff] focus:bg-[#071324] focus:outline-none transition leading-relaxed"
-                        placeholder='Describe what text says in quotations and describe font/coloring...'
-                      />
+                    {/* POSTING OPTIONS: MANUAL VS AGENTIC */}
+                    <div className="flex items-center gap-2 flex-wrap justify-end">
+                      <button
+                        onClick={handleManualPost}
+                        className="rounded-md border border-cyan-500/40 bg-cyan-950/40 px-2.5 py-1 text-[11px] font-bold text-cyan-300 hover:bg-cyan-900/60 transition flex items-center gap-1 cursor-pointer"
+                        title="Copy caption + hashtags and mark as posted"
+                      >
+                        <span>📤</span>
+                        <span>Post Manually</span>
+                      </button>
+
+                      <div className="inline-flex items-center rounded-md border border-amber-500/40 bg-amber-950/30 text-[11px] font-bold text-amber-300">
+                        <span className="px-2 py-1 flex items-center gap-1">
+                          <span>🤖</span>
+                          <span>Agent Post:</span>
+                        </span>
+                        <button
+                          onClick={() => handleAgenticPost("5pm")}
+                          className="px-2 py-1 hover:bg-amber-900/60 transition border-l border-amber-500/20 cursor-pointer"
+                          title="Queue for 5:00 PM nightly window"
+                        >
+                          5 PM
+                        </button>
+                        <button
+                          onClick={() => handleAgenticPost("8pm")}
+                          className="px-2 py-1 hover:bg-amber-900/60 transition border-l border-amber-500/20 cursor-pointer"
+                          title="Queue for 8:00 PM nightly window"
+                        >
+                          8 PM
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* AGENT PROGRESS BAR */}
+                {isGenerating && isTarget && (
+                  <div className="pt-2 pb-1 space-y-1.5 animate-fade-in">
+                    <div className="flex justify-between text-xs font-mono">
+                      <span className="text-[#4fc7ff] font-bold">{generationStageText}</span>
+                      <span className="text-white/60">{generationProgress}%</span>
+                    </div>
+                    <div className="h-1.5 w-full rounded-full bg-black/60 overflow-hidden">
+                      <div
+                        className="h-full bg-gradient-to-r from-[#4fc7ff] to-emerald-400 transition-all duration-300 rounded-full"
+                        style={{ width: `${generationProgress}%` }}
+                      ></div>
                     </div>
                   </div>
                 )}
-              </div>
-            )}
 
-            {/* 2. STATIC FORMAT INSPECTOR */}
-            {activePost.format === "Static" && activePost.staticPrompt && (
-              <div className="rounded-xl border border-white/10 bg-[#0b121b] p-5 shadow-lg space-y-4">
-                <div className="flex items-center justify-between border-b border-white/10 pb-3 flex-wrap gap-2">
-                  <div>
-                    <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                      <span>🖼️ Static Image Format</span>
-                    </h3>
-                    <p className="text-xs text-white/50">
-                      Matches AI Content Generation Template (Main Prompt &bull; On Screen Text &bull; Production Specs).
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => handleCopyPromptTemplate(false)}
-                    className="rounded border border-[#4fc7ff]/40 bg-[#4fc7ff]/10 px-3 py-1 text-xs font-bold text-[#4fc7ff] hover:bg-[#4fc7ff]/20 transition cursor-pointer"
-                  >
-                    Copy Static Template
-                  </button>
-                </div>
+                {/* TWO-COLUMN WORKSPACE: LEFT (PROMPTS & SPECS) | RIGHT (MEDIA & CAPTIONS) */}
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+                  {/* LEFT: PROMPTS & SPECS (7 cols) */}
+                  <div className="space-y-5 lg:col-span-7">
+                    {/* 1. CAROUSEL FORMAT */}
+                    {post.format === "Carousel" && post.slides && (
+                      <div className="rounded-xl border border-white/10 bg-[#090f18] p-4 shadow-lg space-y-4">
+                        <div className="flex items-center justify-between border-b border-white/10 pb-3 flex-wrap gap-2">
+                          <div>
+                            <h4 className="text-xs font-bold uppercase tracking-wider text-white flex items-center gap-2">
+                              <span>🎨 Carousel Images Format</span>
+                            </h4>
+                            <p className="text-[11px] text-white/50">
+                              Matches canonical template (Slide # &bull; Main Prompt &bull; On Screen Text &bull; Specs).
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => handleCopyPromptTemplate(false)}
+                              className="rounded border border-[#4fc7ff]/40 bg-[#4fc7ff]/10 px-2.5 py-1 text-xs font-bold text-[#4fc7ff] hover:bg-[#4fc7ff]/20 transition cursor-pointer"
+                              title="Copy active slide template"
+                            >
+                              Copy Slide Template
+                            </button>
+                            <button
+                              onClick={() => handleCopyPromptTemplate(true)}
+                              className="rounded border border-cyan-400 bg-cyan-500/20 px-2.5 py-1 text-xs font-bold text-cyan-200 hover:bg-cyan-500/30 transition cursor-pointer"
+                              title="Copy all 6 slides in template format"
+                            >
+                              Copy Full Carousel
+                            </button>
+                          </div>
+                        </div>
 
-                <div className="rounded-lg border border-cyan-500/30 bg-black/50 p-4 space-y-4">
-                  <div>
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-white/80 block mb-1">
-                      Main Prompt:
-                    </label>
-                    <textarea
-                      rows={5}
-                      value={activePost.staticPrompt.mainPrompt}
-                      onChange={(e) => handleStaticPromptChange("mainPrompt", e.target.value)}
-                      className="w-full rounded-md border border-white/15 bg-[#07090e] p-3 text-xs leading-relaxed text-white/90 font-mono focus:border-[#4fc7ff] focus:bg-[#09101d] focus:outline-none transition"
-                      placeholder="Describe what the photo is..."
-                    />
-                  </div>
+                        {/* SLIDE TABS */}
+                        <div className="flex gap-2 overflow-x-auto pb-1">
+                          {post.slides.map((s, idx) => (
+                            <button
+                              key={idx}
+                              onClick={() => setActiveSlideIndex(idx)}
+                              className={`rounded-lg px-3 py-1.5 text-xs font-bold whitespace-nowrap transition cursor-pointer ${
+                                activeSlideIndex === idx
+                                  ? "bg-[#4fc7ff] text-black shadow-md shadow-[#4fc7ff]/20"
+                                  : "bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
+                              }`}
+                            >
+                              {s.slideNumber}
+                            </button>
+                          ))}
+                        </div>
 
-                  <div>
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-cyan-300 block mb-1">
-                      On Screen Text:
-                    </label>
-                    <textarea
-                      rows={3}
-                      value={activePost.staticPrompt.onScreenText}
-                      onChange={(e) => handleStaticPromptChange("onScreenText", e.target.value)}
-                      className="w-full rounded-md border border-cyan-800/60 bg-cyan-950/20 p-2.5 text-xs font-medium text-cyan-200 focus:border-[#4fc7ff] focus:bg-[#071324] focus:outline-none transition leading-relaxed"
-                      placeholder='Describe what text says in quotations...'
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
+                        {/* ACTIVE SLIDE FIELDS */}
+                        {post.slides[activeSlideIndex] && (
+                          <div className="rounded-lg border border-cyan-500/30 bg-black/50 p-4 space-y-3">
+                            <div className="flex items-center justify-between">
+                              <label className="text-[11px] font-mono uppercase tracking-wider text-[#4fc7ff] font-bold">
+                                Slide Number:
+                              </label>
+                              <input
+                                type="text"
+                                value={post.slides[activeSlideIndex].slideNumber}
+                                onChange={(e) => handleSlideChange(activeSlideIndex, "slideNumber", e.target.value)}
+                                className="rounded border border-white/15 bg-black/40 px-2 py-0.5 text-xs font-mono text-white/90 focus:border-[#4fc7ff] focus:outline-none"
+                              />
+                            </div>
 
-            {/* 3. VIDEO FORMAT INSPECTOR */}
-            {activePost.format === "Video" && activePost.scenes && (
-              <div className="rounded-xl border border-white/10 bg-[#0b121b] p-5 shadow-lg space-y-4">
-                <div className="flex items-center justify-between border-b border-white/10 pb-3 flex-wrap gap-2">
-                  <div>
-                    <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                      <span>🎬 Video Format</span>
-                    </h3>
-                    <p className="text-xs text-white/50">
-                      Scene breakdown, distinct character dialogue, narrator voice with timestamps, and production specs.
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => handleCopyPromptTemplate(false)}
-                    className="rounded border border-[#4fc7ff]/40 bg-[#4fc7ff]/10 px-3 py-1 text-xs font-bold text-[#4fc7ff] hover:bg-[#4fc7ff]/20 transition cursor-pointer"
-                  >
-                    Copy Video Template
-                  </button>
-                </div>
+                            <div>
+                              <label className="text-[11px] font-bold uppercase tracking-wider text-white/80 block mb-1">
+                                Main Prompt (Describe scene in detail; zero numeric color codes):
+                              </label>
+                              <textarea
+                                rows={4}
+                                value={post.slides[activeSlideIndex].mainPrompt}
+                                onChange={(e) => handleSlideChange(activeSlideIndex, "mainPrompt", e.target.value)}
+                                className="w-full rounded-md border border-white/15 bg-[#07090e] p-3 text-xs leading-relaxed text-white/90 font-mono focus:border-[#4fc7ff] focus:bg-[#09101d] focus:outline-none transition"
+                                placeholder="Describe what the photo is..."
+                              />
+                            </div>
 
-                <div className="space-y-3">
-                  {activePost.scenes.map((sc, idx) => (
-                    <div key={idx} className="rounded-lg border border-white/10 bg-black/40 p-3.5 space-y-2">
-                      <div className="flex items-center justify-between text-xs font-bold text-cyan-300 font-mono">
-                        <span>{sc.sceneNum}</span>
-                        <input
-                          type="text"
-                          value={sc.transition}
-                          onChange={(e) => handleSceneChange(idx, "transition", e.target.value)}
-                          className="rounded border border-white/10 bg-black/60 px-2 py-0.5 text-[10px] text-white/70 focus:border-[#4fc7ff] focus:outline-none"
-                          placeholder="Transition..."
-                        />
+                            <div>
+                              <label className="text-[11px] font-bold uppercase tracking-wider text-cyan-300 block mb-1">
+                                On Screen Text (In quotations, font &amp; coloring described):
+                              </label>
+                              <textarea
+                                rows={2}
+                                value={post.slides[activeSlideIndex].onScreenText}
+                                onChange={(e) => handleSlideChange(activeSlideIndex, "onScreenText", e.target.value)}
+                                className="w-full rounded-md border border-cyan-800/60 bg-cyan-950/20 p-2.5 text-xs font-medium text-cyan-200 focus:border-[#4fc7ff] focus:bg-[#071324] focus:outline-none transition leading-relaxed"
+                                placeholder='Describe what text says in quotations...'
+                              />
+                            </div>
+                          </div>
+                        )}
                       </div>
+                    )}
 
-                      <div>
-                        <label className="text-[10px] uppercase font-mono text-white/50 block">Scene Description:</label>
-                        <textarea
-                          rows={2}
-                          value={sc.description}
-                          onChange={(e) => handleSceneChange(idx, "description", e.target.value)}
-                          className="w-full rounded border border-white/10 bg-[#07090e] p-2 text-xs text-white/90 focus:border-[#4fc7ff] focus:outline-none"
-                        />
+                    {/* 2. STATIC FORMAT */}
+                    {post.format === "Static" && post.staticPrompt && (
+                      <div className="rounded-xl border border-white/10 bg-[#090f18] p-4 shadow-lg space-y-4">
+                        <div className="flex items-center justify-between border-b border-white/10 pb-3 flex-wrap gap-2">
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+                            🖼️ Static Image Format
+                          </h4>
+                          <button
+                            onClick={() => handleCopyPromptTemplate(false)}
+                            className="rounded border border-[#4fc7ff]/40 bg-[#4fc7ff]/10 px-3 py-1 text-xs font-bold text-[#4fc7ff] hover:bg-[#4fc7ff]/20 transition cursor-pointer"
+                          >
+                            Copy Static Template
+                          </button>
+                        </div>
+
+                        <div className="rounded-lg border border-cyan-500/30 bg-black/50 p-4 space-y-3">
+                          <div>
+                            <label className="text-[11px] font-bold uppercase tracking-wider text-white/80 block mb-1">
+                              Main Prompt:
+                            </label>
+                            <textarea
+                              rows={4}
+                              value={post.staticPrompt.mainPrompt}
+                              onChange={(e) => handleStaticPromptChange("mainPrompt", e.target.value)}
+                              className="w-full rounded-md border border-white/15 bg-[#07090e] p-3 text-xs leading-relaxed text-white/90 font-mono focus:border-[#4fc7ff] focus:bg-[#09101d] focus:outline-none transition"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="text-[11px] font-bold uppercase tracking-wider text-cyan-300 block mb-1">
+                              On Screen Text:
+                            </label>
+                            <textarea
+                              rows={2}
+                              value={post.staticPrompt.onScreenText}
+                              onChange={(e) => handleStaticPromptChange("onScreenText", e.target.value)}
+                              className="w-full rounded-md border border-cyan-800/60 bg-cyan-950/20 p-2 text-xs text-cyan-200 focus:border-[#4fc7ff] focus:outline-none"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 3. VIDEO FORMAT */}
+                    {post.format === "Video" && post.scenes && (
+                      <div className="rounded-xl border border-white/10 bg-[#090f18] p-4 shadow-lg space-y-4">
+                        <div className="flex items-center justify-between border-b border-white/10 pb-3 flex-wrap gap-2">
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+                            🎬 Video Format
+                          </h4>
+                          <button
+                            onClick={() => handleCopyPromptTemplate(false)}
+                            className="rounded border border-[#4fc7ff]/40 bg-[#4fc7ff]/10 px-3 py-1 text-xs font-bold text-[#4fc7ff] hover:bg-[#4fc7ff]/20 transition cursor-pointer"
+                          >
+                            Copy Video Template
+                          </button>
+                        </div>
+
+                        <div className="space-y-3">
+                          {post.scenes.map((sc, idx) => (
+                            <div key={idx} className="rounded-lg border border-white/10 bg-black/40 p-3 space-y-2">
+                              <div className="flex items-center justify-between text-xs font-bold text-cyan-300 font-mono">
+                                <span>{sc.sceneNum}</span>
+                                <input
+                                  type="text"
+                                  value={sc.transition}
+                                  onChange={(e) => handleSceneChange(idx, "transition", e.target.value)}
+                                  className="rounded border border-white/10 bg-black/60 px-2 py-0.5 text-[10px] text-white/70 focus:border-[#4fc7ff] focus:outline-none"
+                                  placeholder="Transition..."
+                                />
+                              </div>
+
+                              <div>
+                                <label className="text-[10px] uppercase font-mono text-white/50 block">Scene Description:</label>
+                                <textarea
+                                  rows={2}
+                                  value={sc.description}
+                                  onChange={(e) => handleSceneChange(idx, "description", e.target.value)}
+                                  className="w-full rounded border border-white/10 bg-[#07090e] p-2 text-xs text-white/90 focus:border-[#4fc7ff] focus:outline-none"
+                                />
+                              </div>
+
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                                <div>
+                                  <label className="text-[10px] uppercase font-mono text-emerald-400 block">Character Dialogue:</label>
+                                  <input
+                                    type="text"
+                                    value={sc.dialogue}
+                                    onChange={(e) => handleSceneChange(idx, "dialogue", e.target.value)}
+                                    className="w-full rounded border border-white/10 bg-[#07090e] px-2 py-1 text-xs text-white focus:border-[#4fc7ff] focus:outline-none"
+                                  />
+                                </div>
+                                <div>
+                                  <label className="text-[10px] uppercase font-mono text-amber-300 block">Narrator (with timestamps):</label>
+                                  <input
+                                    type="text"
+                                    value={sc.narrator}
+                                    onChange={(e) => handleSceneChange(idx, "narrator", e.target.value)}
+                                    className="w-full rounded border border-white/10 bg-[#07090e] px-2 py-1 text-xs text-white focus:border-[#4fc7ff] focus:outline-none"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 4. TEXT FORMAT */}
+                    {post.format === "Text" && post.textContent && (
+                      <div className="rounded-xl border border-white/10 bg-[#090f18] p-4 shadow-lg space-y-4">
+                        <div className="flex items-center justify-between border-b border-white/10 pb-3 flex-wrap gap-2">
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+                            ✍️ Text Format
+                          </h4>
+                          <button
+                            onClick={() => handleCopyPromptTemplate(false)}
+                            className="rounded border border-[#4fc7ff]/40 bg-[#4fc7ff]/10 px-3 py-1 text-xs font-bold text-[#4fc7ff] hover:bg-[#4fc7ff]/20 transition cursor-pointer"
+                          >
+                            Copy Text Template
+                          </button>
+                        </div>
+
+                        <div className="rounded-lg border border-cyan-500/30 bg-black/50 p-4 space-y-3">
+                          <div>
+                            <label className="text-[11px] font-bold uppercase tracking-wider text-white/80 block mb-1">
+                              Hook / First Line:
+                            </label>
+                            <input
+                              type="text"
+                              value={post.textContent.hook}
+                              onChange={(e) => handleTextContentChange("hook", e.target.value)}
+                              className="w-full rounded-md border border-white/15 bg-[#07090e] px-3 py-1.5 text-xs text-white font-mono focus:border-[#4fc7ff] focus:outline-none"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="text-[11px] font-bold uppercase tracking-wider text-white/80 block mb-1">
+                              Main Body:
+                            </label>
+                            <textarea
+                              rows={5}
+                              value={post.textContent.mainBody}
+                              onChange={(e) => handleTextContentChange("mainBody", e.target.value)}
+                              className="w-full rounded-md border border-white/15 bg-[#07090e] p-3 text-xs leading-relaxed text-white font-mono focus:border-[#4fc7ff] focus:outline-none"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="text-[11px] font-bold uppercase tracking-wider text-cyan-300 block mb-1">
+                              Call to Action:
+                            </label>
+                            <input
+                              type="text"
+                              value={post.textContent.callToAction}
+                              onChange={(e) => handleTextContentChange("callToAction", e.target.value)}
+                              className="w-full rounded-md border border-cyan-800/60 bg-cyan-950/20 px-3 py-1.5 text-xs text-cyan-200 font-medium focus:border-[#4fc7ff] focus:outline-none"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* PRODUCTION SPECS */}
+                    <div className="rounded-xl border border-white/10 bg-[#090f18] p-4 shadow-lg space-y-2.5">
+                      <div className="text-xs font-bold uppercase tracking-wider text-white/80 border-b border-white/10 pb-2">
+                        Production Specs:
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                         <div>
-                          <label className="text-[10px] uppercase font-mono text-emerald-400 block">Character Dialogue:</label>
+                          <label className="text-[10px] font-mono text-white/50 block">Dimensions &amp; Format:</label>
                           <input
                             type="text"
-                            value={sc.dialogue}
-                            onChange={(e) => handleSceneChange(idx, "dialogue", e.target.value)}
-                            className="w-full rounded border border-white/10 bg-[#07090e] px-2 py-1 text-xs text-white focus:border-[#4fc7ff] focus:outline-none"
+                            value={post.productionSpecs.dimensionsAndFormat}
+                            onChange={(e) => handleProductionSpecChange("dimensionsAndFormat", e.target.value)}
+                            className="w-full rounded border border-white/10 bg-[#07090e] px-2.5 py-1 text-xs text-white/90 focus:border-[#4fc7ff] focus:outline-none"
                           />
                         </div>
+
                         <div>
-                          <label className="text-[10px] uppercase font-mono text-amber-300 block">Narrator (with timestamps):</label>
+                          <label className="text-[10px] font-mono text-white/50 block">References:</label>
                           <input
                             type="text"
-                            value={sc.narrator}
-                            onChange={(e) => handleSceneChange(idx, "narrator", e.target.value)}
-                            className="w-full rounded border border-white/10 bg-[#07090e] px-2 py-1 text-xs text-white focus:border-[#4fc7ff] focus:outline-none"
+                            value={post.productionSpecs.references}
+                            onChange={(e) => handleProductionSpecChange("references", e.target.value)}
+                            className="w-full rounded border border-white/10 bg-[#07090e] px-2.5 py-1 text-xs text-white/90 focus:border-[#4fc7ff] focus:outline-none"
                           />
                         </div>
                       </div>
+
+                      <div>
+                        <label className="text-[10px] font-mono text-white/50 block">
+                          Branding (Descriptive colors only | NO numeric hex codes):
+                        </label>
+                        <textarea
+                          rows={2}
+                          value={post.productionSpecs.branding}
+                          onChange={(e) => handleProductionSpecChange("branding", e.target.value)}
+                          className="w-full rounded border border-white/10 bg-[#07090e] p-2 text-xs text-white/90 focus:border-[#4fc7ff] focus:outline-none"
+                        />
+                      </div>
+
+                      <div className="rounded border border-white/5 bg-white/[0.02] p-2 text-xs text-emerald-400 space-y-1">
+                        <div className="font-bold text-[11px]">Rules:</div>
+                        <ul className="list-disc pl-4 space-y-0.5 text-white/80 text-[10px]">
+                          {post.productionSpecs.rules.map((r, rIdx) => (
+                            <li key={rIdx}>{r}</li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* 4. TEXT FORMAT INSPECTOR */}
-            {activePost.format === "Text" && activePost.textContent && (
-              <div className="rounded-xl border border-white/10 bg-[#0b121b] p-5 shadow-lg space-y-4">
-                <div className="flex items-center justify-between border-b border-white/10 pb-3 flex-wrap gap-2">
-                  <div>
-                    <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                      <span>✍️ Text Format</span>
-                    </h3>
-                    <p className="text-xs text-white/50">
-                      Pure conversational copy: Hook &bull; Main Body with 2–4 emojis &bull; Call to Action. Zero markdown bolding (**).
-                    </p>
                   </div>
-                  <button
-                    onClick={() => handleCopyPromptTemplate(false)}
-                    className="rounded border border-[#4fc7ff]/40 bg-[#4fc7ff]/10 px-3 py-1 text-xs font-bold text-[#4fc7ff] hover:bg-[#4fc7ff]/20 transition cursor-pointer"
+
+                  {/* RIGHT: MEDIA ASSETS, REFERENCE UPLOADS & CAPTION (5 cols) */}
+                  <div className="space-y-5 lg:col-span-5">
+                    {/* GENERATED MEDIA ASSET MANAGER */}
+                    <div className="rounded-xl border border-white/10 bg-[#090f18] p-4 shadow-lg space-y-3">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-white flex items-center gap-1.5">
+                          <span>🖼️ Generated Media Assets</span>
+                          <span className="rounded bg-cyan-950 px-1.5 py-0.2 font-mono text-[10px] text-cyan-300">
+                            {post.generatedMedia.length}
+                          </span>
+                        </h4>
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => fileInputRef.current?.click()}
+                            className="rounded bg-white/10 px-2 py-0.5 text-[11px] font-bold text-white hover:bg-white/20 transition cursor-pointer"
+                          >
+                            + Upload
+                          </button>
+                          <input
+                            type="file"
+                            ref={fileInputRef}
+                            multiple
+                            accept="image/*,video/*"
+                            onChange={(e) => handleFileUpload(e, false)}
+                            className="hidden"
+                          />
+                          {post.generatedMedia.length > 0 && (
+                            <button
+                              onClick={handleDownloadAllGenerated}
+                              className="rounded bg-[#4fc7ff] px-2 py-0.5 text-[11px] font-bold text-black hover:brightness-110 transition cursor-pointer"
+                            >
+                              Download All
+                            </button>
+                          )}
+                        </div>
+                      </div>
+
+                      {post.generatedMedia.length > 0 ? (
+                        <div className="grid grid-cols-2 gap-2.5">
+                          {post.generatedMedia.map((asset) => (
+                            <div
+                              key={asset.id}
+                              className="group relative rounded-lg border border-white/10 bg-black/50 overflow-hidden hover:border-[#4fc7ff] transition"
+                            >
+                              <div
+                                onClick={() => setPreviewAsset(asset)}
+                                className="aspect-[3/4] w-full bg-[#0a0f18] cursor-pointer overflow-hidden flex items-center justify-center"
+                              >
+                                {asset.type === "image" ? (
+                                  // eslint-disable-next-line @next/next/no-img-element
+                                  <img
+                                    src={asset.url}
+                                    alt={asset.name}
+                                    className="h-full w-full object-cover group-hover:scale-105 transition duration-300"
+                                  />
+                                ) : (
+                                  <div className="flex flex-col items-center justify-center p-3 text-center">
+                                    <span className="text-2xl mb-1">🎬</span>
+                                    <span className="text-[10px] text-white/70 truncate max-w-full">{asset.name}</span>
+                                  </div>
+                                )}
+                              </div>
+
+                              <div className="p-1.5 flex items-center justify-between text-[10px] bg-[#07090e]">
+                                <span className="text-white/70 font-mono truncate max-w-[80px]">{asset.name}</span>
+                                <div className="flex items-center gap-1.5">
+                                  <button
+                                    onClick={() => handleDownloadAsset(asset)}
+                                    className="text-[#4fc7ff] hover:underline cursor-pointer"
+                                    title="Download"
+                                  >
+                                    ⬇
+                                  </button>
+                                  <button
+                                    onClick={() => handleDeleteAsset(asset.id, false)}
+                                    className="text-red-400 hover:underline cursor-pointer"
+                                    title="Remove"
+                                  >
+                                    ✕
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div
+                          onClick={() => fileInputRef.current?.click()}
+                          className="rounded-lg border-2 border-dashed border-white/15 p-5 text-center hover:border-[#4fc7ff]/60 hover:bg-black/40 transition cursor-pointer"
+                        >
+                          <p className="text-[11px] text-white/50">No generated media uploaded yet</p>
+                          <p className="text-[10px] text-[#4fc7ff] mt-0.5 font-bold">Click to upload generated images or videos</p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* REFERENCE MEDIA DROPZONE */}
+                    <div className="rounded-xl border border-white/10 bg-[#090f18] p-4 shadow-lg space-y-3">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-white flex items-center gap-1.5">
+                          <span>📁 Reference Media &amp; Briefs</span>
+                          <span className="rounded bg-white/10 px-1.5 py-0.2 font-mono text-[10px] text-white/70">
+                            {post.referenceMedia.length}
+                          </span>
+                        </h4>
+                        <button
+                          onClick={() => refFileInputRef.current?.click()}
+                          className="rounded bg-white/10 px-2 py-0.5 text-[11px] font-bold text-white hover:bg-white/20 transition cursor-pointer"
+                        >
+                          + Add Ref
+                        </button>
+                        <input
+                          type="file"
+                          ref={refFileInputRef}
+                          multiple
+                          accept="image/*,video/*,audio/*,.pdf,.doc,.txt"
+                          onChange={(e) => handleFileUpload(e, true)}
+                          className="hidden"
+                        />
+                      </div>
+
+                      {post.referenceMedia.length > 0 ? (
+                        <div className="space-y-1.5">
+                          {post.referenceMedia.map((ref) => (
+                            <div
+                              key={ref.id}
+                              className="flex items-center justify-between rounded-lg border border-white/10 bg-black/40 p-2 text-xs"
+                            >
+                              <div className="flex items-center gap-2 truncate">
+                                <span>{ref.type === "video" ? "🎥" : ref.type === "audio" ? "🎵" : "📄"}</span>
+                                <span className="text-white/90 truncate">{ref.name}</span>
+                                <span className="text-[10px] font-mono text-white/40">{ref.size}</span>
+                              </div>
+                              <button
+                                onClick={() => handleDeleteAsset(ref.id, true)}
+                                className="text-red-400 hover:text-red-300 ml-2 cursor-pointer"
+                              >
+                                ✕
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div
+                          onClick={() => refFileInputRef.current?.click()}
+                          className="rounded-lg border-2 border-dashed border-white/10 p-3.5 text-center hover:border-white/30 transition cursor-pointer"
+                        >
+                          <p className="text-[10px] text-white/50">Drop screenshots, reference videos, or audio here</p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* CAPTION & HASHTAGS */}
+                    <div className="rounded-xl border border-white/10 bg-[#090f18] p-4 shadow-lg space-y-3">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+                          📝 Social Feed Caption &amp; Tags
+                        </h4>
+                        <button
+                          onClick={() => handleCopyText(post.caption, "right-caption", "✓ Copied Caption!")}
+                          className="rounded bg-[#4fc7ff]/10 border border-[#4fc7ff]/30 px-2 py-0.5 text-[11px] font-bold text-[#4fc7ff] hover:bg-[#4fc7ff]/20 transition cursor-pointer"
+                        >
+                          {copiedKey === "right-caption" ? "✓ Copied" : "Copy Caption"}
+                        </button>
+                      </div>
+
+                      <div>
+                        <textarea
+                          rows={8}
+                          value={post.caption}
+                          onChange={(e) => handleFieldChange("caption", e.target.value)}
+                          className="w-full rounded-lg border border-white/15 bg-[#07090e] p-2.5 text-xs leading-relaxed text-white font-sans focus:border-[#4fc7ff] focus:outline-none transition"
+                          placeholder="Caption text..."
+                        />
+                      </div>
+
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <label className="text-[10px] font-mono text-white/50">
+                            High-Intent Discovery Hashtags (Strictly 5 tags; zero vanity tags):
+                          </label>
+                          <button
+                            onClick={() => handleCopyText(post.hashtags, "hashtags", "✓ Copied Hashtags!")}
+                            className="text-[10px] text-[#4fc7ff] hover:underline cursor-pointer"
+                          >
+                            Copy Tags
+                          </button>
+                        </div>
+                        <input
+                          type="text"
+                          value={post.hashtags}
+                          onChange={(e) => handleFieldChange("hashtags", e.target.value)}
+                          className="w-full rounded-md border border-white/15 bg-[#07090e] px-2.5 py-1 text-xs text-[#4fc7ff] font-mono focus:border-[#4fc7ff] focus:outline-none"
+                          placeholder="#CompetitiveIntelligence #MarketSignals..."
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            );
+          })
+        )}
+
+        {/* BOTTOM SECTION: DPMO FRAMEWORK & MATCH FIT CONTENT CALENDAR LINK */}
+        <footer className="pt-8 border-t border-white/15 space-y-6">
+          {/* DPMO PRODUCTS GRID */}
+          <div className="rounded-xl border border-white/10 bg-[#080d16] p-6 space-y-4">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3 flex-wrap gap-2">
+              <div>
+                <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                  <span>🎯 DPMO Framework &amp; Product Conversion Outlines</span>
+                </h3>
+                <p className="text-xs text-white/50">
+                  Target offerings, growth phases, and conversion CTAs handled by this content artifact.
+                </p>
+              </div>
+              <span className="rounded bg-emerald-950 px-2.5 py-1 text-xs font-mono font-bold text-emerald-300 border border-emerald-800">
+                ACTIVE PHASE: SCALE
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {DPMO_PRODUCTS.map((prod) => (
+                <div
+                  key={prod.slug}
+                  className="rounded-lg border border-white/10 bg-black/40 p-4 space-y-2 hover:border-[#4fc7ff]/60 transition"
+                >
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-sm font-bold text-white">{prod.name}</h4>
+                    <span className="text-[10px] font-mono text-cyan-300 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800/40">
+                      {prod.phase}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-white/60 leading-relaxed">{prod.offerHook}</p>
+                  <div className="text-[10px] font-mono text-emerald-400">
+                    Benefit: {prod.conversionBenefit}
+                  </div>
+                  <a
+                    href={prod.ctaUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-block pt-1 text-[11px] font-bold text-[#4fc7ff] hover:underline"
                   >
-                    Copy Text Template
-                  </button>
+                    View Product Page &rarr;
+                  </a>
                 </div>
-
-                <div className="rounded-lg border border-cyan-500/30 bg-black/50 p-4 space-y-4">
-                  <div>
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-white/80 block mb-1">
-                      Hook / First Line:
-                    </label>
-                    <input
-                      type="text"
-                      value={activePost.textContent.hook}
-                      onChange={(e) => handleTextContentChange("hook", e.target.value)}
-                      className="w-full rounded-md border border-white/15 bg-[#07090e] px-3 py-1.5 text-xs text-white font-mono focus:border-[#4fc7ff] focus:outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-white/80 block mb-1">
-                      Main Body:
-                    </label>
-                    <textarea
-                      rows={6}
-                      value={activePost.textContent.mainBody}
-                      onChange={(e) => handleTextContentChange("mainBody", e.target.value)}
-                      className="w-full rounded-md border border-white/15 bg-[#07090e] p-3 text-xs leading-relaxed text-white font-mono focus:border-[#4fc7ff] focus:outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-cyan-300 block mb-1">
-                      Call to Action:
-                    </label>
-                    <input
-                      type="text"
-                      value={activePost.textContent.callToAction}
-                      onChange={(e) => handleTextContentChange("callToAction", e.target.value)}
-                      className="w-full rounded-md border border-cyan-800/60 bg-cyan-950/20 px-3 py-1.5 text-xs text-cyan-200 font-medium focus:border-[#4fc7ff] focus:outline-none"
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* PRODUCTION SPECS (EDITABLE ON ALL FORMATS) */}
-            <div className="rounded-xl border border-white/10 bg-[#0b121b] p-5 shadow-lg space-y-3">
-              <div className="text-xs font-bold uppercase tracking-wider text-white/80 border-b border-white/10 pb-2">
-                Production Specs:
-              </div>
-
-              <div>
-                <label className="text-[10px] font-mono text-white/50 block">Dimensions &amp; Format:</label>
-                <input
-                  type="text"
-                  value={activePost.productionSpecs.dimensionsAndFormat}
-                  onChange={(e) => handleProductionSpecChange("dimensionsAndFormat", e.target.value)}
-                  className="w-full rounded border border-white/10 bg-[#07090e] px-2.5 py-1 text-xs text-white/90 focus:border-[#4fc7ff] focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="text-[10px] font-mono text-white/50 block">
-                  Branding (Descriptive colors only | NO numeric hex codes):
-                </label>
-                <textarea
-                  rows={2}
-                  value={activePost.productionSpecs.branding}
-                  onChange={(e) => handleProductionSpecChange("branding", e.target.value)}
-                  className="w-full rounded border border-white/10 bg-[#07090e] p-2 text-xs text-white/90 focus:border-[#4fc7ff] focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="text-[10px] font-mono text-white/50 block">References:</label>
-                <input
-                  type="text"
-                  value={activePost.productionSpecs.references}
-                  onChange={(e) => handleProductionSpecChange("references", e.target.value)}
-                  className="w-full rounded border border-white/10 bg-[#07090e] px-2.5 py-1 text-xs text-white/90 focus:border-[#4fc7ff] focus:outline-none"
-                />
-              </div>
-
-              <div className="rounded border border-white/5 bg-white/[0.02] p-2.5 text-xs text-emerald-400 space-y-1">
-                <div className="font-bold">Rules:</div>
-                <ul className="list-disc pl-4 space-y-0.5 text-white/80 text-[11px]">
-                  {activePost.productionSpecs.rules.map((r, rIdx) => (
-                    <li key={rIdx}>{r}</li>
-                  ))}
-                </ul>
-              </div>
+              ))}
             </div>
           </div>
 
-          {/* RIGHT COLUMN: MEDIA GALLERY, UPLOAD DROPZONES & CAPTION (5 cols) */}
-          <div className="space-y-6 lg:col-span-5">
-            {/* REQUIREMENT 3: GENERATED MEDIA ASSET MANAGER & DOWNLOAD */}
-            <div className="rounded-xl border border-white/10 bg-[#0b121b] p-5 shadow-lg space-y-4">
-              <div className="flex items-center justify-between border-b border-white/10 pb-3">
-                <div>
-                  <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                    <span>🖼️ Generated Media Assets</span>
-                    <span className="rounded bg-cyan-950 px-2 py-0.5 font-mono text-[10px] text-cyan-300">
-                      {activePost.generatedMedia.length}
-                    </span>
-                  </h3>
-                  <p className="text-[11px] text-white/50">Preview, inspect, upload &amp; download generated files.</p>
-                </div>
+          {/* MATCH FIT CONTENT CALENDAR CALLOUT BANNER */}
+          <div className="relative overflow-hidden rounded-xl border border-amber-500/40 bg-gradient-to-r from-amber-950/40 via-[#0e121a] to-black p-6 shadow-xl flex flex-wrap items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 text-[10px] font-mono font-bold">
+                  VENTURE INTEGRATION
+                </span>
+                <h3 className="text-base font-bold text-white">Match Fit Content Calendar &bull; Sector 1A</h3>
+              </div>
+              <p className="text-xs text-white/70 max-w-2xl">
+                Access the 28-day Match Fit 3-archetype testing matrix (Generic Info, UGC Avatar with Jordan Blake, Cinematic Video, and Text). Fully synchronized with the same prompt template architecture and zero numeric color codes.
+              </p>
+            </div>
+            <a
+              href="https://match-fit.net/admin/content-calendar"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-lg bg-gradient-to-r from-amber-400 to-amber-500 px-4 py-2.5 text-xs font-black text-black hover:brightness-110 transition shadow-lg shadow-amber-500/20 whitespace-nowrap cursor-pointer"
+            >
+              Open Match Fit Calendar &rarr;
+            </a>
+          </div>
+        </footer>
+      </main>
+
+      {/* MONTHLY CALENDAR ZOOM DRAWER OVERLAY */}
+      {isCalendarOpen && (
+        <div
+          onClick={() => setIsCalendarOpen(false)}
+          className="fixed inset-0 z-50 flex items-center justify-end bg-black/80 backdrop-blur-sm animate-fade-in"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="h-full w-full max-w-2xl bg-[#090e17] border-l border-white/20 p-6 overflow-y-auto space-y-5 shadow-2xl"
+          >
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <div>
                 <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => fileInputRef.current?.click()}
-                    className="rounded bg-white/10 px-2.5 py-1 text-xs font-bold text-white hover:bg-white/20 transition cursor-pointer"
-                  >
-                    + Upload Files
-                  </button>
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    multiple
-                    accept="image/*,video/*"
-                    onChange={(e) => handleFileUpload(e, false)}
-                    className="hidden"
-                  />
-                  {activePost.generatedMedia.length > 0 && (
-                    <button
-                      onClick={handleDownloadAllGenerated}
-                      className="rounded bg-[#4fc7ff] px-2.5 py-1 text-xs font-bold text-black hover:brightness-110 transition cursor-pointer"
-                    >
-                      Download All
-                    </button>
-                  )}
+                  <span className="text-lg">📅</span>
+                  <h3 className="text-base font-bold text-white">October 2026 &bull; Master Content Grid</h3>
                 </div>
+                <p className="text-xs text-white/50">
+                  Full month zoom-out of scheduled posts. Hover over any post to preview basic details, or click to jump directly to it.
+                </p>
               </div>
+              <button
+                onClick={() => setIsCalendarOpen(false)}
+                className="text-white/60 hover:text-white text-lg font-bold cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
 
-              {/* ASSET PREVIEW GRID */}
-              {activePost.generatedMedia.length > 0 ? (
-                <div className="grid grid-cols-2 gap-3">
-                  {activePost.generatedMedia.map((asset) => (
-                    <div
-                      key={asset.id}
-                      className="group relative rounded-lg border border-white/10 bg-black/50 overflow-hidden hover:border-[#4fc7ff] transition"
-                    >
-                      <div
-                        onClick={() => setPreviewAsset(asset)}
-                        className="aspect-[3/4] w-full bg-[#0a0f18] cursor-pointer overflow-hidden flex items-center justify-center"
-                      >
-                        {asset.type === "image" ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            src={asset.url}
-                            alt={asset.name}
-                            className="h-full w-full object-cover group-hover:scale-105 transition duration-300"
-                          />
-                        ) : (
-                          <div className="flex flex-col items-center justify-center p-3 text-center">
-                            <span className="text-3xl mb-1">🎬</span>
-                            <span className="text-[10px] text-white/70 truncate max-w-full">{asset.name}</span>
-                          </div>
-                        )}
-                      </div>
+            {/* MONTH DAYS GRID (31 DAYS) */}
+            <div className="grid grid-cols-7 gap-2 text-center text-xs">
+              {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+                <div key={day} className="font-mono text-[10px] uppercase text-white/40 pb-1">
+                  {day}
+                </div>
+              ))}
 
-                      <div className="p-2 flex items-center justify-between text-[10px] bg-[#07090e]">
-                        <span className="text-white/70 font-mono truncate max-w-[90px]">{asset.name}</span>
-                        <div className="flex items-center gap-1.5">
-                          <button
-                            onClick={() => handleDownloadAsset(asset)}
-                            className="text-[#4fc7ff] hover:underline cursor-pointer"
-                            title="Download"
-                          >
-                            ⬇
-                          </button>
-                          <button
-                            onClick={() => handleDeleteAsset(asset.id, false)}
-                            className="text-red-400 hover:underline cursor-pointer"
-                            title="Remove"
-                          >
-                            ✕
-                          </button>
+              {/* Offset for Oct 1, 2026 (Thursday = 4 empty boxes) */}
+              {[1, 2, 3, 4].map((n) => (
+                <div key={`offset-${n}`} className="h-20 rounded bg-white/[0.01] border border-white/5"></div>
+              ))}
+
+              {/* Days 1 to 31 */}
+              {Array.from({ length: 31 }, (_, i) => i + 1).map((dayNum) => {
+                const dayPosts = posts.filter(
+                  (p) => p.month === selectedMonth && (p.dayOfMonth === dayNum || (p.dayOfMonth === 30 && dayNum === 1))
+                );
+
+                return (
+                  <div
+                    key={dayNum}
+                    className={`h-24 rounded-lg border p-1.5 text-left flex flex-col justify-between transition ${
+                      dayNum === 1
+                        ? "border-[#4fc7ff] bg-cyan-950/20 shadow-md shadow-[#4fc7ff]/10"
+                        : "border-white/10 bg-black/40 hover:border-white/20"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between font-mono text-[10px]">
+                      <span className={dayNum === 1 ? "text-[#4fc7ff] font-black" : "text-white/60"}>
+                        {dayNum}
+                      </span>
+                      {dayNum === 1 && (
+                        <span className="text-[8px] bg-cyan-400 text-black font-extrabold px-1 rounded">
+                          TODAY
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="space-y-1 overflow-y-auto">
+                      {dayPosts.map((dp) => (
+                        <div
+                          key={dp.id}
+                          onMouseEnter={() => setHoveredCalendarPost(dp)}
+                          onMouseLeave={() => setHoveredCalendarPost(null)}
+                          onClick={() => {
+                            setIsCalendarOpen(false);
+                            scrollToPost(dp.id);
+                          }}
+                          className={`rounded px-1.5 py-0.5 text-[9px] font-bold truncate cursor-pointer transition ${
+                            dp.format === "Carousel"
+                              ? "bg-cyan-500/20 text-cyan-200 border border-cyan-500/40 hover:bg-cyan-500/40"
+                              : dp.format === "Video"
+                              ? "bg-amber-500/20 text-amber-200 border border-amber-500/40 hover:bg-amber-500/40"
+                              : dp.format === "Static"
+                              ? "bg-emerald-500/20 text-emerald-200 border border-emerald-500/40 hover:bg-emerald-500/40"
+                              : "bg-purple-500/20 text-purple-200 border border-purple-500/40 hover:bg-purple-500/40"
+                          }`}
+                        >
+                          {dp.brand} &bull; {dp.scheduledTime}
                         </div>
-                      </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <div
-                  onClick={() => fileInputRef.current?.click()}
-                  className="rounded-lg border-2 border-dashed border-white/15 p-6 text-center hover:border-[#4fc7ff]/60 hover:bg-black/40 transition cursor-pointer"
-                >
-                  <p className="text-xs text-white/60">No generated files uploaded yet.</p>
-                  <p className="text-[11px] text-[#4fc7ff] mt-1 font-bold">Click here to upload generated images or videos</p>
-                </div>
-              )}
+                  </div>
+                );
+              })}
             </div>
 
-            {/* REQUIREMENT: REFERENCE MEDIA & BRIEFS UPLOAD */}
-            <div className="rounded-xl border border-white/10 bg-[#0b121b] p-5 shadow-lg space-y-4">
-              <div className="flex items-center justify-between border-b border-white/10 pb-3">
-                <div>
-                  <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                    <span>📁 Reference Media &amp; Briefs</span>
-                    <span className="rounded bg-white/10 px-2 py-0.5 font-mono text-[10px] text-white/70">
-                      {activePost.referenceMedia.length}
-                    </span>
-                  </h3>
-                  <p className="text-[11px] text-white/50">
-                    Upload screenshots, reference videos, audio voiceovers, or competitor proofs.
-                  </p>
+            {/* HOVER TOOLTIP PREVIEW CARD */}
+            {hoveredCalendarPost && (
+              <div className="rounded-lg border border-[#4fc7ff]/60 bg-black/90 p-3 space-y-1.5 shadow-2xl animate-fade-in text-xs">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-[#4fc7ff]">{hoveredCalendarPost.title}</span>
+                  <span className="rounded bg-white/10 px-1.5 py-0.5 text-[10px] font-mono text-white/70">
+                    {hoveredCalendarPost.format} &bull; {hoveredCalendarPost.scheduledTime}
+                  </span>
                 </div>
-                <button
-                  onClick={() => refFileInputRef.current?.click()}
-                  className="rounded bg-white/10 px-2.5 py-1 text-xs font-bold text-white hover:bg-white/20 transition cursor-pointer"
-                >
-                  + Add Reference
-                </button>
-                <input
-                  type="file"
-                  ref={refFileInputRef}
-                  multiple
-                  accept="image/*,video/*,audio/*,.pdf,.doc,.txt"
-                  onChange={(e) => handleFileUpload(e, true)}
-                  className="hidden"
-                />
-              </div>
-
-              {activePost.referenceMedia.length > 0 ? (
-                <div className="space-y-2">
-                  {activePost.referenceMedia.map((ref) => (
-                    <div
-                      key={ref.id}
-                      className="flex items-center justify-between rounded-lg border border-white/10 bg-black/40 p-2 text-xs"
-                    >
-                      <div className="flex items-center gap-2 truncate">
-                        <span>{ref.type === "video" ? "🎥" : ref.type === "audio" ? "🎵" : "📄"}</span>
-                        <span className="text-white/90 truncate">{ref.name}</span>
-                        <span className="text-[10px] font-mono text-white/40">{ref.size}</span>
-                      </div>
-                      <button
-                        onClick={() => handleDeleteAsset(ref.id, true)}
-                        className="text-red-400 hover:text-red-300 ml-2 cursor-pointer"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  ))}
+                <p className="text-[11px] text-white/70">{hoveredCalendarPost.hook}</p>
+                <div className="text-[10px] font-mono text-emerald-400">
+                  Status: {hoveredCalendarPost.status.toUpperCase()} &bull; Slot: {hoveredCalendarPost.slot}
                 </div>
-              ) : (
-                <div
-                  onClick={() => refFileInputRef.current?.click()}
-                  className="rounded-lg border-2 border-dashed border-white/10 p-4 text-center hover:border-white/30 transition cursor-pointer"
-                >
-                  <p className="text-[11px] text-white/50">Drop reference screenshots, audio, or mockups here</p>
-                </div>
-              )}
-            </div>
-
-            {/* SOCIAL CAPTION & HASHTAGS (EDITABLE & 1-CLICK COPY) */}
-            <div className="rounded-xl border border-white/10 bg-[#0b121b] p-5 shadow-lg space-y-4">
-              <div className="flex items-center justify-between border-b border-white/10 pb-3">
-                <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                  <span>📝 Social Caption &amp; Hashtags</span>
-                </h3>
-                <button
-                  onClick={() => handleCopyText(activePost.caption, "right-caption", "✓ Copied Caption!")}
-                  className="rounded bg-[#4fc7ff]/10 border border-[#4fc7ff]/30 px-2.5 py-1 text-xs font-bold text-[#4fc7ff] hover:bg-[#4fc7ff]/20 transition cursor-pointer"
-                >
-                  {copiedKey === "right-caption" ? "✓ Copied" : "Copy Caption"}
-                </button>
               </div>
-
-              <div>
-                <label className="text-[10px] font-mono text-white/50 block mb-1">
-                  Social Feed Caption (Directly editable &bull; zero markdown asterisks):
-                </label>
-                <textarea
-                  rows={10}
-                  value={activePost.caption}
-                  onChange={(e) => handleFieldChange("caption", e.target.value)}
-                  className="w-full rounded-lg border border-white/15 bg-[#07090e] p-3 text-xs leading-relaxed text-white font-sans focus:border-[#4fc7ff] focus:bg-[#09101d] focus:outline-none transition"
-                  placeholder="Caption text..."
-                />
-              </div>
-
-              <div>
-                <div className="flex items-center justify-between mb-1">
-                  <label className="text-[10px] font-mono text-white/50">
-                    High-Intent Discovery Hashtags (Strictly 5 tags; zero vanity tags):
-                  </label>
-                  <button
-                    onClick={() => handleCopyText(activePost.hashtags, "hashtags", "✓ Copied Hashtags!")}
-                    className="text-[11px] text-[#4fc7ff] hover:underline cursor-pointer"
-                  >
-                    Copy Tags
-                  </button>
-                </div>
-                <input
-                  type="text"
-                  value={activePost.hashtags}
-                  onChange={(e) => handleFieldChange("hashtags", e.target.value)}
-                  className="w-full rounded-md border border-white/15 bg-[#07090e] px-3 py-1.5 text-xs text-[#4fc7ff] font-mono focus:border-[#4fc7ff] focus:outline-none"
-                  placeholder="#CompetitiveIntelligence #MarketSignals..."
-                />
-              </div>
-            </div>
+            )}
           </div>
         </div>
-      </main>
+      )}
 
       {/* FULL-SCREEN LIGHTBOX MODAL */}
       {previewAsset && (
