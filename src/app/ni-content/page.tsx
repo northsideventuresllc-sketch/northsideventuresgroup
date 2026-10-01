@@ -111,7 +111,7 @@ Run your free competitor scan today at northsideintelligence.com/signaldesk.
     notes: "Today's Hero Post! Signal Desk 6-Slide Carousel (3:4 portrait, full bleed, top-3/4 rule, 5 high-intent discovery tags, zero vanity tags). Autopilot excluded per Decision #2068."
   },
 
-  // WEDNESDAY SEP 30 (YESTERDAY)
+  // WEDNESDAY SEP 30
   {
     id: "ni-w1-wed-it",
     week: 1,
@@ -175,7 +175,7 @@ Pay less for what you were already going to buy.
     notes: "Published yesterday on IG & FB Reels."
   },
 
-  // FRIDAY OCT 2 (TOMORROW)
+  // FRIDAY OCT 2
   {
     id: "ni-w1-fri-it",
     week: 1,
@@ -248,6 +248,7 @@ export default function NiContentPage() {
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
   const [filterChannel, setFilterChannel] = useState<string>("all");
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const [saveFlash, setSaveFlash] = useState<boolean>(false);
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -271,6 +272,8 @@ export default function NiContentPage() {
 
   const saveToStorage = (updatedPosts: ContentPost[]) => {
     setPosts(updatedPosts);
+    setSaveFlash(true);
+    setTimeout(() => setSaveFlash(false), 1500);
     try {
       localStorage.setItem("ni_calendar_full_user_edits_v3", JSON.stringify(updatedPosts));
     } catch {
@@ -296,6 +299,29 @@ export default function NiContentPage() {
     saveToStorage(updated);
   };
 
+  const handleSlideChange = (slideIdx: number, field: keyof SlideSpec, value: string) => {
+    const updated = posts.map((p) => {
+      if (p.id === activePost.id && p.slides) {
+        const nextSlides = [...p.slides];
+        nextSlides[slideIdx] = { ...nextSlides[slideIdx], [field]: value };
+        return { ...p, slides: nextSlides };
+      }
+      return p;
+    });
+    saveToStorage(updated);
+  };
+
+  const handleResetDefaults = () => {
+    if (confirm("Reset all content back to original locked templates?")) {
+      try {
+        localStorage.removeItem("ni_calendar_full_user_edits_v3");
+      } catch {}
+      setPosts(INITIAL_POSTS);
+      setSaveFlash(true);
+      setTimeout(() => setSaveFlash(false), 1500);
+    }
+  };
+
   const filteredPosts = posts.filter((p) => {
     if (filterChannel === "IT") return p.channel === "IT";
     if (filterChannel === "Store") return p.channel === "Store";
@@ -305,7 +331,7 @@ export default function NiContentPage() {
   return (
     <div className="min-h-screen bg-[#07090e] text-[#f2f7fb] font-sans antialiased selection:bg-[#4fc7ff] selection:text-black">
       {/* TOP STATUS NAV */}
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0a0f18]/90 backdrop-blur-md px-5 py-3.5">
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0a0f18]/95 backdrop-blur-md px-5 py-3.5">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link
@@ -323,22 +349,30 @@ export default function NiContentPage() {
                 <span className="rounded bg-emerald-950/80 px-2 py-0.5 font-mono text-[10px] font-bold text-emerald-300 border border-emerald-800/60">
                   LIVE CONSOLE
                 </span>
+                {saveFlash && (
+                  <span className="rounded bg-cyan-950 px-2 py-0.5 font-mono text-[10px] font-bold text-cyan-300 border border-cyan-700 animate-pulse">
+                    ✓ Autosaved to Browser
+                  </span>
+                )}
               </div>
               <h1 className="text-sm font-bold tracking-tight text-white sm:text-base">
-                Content Command & Review Console
+                Content Command &amp; Live Review Console
               </h1>
             </div>
           </div>
 
-          {/* Quick Metrics */}
-          <div className="flex items-center gap-3 text-xs">
+          {/* Quick Metrics & Actions */}
+          <div className="flex items-center gap-3 text-xs flex-wrap">
+            <button
+              onClick={handleResetDefaults}
+              className="rounded-md border border-white/20 bg-white/5 px-2.5 py-1.5 text-xs text-white/70 hover:bg-white/10 hover:text-white transition cursor-pointer"
+              title="Reset all fields to original template"
+            >
+              ↺ Reset Defaults
+            </button>
             <div className="rounded-md border border-white/10 bg-black/40 px-3 py-1.5">
               <span className="text-white/50">Today: </span>
               <span className="font-bold text-[#4fc7ff]">Thu Oct 1 (Signal Desk)</span>
-            </div>
-            <div className="rounded-md border border-white/10 bg-black/40 px-3 py-1.5">
-              <span className="text-white/50">Cadence: </span>
-              <span className="font-bold text-emerald-400">Sector 3 IT Carousel (M–F)</span>
             </div>
             <button
               onClick={() => handleCopy(activePost.caption, "top-caption")}
@@ -352,37 +386,59 @@ export default function NiContentPage() {
 
       {/* MAIN CONTAINER */}
       <main className="mx-auto max-w-7xl px-5 py-6 space-y-6">
-        {/* HERO BANNER FOR THURSDAY OCT 1 */}
-        <div className="relative overflow-hidden rounded-xl border border-[#4fc7ff]/30 bg-gradient-to-r from-[#0b1424] via-[#09101d] to-[#060a12] p-6 shadow-xl shadow-[#4fc7ff]/5">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div>
+        {/* HERO BANNER FOR ACTIVE SLOT */}
+        <div className="relative overflow-hidden rounded-xl border border-[#4fc7ff]/40 bg-gradient-to-r from-[#0b1424] via-[#09101d] to-[#060a12] p-5 shadow-xl shadow-[#4fc7ff]/5">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div className="flex-1 min-w-[280px]">
               <div className="flex items-center gap-2">
                 <span className="inline-block h-2 w-2 rounded-full bg-cyan-400 animate-pulse"></span>
                 <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#4fc7ff]">
-                  Active Publishing Target — Thursday, October 1, 2026
+                  Active Publishing Target — {activePost.date}
                 </span>
+                <span className="text-xs text-emerald-400 font-mono">✏️ All fields below are directly editable</span>
               </div>
-              <h2 className="mt-1 text-xl font-extrabold text-white sm:text-2xl">
-                Sector 3 IT: Signal Desk — 6-Slide Carousel
-              </h2>
-              <p className="mt-1 max-w-2xl text-xs text-white/70 sm:text-sm">
-                Clean 3:4 portrait carousel, full bleed, zero white borders, top-3/4 rule, 5 high-intent discovery tags. Verified under Decision #2072, #2073 & #2074.
-              </p>
+
+              {/* EDITABLE POST TITLE */}
+              <div className="mt-2">
+                <label className="text-[10px] font-mono uppercase text-white/50 block">Post Title (Click to edit):</label>
+                <input
+                  type="text"
+                  value={activePost.title}
+                  onChange={(e) => handleFieldChange("title", e.target.value)}
+                  className="mt-0.5 w-full rounded-lg border border-white/15 bg-black/50 px-3 py-1.5 text-base font-extrabold text-white focus:border-[#4fc7ff] focus:bg-[#0d1627] focus:outline-none"
+                  placeholder="Post title..."
+                />
+              </div>
+
+              {/* EDITABLE HOOK LINE */}
+              <div className="mt-2">
+                <label className="text-[10px] font-mono uppercase text-white/50 block">Hook Line (Click to edit):</label>
+                <input
+                  type="text"
+                  value={activePost.hook}
+                  onChange={(e) => handleFieldChange("hook", e.target.value)}
+                  className="mt-0.5 w-full rounded-md border border-white/10 bg-black/40 px-3 py-1 text-xs text-white/80 focus:border-[#4fc7ff] focus:bg-[#0d1627] focus:outline-none"
+                  placeholder="Hook line..."
+                />
+              </div>
             </div>
 
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-white/60">Status:</span>
-              <select
-                value={activePost.status}
-                onChange={(e) => handleStatusChange(e.target.value as ContentPost["status"])}
-                className="rounded-lg border border-white/20 bg-black/60 px-3 py-1.5 text-xs font-bold text-[#4fc7ff] focus:border-[#4fc7ff] focus:outline-none cursor-pointer"
-              >
-                <option value="draft">Draft</option>
-                <option value="pending">Pending Review</option>
-                <option value="approved">Approved</option>
-                <option value="scheduled">Scheduled</option>
-                <option value="published">Published</option>
-              </select>
+            <div className="flex flex-col items-end gap-2">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold text-white/60">Status:</span>
+                <select
+                  value={activePost.status}
+                  onChange={(e) => handleStatusChange(e.target.value as ContentPost["status"])}
+                  className="rounded-lg border border-white/20 bg-black/60 px-3 py-1.5 text-xs font-bold text-[#4fc7ff] focus:border-[#4fc7ff] focus:outline-none cursor-pointer"
+                >
+                  <option value="draft">Draft</option>
+                  <option value="pending">Pending Review</option>
+                  <option value="approved">Approved</option>
+                  <option value="scheduled">Scheduled</option>
+                  <option value="published">Published</option>
+                </select>
+              </div>
+              <span className="text-[10px] font-mono text-white/40">Changes auto-save instantly</span>
             </div>
           </div>
         </div>
@@ -395,14 +451,15 @@ export default function NiContentPage() {
               <div className="rounded-xl border border-white/10 bg-[#0b121b] p-5 shadow-lg">
                 <div className="flex items-center justify-between border-b border-white/10 pb-3">
                   <div>
-                    <h3 className="text-sm font-bold text-white uppercase tracking-wider">
-                      Slide Gallery & Creative Directives
+                    <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                      <span>🎨 Slide Gallery &amp; Creative Directives</span>
+                      <span className="text-[10px] font-mono text-cyan-400 font-normal">(Editable)</span>
                     </h3>
                     <p className="text-xs text-white/50">
-                      Click any slide below to inspect prompt and on-screen text.
+                      Select a slide tab below, then edit on-screen text and generation prompts directly.
                     </p>
                   </div>
-                  <span className="rounded bg-[#4fc7ff]/10 px-2 py-0.5 font-mono text-xs font-bold text-[#4fc7ff] border border-[#4fc7ff]/30">
+                  <span className="rounded bg-[#4fc7ff]/10 px-2.5 py-1 font-mono text-xs font-bold text-[#4fc7ff] border border-[#4fc7ff]/30">
                     Slide {activeSlideIndex + 1} of {activePost.slides.length}
                   </span>
                 </div>
@@ -424,34 +481,45 @@ export default function NiContentPage() {
                   ))}
                 </div>
 
-                {/* ACTIVE SLIDE CARD */}
+                {/* ACTIVE SLIDE EDITABLE CARD */}
                 {activePost.slides[activeSlideIndex] && (
                   <div className="mt-4 space-y-4">
-                    <div className="rounded-lg border border-white/10 bg-black/40 p-4">
+                    <div className="rounded-lg border border-cyan-500/30 bg-black/50 p-4 space-y-3.5">
                       <div className="flex items-center justify-between">
                         <span className="font-mono text-xs font-bold text-[#4fc7ff]">
                           {activePost.slides[activeSlideIndex].num}
                         </span>
-                        <span className="text-[11px] uppercase tracking-wider text-white/50">
-                          {activePost.slides[activeSlideIndex].title}
-                        </span>
+                        <input
+                          type="text"
+                          value={activePost.slides[activeSlideIndex].title}
+                          onChange={(e) => handleSlideChange(activeSlideIndex, "title", e.target.value)}
+                          className="rounded border border-white/15 bg-black/40 px-2 py-0.5 text-[11px] font-mono text-white/70 focus:border-[#4fc7ff] focus:outline-none text-right"
+                          placeholder="Slide subtitle..."
+                        />
                       </div>
 
-                      {/* ON-SCREEN TEXT */}
-                      <div className="mt-3">
-                        <label className="text-[11px] font-bold uppercase tracking-wider text-white/60">
-                          On-Screen Text (Top 3/4 Rule)
-                        </label>
-                        <div className="mt-1 rounded-md border border-white/10 bg-[#07090e] p-3 text-sm font-semibold text-white">
-                          "{activePost.slides[activeSlideIndex].text}"
+                      {/* EDITABLE ON-SCREEN TEXT */}
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <label className="text-[11px] font-bold uppercase tracking-wider text-cyan-300 flex items-center gap-1.5">
+                            <span>✏️ On-Screen Text (Top 3/4 Safe Zone):</span>
+                          </label>
+                          <span className="text-[10px] text-white/40 font-mono">Editable</span>
                         </div>
+                        <textarea
+                          rows={2}
+                          value={activePost.slides[activeSlideIndex].text}
+                          onChange={(e) => handleSlideChange(activeSlideIndex, "text", e.target.value)}
+                          className="w-full rounded-md border border-cyan-800/60 bg-cyan-950/20 p-2.5 text-sm font-semibold text-cyan-200 focus:border-[#4fc7ff] focus:bg-[#071324] focus:outline-none transition leading-relaxed"
+                          placeholder="Type on-screen text here..."
+                        />
                       </div>
 
-                      {/* GENERATION PROMPT */}
-                      <div className="mt-3">
-                        <div className="flex items-center justify-between">
-                          <label className="text-[11px] font-bold uppercase tracking-wider text-white/60">
-                            Hyper-Specific Generation Prompt
+                      {/* EDITABLE GENERATION PROMPT */}
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <label className="text-[11px] font-bold uppercase tracking-wider text-white/70 flex items-center gap-1.5">
+                            <span>🎨 Generation Prompt (Image/Video Model):</span>
                           </label>
                           <button
                             onClick={() =>
@@ -462,13 +530,17 @@ export default function NiContentPage() {
                             {copiedKey === `prompt-${activeSlideIndex}` ? "✓ Copied" : "Copy Prompt"}
                           </button>
                         </div>
-                        <div className="mt-1 rounded-md border border-white/5 bg-[#07090e]/80 p-3 text-xs leading-relaxed text-white/80 font-mono">
-                          {activePost.slides[activeSlideIndex].main}
-                        </div>
+                        <textarea
+                          rows={4}
+                          value={activePost.slides[activeSlideIndex].main}
+                          onChange={(e) => handleSlideChange(activeSlideIndex, "main", e.target.value)}
+                          className="w-full rounded-md border border-white/15 bg-[#07090e] p-3 text-xs leading-relaxed text-white/90 font-mono focus:border-[#4fc7ff] focus:bg-[#09101d] focus:outline-none transition"
+                          placeholder="Type image prompt here..."
+                        />
                       </div>
                     </div>
 
-                    {/* SPECS STRIP */}
+                    {/* PRODUCTION SPECS STRIP */}
                     <div className="grid grid-cols-2 gap-3 text-xs sm:grid-cols-4">
                       <div className="rounded-md border border-white/5 bg-white/[0.02] p-2 text-center">
                         <span className="block text-[10px] uppercase text-white/40">Ratio</span>
@@ -483,7 +555,7 @@ export default function NiContentPage() {
                         <span className="font-bold text-cyan-400">Top-3/4 Safe Zone</span>
                       </div>
                       <div className="rounded-md border border-white/5 bg-white/[0.02] p-2 text-center">
-                        <span className="block text-[10px] uppercase text-white/40">Tool Tier</span>
+                        <span className="block text-[10px] uppercase text-white/40">Tier Gate</span>
                         <span className="font-bold text-amber-400">Autopilot Excluded</span>
                       </div>
                     </div>
@@ -496,11 +568,12 @@ export default function NiContentPage() {
             <div className="rounded-xl border border-white/10 bg-[#0b121b] p-5 shadow-lg">
               <div className="flex items-center justify-between border-b border-white/10 pb-3">
                 <div>
-                  <h3 className="text-sm font-bold text-white uppercase tracking-wider">
-                    Direct Outreach DM Script (1-on-1)
+                  <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                    <span>💬 1-on-1 Direct Outreach DM Script</span>
+                    <span className="text-[10px] font-mono text-cyan-400 font-normal">(Editable)</span>
                   </h3>
                   <p className="text-xs text-white/50">
-                    50–125 words, problem empathy &rarr; highlight &rarr; single link CTA.
+                    50–125 words: problem empathy &rarr; highlight &rarr; promo &rarr; single link CTA.
                   </p>
                 </div>
                 <button
@@ -516,7 +589,8 @@ export default function NiContentPage() {
                   rows={3}
                   value={activePost.dmScript}
                   onChange={(e) => handleFieldChange("dmScript", e.target.value)}
-                  className="w-full rounded-lg border border-white/10 bg-[#07090e] p-3 text-xs leading-relaxed text-white focus:border-[#4fc7ff] focus:outline-none"
+                  className="w-full rounded-lg border border-white/10 bg-[#07090e] p-3 text-xs leading-relaxed text-white focus:border-[#4fc7ff] focus:bg-[#09101d] focus:outline-none transition"
+                  placeholder="Direct message script..."
                 />
               </div>
             </div>
@@ -527,8 +601,9 @@ export default function NiContentPage() {
             <div className="rounded-xl border border-white/10 bg-[#0b121b] p-5 shadow-lg">
               <div className="flex items-center justify-between border-b border-white/10 pb-3">
                 <div>
-                  <h3 className="text-sm font-bold text-white uppercase tracking-wider">
-                    Unified Copy-Paste Caption
+                  <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                    <span>📝 Unified Cross-Platform Caption</span>
+                    <span className="text-[10px] font-mono text-cyan-400 font-normal">(Editable)</span>
                   </h3>
                   <p className="text-xs text-white/50">
                     Works across LinkedIn, Instagram, Threads, and Facebook.
@@ -544,22 +619,23 @@ export default function NiContentPage() {
 
               {/* EDITABLE CAPTION AREA */}
               <div className="mt-4">
-                <label className="text-[11px] font-bold uppercase tracking-wider text-white/60">
-                  Caption Body (Real-time Autosave)
+                <label className="text-[11px] font-bold uppercase tracking-wider text-white/60 block mb-1">
+                  Caption Body (Type directly to edit):
                 </label>
                 <textarea
-                  rows={14}
+                  rows={13}
                   value={activePost.caption}
                   onChange={(e) => handleFieldChange("caption", e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-white/10 bg-[#07090e] p-3 text-xs leading-relaxed text-white font-mono focus:border-[#4fc7ff] focus:outline-none"
+                  className="w-full rounded-lg border border-white/15 bg-[#07090e] p-3 text-xs leading-relaxed text-white font-mono focus:border-[#4fc7ff] focus:bg-[#09101d] focus:outline-none transition"
+                  placeholder="Type caption body..."
                 />
               </div>
 
               {/* 5 DISCOVERY HASHTAGS */}
               <div className="mt-4">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mb-1">
                   <label className="text-[11px] font-bold uppercase tracking-wider text-white/60">
-                    Strictly 5 Discovery Hashtags (Zero Vanity)
+                    Strictly 5 Discovery Hashtags (Zero Vanity Tags):
                   </label>
                   <button
                     onClick={() => handleCopy(activePost.hashtags, "hashtags")}
@@ -572,20 +648,22 @@ export default function NiContentPage() {
                   type="text"
                   value={activePost.hashtags}
                   onChange={(e) => handleFieldChange("hashtags", e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-white/10 bg-[#07090e] px-3 py-2 text-xs font-mono text-cyan-300 focus:border-[#4fc7ff] focus:outline-none"
+                  className="w-full rounded-lg border border-white/15 bg-[#07090e] px-3 py-2 text-xs font-mono text-cyan-300 focus:border-[#4fc7ff] focus:bg-[#09101d] focus:outline-none transition"
+                  placeholder="#Hashtag1 #Hashtag2 #Hashtag3 #Hashtag4 #Hashtag5"
                 />
               </div>
 
               {/* OPERATOR NOTES */}
               <div className="mt-4">
-                <label className="text-[11px] font-bold uppercase tracking-wider text-white/60">
-                  Operator Notes & Governance Checks
+                <label className="text-[11px] font-bold uppercase tracking-wider text-white/60 block mb-1">
+                  Operator Notes &amp; Governance Checks (Editable):
                 </label>
                 <textarea
                   rows={2}
                   value={activePost.notes}
                   onChange={(e) => handleFieldChange("notes", e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-white/10 bg-[#07090e] p-2 text-xs text-white/70 focus:border-[#4fc7ff] focus:outline-none"
+                  className="w-full rounded-lg border border-white/10 bg-[#07090e] p-2 text-xs text-white/70 focus:border-[#4fc7ff] focus:bg-[#09101d] focus:outline-none transition"
+                  placeholder="Operator notes..."
                 />
               </div>
             </div>
@@ -625,7 +703,7 @@ export default function NiContentPage() {
                 Weekly Content Publishing Schedule
               </h3>
               <p className="text-xs text-white/50">
-                Sector 3 IT Software (M–F: LinkedIn + IG) &amp; Sector 4 Smart Store (M/W/F: Video Reels)
+                Click any slot below to load and edit its full package above.
               </p>
             </div>
 
@@ -695,7 +773,7 @@ export default function NiContentPage() {
 
                   <div className="mt-3 flex items-center justify-between border-t border-white/5 pt-2 text-[11px] text-white/50">
                     <span>{post.brand} ({post.format})</span>
-                    <span className="text-[#4fc7ff] font-semibold">{isSelected ? "Selected" : "View Details &rarr;"}</span>
+                    <span className="text-[#4fc7ff] font-semibold">{isSelected ? "Selected" : "Click to Edit &rarr;"}</span>
                   </div>
                 </div>
               );
