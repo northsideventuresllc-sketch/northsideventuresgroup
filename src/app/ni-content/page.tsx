@@ -2741,7 +2741,7 @@ export default function NiContentPage() {
               </section>
             );
           })
-        )}
+        ))}
 
         {/* VIEW 3: CONTENT LABS (MARKETING ANALYSIS DATABASE) */}
         {workflowStage === "labs" && (
