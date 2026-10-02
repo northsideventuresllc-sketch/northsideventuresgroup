@@ -488,25 +488,25 @@ Run your free competitor scan today at northsideintelligence.com/signaldesk.
     notes: "Hero Post for Thursday Oct 1. Signal Desk 6-Slide Carousel. Fully compliant with canonical template, zero numeric hex codes, top-3/4 rule enforced."
   },
 
-  // 2. VIDEO: WEDNESDAY SEP 30 (SMART STORE VERTICAL REEL)
+  // 2. VIDEO: FRIDAY OCT 2 (SMART STORE VERTICAL REEL)
   {
     id: "post-smart-store",
     venture: "Northside Intelligence",
     year: 2026,
     month: "October 2026",
     weekNumber: 1,
-    day: "Wednesday",
-    date: "Wed Sep 30, 2026",
-    dayOfMonth: 30,
-    scheduledTime: "8:00 PM ET",
+    day: "Friday",
+    date: "Fri Oct 2, 2026",
+    dayOfMonth: 2,
+    scheduledTime: "5:00 PM ET",
     channel: "Store",
     slot: "Smart Store Video (Cheaper Twin)",
     brand: "Smart Store",
     format: "Video",
-    platforms: ["Instagram", "Facebook Reels"],
+    platforms: ["Instagram", "Facebook Reels", "TikTok", "YouTube Shorts"],
     title: "Smart Store: The Cheaper Twin (Minimalist Titanium Wallet)",
     hook: "Paying $98 for a piece of bent metal with a logo on it? 🛑",
-    status: "published",
+    status: "approved",
     pillar: "Tell Smart Store what you are after. It searches the whole catalog and finds a similar option for less, with picks tailored to you. Pay less for what you were already going to buy.",
     caption: `Paying $98 for a minimalist metal wallet just because someone laser-etched a logo on it? 🛑
 
@@ -525,7 +525,7 @@ Stop paying the brand tax. Pay less for what you were already going to buy.
     productionSpecs: {
       dimensionsAndFormat: "1080 x 1920 px, 9:16 vertical aspect ratio, MP4 video",
       narratorTone: "Sharp, comedic, astonished, fast-paced consumer advocate voice. No commercial jargon.",
-      sfx: "Register receipt tearing sound, rapid whip-pan, sharp click-clack mouse buttons, clean success chime.",
+      sfx: "Register receipt tearing sound (0:01), rapid whip-pan (0:03), card sliding click (0:06), clean success chime (0:08).",
       backgroundMusic: "Upbeat comedic acoustic groove with tight percussion.",
       branding: "Warm slate background, vibrant retail warning red accent tag, crisp white typography. No hex color codes.",
       references: "northsideintelligence.com/store",
@@ -536,25 +536,32 @@ Stop paying the brand tax. Pay less for what you were already going to buy.
     },
     scenes: [
       {
-        sceneNum: "Scene 1",
-        description: "Close-up of office desk. Character holding a sleek matte-black ergonomic vertical mouse next to its brand box with an eye-watering $119 receipt sticking out. Character taps side buttons with an incredulous expression.",
-        dialogue: "\"It is a piece of plastic shaped like a handshake! Why did I just pay $119?!\"",
+        sceneNum: "Scene 1 (0–3s)",
+        description: "Close-up of restaurant booth table. Character tossing $98 branded metal wallet onto table while groaning at the dinner bill and receipt.",
+        dialogue: "\"Ninety-eight dollars for two pieces of metal and an elastic band?!\"",
         narrator: "\"Stop overpaying for brand logos.\"",
-        transition: "Rapid whip pan right to smartphone screen"
+        transition: "Rapid whip pan right to dining partner across table"
       },
       {
-        sceneNum: "Scene 2",
-        description: "Over-the-shoulder view of smartphone running the Smart Store deal assistant interface. Chat bubble shows: 'Found identical ergonomic twin: 6-button, silent optical, $6.40 with free shipping.'",
-        dialogue: "\"Wait... six dollars? From the exact same factory line?\"",
-        narrator: "\"Tell Smart Store what you need. It finds the cheaper twin in seconds.\"",
-        transition: "Smooth zoom in on price confirmation card"
+        sceneNum: "Scene 2 (4–6s)",
+        description: "Friend at table pulls out the sleek matte black Smart Store identical twin wallet, effortlessly fanning out 5 cards with one smooth finger push.",
+        dialogue: "\"Bro. Stop paying the logo tax. Look at this.\"",
+        narrator: "\"Same aerospace titanium plates. Same RFID blocking.\"",
+        transition: "Macro split screen comparison"
       },
       {
-        sceneNum: "Scene 3",
-        description: "Authoritative 3D Smart Store logo emblem glows on deep slate background with prominent 'SHOP THE CHEAPER TWIN' text and clean URL northsideintelligence.com/store.",
+        sceneNum: "Scene 3 (7–8s)",
+        description: "Macro split screen. Left: retail brand $98 with big red NO tag. Right: Smart Store app checkout at $11.80 with green checkmark. Both wallets shown to be 100% physically identical.",
+        dialogue: "\"Wait... eleven dollars?!\"",
+        narrator: "\"Exact same manufacturer twin for eleven bucks on Smart Store.\"",
+        transition: "Hold 0.5s fade to clean brand card"
+      },
+      {
+        sceneNum: "Scene 4 (9–10s)",
+        description: "Friend slides wallet cleanly into front denim pocket, giving a knowing nod. Screen displays clean Smart Store deal overlay with glowing shopping bag icon.",
         dialogue: "\"Pay less for what you were already going to buy.\"",
-        narrator: "\"Shop smarter at northsideintelligence.com/store.\"",
-        transition: "Hold 0.5s fade to black"
+        narrator: "\"Shop the twin at northsideintelligence.com/store.\"",
+        transition: "Fade to black"
       }
     ],
     generatedMedia: [],
@@ -566,10 +573,10 @@ Stop paying the brand tax. Pay less for what you were already going to buy.
         type: "image",
         size: "Receipt Reference",
         source: "manual",
-        uploadedAt: "Yesterday"
+        uploadedAt: "Today"
       }
     ],
-    notes: "Published Wednesday Sep 30."
+    notes: "Approved for Friday Oct 2 Smart Store reel."
   },
 
   // 3. STATIC: FRIDAY OCT 2 (STATIC IMAGE POST - BRIDGE AI)
@@ -637,72 +644,6 @@ Start free at northsideintelligence.com/bridgeai.
     ],
     referenceMedia: [],
     notes: "Approved for manual posting Friday Oct 2."
-  },
-
-  // 4. TEXT: FRIDAY OCT 2 (PURE TEXT THOUGHT LEADERSHIP)
-  {
-    id: "post-ni-thought-leadership",
-    venture: "Northside Intelligence",
-    year: 2026,
-    month: "October 2026",
-    weekNumber: 1,
-    day: "Friday",
-    date: "Fri Oct 2, 2026",
-    dayOfMonth: 2,
-    scheduledTime: "8:00 PM ET",
-    channel: "IT",
-    slot: "Thought Leadership (Pure Text)",
-    brand: "Northside Intelligence",
-    format: "Text",
-    platforms: ["LinkedIn", "Threads", "Facebook"],
-    title: "The Death of 20-Tab Operations",
-    hook: "If your operations rely on an employee with 20 browser tabs open copy-pasting data, you do not have a workflow. You have a bottleneck. 🛑",
-    status: "draft",
-    pillar: "Underground-premium operational philosophy. Eliminating manual software gaps and replacing human glue with autonomous agentic pipelines.",
-    caption: `If your operations rely on someone having 20 browser tabs open copy-pasting data between logins, you do not have a workflow. You have a bottleneck. 🛑
-
-Here is what happens when companies scale headcount instead of connectivity:
-- Invoices drift from CRM contracts
-- Status updates get delayed by 48 hours
-- Your highest-paid talent spends 2 hours every morning being human glue
-
-The modern operator does not add another software subscription. 
-They build the bridge between the ones they already own. ⚡
-
-One autonomous pipeline. Zero manual copy-paste.
-
-What is the single most annoying manual task eating your team's Friday afternoon? 👇
-
-#Operations #WorkflowAutomation #BusinessEfficiency #Productivity #AgenticOS`,
-    hashtags: "#Operations #WorkflowAutomation #BusinessEfficiency #Productivity #AgenticOS",
-    productionSpecs: {
-      dimensionsAndFormat: "Pure plain-text feed post, zero image attachments",
-      branding: "Natural human conversational cadence, authoritative founder tone, crisp line breaks, no numeric color codes",
-      references: "northsideintelligence.com",
-      platformFormatting: "Plain text with 2–4 vibrant emojis, zero markdown bold asterisks (**)",
-      toneAndVoice: "Direct, observational, executive-level authority without hype",
-      targetPlatforms: "LinkedIn / Threads / Facebook",
-      rules: [
-        "NO MARKDOWN ASTERISKS (**) OR AI SLOP",
-        "Human cadence, authentic voice, punchy line breaks, ending in an engaging discussion question"
-      ]
-    },
-    textContent: {
-      hook: "If your operations rely on someone having 20 browser tabs open copy-pasting data, you do not have a workflow. You have a bottleneck. 🛑",
-      mainBody: `Here is what happens when companies scale headcount instead of connectivity:
-- Invoices drift from CRM contracts
-- Status updates get delayed by 48 hours
-- Your highest-paid talent spends 2 hours every morning being human glue
-
-The modern operator does not add another software subscription. 
-They build the bridge between the ones they already own. ⚡
-
-One autonomous pipeline. Zero manual copy-paste.`,
-      callToAction: "What is the single most annoying manual task eating your team's Friday afternoon? 👇"
-    },
-    generatedMedia: [],
-    referenceMedia: [],
-    notes: "Pure conversational text post. Zero visual prompts."
   }
 ];
 
@@ -763,12 +704,14 @@ export default function NiContentPage() {
   // 1. Load from localStorage on mount (with automatic migration to preserve real media)
   useEffect(() => {
     try {
-      const savedV2 = localStorage.getItem("ni_content_hub_master_v2");
-      if (savedV2) {
-        const parsed = JSON.parse(savedV2);
+      const savedV4 = localStorage.getItem("ni_content_hub_master_v4");
+      if (savedV4) {
+        const parsed = JSON.parse(savedV4);
         if (Array.isArray(parsed) && parsed.length > 0) {
+          // Filter out any obsolete post IDs (like post-ni-thought-leadership)
+          const validPosts = parsed.filter((p: ContentPost) => p.id !== "post-ni-thought-leadership");
           const merged = INITIAL_POSTS.map((initial) => {
-            const existing = parsed.find((p: ContentPost) => p.id === initial.id);
+            const existing = validPosts.find((p: ContentPost) => p.id === initial.id);
             if (!existing) return initial;
             const hasNoMedia = !existing.generatedMedia || existing.generatedMedia.length === 0;
             return {
@@ -778,27 +721,12 @@ export default function NiContentPage() {
             };
           });
           setPosts(merged);
-          localStorage.setItem("ni_content_hub_master_v2", JSON.stringify(merged));
+          localStorage.setItem("ni_content_hub_master_v4", JSON.stringify(merged));
         }
       } else {
-        const savedV1 = localStorage.getItem("ni_content_hub_master_v1");
-        if (savedV1) {
-          const parsed = JSON.parse(savedV1);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            const merged = INITIAL_POSTS.map((initial) => {
-              const existing = parsed.find((p: ContentPost) => p.id === initial.id);
-              if (!existing) return initial;
-              const hasMockMedia = !existing.generatedMedia || existing.generatedMedia.length <= 1 || (existing.generatedMedia[0]?.url && existing.generatedMedia[0].url.startsWith("data:image/svg"));
-              return {
-                ...initial,
-                ...existing,
-                generatedMedia: hasMockMedia ? initial.generatedMedia : existing.generatedMedia,
-              };
-            });
-            setPosts(merged);
-            localStorage.setItem("ni_content_hub_master_v2", JSON.stringify(merged));
-          }
-        }
+        // First visit on v4: start fresh with INITIAL_POSTS (cleanly purges stale NI Services stubs)
+        setPosts(INITIAL_POSTS);
+        localStorage.setItem("ni_content_hub_master_v4", JSON.stringify(INITIAL_POSTS));
       }
 
       const savedStrat = localStorage.getItem("ni_content_strategy_requests_v1");
@@ -815,11 +743,12 @@ export default function NiContentPage() {
 
   // Save changes to localStorage & trigger autosave flash
   const saveToStorage = (updatedPosts: ContentPost[]) => {
-    setPosts(updatedPosts);
+    const cleaned = updatedPosts.filter((p) => p.id !== "post-ni-thought-leadership");
+    setPosts(cleaned);
     setSaveFlash(true);
     setTimeout(() => setSaveFlash(false), 1200);
     try {
-      localStorage.setItem("ni_content_hub_master_v2", JSON.stringify(updatedPosts));
+      localStorage.setItem("ni_content_hub_master_v4", JSON.stringify(cleaned));
     } catch {
       // Fallback
     }
