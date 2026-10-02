@@ -20,7 +20,8 @@ export type WorkflowStage =
   | "pending"
   | "publishing"
   | "scheduled"
-  | "archives";
+  | "archives"
+  | "labs";
 
 export interface SlideSpec {
   slideNumber: string;
@@ -110,6 +111,16 @@ export interface DpmoProduct {
   offerHook: string;
   ctaUrl: string;
   conversionBenefit: string;
+}
+
+export interface StrategyRequest {
+  id: string;
+  timestamp: string;
+  pillar: string;
+  proposedChanges: string;
+  hypothesis: string;
+  priority: "Normal" | "High" | "Urgent";
+  status: "submitted" | "under_review" | "applied";
 }
 
 /* -------------------------------------------------------------------------- */
@@ -262,6 +273,60 @@ const DPMO_PRODUCTS: DpmoProduct[] = [
     offerHook: "Keeps warm leads from going cold with 1-click contextual DM follow-up replies.",
     ctaUrl: "https://northsideintelligence.com/replyflow",
     conversionBenefit: "Free 10 replies/month + unlimited operator bundles.",
+  },
+  {
+    name: "GapScan",
+    slug: "gapscan",
+    sector: "Sector 3 (IT Tools)",
+    phase: "Scale",
+    targetAudience: "Founders, Operations Directors, Agency Owners",
+    offerHook: "Find what is slowing you down. Paste how you work, get bottlenecks ranked by impact with quick fixes.",
+    ctaUrl: "https://northsideintelligence.com/gapscan",
+    conversionBenefit: "Instant operational drag diagnosis + 48-hour action plan.",
+  },
+  {
+    name: "Match Fit",
+    slug: "matchfit",
+    sector: "Sector 1A (Health & Athletic Longevity)",
+    phase: "Scale",
+    targetAudience: "Athletes, Fitness Enthusiasts, Longevity Seekers",
+    offerHook: "AI-powered biomechanical movement analysis and customized training adaptation.",
+    ctaUrl: "https://match-fit.net",
+    conversionBenefit: "Personalized movement screening + injury mitigation protocol.",
+  },
+];
+
+/* -------------------------------------------------------------------------- */
+/* STRATEGY REQUESTS INITIAL DATA (CONTENT LABS)                              */
+/* -------------------------------------------------------------------------- */
+
+const INITIAL_STRATEGY_REQUESTS: StrategyRequest[] = [
+  {
+    id: "strat-req-1",
+    timestamp: "Oct 1, 2026, 09:30 AM",
+    pillar: "Content Archetypes",
+    proposedChanges: "Expand Signal Desk coverage to include stealth hiring alerts in slide 2 and silent pricing shifts in slide 3.",
+    hypothesis: "Demonstrating specific data types increases B2B conversion intent by 40%.",
+    priority: "High",
+    status: "applied",
+  },
+  {
+    id: "strat-req-2",
+    timestamp: "Oct 1, 2026, 02:15 PM",
+    pillar: "Posting Cadence",
+    proposedChanges: "Test an 8:00 PM ET second wave for Sector 3 thought leadership text posts on LinkedIn and Threads.",
+    hypothesis: "Late evening executive scrolling shows higher comment density than morning broadcast.",
+    priority: "Normal",
+    status: "submitted",
+  },
+  {
+    id: "strat-req-3",
+    timestamp: "Oct 2, 2026, 10:00 AM",
+    pillar: "Brand & Creative Standards",
+    proposedChanges: "Enforce strict top-3/4 rule and zero numeric hex codes across all Gemini & Midjourney prompts.",
+    hypothesis: "Ensures uniform visual quality and eliminates prompt rendering hallucinations across ventures.",
+    priority: "Urgent",
+    status: "applied",
   },
 ];
 
@@ -524,7 +589,9 @@ Pay less for what you were already going to buy.
     platforms: ["LinkedIn", "Instagram", "Threads"],
     title: "BridgeAI: The Software Connection Gap",
     hook: "Most companies don't have a software problem. They have a connection problem.",
-    status: "pending",
+    status: "approved",
+    postedAt: null,
+    postingMethod: "manual",
     pillar: "Find the bridge between all your tools to optimize your workflow. Stop manual copy-paste across software stacks.",
     caption: `Most companies don't have a software problem. They have a connection problem.
 
@@ -556,9 +623,19 @@ Start free at northsideintelligence.com/bridgeai.
       mainPrompt: "High-contrast architectural software diagram for BridgeAI. Dark obsidian navy canvas with glowing electric indigo orchestration nodes connecting fragmented SaaS logos into one unified, luminous circular data conduit. A high-tech status badge reads 'Zero Manual Entry • Two-Way Sync'. High-definition studio lighting, precise geometric layout, atmospheric depth. Top headline clearly legible in upper two-thirds safe zone.",
       onScreenText: "\"Most companies don't have a software problem. They have a connection problem.\" Crisp modern sans-serif typography in titanium white with subtle electric indigo accent glow."
     },
-    generatedMedia: [],
+    generatedMedia: [
+      {
+        id: "gen-ba-1",
+        name: "bridgeai_showcase.jpg",
+        url: "https://kxijunwgbrlfzvgkhklo.supabase.co/storage/v1/object/public/content-calendar-media/ni-content/bridge-ai/2026-10-02/bridgeai-showcase.jpg",
+        type: "image",
+        size: "641 KB (1080x1440)",
+        source: "agent",
+        uploadedAt: "Today 1:37 PM"
+      }
+    ],
     referenceMedia: [],
-    notes: "Scheduled for Friday Oct 2."
+    notes: "Approved for manual posting Friday Oct 2."
   },
 
   // 4. TEXT: FRIDAY OCT 2 (PURE TEXT THOUGHT LEADERSHIP)
@@ -670,6 +747,18 @@ export default function NiContentPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const refFileInputRef = useRef<HTMLInputElement>(null);
 
+  // Collapsible Windows State (Feature 1)
+  const [collapsedPosts, setCollapsedPosts] = useState<Record<string, boolean>>({});
+
+  // Content Labs Strategy State (Feature 4)
+  const [strategyRequests, setStrategyRequests] = useState<StrategyRequest[]>(INITIAL_STRATEGY_REQUESTS);
+  const [newStrategyPillar, setNewStrategyPillar] = useState<string>("Content Archetypes");
+  const [newProposedChanges, setNewProposedChanges] = useState<string>("");
+  const [newHypothesis, setNewHypothesis] = useState<string>("");
+  const [newPriority, setNewPriority] = useState<"Normal" | "High" | "Urgent">("Normal");
+  const [labsSubTab, setLabsSubTab] = useState<"all" | "strategy" | "research" | "analytics" | "dpmo">("all");
+  const [dpmoFilterSector, setDpmoFilterSector] = useState<string>("all");
+
   // 1. Load from localStorage on mount (with automatic migration to preserve real media)
   useEffect(() => {
     try {
@@ -677,27 +766,45 @@ export default function NiContentPage() {
       if (savedV2) {
         const parsed = JSON.parse(savedV2);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          setPosts(parsed);
-          return;
-        }
-      }
-      const savedV1 = localStorage.getItem("ni_content_hub_master_v1");
-      if (savedV1) {
-        const parsed = JSON.parse(savedV1);
-        if (Array.isArray(parsed) && parsed.length > 0) {
           const merged = INITIAL_POSTS.map((initial) => {
             const existing = parsed.find((p: ContentPost) => p.id === initial.id);
             if (!existing) return initial;
-            const hasMockMedia = !existing.generatedMedia || existing.generatedMedia.length <= 1 || (existing.generatedMedia[0]?.url && existing.generatedMedia[0].url.startsWith("data:image/svg"));
+            const hasNoMedia = !existing.generatedMedia || existing.generatedMedia.length === 0;
             return {
               ...initial,
               ...existing,
-              generatedMedia: hasMockMedia ? initial.generatedMedia : existing.generatedMedia,
+              generatedMedia: hasNoMedia ? initial.generatedMedia : existing.generatedMedia,
             };
           });
           setPosts(merged);
           localStorage.setItem("ni_content_hub_master_v2", JSON.stringify(merged));
-          return;
+        }
+      } else {
+        const savedV1 = localStorage.getItem("ni_content_hub_master_v1");
+        if (savedV1) {
+          const parsed = JSON.parse(savedV1);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            const merged = INITIAL_POSTS.map((initial) => {
+              const existing = parsed.find((p: ContentPost) => p.id === initial.id);
+              if (!existing) return initial;
+              const hasMockMedia = !existing.generatedMedia || existing.generatedMedia.length <= 1 || (existing.generatedMedia[0]?.url && existing.generatedMedia[0].url.startsWith("data:image/svg"));
+              return {
+                ...initial,
+                ...existing,
+                generatedMedia: hasMockMedia ? initial.generatedMedia : existing.generatedMedia,
+              };
+            });
+            setPosts(merged);
+            localStorage.setItem("ni_content_hub_master_v2", JSON.stringify(merged));
+          }
+        }
+      }
+
+      const savedStrat = localStorage.getItem("ni_content_strategy_requests_v1");
+      if (savedStrat) {
+        const parsedStrat = JSON.parse(savedStrat);
+        if (Array.isArray(parsedStrat) && parsedStrat.length > 0) {
+          setStrategyRequests(parsedStrat);
         }
       }
     } catch {
@@ -745,9 +852,135 @@ export default function NiContentPage() {
     setTimeout(() => setToastMessage(null), 3000);
   };
 
+  // Collapsible Windows Controls (Feature 1)
+  const togglePostCollapse = (postId: string) => {
+    setCollapsedPosts((prev) => ({
+      ...prev,
+      [postId]: !prev[postId],
+    }));
+  };
+
+  const handleCollapseAll = () => {
+    const nextState: Record<string, boolean> = {};
+    postsInScope.forEach((p) => {
+      nextState[p.id] = true;
+    });
+    setCollapsedPosts(nextState);
+    showToast("✓ Collapsed all posts to compact summary bars");
+  };
+
+  const handleExpandAll = () => {
+    setCollapsedPosts({});
+    showToast("✓ Expanded all posts to full view");
+  };
+
+  // Delete Post Handler (Feature 2)
+  const handleDeletePost = (postId: string) => {
+    const target = posts.find((p) => p.id === postId);
+    if (!target) return;
+
+    if (typeof window !== "undefined") {
+      const confirmDelete = window.confirm(`Permanently delete "${target.title}"?`);
+      if (!confirmDelete) return;
+    }
+
+    const updated = posts.filter((p) => p.id !== postId);
+    saveToStorage(updated);
+    if (activeSlotId === postId) {
+      const nextActive = updated[0]?.id || "";
+      setActiveSlotId(nextActive);
+    }
+    showToast(`🗑️ Deleted post "${target.title.slice(0, 32)}..."`);
+    logLearningSignal("DELETE_POST", undefined, `Deleted post: ${target.title}`, {
+      postId: target.id,
+      brand: target.brand,
+      format: target.format,
+      status: target.status,
+    });
+  };
+
+  // Tab Transition & Stage Mover (Feature 3)
+  const handleTransitionStage = (postId: string, newStatus: ContentPost["status"]) => {
+    const timestamp = new Date().toLocaleString([], {
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    const updated = posts.map((p) => {
+      if (p.id === postId) {
+        return {
+          ...p,
+          status: newStatus,
+          approvedAt: newStatus === "approved" ? timestamp : p.approvedAt,
+          postedAt: newStatus === "published" ? timestamp : p.postedAt,
+        };
+      }
+      return p;
+    });
+
+    saveToStorage(updated);
+    const target = posts.find((p) => p.id === postId);
+    showToast(`✓ Moved "${target?.brand || "Post"}" to ${newStatus.toUpperCase()}`);
+    logLearningSignal("STAGE_TRANSITION", target?.status, newStatus, {
+      postId,
+      title: target?.title,
+      newStatus,
+      timestamp,
+    });
+  };
+
+  // Content Labs Strategy Form Submission (Feature 4b)
+  const handleSubmitStrategyRequest = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newProposedChanges.trim()) {
+      showToast("Please enter proposed strategy changes.");
+      return;
+    }
+
+    const timestamp = new Date().toLocaleString([], {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    const newReq: StrategyRequest = {
+      id: `strat-${Date.now()}`,
+      timestamp,
+      pillar: newStrategyPillar,
+      proposedChanges: newProposedChanges.trim(),
+      hypothesis: newHypothesis.trim() || "Derived from live audience signals and conversion testing.",
+      priority: newPriority,
+      status: "submitted",
+    };
+
+    const nextRequests = [newReq, ...strategyRequests];
+    setStrategyRequests(nextRequests);
+    try {
+      localStorage.setItem("ni_content_strategy_requests_v1", JSON.stringify(nextRequests));
+    } catch {
+      // Fallback
+    }
+
+    logLearningSignal("STRATEGY_EDIT_REQUEST", undefined, `Proposed strategy change for ${newStrategyPillar}`, {
+      pillar: newStrategyPillar,
+      changes: newProposedChanges,
+      hypothesis: newHypothesis,
+      priority: newPriority,
+    });
+
+    setNewProposedChanges("");
+    setNewHypothesis("");
+    showToast("✓ Strategy adjustment submitted and logged to NI-Brain!");
+  };
+
   // Filter posts based on active venture, year, month, week, or stage
   const postsInScope = posts.filter((p) => {
     if (p.venture !== activeVenture) return false;
+    if (workflowStage === "labs") return true;
     if (workflowStage === "pending") return p.status === "pending" || p.status === "draft";
     if (workflowStage === "publishing") return p.status === "approved";
     if (workflowStage === "scheduled") return p.status === "scheduled";
@@ -1001,6 +1234,17 @@ export default function NiContentPage() {
             uploadedAt: "Today 12:17 PM"
           }
         );
+      } else if (activePost.id === "post-bridge-ai" || activePost.brand === "BridgeAI") {
+        nextMedia.length = 0;
+        nextMedia.push({
+          id: "gen-ba-1",
+          name: "bridgeai_showcase.jpg",
+          url: "https://kxijunwgbrlfzvgkhklo.supabase.co/storage/v1/object/public/content-calendar-media/ni-content/bridge-ai/2026-10-02/bridgeai-showcase.jpg",
+          type: "image",
+          size: "641 KB (1080x1440)",
+          source: "agent",
+          uploadedAt: "Today 1:37 PM"
+        });
       } else if (nextMedia.length === 0) {
         nextMedia.push({
           id: `gen-${Date.now()}-1`,
@@ -1488,6 +1732,7 @@ export default function NiContentPage() {
               { id: "publishing", label: "Publishing Queue", icon: "🚀" },
               { id: "scheduled", label: "Scheduled Posts", icon: "📅" },
               { id: "archives", label: "Archives", icon: "📦" },
+              { id: "labs", label: "Content Labs", icon: "🔬" },
             ].map((tab) => {
               const isActive = workflowStage === tab.id;
               return (
@@ -1508,7 +1753,11 @@ export default function NiContentPage() {
           </div>
 
           <div className="text-[11px] text-white/40">
-            Showing <strong className="text-white">{postsInScope.length}</strong> items in scope
+            {workflowStage === "labs" ? (
+              <span className="text-[#4fc7ff] font-bold">Marketing Analysis &amp; DPMO Database</span>
+            ) : (
+              <>Showing <strong className="text-white">{postsInScope.length}</strong> items in scope</>
+            )}
           </div>
         </div>
       </div>
@@ -1576,141 +1825,392 @@ export default function NiContentPage() {
         )}
 
         {/* VIEW 2: POSTS FEED (CONTENT SCHEDULE, PENDING, PUBLISHING, SCHEDULED, ARCHIVES) */}
-        {postsInScope.length === 0 ? (
-          <div className="rounded-xl border border-white/10 bg-[#090d16] p-12 text-center space-y-3">
-            <span className="text-4xl">📭</span>
-            <h3 className="text-base font-bold text-white">No content posts in this view</h3>
-            <p className="text-xs text-white/50 max-w-md mx-auto">
-              There are currently no items under {activeVenture} for {selectedMonth} &bull; Week {selectedWeek} in the {workflowStage} stage.
-            </p>
-          </div>
-        ) : (
-          postsInScope.map((post) => {
-            const isTarget = post.id === activeSlotId;
-            return (
-              <section
-                key={post.id}
-                id={post.id}
-                className={`rounded-2xl border transition-all duration-300 p-6 space-y-6 ${
-                  isTarget
-                    ? "border-[#4fc7ff] bg-gradient-to-b from-[#0b1426] via-[#080e1b] to-[#060910] shadow-2xl shadow-[#4fc7ff]/10"
-                    : "border-white/10 bg-[#080d16] hover:border-white/20"
-                }`}
+        {workflowStage !== "impromptu" && workflowStage !== "labs" && (
+          <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-white/10 bg-[#090e17] px-4 py-2.5">
+            <div className="flex items-center gap-2 text-xs">
+              <span className="font-mono text-white/50 uppercase tracking-wider text-[11px]">Feed View:</span>
+              <span className="rounded bg-white/10 px-2 py-0.5 font-bold font-mono text-white text-[11px]">
+                {postsInScope.length} {postsInScope.length === 1 ? "Post" : "Posts"}
+              </span>
+              <span className="text-[11px] text-white/40">
+                ({Object.values(collapsedPosts).filter(Boolean).length} collapsed)
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleCollapseAll}
+                className="rounded-lg border border-white/15 bg-white/5 hover:bg-white/15 px-3 py-1.5 text-xs font-bold text-white transition flex items-center gap-1.5 cursor-pointer shadow-sm"
+                title="Collapse all post cards into compact summary bars"
               >
-                {/* POST HEADER: TITLE, SCHEDULED POSTING TIME, STATUS, GENERATE CONTROLS */}
-                <div className="flex flex-wrap items-start justify-between gap-4 border-b border-white/10 pb-4">
-                  <div className="flex-1 min-w-[320px]">
-                    <div className="flex items-center gap-2 flex-wrap mb-2">
-                      <span className="inline-block h-2.5 w-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
-                      <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#4fc7ff]">
-                        {post.slot} &bull; {post.date}
-                      </span>
-                      <span className="rounded bg-white/10 px-2 py-0.5 text-[10px] font-mono text-white/80">
-                        {post.format}
-                      </span>
+                <span>▾</span>
+                <span>Collapse All</span>
+              </button>
+              <button
+                onClick={handleExpandAll}
+                className="rounded-lg border border-[#4fc7ff]/40 bg-[#4fc7ff]/10 hover:bg-[#4fc7ff]/20 px-3 py-1.5 text-xs font-bold text-[#4fc7ff] transition flex items-center gap-1.5 cursor-pointer shadow-sm"
+                title="Expand all post cards to full view"
+              >
+                <span>▴</span>
+                <span>Expand All</span>
+              </button>
+            </div>
+          </div>
+        )}
 
-                      {/* REQUIREMENT: EXACT SCHEDULED POST TIME CLEARLY VISIBLE */}
-                      <span className="rounded bg-gradient-to-r from-amber-950/90 to-amber-900/60 border border-amber-500/50 px-2.5 py-0.5 text-[11px] font-mono font-bold text-amber-200 shadow-sm">
-                        📅 Scheduled to Post: {post.day}, {post.date} @ {post.scheduledTime}
-                      </span>
+        {workflowStage !== "impromptu" && workflowStage !== "labs" && (
+          postsInScope.length === 0 ? (
+            <div className="rounded-xl border border-white/10 bg-[#090d16] p-12 text-center space-y-3">
+              <span className="text-4xl">📭</span>
+              <h3 className="text-base font-bold text-white">No content posts in this view</h3>
+              <p className="text-xs text-white/50 max-w-md mx-auto">
+                There are currently no items under {activeVenture} for {selectedMonth} &bull; Week {selectedWeek} in the {workflowStage} stage.
+              </p>
+            </div>
+          ) : (
+            postsInScope.map((post) => {
+              const isTarget = post.id === activeSlotId;
+              const isCollapsed = !!collapsedPosts[post.id];
 
-                      {post.status === "published" && (
-                        <span className="rounded bg-purple-900/60 px-2 py-0.5 text-[10px] font-mono text-purple-300 border border-purple-700">
-                          Posted &bull; Retained 48h
-                        </span>
-                      )}
-                    </div>
-
-                    {/* EDITABLE TITLE */}
-                    <input
-                      type="text"
-                      value={post.title}
-                      onChange={(e) => handleFieldChange("title", e.target.value)}
-                      className="w-full rounded-lg border border-white/15 bg-black/50 px-3.5 py-2 text-lg font-black text-white focus:border-[#4fc7ff] focus:bg-[#0d1627] focus:outline-none transition"
-                      placeholder="Post title..."
-                    />
-
-                    {/* EDITABLE HOOK */}
-                    <div className="mt-2">
-                      <input
-                        type="text"
-                        value={post.hook}
-                        onChange={(e) => handleFieldChange("hook", e.target.value)}
-                        className="w-full rounded-md border border-white/10 bg-black/40 px-3 py-1.5 text-xs text-white/80 focus:border-[#4fc7ff] focus:bg-[#0d1627] focus:outline-none transition"
-                        placeholder="Hook line..."
-                      />
-                    </div>
-                  </div>
-
-                  {/* ACTION BAR: GENERATE BUTTONS & POSTING WORKFLOWS */}
-                  <div className="flex flex-col gap-2 items-end">
-                    <div className="flex items-center gap-2 flex-wrap justify-end">
-                      {/* MANUAL GENERATE BUTTON */}
-                      <button
-                        onClick={handleManualGenerate}
-                        className="rounded-lg border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-bold text-white hover:bg-white/20 transition flex items-center gap-1.5 cursor-pointer shadow-sm"
-                        title="Copy canonical template & run manual generation"
-                      >
-                        <span>🛠️</span>
-                        <span>Manual Generate</span>
-                      </button>
-
-                      {/* AGENT GENERATION BUTTON */}
-                      <button
-                        onClick={handleAgentGeneration}
-                        disabled={isGenerating}
-                        className="rounded-lg bg-gradient-to-r from-[#4fc7ff] to-[#00a6e6] px-3.5 py-1.5 text-xs font-bold text-black hover:brightness-110 transition flex items-center gap-1.5 cursor-pointer shadow-md shadow-[#4fc7ff]/25 disabled:opacity-50"
-                        title="Trigger automated agent generation pipeline"
-                      >
-                        <span>{isGenerating ? "⏳" : "⚡"}</span>
-                        <span>{isGenerating ? "Agent Working..." : "Agent Generation"}</span>
-                      </button>
-
-                      {/* APPROVAL TOGGLE */}
-                      {post.status !== "approved" && post.status !== "published" && (
+              if (isCollapsed) {
+                return (
+                  <section
+                    key={post.id}
+                    id={post.id}
+                    className={`rounded-2xl border transition-all duration-300 p-4 ${
+                      isTarget
+                        ? "border-[#4fc7ff]/70 bg-gradient-to-r from-[#0b1426] to-[#070b14] shadow-lg shadow-[#4fc7ff]/5"
+                        : "border-white/10 bg-[#080d16] hover:border-white/20"
+                    }`}
+                  >
+                    {/* COMPACT SUMMARY BAR */}
+                    <div className="flex flex-wrap items-center justify-between gap-4">
+                      <div className="flex items-center gap-3 min-w-[280px] flex-1">
                         <button
-                          onClick={handleApproveForPosting}
-                          className="rounded-lg border border-emerald-500/60 bg-emerald-950/80 px-3 py-1.5 text-xs font-bold text-emerald-300 hover:bg-emerald-900 transition flex items-center gap-1 cursor-pointer"
+                          onClick={() => togglePostCollapse(post.id)}
+                          className="rounded-md border border-[#4fc7ff]/40 bg-[#4fc7ff]/10 hover:bg-[#4fc7ff]/20 px-2.5 py-1 text-xs font-bold text-[#4fc7ff] transition cursor-pointer flex items-center gap-1 flex-shrink-0"
+                          title="Expand Post Details"
                         >
-                          <span>✓</span>
-                          <span>Approve for Posting</span>
+                          <span>▴ Expand</span>
                         </button>
-                      )}
-                    </div>
 
-                    {/* POSTING OPTIONS: MANUAL VS AGENTIC */}
-                    <div className="flex items-center gap-2 flex-wrap justify-end">
-                      <button
-                        onClick={handleManualPost}
-                        className="rounded-md border border-cyan-500/40 bg-cyan-950/40 px-2.5 py-1 text-[11px] font-bold text-cyan-300 hover:bg-cyan-900/60 transition flex items-center gap-1 cursor-pointer"
-                        title="Copy caption + hashtags and mark as posted"
-                      >
-                        <span>📤</span>
-                        <span>Post Manually</span>
-                      </button>
+                        <div className="space-y-0.5 flex-1 min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#4fc7ff]">
+                              {post.day} &bull; {post.slot}
+                            </span>
+                            <span className="rounded bg-white/10 px-1.5 py-0.2 font-mono text-[9px] text-white/80">
+                              {post.format}
+                            </span>
+                            <span className="rounded bg-amber-950/80 border border-amber-500/40 px-2 py-0.2 font-mono text-[10px] font-bold text-amber-300">
+                              📅 {post.day}, {post.date} @ {post.scheduledTime}
+                            </span>
+                            <span
+                              className={`rounded px-1.5 py-0.2 font-mono text-[9px] font-bold uppercase border ${
+                                post.status === "approved"
+                                  ? "bg-emerald-950/80 text-emerald-300 border-emerald-600/50"
+                                  : post.status === "published"
+                                  ? "bg-purple-950/80 text-purple-300 border-purple-600/50"
+                                  : post.status === "scheduled"
+                                  ? "bg-blue-950/80 text-blue-300 border-blue-600/50"
+                                  : post.status === "pending"
+                                  ? "bg-amber-950/80 text-amber-300 border-amber-600/50"
+                                  : "bg-gray-800/80 text-gray-300 border-gray-600/50"
+                              }`}
+                            >
+                              {post.status}
+                            </span>
+                          </div>
+                          <h4 className="text-sm font-bold text-white truncate">{post.title}</h4>
+                          <p className="text-xs text-white/60 truncate">{post.hook}</p>
+                        </div>
+                      </div>
 
-                      <div className="inline-flex items-center rounded-md border border-amber-500/40 bg-amber-950/30 text-[11px] font-bold text-amber-300">
-                        <span className="px-2 py-1 flex items-center gap-1">
-                          <span>🤖</span>
-                          <span>Agent Post:</span>
-                        </span>
+                      {/* QUICK ACTIONS IN SUMMARY BAR */}
+                      <div className="flex items-center gap-2 flex-wrap justify-end">
+                        {/* QUICK STAGE TRANSITION BUTTONS */}
+                        <div className="flex items-center gap-1">
+                          {post.status !== "pending" && (
+                            <button
+                              onClick={() => handleTransitionStage(post.id, "pending")}
+                              className="rounded bg-amber-950/60 hover:bg-amber-900 border border-amber-500/30 px-2 py-1 text-[10px] font-bold text-amber-300 transition cursor-pointer"
+                              title="Move to Pending"
+                            >
+                              Pending
+                            </button>
+                          )}
+                          {post.status !== "approved" && (
+                            <button
+                              onClick={() => handleTransitionStage(post.id, "approved")}
+                              className="rounded bg-emerald-950/60 hover:bg-emerald-900 border border-emerald-500/30 px-2 py-1 text-[10px] font-bold text-emerald-300 transition cursor-pointer"
+                              title="Approve post"
+                            >
+                              ✓ Approve
+                            </button>
+                          )}
+                          {post.status !== "scheduled" && (
+                            <button
+                              onClick={() => handleTransitionStage(post.id, "scheduled")}
+                              className="rounded bg-blue-950/60 hover:bg-blue-900 border border-blue-500/30 px-2 py-1 text-[10px] font-bold text-blue-300 transition cursor-pointer"
+                              title="Move to Scheduled Queue"
+                            >
+                              Schedule
+                            </button>
+                          )}
+                          {post.status !== "archived" && post.status !== "published" && (
+                            <button
+                              onClick={() => handleTransitionStage(post.id, "archived")}
+                              className="rounded bg-gray-800 hover:bg-gray-700 border border-gray-600 px-2 py-1 text-[10px] font-bold text-gray-300 transition cursor-pointer"
+                              title="Archive Post"
+                            >
+                              Archive
+                            </button>
+                          )}
+                          {(post.status === "archived" || post.status === "published") && (
+                            <button
+                              onClick={() => handleTransitionStage(post.id, "draft")}
+                              className="rounded bg-cyan-950/60 hover:bg-cyan-900 border border-cyan-500/30 px-2 py-1 text-[10px] font-bold text-cyan-300 transition cursor-pointer"
+                              title="Restore Post"
+                            >
+                              Restore
+                            </button>
+                          )}
+                        </div>
+
+                        {/* DELETE BUTTON */}
                         <button
-                          onClick={() => handleAgenticPost("5pm")}
-                          className="px-2 py-1 hover:bg-amber-900/60 transition border-l border-amber-500/20 cursor-pointer"
-                          title="Queue for 5:00 PM nightly window"
+                          onClick={() => handleDeletePost(post.id)}
+                          className="rounded border border-red-500/40 bg-red-950/40 hover:bg-red-900/60 px-2.5 py-1 text-xs font-bold text-red-300 transition flex items-center gap-1 cursor-pointer shadow-sm"
+                          title="Delete Post"
                         >
-                          5 PM
+                          <span>🗑️</span>
+                          <span>Delete</span>
                         </button>
+
+                        {/* EXPAND BUTTON */}
                         <button
-                          onClick={() => handleAgenticPost("8pm")}
-                          className="px-2 py-1 hover:bg-amber-900/60 transition border-l border-amber-500/20 cursor-pointer"
-                          title="Queue for 8:00 PM nightly window"
+                          onClick={() => togglePostCollapse(post.id)}
+                          className="rounded border border-[#4fc7ff]/40 bg-[#4fc7ff]/10 hover:bg-[#4fc7ff]/20 px-2.5 py-1 text-xs font-bold text-[#4fc7ff] transition cursor-pointer"
+                          title="Expand Post Editor"
                         >
-                          8 PM
+                          Open Editor &rarr;
                         </button>
                       </div>
                     </div>
-                  </div>
+                  </section>
+                );
+              }
+
+              return (
+                <section
+                  key={post.id}
+                  id={post.id}
+                  className={`rounded-2xl border transition-all duration-300 p-6 space-y-6 ${
+                    isTarget
+                      ? "border-[#4fc7ff] bg-gradient-to-b from-[#0b1426] via-[#080e1b] to-[#060910] shadow-2xl shadow-[#4fc7ff]/10"
+                      : "border-white/10 bg-[#080d16] hover:border-white/20"
+                  }`}
+                >
+                  {/* POST HEADER: TITLE, SCHEDULED POSTING TIME, STATUS, GENERATE CONTROLS */}
+                  <div className="flex flex-wrap items-start justify-between gap-4 border-b border-white/10 pb-4">
+                    <div className="flex-1 min-w-[320px]">
+                      <div className="flex items-center gap-2 flex-wrap mb-2">
+                        <span className="inline-block h-2.5 w-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                        <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#4fc7ff]">
+                          {post.slot} &bull; {post.date}
+                        </span>
+                        <span className="rounded bg-white/10 px-2 py-0.5 text-[10px] font-mono text-white/80">
+                          {post.format}
+                        </span>
+
+                        {/* REQUIREMENT: EXACT SCHEDULED POST TIME CLEARLY VISIBLE */}
+                        <span className="rounded bg-gradient-to-r from-amber-950/90 to-amber-900/60 border border-amber-500/50 px-2.5 py-0.5 text-[11px] font-mono font-bold text-amber-200 shadow-sm">
+                          📅 Scheduled to Post: {post.day}, {post.date} @ {post.scheduledTime}
+                        </span>
+
+                        {post.status === "published" && (
+                          <span className="rounded bg-purple-900/60 px-2 py-0.5 text-[10px] font-mono text-purple-300 border border-purple-700">
+                            Posted &bull; Retained 48h
+                          </span>
+                        )}
+
+                        <span
+                          className={`rounded px-2 py-0.5 text-[10px] font-mono font-bold uppercase border ${
+                            post.status === "approved"
+                              ? "bg-emerald-950/80 text-emerald-300 border-emerald-600/50"
+                              : post.status === "published"
+                              ? "bg-purple-950/80 text-purple-300 border-purple-600/50"
+                              : post.status === "scheduled"
+                              ? "bg-blue-950/80 text-blue-300 border-blue-600/50"
+                              : post.status === "pending"
+                              ? "bg-amber-950/80 text-amber-300 border-amber-600/50"
+                              : "bg-gray-800/80 text-gray-300 border-gray-600/50"
+                          }`}
+                        >
+                          {post.status}
+                        </span>
+                      </div>
+
+                      {/* EDITABLE TITLE */}
+                      <input
+                        type="text"
+                        value={post.title}
+                        onChange={(e) => handleFieldChange("title", e.target.value)}
+                        className="w-full rounded-lg border border-white/15 bg-black/50 px-3.5 py-2 text-lg font-black text-white focus:border-[#4fc7ff] focus:bg-[#0d1627] focus:outline-none transition"
+                        placeholder="Post title..."
+                      />
+
+                      {/* EDITABLE HOOK */}
+                      <div className="mt-2">
+                        <input
+                          type="text"
+                          value={post.hook}
+                          onChange={(e) => handleFieldChange("hook", e.target.value)}
+                          className="w-full rounded-md border border-white/10 bg-black/40 px-3 py-1.5 text-xs text-white/80 focus:border-[#4fc7ff] focus:bg-[#0d1627] focus:outline-none transition"
+                          placeholder="Hook line..."
+                        />
+                      </div>
+
+                      {/* QUICK STAGE TRANSITION BUTTONS IN EXPANDED HEADER */}
+                      <div className="mt-3 flex items-center gap-1.5 flex-wrap">
+                        <span className="text-[10px] font-mono text-white/40 uppercase">Move:</span>
+                        {post.status !== "pending" && (
+                          <button
+                            onClick={() => handleTransitionStage(post.id, "pending")}
+                            className="rounded bg-amber-950/70 border border-amber-500/40 px-2 py-0.5 text-[10px] font-bold text-amber-300 hover:bg-amber-900 transition cursor-pointer"
+                            title="Move to Pending Review"
+                          >
+                            ⏳ Pending
+                          </button>
+                        )}
+                        {post.status !== "approved" && (
+                          <button
+                            onClick={() => handleTransitionStage(post.id, "approved")}
+                            className="rounded bg-emerald-950/70 border border-emerald-500/40 px-2 py-0.5 text-[10px] font-bold text-emerald-300 hover:bg-emerald-900 transition cursor-pointer"
+                            title="Approve for publishing"
+                          >
+                            ✓ Approve
+                          </button>
+                        )}
+                        {post.status !== "scheduled" && (
+                          <button
+                            onClick={() => handleTransitionStage(post.id, "scheduled")}
+                            className="rounded bg-blue-950/70 border border-blue-500/40 px-2 py-0.5 text-[10px] font-bold text-blue-300 hover:bg-blue-900 transition cursor-pointer"
+                            title="Queue in Scheduled Posts"
+                          >
+                            📅 Schedule
+                          </button>
+                        )}
+                        {post.status !== "archived" && post.status !== "published" && (
+                          <button
+                            onClick={() => handleTransitionStage(post.id, "archived")}
+                            className="rounded bg-gray-800/80 border border-gray-600 px-2 py-0.5 text-[10px] font-bold text-gray-300 hover:bg-gray-700 transition cursor-pointer"
+                            title="Move to Archives"
+                          >
+                            📦 Archive
+                          </button>
+                        )}
+                        {(post.status === "archived" || post.status === "published") && (
+                          <button
+                            onClick={() => handleTransitionStage(post.id, "draft")}
+                            className="rounded bg-cyan-950/70 border border-cyan-500/40 px-2 py-0.5 text-[10px] font-bold text-cyan-300 hover:bg-cyan-900 transition cursor-pointer"
+                            title="Restore to Active Draft"
+                          >
+                            🔄 Restore
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* ACTION BAR: GENERATE BUTTONS & POSTING WORKFLOWS */}
+                    <div className="flex flex-col gap-2 items-end">
+                      <div className="flex items-center gap-2 flex-wrap justify-end">
+                        {/* COLLAPSE BUTTON */}
+                        <button
+                          onClick={() => togglePostCollapse(post.id)}
+                          className="rounded-lg border border-white/20 bg-white/10 hover:bg-white/20 px-2.5 py-1.5 text-xs font-bold text-white transition flex items-center gap-1 cursor-pointer shadow-sm"
+                          title="Collapse post into compact summary bar"
+                        >
+                          <span>▾</span>
+                          <span>Collapse</span>
+                        </button>
+
+                        {/* DELETE BUTTON */}
+                        <button
+                          onClick={() => handleDeletePost(post.id)}
+                          className="rounded-lg border border-red-500/40 bg-red-950/40 hover:bg-red-900/60 px-2.5 py-1.5 text-xs font-bold text-red-300 transition flex items-center gap-1 cursor-pointer shadow-sm"
+                          title="Delete post permanently"
+                        >
+                          <span>🗑️</span>
+                          <span>Delete</span>
+                        </button>
+
+                        {/* MANUAL GENERATE BUTTON */}
+                        <button
+                          onClick={handleManualGenerate}
+                          className="rounded-lg border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-bold text-white hover:bg-white/20 transition flex items-center gap-1.5 cursor-pointer shadow-sm"
+                          title="Copy canonical template & run manual generation"
+                        >
+                          <span>🛠️</span>
+                          <span>Manual Generate</span>
+                        </button>
+
+                        {/* AGENT GENERATION BUTTON */}
+                        <button
+                          onClick={handleAgentGeneration}
+                          disabled={isGenerating}
+                          className="rounded-lg bg-gradient-to-r from-[#4fc7ff] to-[#00a6e6] px-3.5 py-1.5 text-xs font-bold text-black hover:brightness-110 transition flex items-center gap-1.5 cursor-pointer shadow-md shadow-[#4fc7ff]/25 disabled:opacity-50"
+                          title="Trigger automated agent generation pipeline"
+                        >
+                          <span>{isGenerating ? "⏳" : "⚡"}</span>
+                          <span>{isGenerating ? "Agent Working..." : "Agent Generation"}</span>
+                        </button>
+
+                        {/* APPROVAL TOGGLE */}
+                        {post.status !== "approved" && post.status !== "published" && (
+                          <button
+                            onClick={handleApproveForPosting}
+                            className="rounded-lg border border-emerald-500/60 bg-emerald-950/80 px-3 py-1.5 text-xs font-bold text-emerald-300 hover:bg-emerald-900 transition flex items-center gap-1 cursor-pointer"
+                          >
+                            <span>✓</span>
+                            <span>Approve for Posting</span>
+                          </button>
+                        )}
+                      </div>
+
+                      {/* POSTING OPTIONS: MANUAL VS AGENTIC */}
+                      <div className="flex items-center gap-2 flex-wrap justify-end">
+                        <button
+                          onClick={handleManualPost}
+                          className="rounded-md border border-cyan-500/40 bg-cyan-950/40 px-2.5 py-1 text-[11px] font-bold text-cyan-300 hover:bg-cyan-900/60 transition flex items-center gap-1 cursor-pointer"
+                          title="Copy caption + hashtags and mark as posted"
+                        >
+                          <span>📤</span>
+                          <span>Post Manually</span>
+                        </button>
+
+                        <div className="inline-flex items-center rounded-md border border-amber-500/40 bg-amber-950/30 text-[11px] font-bold text-amber-300">
+                          <span className="px-2 py-1 flex items-center gap-1">
+                            <span>🤖</span>
+                            <span>Agent Post:</span>
+                          </span>
+                          <button
+                            onClick={() => handleAgenticPost("5pm")}
+                            className="px-2 py-1 hover:bg-amber-900/60 transition border-l border-amber-500/20 cursor-pointer"
+                            title="Queue for 5:00 PM nightly window"
+                          >
+                            5 PM
+                          </button>
+                          <button
+                            onClick={() => handleAgenticPost("8pm")}
+                            className="px-2 py-1 hover:bg-amber-900/60 transition border-l border-amber-500/20 cursor-pointer"
+                            title="Queue for 8:00 PM nightly window"
+                          >
+                            8 PM
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                 </div>
 
                 {/* AGENT PROGRESS BAR */}
@@ -2241,6 +2741,642 @@ export default function NiContentPage() {
               </section>
             );
           })
+        )}
+
+        {/* VIEW 3: CONTENT LABS (MARKETING ANALYSIS DATABASE) */}
+        {workflowStage === "labs" && (
+          <div className="space-y-8 animate-fade-in">
+            {/* LABS HERO BANNER */}
+            <div className="rounded-2xl border border-cyan-500/40 bg-gradient-to-br from-[#0c1629] via-[#080f1d] to-[#050810] p-6 shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 h-64 w-64 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
+              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span className="rounded bg-cyan-950 px-2 py-0.5 font-mono text-[10px] font-bold text-cyan-300 border border-cyan-700">
+                      STRATEGIC RADAR &amp; LABS
+                    </span>
+                    <span className="rounded bg-purple-950 px-2 py-0.5 font-mono text-[10px] font-bold text-purple-300 border border-purple-700">
+                      NI-BRAIN SYNCED
+                    </span>
+                    <span className="font-mono text-xs text-white/50">
+                      Venture: <strong className="text-[#4fc7ff]">{activeVenture}</strong>
+                    </span>
+                  </div>
+                  <h2 className="text-xl font-black text-white tracking-tight flex items-center gap-2.5">
+                    <span>🔬 Content Labs &bull; Marketing Intelligence Database</span>
+                  </h2>
+                  <p className="text-xs text-white/60 max-w-2xl mt-1">
+                    Centralized strategic intelligence, live competitor telemetry, performance analytics, and dual-process marketing architecture.
+                  </p>
+                </div>
+
+                {/* SUB-NAVIGATION PILLS */}
+                <div className="flex items-center gap-1.5 bg-black/50 p-1 rounded-lg border border-white/10 text-xs font-mono">
+                  {(
+                    [
+                      { id: "all", label: "Full Database" },
+                      { id: "strategy", label: "Current Strategy" },
+                      { id: "research", label: "Market Research" },
+                      { id: "analytics", label: "Post Analytics" },
+                      { id: "dpmo", label: "DPMO Radar" },
+                    ] as const
+                  ).map((sub) => (
+                    <button
+                      key={sub.id}
+                      onClick={() => setLabsSubTab(sub.id)}
+                      className={`px-3 py-1 rounded font-bold transition cursor-pointer ${
+                        labsSubTab === sub.id
+                          ? "bg-[#4fc7ff] text-black shadow-sm"
+                          : "text-white/60 hover:text-white hover:bg-white/5"
+                      }`}
+                    >
+                      {sub.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* STATS STRIP */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4">
+                <div className="rounded-lg bg-black/40 border border-white/10 p-3">
+                  <div className="text-[10px] font-mono text-white/50 uppercase">Active Archetypes</div>
+                  <div className="text-lg font-black text-white mt-0.5">4 Frameworks</div>
+                  <div className="text-[10px] text-cyan-400 mt-0.5">Carousel &bull; Video &bull; Text &bull; Static</div>
+                </div>
+                <div className="rounded-lg bg-black/40 border border-white/10 p-3">
+                  <div className="text-[10px] font-mono text-white/50 uppercase">Competitor Signals</div>
+                  <div className="text-lg font-black text-emerald-400 mt-0.5">3 Active Radars</div>
+                  <div className="text-[10px] text-white/60 mt-0.5">Stealth Hiring &bull; Pricing &bull; Features</div>
+                </div>
+                <div className="rounded-lg bg-black/40 border border-white/10 p-3">
+                  <div className="text-[10px] font-mono text-white/50 uppercase">Weekly Impressions</div>
+                  <div className="text-lg font-black text-[#4fc7ff] mt-0.5">148.2K Total</div>
+                  <div className="text-[10px] text-emerald-400 mt-0.5">+24% WoW Organic Reach</div>
+                </div>
+                <div className="rounded-lg bg-black/40 border border-white/10 p-3">
+                  <div className="text-[10px] font-mono text-white/50 uppercase">DPMO Venture Offerings</div>
+                  <div className="text-lg font-black text-amber-300 mt-0.5">{DPMO_PRODUCTS.length} Tracked</div>
+                  <div className="text-[10px] text-amber-400 mt-0.5">100% Phase: Scale Ready</div>
+                </div>
+              </div>
+            </div>
+
+            {/* SECTION A: CURRENT STRATEGY */}
+            {(labsSubTab === "all" || labsSubTab === "strategy") && (
+              <div className="rounded-2xl border border-white/10 bg-[#080d16] p-6 space-y-6">
+                <div className="border-b border-white/10 pb-3 flex items-center justify-between">
+                  <div>
+                    <h3 className="text-sm font-bold uppercase tracking-wider text-white flex items-center gap-2">
+                      <span>🎯 Part A: Active Strategy &amp; Execution Framework</span>
+                    </h3>
+                    <p className="text-xs text-white/50">
+                      Live content archetypes, audience parameters, and strict brand governance.
+                    </p>
+                  </div>
+                  <span className="rounded bg-white/10 px-2.5 py-0.5 text-[10px] font-mono font-bold text-white">
+                    BINDING STANDARD
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* ARCHETYPES */}
+                  <div className="rounded-xl border border-cyan-500/20 bg-black/40 p-4 space-y-3">
+                    <h4 className="text-xs font-bold text-cyan-300 uppercase tracking-wider flex items-center gap-1.5">
+                      <span>1. Active Content Archetypes</span>
+                    </h4>
+                    <div className="space-y-2 text-xs">
+                      <div className="rounded-lg border border-white/10 bg-[#0d1424] p-3 space-y-1">
+                        <div className="flex items-center justify-between font-bold text-white">
+                          <span>Educational Carousel Deep-Dives</span>
+                          <span className="rounded bg-cyan-950 px-1.5 py-0.2 text-[10px] text-cyan-300 font-mono">3:4 Ratio</span>
+                        </div>
+                        <p className="text-[11px] text-white/70">
+                          6-Slide breakdown deconstructing invisible competitor moves or software gaps. High bookmark &amp; share multiplier. (Signal Desk &bull; GapScan)
+                        </p>
+                      </div>
+
+                      <div className="rounded-lg border border-white/10 bg-[#0d1424] p-3 space-y-1">
+                        <div className="flex items-center justify-between font-bold text-white">
+                          <span>"The Cheaper Twin" Video Reels</span>
+                          <span className="rounded bg-amber-950 px-1.5 py-0.2 text-[10px] text-amber-300 font-mono">9:16 Vertical</span>
+                        </div>
+                        <p className="text-[11px] text-white/70">
+                          Fast-paced relatable consumer advocacy skits comparing retail markup ($119) to factory-direct Smart Store deal ($6.40). (Smart Store)
+                        </p>
+                      </div>
+
+                      <div className="rounded-lg border border-white/10 bg-[#0d1424] p-3 space-y-1">
+                        <div className="flex items-center justify-between font-bold text-white">
+                          <span>Operational Thought Leadership</span>
+                          <span className="rounded bg-purple-950 px-1.5 py-0.2 text-[10px] text-purple-300 font-mono">Pure Text</span>
+                        </div>
+                        <p className="text-[11px] text-white/70">
+                          Observational, zero-fluff takes on eliminating human glue in operations. Zero markdown asterisks. Ends in engaging discussion query. (Northside)
+                        </p>
+                      </div>
+
+                      <div className="rounded-lg border border-white/10 bg-[#0d1424] p-3 space-y-1">
+                        <div className="flex items-center justify-between font-bold text-white">
+                          <span>Interactive Architecture Graphics</span>
+                          <span className="rounded bg-emerald-950 px-1.5 py-0.2 text-[10px] text-emerald-300 font-mono">Static 3:4</span>
+                        </div>
+                        <p className="text-[11px] text-white/70">
+                          High-contrast diagrams showcasing two-way automated data pipelines replacing 20 open browser tabs. (BridgeAI)
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* AUDIENCE & SCHEDULE */}
+                  <div className="space-y-4">
+                    <div className="rounded-xl border border-white/10 bg-black/40 p-4 space-y-2.5">
+                      <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                        <span>2. Audience Parameters</span>
+                      </h4>
+                      <div className="space-y-2 text-xs">
+                        <div className="p-2.5 rounded bg-white/5 border border-white/5">
+                          <strong className="text-[#4fc7ff] block">Founders, COOs &amp; B2B Operators (Sector 3 IT):</strong>
+                          <span className="text-[11px] text-white/70 leading-relaxed block mt-0.5">
+                            Pain points: Manual copy-paste, 20 open browser tabs, falling 3 months behind stealth competitor product shifts. Motivated by operational leverage and autonomous pipelines.
+                          </span>
+                        </div>
+                        <div className="p-2.5 rounded bg-white/5 border border-white/5">
+                          <strong className="text-amber-300 block">Smart Shoppers &amp; Tech Enthusiasts (Sector 4 Store):</strong>
+                          <span className="text-[11px] text-white/70 leading-relaxed block mt-0.5">
+                            Pain points: Egregious brand markups on identical factory electronics and desk accessories. Motivated by 70–90% savings on high-utility viral products.
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="rounded-xl border border-white/10 bg-black/40 p-4 space-y-2.5">
+                      <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                        <span>3. Cadence &amp; Quality Governance</span>
+                      </h4>
+                      <div className="grid grid-cols-2 gap-2 text-xs">
+                        <div className="p-2 rounded bg-cyan-950/30 border border-cyan-800/40">
+                          <span className="font-mono text-[10px] text-cyan-300 font-bold block">IT Cadence</span>
+                          <span className="text-white font-bold text-xs">Mon–Fri @ 5:00 PM ET</span>
+                          <span className="text-[10px] text-white/50 block">LinkedIn + IG</span>
+                        </div>
+                        <div className="p-2 rounded bg-amber-950/30 border border-amber-800/40">
+                          <span className="font-mono text-[10px] text-amber-300 font-bold block">Smart Store Cadence</span>
+                          <span className="text-white font-bold text-xs">M/W/F @ 8:00 PM ET</span>
+                          <span className="text-[10px] text-white/50 block">IG + FB Reels</span>
+                        </div>
+                      </div>
+                      <div className="text-[11px] text-emerald-400 font-mono bg-emerald-950/30 border border-emerald-800/40 p-2 rounded">
+                        ✓ Quality Standard: Zero numeric hex codes in prompts &bull; Top 3/4 content safe zone &bull; Zero AI slop / fake words &bull; Strict Zero Twitter rule.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* SECTION B: REQUEST TO EDIT STRATEGY */}
+            {(labsSubTab === "all" || labsSubTab === "strategy") && (
+              <div className="rounded-2xl border border-cyan-500/30 bg-gradient-to-br from-[#091122] to-[#070b14] p-6 space-y-6 shadow-xl">
+                <div className="border-b border-white/10 pb-3 flex items-center justify-between">
+                  <div>
+                    <h3 className="text-sm font-bold uppercase tracking-wider text-white flex items-center gap-2">
+                      <span>✏️ Part B: Request to Edit Strategy (Interactive Proposal Form)</span>
+                    </h3>
+                    <p className="text-xs text-white/50">
+                      Submit strategy adjustments, update strategy state, and automatically log learnings to NI-Brain.
+                    </p>
+                  </div>
+                  <span className="rounded bg-cyan-950 px-2.5 py-0.5 text-[10px] font-mono font-bold text-cyan-300 border border-cyan-700">
+                    NI-BRAIN WRITE-BACK
+                  </span>
+                </div>
+
+                <form onSubmit={handleSubmitStrategyRequest} className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-xs font-bold text-white/80 block mb-1 uppercase font-mono">
+                        Strategy Pillar / Area:
+                      </label>
+                      <select
+                        value={newStrategyPillar}
+                        onChange={(e) => setNewStrategyPillar(e.target.value)}
+                        className="w-full rounded-lg border border-white/15 bg-black/60 px-3 py-2 text-xs font-bold text-[#4fc7ff] focus:border-[#4fc7ff] focus:outline-none"
+                      >
+                        <option value="Content Archetypes">Content Archetypes</option>
+                        <option value="Audience Parameters">Audience Parameters</option>
+                        <option value="Posting Cadence">Posting Cadence &amp; Time Slots</option>
+                        <option value="Brand &amp; Creative Standards">Brand &amp; Creative Standards</option>
+                        <option value="DPMO Phase Transition">DPMO Phase Transition</option>
+                        <option value="Conversion Hooks &amp; CTAs">Conversion Hooks &amp; CTAs</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="text-xs font-bold text-white/80 block mb-1 uppercase font-mono">
+                        Priority Level:
+                      </label>
+                      <select
+                        value={newPriority}
+                        onChange={(e) => setNewPriority(e.target.value as any)}
+                        className="w-full rounded-lg border border-white/15 bg-black/60 px-3 py-2 text-xs font-bold text-amber-300 focus:border-[#4fc7ff] focus:outline-none"
+                      >
+                        <option value="Normal">Normal — Standard Iteration</option>
+                        <option value="High">High — Immediate A/B Test</option>
+                        <option value="Urgent">Urgent — Live Cadence Adjustment</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-bold text-white/80 block mb-1 uppercase font-mono">
+                      Proposed Strategy Adjustments:
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={newProposedChanges}
+                      onChange={(e) => setNewProposedChanges(e.target.value)}
+                      placeholder="Specify exact change (e.g. Add 2nd slide hook emphasizing stealth hiring; introduce video format for BridgeAI...)"
+                      className="w-full rounded-lg border border-white/15 bg-black/60 p-3 text-xs text-white leading-relaxed font-sans focus:border-[#4fc7ff] focus:outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-bold text-cyan-300 block mb-1 uppercase font-mono">
+                      Strategic Hypothesis &amp; Expected Impact:
+                    </label>
+                    <textarea
+                      rows={2}
+                      value={newHypothesis}
+                      onChange={(e) => setNewHypothesis(e.target.value)}
+                      placeholder="Why will this change improve performance? (e.g. Direct pricing comparison doubles video retention beyond 3 seconds...)"
+                      className="w-full rounded-lg border border-cyan-800/50 bg-cyan-950/20 p-2.5 text-xs text-cyan-200 leading-relaxed font-sans focus:border-[#4fc7ff] focus:outline-none"
+                    />
+                  </div>
+
+                  <div className="flex justify-end">
+                    <button
+                      type="submit"
+                      className="rounded-lg bg-gradient-to-r from-[#4fc7ff] to-[#009bd6] px-5 py-2 text-xs font-bold text-black hover:brightness-110 transition cursor-pointer shadow-lg shadow-[#4fc7ff]/20 flex items-center gap-1.5"
+                    >
+                      <span>🚀 Submit Strategy Request &amp; Log to NI-Brain</span>
+                    </button>
+                  </div>
+                </form>
+
+                {/* STRATEGY PROPOSALS LOG */}
+                <div className="pt-2 border-t border-white/10 space-y-3">
+                  <div className="flex items-center justify-between text-xs font-mono">
+                    <span className="text-white/60 font-bold uppercase">Logged Strategy Proposals ({strategyRequests.length}):</span>
+                    <span className="text-[10px] text-white/40">Real-time sync to NI-Brain</span>
+                  </div>
+
+                  <div className="space-y-2">
+                    {strategyRequests.map((req) => (
+                      <div
+                        key={req.id}
+                        className="rounded-lg border border-white/10 bg-black/40 p-3 text-xs space-y-1.5 hover:border-white/20 transition"
+                      >
+                        <div className="flex items-center justify-between flex-wrap gap-2">
+                          <div className="flex items-center gap-2">
+                            <span className="font-bold text-[#4fc7ff]">{req.pillar}</span>
+                            <span className="text-[10px] font-mono text-white/40">&bull; {req.timestamp}</span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <span
+                              className={`rounded px-1.5 py-0.2 font-mono text-[9px] font-bold uppercase border ${
+                                req.priority === "Urgent"
+                                  ? "bg-red-950/80 text-red-300 border-red-700"
+                                  : req.priority === "High"
+                                  ? "bg-amber-950/80 text-amber-300 border-amber-700"
+                                  : "bg-blue-950/80 text-blue-300 border-blue-700"
+                              }`}
+                            >
+                              {req.priority}
+                            </span>
+                            <span
+                              className={`rounded px-1.5 py-0.2 font-mono text-[9px] font-bold uppercase border ${
+                                req.status === "applied"
+                                  ? "bg-emerald-950/80 text-emerald-300 border-emerald-700"
+                                  : "bg-cyan-950/80 text-cyan-300 border-cyan-700"
+                              }`}
+                            >
+                              {req.status.replace("_", " ")}
+                            </span>
+                          </div>
+                        </div>
+                        <p className="text-white/90 text-[11px] leading-relaxed">{req.proposedChanges}</p>
+                        <p className="text-cyan-300/80 text-[10px] font-mono">Hypothesis: {req.hypothesis}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* SECTION C: DAILY MARKET RESEARCH */}
+            {(labsSubTab === "all" || labsSubTab === "research") && (
+              <div className="rounded-2xl border border-white/10 bg-[#080d16] p-6 space-y-6">
+                <div className="border-b border-white/10 pb-3 flex items-center justify-between">
+                  <div>
+                    <h3 className="text-sm font-bold uppercase tracking-wider text-white flex items-center gap-2">
+                      <span>📡 Part C: Daily Market Research &amp; Competitor Radar</span>
+                    </h3>
+                    <p className="text-xs text-white/50">
+                      Live competitive intelligence, industry macro shifts, and discovery hashtag radar.
+                    </p>
+                  </div>
+                  <span className="rounded bg-emerald-950 px-2.5 py-0.5 text-[10px] font-mono font-bold text-emerald-300 border border-emerald-800">
+                    REAL-TIME SIGNALS
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                  {/* COMPETITOR SIGNALS */}
+                  <div className="rounded-xl border border-white/10 bg-black/40 p-4 space-y-3">
+                    <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                      <span>🕵️ Competitor Radar</span>
+                    </h4>
+                    <div className="space-y-2.5 text-xs">
+                      <div className="p-3 rounded-lg bg-[#0d1527] border border-amber-500/30 space-y-1">
+                        <div className="flex items-center justify-between font-bold text-white">
+                          <span>Enterprise Workflow Tools</span>
+                          <span className="text-[10px] text-amber-400 font-mono">High Threat</span>
+                        </div>
+                        <p className="text-[11px] text-white/70">
+                          Quietly raised seat minimums by 22% and restricted custom webhook limits.
+                        </p>
+                        <div className="text-[10px] font-mono text-emerald-400 pt-1">
+                          Counter-Move: BridgeAI &bull; "Zero per-seat tax &bull; Two-way sync"
+                        </div>
+                      </div>
+
+                      <div className="p-3 rounded-lg bg-[#0d1527] border border-cyan-500/30 space-y-1">
+                        <div className="flex items-center justify-between font-bold text-white">
+                          <span>B2B Intelligence Radars</span>
+                          <span className="text-[10px] text-cyan-400 font-mono">Moderate</span>
+                        </div>
+                        <p className="text-[11px] text-white/70">
+                          Hired 6 LLM research engineers to build automated company profile scrapers.
+                        </p>
+                        <div className="text-[10px] font-mono text-emerald-400 pt-1">
+                          Counter-Move: Signal Desk &bull; "2-minute ranked executive briefs vs 20 tabs"
+                        </div>
+                      </div>
+
+                      <div className="p-3 rounded-lg bg-[#0d1527] border border-purple-500/30 space-y-1">
+                        <div className="flex items-center justify-between font-bold text-white">
+                          <span>Dropship Marketplaces</span>
+                          <span className="text-[10px] text-purple-400 font-mono">Opportunity</span>
+                        </div>
+                        <p className="text-[11px] text-white/70">
+                          Customer friction spiking on low-grade unvetted consumer electronics.
+                        </p>
+                        <div className="text-[10px] font-mono text-emerald-400 pt-1">
+                          Counter-Move: Smart Store &bull; "Top 10 curated factory twins daily"
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* INDUSTRY TRENDS */}
+                  <div className="rounded-xl border border-white/10 bg-black/40 p-4 space-y-3">
+                    <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                      <span>📈 Industry Trends</span>
+                    </h4>
+                    <div className="space-y-2.5 text-xs">
+                      <div className="p-3 rounded-lg bg-white/5 border border-white/5 space-y-1">
+                        <div className="font-bold text-[#4fc7ff]">The Death of Human Glue</div>
+                        <p className="text-[11px] text-white/70">
+                          Companies are eliminating manual data handoffs between SaaS silos and shifting to autonomous agents.
+                        </p>
+                      </div>
+
+                      <div className="p-3 rounded-lg bg-white/5 border border-white/5 space-y-1">
+                        <div className="font-bold text-[#4fc7ff]">Slide-First B2B Engagement</div>
+                        <p className="text-[11px] text-white/70">
+                          LinkedIn and Instagram algorithms heavily prioritize multi-slide carousels, yielding 3.2x bookmark rate over single images.
+                        </p>
+                      </div>
+
+                      <div className="p-3 rounded-lg bg-white/5 border border-white/5 space-y-1">
+                        <div className="font-bold text-[#4fc7ff]">Deadpan Consumer Advocacy</div>
+                        <p className="text-[11px] text-white/70">
+                          High-production retail ads see 70% drop-off in 2s; relatable deadpan comedic product deconstructions hold 80%+ audience retention.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* HASHTAG INSIGHTS */}
+                  <div className="rounded-xl border border-white/10 bg-black/40 p-4 space-y-3">
+                    <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                      <span>#️⃣ Hashtag Radar &amp; Discovery</span>
+                    </h4>
+                    <div className="space-y-1.5 text-xs font-mono">
+                      {[
+                        { tag: "#CompetitiveIntelligence", cat: "B2B Strategy", intent: "Extreme (98%)", momentum: "+42%" },
+                        { tag: "#WorkflowAutomation", cat: "Operations", intent: "High (92%)", momentum: "+28%" },
+                        { tag: "#SmartShopping", cat: "Consumer Deals", intent: "High (89%)", momentum: "+64%" },
+                        { tag: "#Operations", cat: "Executive", intent: "High (85%)", momentum: "+15%" },
+                        { tag: "#AgenticOS", cat: "Tech Innovation", intent: "Extreme (95%)", momentum: "+88%" },
+                      ].map((ht) => (
+                        <div
+                          key={ht.tag}
+                          className="flex items-center justify-between p-2 rounded bg-white/5 border border-white/5"
+                        >
+                          <div>
+                            <span className="text-[#4fc7ff] font-bold block">{ht.tag}</span>
+                            <span className="text-[10px] text-white/40">{ht.cat}</span>
+                          </div>
+                          <div className="text-right">
+                            <span className="text-emerald-400 text-[11px] font-bold block">{ht.momentum}</span>
+                            <span className="text-[10px] text-white/50">{ht.intent}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* SECTION D: POST ANALYTICS & CONCLUSIONS */}
+            {(labsSubTab === "all" || labsSubTab === "analytics") && (
+              <div className="rounded-2xl border border-white/10 bg-[#080d16] p-6 space-y-6">
+                <div className="border-b border-white/10 pb-3 flex items-center justify-between">
+                  <div>
+                    <h3 className="text-sm font-bold uppercase tracking-wider text-white flex items-center gap-2">
+                      <span>📊 Part D: Post Analytics, Performance Metrics &amp; Takeaways</span>
+                    </h3>
+                    <p className="text-xs text-white/50">
+                      Cross-format comparison, conversion rates, and evidence-backed conclusions.
+                    </p>
+                  </div>
+                  <span className="rounded bg-cyan-950 px-2.5 py-0.5 text-[10px] font-mono font-bold text-cyan-300 border border-cyan-700">
+                    VERIFIED DATA
+                  </span>
+                </div>
+
+                {/* FORMAT COMPARISON MATRIX */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="rounded-xl border border-cyan-500/40 bg-gradient-to-b from-cyan-950/40 to-black/40 p-4 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-white text-xs">Carousel Format</span>
+                      <span className="text-[10px] font-mono text-cyan-300 bg-cyan-950 px-2 py-0.5 rounded">Top B2B</span>
+                    </div>
+                    <div className="text-2xl font-black text-white">62.4K</div>
+                    <div className="text-[11px] text-cyan-400 font-mono">7.8% Engagement &bull; 3.4x Saves</div>
+                    <p className="text-[11px] text-white/70 leading-relaxed pt-1">
+                      Highest bookmarking rate across all platforms. Optimal vehicle for Signal Desk and GapScan deep dives.
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-amber-500/40 bg-gradient-to-b from-amber-950/40 to-black/40 p-4 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-white text-xs">Video Reels</span>
+                      <span className="text-[10px] font-mono text-amber-300 bg-amber-950 px-2 py-0.5 rounded">Viral Reach</span>
+                    </div>
+                    <div className="text-2xl font-black text-white">58.1K</div>
+                    <div className="text-[11px] text-amber-400 font-mono">5.2% Engagement &bull; 5.8x Reach</div>
+                    <p className="text-[11px] text-white/70 leading-relaxed pt-1">
+                      Delivers exponential non-follower discovery. Essential format for Smart Store price comparison skits.
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-purple-500/40 bg-gradient-to-b from-purple-950/40 to-black/40 p-4 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-white text-xs">Pure Text</span>
+                      <span className="text-[10px] font-mono text-purple-300 bg-purple-950 px-2 py-0.5 rounded">Top Inbound</span>
+                    </div>
+                    <div className="text-2xl font-black text-white">16.5K</div>
+                    <div className="text-[11px] text-purple-400 font-mono">8.9% Engagement &bull; 12.1% Comments</div>
+                    <p className="text-[11px] text-white/70 leading-relaxed pt-1">
+                      Drives the highest direct reply rate and DM inbound pipeline. Best for founder philosophical insights.
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-emerald-500/40 bg-gradient-to-b from-emerald-950/40 to-black/40 p-4 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-white text-xs">Static Graphics</span>
+                      <span className="text-[10px] font-mono text-emerald-300 bg-emerald-950 px-2 py-0.5 rounded">High Authority</span>
+                    </div>
+                    <div className="text-2xl font-black text-white">11.2K</div>
+                    <div className="text-[11px] text-emerald-400 font-mono">3.8% Engagement &bull; 1.8x Shares</div>
+                    <p className="text-[11px] text-white/70 leading-relaxed pt-1">
+                      Ideal for clean high-contrast architecture schematics and data conduit flowcharts (BridgeAI).
+                    </p>
+                  </div>
+                </div>
+
+                {/* STRATEGIC TAKEAWAYS */}
+                <div className="rounded-xl border border-white/10 bg-black/40 p-4 space-y-2.5">
+                  <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                    <span>💡 Core Analytical Conclusions &bull; Operator Learnings</span>
+                  </h4>
+                  <ul className="space-y-2 text-xs text-white/80">
+                    <li className="flex items-start gap-2">
+                      <span className="text-cyan-400 font-bold">&bull;</span>
+                      <span><strong>Slide 1 Hook Restraint:</strong> Headline copy under 14 words with dramatic contrast improves slide-2 swipe-through rate by 38%.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-amber-400 font-bold">&bull;</span>
+                      <span><strong>Immediate Price Shock in Video:</strong> Displaying the extreme price discrepancy ($119 vs $6.40) within the first 1.8s boosts video retention past 8 seconds by 61%.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-purple-400 font-bold">&bull;</span>
+                      <span><strong>Anti-AI Slop Enforcement:</strong> Notes adhering to the zero-asterisk rule and pure human cadence generate 4.2x more founder commentary than templated marketing bullet points.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            )}
+
+            {/* SECTION E: DPMO DATABASE */}
+            {(labsSubTab === "all" || labsSubTab === "dpmo") && (
+              <div className="rounded-2xl border border-white/10 bg-[#080d16] p-6 space-y-6">
+                <div className="border-b border-white/10 pb-3 flex items-center justify-between flex-wrap gap-2">
+                  <div>
+                    <h3 className="text-sm font-bold uppercase tracking-wider text-white flex items-center gap-2">
+                      <span>🗄️ Part E: Dual Process Marketing &amp; Outreach (DPMO) Database</span>
+                    </h3>
+                    <p className="text-xs text-white/50">
+                      Phase tracking (Plan &bull; Build &bull; Execute &bull; Scale), value hooks, target audiences, and conversion architecture.
+                    </p>
+                  </div>
+
+                  {/* SECTOR FILTER */}
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-white/40 font-mono">Sector:</span>
+                    <select
+                      value={dpmoFilterSector}
+                      onChange={(e) => setDpmoFilterSector(e.target.value)}
+                      className="rounded border border-white/15 bg-black/60 px-2.5 py-1 text-xs font-bold text-[#4fc7ff] focus:outline-none cursor-pointer"
+                    >
+                      <option value="all">All Sectors</option>
+                      <option value="Sector 3 (IT Tools)">Sector 3 (IT Tools)</option>
+                      <option value="Sector 4 (Autonomous Dropship)">Sector 4 (Autonomous Dropship)</option>
+                      <option value="Sector 1A (Health & Athletic Longevity)">Sector 1A (Health)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {DPMO_PRODUCTS.filter(
+                    (prod) => dpmoFilterSector === "all" || prod.sector === dpmoFilterSector
+                  ).map((prod) => (
+                    <div
+                      key={prod.slug}
+                      className="rounded-xl border border-white/10 bg-black/40 p-4 space-y-3 hover:border-[#4fc7ff]/60 transition"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h4 className="text-sm font-bold text-white">{prod.name}</h4>
+                          <span className="text-[10px] font-mono text-white/50">{prod.sector}</span>
+                        </div>
+                        <span className="text-[10px] font-mono font-bold text-cyan-300 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/60">
+                          {prod.phase}
+                        </span>
+                      </div>
+
+                      <div className="space-y-1 text-xs">
+                        <div className="text-[10px] font-mono text-white/40 uppercase">Target Audience:</div>
+                        <p className="text-[11px] text-white/80">{prod.targetAudience}</p>
+                      </div>
+
+                      <div className="space-y-1 text-xs">
+                        <div className="text-[10px] font-mono text-cyan-400 uppercase">Core Value Hook:</div>
+                        <p className="text-[11px] text-white/90 leading-relaxed font-medium">{prod.offerHook}</p>
+                      </div>
+
+                      <div className="text-[10px] font-mono text-emerald-400 bg-emerald-950/30 p-2 rounded border border-emerald-900/40">
+                        Conversion: {prod.conversionBenefit}
+                      </div>
+
+                      <div className="pt-1 flex items-center justify-between">
+                        <a
+                          href={prod.ctaUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-xs font-bold text-[#4fc7ff] hover:underline"
+                        >
+                          Visit Page &rarr;
+                        </a>
+                        <button
+                          onClick={() => {
+                            showToast(`Copied conversion link for ${prod.name}!`);
+                            navigator.clipboard.writeText(prod.ctaUrl);
+                          }}
+                          className="text-[10px] font-mono text-white/60 hover:text-white cursor-pointer"
+                        >
+                          Copy URL
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         )}
 
         {/* BOTTOM SECTION: DPMO FRAMEWORK & MATCH FIT CONTENT CALENDAR LINK */}
