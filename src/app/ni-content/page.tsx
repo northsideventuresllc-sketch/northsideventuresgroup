@@ -500,35 +500,31 @@ Run your free competitor scan today at northsideintelligence.com/signaldesk.
     dayOfMonth: 2,
     scheduledTime: "5:00 PM ET",
     channel: "Store",
-    slot: "Smart Store Video (Cheaper Twin)",
+    slot: "Smart Store Video (Condensed Metal Wallet)",
     brand: "Smart Store",
     format: "Video",
     platforms: ["Instagram", "Facebook Reels", "TikTok", "YouTube Shorts"],
-    title: "Smart Store: The Cheaper Twin (Minimalist Titanium Wallet)",
-    hook: "Paying $98 for a piece of bent metal with a logo on it? 🛑",
+    title: "Smart Store: The Restaurant Bill Drop (Condensed Metal Wallet)",
+    hook: "Ugh, I spent one hundred dollars on this thing, why can't anything work?",
     status: "approved",
-    pillar: "Tell Smart Store what you are after. It searches the whole catalog and finds a similar option for less, with picks tailored to you. Pay less for what you were already going to buy.",
-    caption: `Paying $98 for a minimalist metal wallet just because someone laser-etched a logo on it? 🛑
+    pillar: "Tell Smart Store what you want. It searches verified manufacturer catalogs and delivers high-capacity condensed metal builds for $29.99 instead of $100. Pay less for what you were already going to buy.",
+    caption: `Spent $100 on a metal wallet just to fight it every time the check arrives? 🛑
 
-Tell Smart Store what you are after. It searches verified manufacturer catalogs and delivers the exact same build for a fraction of the cost.
+Tell Smart Store what you want. It searches verified manufacturer catalogs and delivers high-capacity condensed metal builds for $29.99 instead of $100.
 
-Same aerospace-grade aluminum and titanium plates.
-Same dual-track RFID blocking.
-Same spring steel cash clip and 12-card expansion elastic.
+Tight space. Fits cards without sticking. Zero brand tax.
 
-$11.80 on Smart Store vs $98 retail.
+$29.99 on Smart Store vs $100 retail.
 
-Stop paying the brand tax. Pay less for what you were already going to buy.
-
-👉 Tap the link in bio or browse deals at northsideintelligence.com/store.`,
-    hashtags: "#SmartStore #CheaperTwin #ShoppingHacks #DealsFinder #EDCGear #TechDeals #SaveMoney",
+👉 Order yours now at northsideintelligence.com/store.`,
+    hashtags: "#SmartStore #ShoppingHacks #DealsFinder #EDCGear #SaveMoney #TechDeals #RestaurantHacks",
     productionSpecs: {
       dimensionsAndFormat: "1080 x 1920 px, 9:16 vertical aspect ratio, MP4 video",
-      narratorTone: "Sharp, comedic, astonished, fast-paced consumer advocate voice. No commercial jargon.",
+      narratorTone: "Direct, observational, comedic storytelling tone with natural sound effects and fast pacing.",
       sfx: "Register receipt tearing sound (0:01), rapid whip-pan (0:03), card sliding click (0:06), clean success chime (0:08).",
       backgroundMusic: "Upbeat comedic acoustic groove with tight percussion.",
-      branding: "Warm slate background, vibrant retail warning red accent tag, crisp white typography. No hex color codes.",
-      references: "northsideintelligence.com/store",
+      branding: "Dark background with 3D Northside Intelligence logo, neon blue letters flickering 'Smart Store', no numeric hex codes.",
+      references: "northsideintelligence.com/store | attached images (one for the UI on the phone and one for the end card)",
       rules: [
         "All important content stays in top 3/4 of frame",
         "ALL ON SCREEN TEXT ON A SMARTPHONE OR A COMPUTER MUST BE LEGIBLE TEXT CONSTRUCTION HOW IT WOULD SHOW UP ON A REAL APP. NO 'AI SLOP', FAKE NAMES, FAKE LETTERS, AND FAKE WORDS. ALL THE TEXT ON SCREENS IN THE IMAGES SHOULD LOOK HOW THEY SHOULD IN REAL LIFE!"
@@ -537,30 +533,30 @@ Stop paying the brand tax. Pay less for what you were already going to buy.
     scenes: [
       {
         sceneNum: "Scene 1 (0–3s)",
-        description: "Close-up of restaurant booth table. Character tossing $98 branded metal wallet onto table while groaning at the dinner bill and receipt.",
-        dialogue: "\"Ninety-eight dollars for two pieces of metal and an elastic band?!\"",
-        narrator: "\"Stop overpaying for brand logos.\"",
-        transition: "Rapid whip pan right to dining partner across table"
+        description: "Wide shot of a woman (caucasian, late 20s, brunette, long wavy hair) in a restaurant as a waiter (dressed in waiter attire, caucasian with a crew cut, and a slim body) is walking away from the table as he has set down the bill. Jumps to close-up of in the restaurant booth table view with the woman pulling out her purse to get her wallet. She gets her wallet out (made of metal built to hold lots of cards condensed in a tight space). She tries to pull a credit card out and is struggling to get it out because it is stuck letting out grunts of frustration. Cuts to a wider shot of her getting out of the booth, screaming, and throwing the wallet out of the frame.",
+        dialogue: "\"Ugh, I spent one hundred dollars on this thing, why can't anything work?\"",
+        narrator: "",
+        transition: "Rapid whip pan right to the same waiter carrying a tray of dirty dishes"
       },
       {
-        sceneNum: "Scene 2 (4–6s)",
-        description: "Friend at table pulls out the sleek matte black Smart Store identical twin wallet, effortlessly fanning out 5 cards with one smooth finger push.",
-        dialogue: "\"Bro. Stop paying the logo tax. Look at this.\"",
-        narrator: "\"Same aerospace titanium plates. Same RFID blocking.\"",
-        transition: "Macro split screen comparison"
+        sceneNum: "Scene 2 (4–5s)",
+        description: "The metal wallet hits the waiter in the head as he screams in pain and drops the tray of food he is holding.",
+        dialogue: "*screams in pain as tray drops*",
+        narrator: "",
+        transition: "Rapid whip pan right to another woman sitting at the bar in the restaurant"
       },
       {
-        sceneNum: "Scene 3 (7–8s)",
-        description: "Macro split screen. Left: retail brand $98 with big red NO tag. Right: Smart Store app checkout at $11.80 with green checkmark. Both wallets shown to be 100% physically identical.",
-        dialogue: "\"Wait... eleven dollars?!\"",
-        narrator: "\"Exact same manufacturer twin for eleven bucks on Smart Store.\"",
-        transition: "Hold 0.5s fade to clean brand card"
+        sceneNum: "Scene 3 (6–8s)",
+        description: "Woman is sitting cross legged (30s, mixed black/white, with curly poofy hair), with a wine glass on the table behind her with her smartphone out. She looks down at her smart phone and makes a remark in a snarky tone. Cuts to over the shoulder view of a metal wallet meant to fit lots of cards in a condensed space for $29.99. An notification pops on her phone that says 'ORDERED'.",
+        dialogue: "\"She should've used the smart store.\"",
+        narrator: "",
+        transition: "Transition fade to clean brand card"
       },
       {
         sceneNum: "Scene 4 (9–10s)",
-        description: "Friend slides wallet cleanly into front denim pocket, giving a knowing nod. Screen displays clean Smart Store deal overlay with glowing shopping bag icon.",
-        dialogue: "\"Pay less for what you were already going to buy.\"",
-        narrator: "\"Shop the twin at northsideintelligence.com/store.\"",
+        description: "Dark background with a 3D eye catching rendering of the Northside Intelligence logo with neon blue letters flickering saying 'Smart Store' and the link under 'northsideintelligence.com/store.'",
+        dialogue: "",
+        narrator: "",
         transition: "Fade to black"
       }
     ],
@@ -568,15 +564,24 @@ Stop paying the brand tax. Pay less for what you were already going to buy.
     referenceMedia: [
       {
         id: "ref-ss-1",
-        name: "retail-receipt-reference.png",
+        name: "phone-ui-reference.png",
         url: "https://northsideintelligence.com/store",
         type: "image",
-        size: "Receipt Reference",
+        size: "UI Reference",
+        source: "manual",
+        uploadedAt: "Today"
+      },
+      {
+        id: "ref-ss-2",
+        name: "end-card-reference.png",
+        url: "https://northsideintelligence.com/store",
+        type: "image",
+        size: "End Card Reference",
         source: "manual",
         uploadedAt: "Today"
       }
     ],
-    notes: "Approved for Friday Oct 2 Smart Store reel."
+    notes: "Approved for Friday Oct 2 Smart Store reel per JB direct creative spec."
   },
 
   // 3. STATIC: FRIDAY OCT 2 (STATIC IMAGE POST - BRIDGE AI)
@@ -704,7 +709,7 @@ export default function NiContentPage() {
   // 1. Load from localStorage on mount (with automatic migration to preserve real media)
   useEffect(() => {
     try {
-      const savedV4 = localStorage.getItem("ni_content_hub_master_v4");
+      const savedV4 = localStorage.getItem("ni_content_hub_master_v5");
       if (savedV4) {
         const parsed = JSON.parse(savedV4);
         if (Array.isArray(parsed) && parsed.length > 0) {
@@ -721,12 +726,12 @@ export default function NiContentPage() {
             };
           });
           setPosts(merged);
-          localStorage.setItem("ni_content_hub_master_v4", JSON.stringify(merged));
+          localStorage.setItem("ni_content_hub_master_v5", JSON.stringify(merged));
         }
       } else {
         // First visit on v4: start fresh with INITIAL_POSTS (cleanly purges stale NI Services stubs)
         setPosts(INITIAL_POSTS);
-        localStorage.setItem("ni_content_hub_master_v4", JSON.stringify(INITIAL_POSTS));
+        localStorage.setItem("ni_content_hub_master_v5", JSON.stringify(INITIAL_POSTS));
       }
 
       const savedStrat = localStorage.getItem("ni_content_strategy_requests_v1");
@@ -748,7 +753,7 @@ export default function NiContentPage() {
     setSaveFlash(true);
     setTimeout(() => setSaveFlash(false), 1200);
     try {
-      localStorage.setItem("ni_content_hub_master_v4", JSON.stringify(cleaned));
+      localStorage.setItem("ni_content_hub_master_v5", JSON.stringify(cleaned));
     } catch {
       // Fallback
     }
