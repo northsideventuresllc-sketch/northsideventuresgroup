@@ -116,7 +116,7 @@ export interface DpmoProduct {
 /* CANONICAL TEMPLATE BUILDERS                                                */
 /* -------------------------------------------------------------------------- */
 
-export function buildCarouselSlidePrompt(slide: SlideSpec, specs: ProductionSpecs): string {
+function buildCarouselSlidePrompt(slide: SlideSpec, specs: ProductionSpecs): string {
   return `Carousel Images Format
 • Slide Number: ${slide.slideNumber}
 • Main Prompt: ${slide.mainPrompt}
@@ -130,7 +130,7 @@ Production Specs:
   • ${specs.rules.join("\n  • ")}`;
 }
 
-export function buildFullCarouselPrompt(slides: SlideSpec[], specs: ProductionSpecs): string {
+function buildFullCarouselPrompt(slides: SlideSpec[], specs: ProductionSpecs): string {
   const slidesBlock = slides
     .map(
       (s) =>
@@ -149,7 +149,7 @@ Production Specs:
   • ${specs.rules.join("\n  • ")}`;
 }
 
-export function buildStaticImagePrompt(
+function buildStaticImagePrompt(
   staticPrompt: { mainPrompt: string; onScreenText: string },
   specs: ProductionSpecs
 ): string {
@@ -165,7 +165,7 @@ Production Specs:
   • ${specs.rules.join("\n  • ")}`;
 }
 
-export function buildVideoPrompt(scenes: VideoScene[], specs: ProductionSpecs): string {
+function buildVideoPrompt(scenes: VideoScene[], specs: ProductionSpecs): string {
   const scenesBlock = scenes
     .map(
       (sc) =>
@@ -191,7 +191,7 @@ Production Specs:
   • ${specs.rules.join("\n  • ")}`;
 }
 
-export function buildTextPostPrompt(
+function buildTextPostPrompt(
   textContent: { hook: string; mainBody: string; callToAction: string },
   specs: ProductionSpecs
 ): string {
@@ -1393,6 +1393,13 @@ export default function NiContentPage() {
                 <span className="rounded bg-emerald-950/80 px-2 py-0.5 font-mono text-[10px] font-bold text-emerald-300 border border-emerald-800/60">
                   CONTENT HUB
                 </span>
+                <Link
+                  href="/ni-outreach"
+                  className="rounded bg-white/5 hover:bg-white/15 px-2 py-0.5 font-mono text-[10px] font-bold text-white/70 hover:text-[#4fc7ff] border border-white/10 transition"
+                  title="Switch to NI Outreach Console"
+                >
+                  OUTREACH CONSOLE &rarr;
+                </Link>
               </div>
               <h1 className="text-sm font-bold tracking-tight text-white sm:text-base">
                 Autonomous Content Operations &bull; Master Calendar
