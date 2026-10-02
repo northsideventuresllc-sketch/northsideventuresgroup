@@ -504,23 +504,24 @@ Run your free competitor scan today at northsideintelligence.com/signaldesk.
     brand: "Smart Store",
     format: "Video",
     platforms: ["Instagram", "Facebook Reels"],
-    title: "Smart Store: The Cheaper Twin (Vertical Mouse)",
-    hook: "They charged you $119 for a vertical mouse just because it has a brand logo?",
+    title: "Smart Store: The Cheaper Twin (Minimalist Titanium Wallet)",
+    hook: "Paying $98 for a piece of bent metal with a logo on it? 🛑",
     status: "published",
     pillar: "Tell Smart Store what you are after. It searches the whole catalog and finds a similar option for less, with picks tailored to you. Pay less for what you were already going to buy.",
-    caption: `Paying $119 for an ergonomic mouse just because of the brand stamped on the box? 🛑
+    caption: `Paying $98 for a minimalist metal wallet just because someone laser-etched a logo on it? 🛑
 
-Tell Smart Store what you are after. It searches the whole catalog and finds a similar option for less, with picks tailored to you.
+Tell Smart Store what you are after. It searches verified manufacturer catalogs and delivers the exact same build for a fraction of the cost.
 
-Same ergonomic grip. Same silent click. Same DPI settings. 
-$6.40 on Smart Store vs $119 retail.
+Same aerospace-grade aluminum and titanium plates.
+Same dual-track RFID blocking.
+Same spring steel cash clip and 12-card expansion elastic.
 
-Pay less for what you were already going to buy.
+$11.80 on Smart Store vs $98 retail.
 
-👉 Tap the link in bio or visit northsideintelligence.com/store.
+Stop paying the brand tax. Pay less for what you were already going to buy.
 
-#SmartShopping #Deals #ShoppingHacks #SaveMoney #TechDeals`,
-    hashtags: "#SmartShopping #Deals #ShoppingHacks #SaveMoney #TechDeals",
+👉 Tap the link in bio or browse deals at northsideintelligence.com/store.`,
+    hashtags: "#SmartStore #CheaperTwin #ShoppingHacks #DealsFinder #EDCGear #TechDeals #SaveMoney",
     productionSpecs: {
       dimensionsAndFormat: "1080 x 1920 px, 9:16 vertical aspect ratio, MP4 video",
       narratorTone: "Sharp, comedic, astonished, fast-paced consumer advocate voice. No commercial jargon.",
