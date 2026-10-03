@@ -264,9 +264,35 @@ export default function NiOutreachPage() {
                     <h2 className="font-extrabold text-lg text-white tracking-tight">
                       {lead.business || lead.company || "Prospective Partner"}
                     </h2>
-                    <p className="text-xs text-gray-400">
-                      Contact: <span className="text-gray-200 font-semibold">{lead.name || lead.contact || "Team"}</span> ({lead.contact || lead.email || "No direct email"})
-                    </p>
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-400 mt-1">
+                      <p>
+                        Contact: <span className="text-gray-200 font-semibold">{lead.name || lead.contact || "Team"}</span>
+                      </p>
+                      {lead.email && (
+                        <div className="flex items-center gap-1.5 bg-gray-900/90 px-2 py-0.5 rounded border border-gray-800">
+                          <span className="text-cyan-400 font-mono text-[11px] font-medium">{lead.email}</span>
+                          <button
+                            onClick={() => copyToClipboard(lead.email || "", `${lead.id}-email`)}
+                            className="text-[10px] uppercase font-bold text-cyan-400 hover:text-cyan-300 ml-1 underline"
+                          >
+                            {copiedId === `${lead.id}-email` ? "✓ Copied" : "Copy"}
+                          </button>
+                        </div>
+                      )}
+                      {lead.website && (
+                        <div className="flex items-center gap-1 text-gray-400">
+                          <span>•</span>
+                          <a
+                            href={lead.website}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="hover:text-white underline decoration-dotted"
+                          >
+                            {lead.website.replace("https://", "")} ↗
+                          </a>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <div className="flex items-center gap-3">
