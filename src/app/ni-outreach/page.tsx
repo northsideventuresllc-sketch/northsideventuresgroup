@@ -15,7 +15,7 @@ export default function NiOutreachPage() {
     ...INITIAL_WEBDESIGN.map((l) => ({ ...l, category: "webdesign" })),
     ...INITIAL_ITTOOLS.map((l) => ({ ...l, category: "ittools" })),
   ]);
-  const [activeTab, setActiveTab] = useState<"followup" | "webdesign" | "ittools">("followup");
+  const [activeTab, setActiveTab] = useState<"followup" | "webdesign" | "ittools">("webdesign");
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -24,7 +24,7 @@ export default function NiOutreachPage() {
   // Restore edits from localStorage on mount
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("ni_outreach_console_edits_v1");
+      const saved = localStorage.getItem("ni_outreach_console_edits_v2");
       if (saved) {
         const parsed = JSON.parse(saved);
         setAllLeads((prev) =>
@@ -72,7 +72,7 @@ export default function NiOutreachPage() {
             notes: l.notes,
           };
         });
-        localStorage.setItem("ni_outreach_console_edits_v1", JSON.stringify(editsMap));
+        localStorage.setItem("ni_outreach_console_edits_v2", JSON.stringify(editsMap));
       } catch (e) {
         console.warn("Could not save to localStorage:", e);
       }

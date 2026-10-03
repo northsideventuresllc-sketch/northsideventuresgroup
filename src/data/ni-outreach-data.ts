@@ -183,271 +183,341 @@ export const INITIAL_FOLLOWUPS: OutreachLeadItem[] = [
 export const INITIAL_WEBDESIGN: OutreachLeadItem[] = [
   {
     "id": "web-1",
-    "company": "Fox Auto Repair",
-    "vertical": "ReplyFlow Vertical · High-Inquiry Customer Ops",
-    "verticalColor": "rose",
-    "contact": "Service Managers",
-    "email": "info@foxautorepair.com",
-    "location": "Roselle, IL",
-    "niche": "Auto Repair & Diagnostics",
-    "mockupKey": "fox-auto-repair-redesign-mockup.html",
+    "company": "Warner Summers",
+    "vertical": "NI Services · Commercial Architecture & Interior Design",
+    "verticalColor": "cyan",
+    "contact": "Dana Ladd",
+    "name": "Dana Ladd",
+    "email": "dladd@warnersummers.com",
+    "profileUrl": "https://www.linkedin.com/company/warner-summers/",
+    "website": "https://warnersummers.com",
+    "location": "Atlanta, GA",
+    "niche": "Commercial Architecture",
+    "channel": "Email & LinkedIn",
+    "hook": "Aging Avada WordPress theme with LayerSlider and heavy render-blocking assets slowing down mobile showcase.",
     "status": "ready",
     "currentStep": 1,
     "steps": {
       "1": {
-        "subject": "Quick concept for Fox Auto Repair's website",
-        "body": "Hi team, I noticed Fox Auto Repair has earned stellar local reputation and customer reviews in Roselle, but drivers searching on mobile often struggle to request service slots quickly after shop hours. To make that seamless, I put together a modern mobile concept featuring an instant diagnostic scheduler, ASE certification highlights, and clean service pricing: [[fox-auto-repair-redesign-mockup.html]]. We build custom websites for established service shops, and we put together this free homepage mockup so you can see exactly how it works with zero strings attached. Would you like me to send over the direct files to inspect?"
+        "label": "Step 1 (Day 1)",
+        "subject": "Quick note on Warner Summers's mobile showcase",
+        "body": "Hi Dana, love the architectural portfolio Warner Summers has delivered across the Southeast. While reviewing your site, I noticed the current WordPress theme and slider assets load heavy render-blocking stylesheets, causing noticeable layout delays on mobile devices. We design custom, ultra-fast portfolio sites on Next.js and Vercel specifically for premier architectural and design firms, eliminating plugin maintenance while showcasing high-resolution project photography instantly. I drafted a sleek concept mockup for your homepage. Would you be open to taking a quick look this week?"
       },
       "2": {
-        "subject": "Re: Quick concept for Fox Auto Repair's website",
-        "body": "Hi team, following up on the diagnostic scheduler concept I put together for Fox Auto Repair: [[fox-auto-repair-redesign-mockup.html]]. It allows Roselle vehicle owners to request inspections in 30 seconds straight from their phone. Happy to share the files if you would like a quick look!"
+        "label": "Step 2 (Day 3)",
+        "subject": "Re: Quick note on Warner Summers's mobile showcase",
+        "body": "Hi Dana, following up briefly on my note regarding Warner Summers's mobile portfolio. High-end commercial clients expecting architectural precision often browse your project work directly from phones and tablets, where sub-second page rendering makes an immediate first impression. Our custom builds remove WordPress plugin bloat entirely so your visual work loads with zero lag. Would you like me to send over the interactive preview link?"
       },
       "3": {
-        "subject": "Re: Quick concept for Fox Auto Repair's website",
-        "body": "Hi team, I know running bays and servicing vehicles keeps your technicians busy all day. Leaving the mobile concept here in case you ever want to capture more after-hours diagnostic appointments: [[fox-auto-repair-redesign-mockup.html]]. Wishing the Fox Auto team a great week ahead!"
+        "label": "Step 3 (Day 7)",
+        "subject": "Re: Quick note on Warner Summers's mobile showcase",
+        "body": "Hi Dana, know major commercial design deadlines keep your team fully occupied. I will keep the custom portfolio concept ready in case Warner Summers looks to modernize its digital real estate or boost mobile lead conversions later this quarter: https://northsideintelligence.com/services. Wishing you and the firm continued success on your upcoming builds!"
       }
     }
   },
   {
     "id": "web-2",
-    "company": "Rite Way Automotive Service",
-    "vertical": "ReplyFlow Vertical · High-Inquiry Customer Ops",
-    "verticalColor": "rose",
-    "contact": "Front Desk Team",
-    "email": "info@ritewayautowego.com",
-    "location": "Oswego, IL",
-    "niche": "Automotive Repair & Maintenance",
-    "mockupKey": "riteway-auto-service-redesign-mockup.html",
+    "company": "Crescent Wealth Advisory",
+    "vertical": "NI Services · Boutique Wealth Advisory & Family Office",
+    "verticalColor": "cyan",
+    "contact": "Tim Wyrobek",
+    "name": "Tim Wyrobek",
+    "email": "twyrobek@crescentwealthadvisory.com",
+    "profileUrl": "https://www.linkedin.com/in/tim-wyrobek-a843511/",
+    "website": "https://crescentwealthadvisory.com",
+    "location": "Atlanta, GA",
+    "niche": "Boutique Wealth Advisory",
+    "channel": "Email & LinkedIn",
+    "hook": "Outdated Squarespace 7.0 template with empty meta description and insecure http asset links.",
     "status": "ready",
     "currentStep": 1,
     "steps": {
       "1": {
-        "subject": "Quick concept for Rite Way Automotive's website",
-        "body": "Hi team, came across Rite Way Automotive and your long-standing reputation for dependable mechanical care in Oswego. When drivers experience unexpected check-engine lights or brake trouble in the evening, they often look for immediate self-serve appointment booking rather than waiting until morning. I drafted an interactive mobile prototype featuring an after-hours vehicle intake form and clear repair tier options: [[riteway-auto-service-redesign-mockup.html]]. We specialize in high-converting web design for local automotive leaders, and this free homepage mockup is completely on the house to review. Would you be open to checking out the preview?"
+        "label": "Step 1 (Day 1)",
+        "subject": "Quick note on Crescent Wealth's search snippet",
+        "body": "Hi Tim, hope your week is going well. I was reviewing Crescent Wealth Advisory online and noticed your site is currently running on an older Squarespace template with an empty meta description tag. Because of that, search engines and shared links display blank or arbitrary snippet text instead of your fiduciary advisory positioning. We design custom, institutional-grade web platforms for boutique wealth advisors and family offices that demand flawless digital security and executive presentation. Would you be open to seeing a modern redesign concept?"
       },
       "2": {
-        "subject": "Re: Quick concept for Rite Way Automotive's website",
-        "body": "Hi team, checking back on the after-hours intake prototype I shared for Rite Way Automotive: [[riteway-auto-service-redesign-mockup.html]]. It takes 2 minutes to review and lets Oswego drivers book service appointments before your doors open in the morning. Let me know if you would like the direct access link."
+        "label": "Step 2 (Day 3)",
+        "subject": "Re: Quick note on Crescent Wealth's search snippet",
+        "body": "Hi Tim, checking back on my note regarding Crescent Wealth's digital presence. High-net-worth families vetting a fiduciary partner expect impeccable attention to detail across every touchpoint, from search previews to secure client navigation. We build custom Next.js web applications that eliminate template limitations and give your advisory practice a bespoke executive feel. Happy to share a quick private mockup if you are interested."
       },
       "3": {
-        "subject": "Re: Quick concept for Rite Way Automotive's website",
-        "body": "Hi team, know the service desk keeps everyone moving on the floor. I will leave the prototype link here in case you ever want to streamline your online appointment scheduling: [[riteway-auto-service-redesign-mockup.html]]. Wishing you and your crew a smooth, productive week!"
+        "label": "Step 3 (Day 7)",
+        "subject": "Re: Quick note on Crescent Wealth's search snippet",
+        "body": "Hi Tim, I know managing client portfolios and estate planning keeps your calendar full. Leaving the modern advisory concept on your radar in case Crescent Wealth looks to refresh its digital identity or client intake funnels down the road: https://northsideintelligence.com/services. Wishing you and your clients a prosperous month ahead!"
       }
     }
   },
   {
     "id": "web-3",
-    "company": "Hazen Elder Law",
-    "vertical": "GrantBot Vertical · Legal, Trust & Nonprofit Governance",
-    "verticalColor": "emerald",
-    "contact": "Practice Manager",
-    "email": "info@hazenelderlaw.com",
-    "location": "Mechanicsburg, PA",
-    "niche": "Elder Law & Estate Planning",
-    "mockupKey": "hazen-elder-law-redesign-mockup.html",
+    "company": "Orr | Cook",
+    "vertical": "NI Services · Commercial Litigation & Business Law",
+    "verticalColor": "cyan",
+    "contact": "Kevin Cook",
+    "name": "Kevin Cook",
+    "email": "kcook@orrcook.com",
+    "profileUrl": "https://www.linkedin.com/in/kevin-cook-a720935/",
+    "website": "https://orrcook.com",
+    "location": "Jacksonville, FL",
+    "niche": "Commercial Litigation",
+    "channel": "Email & LinkedIn",
+    "hook": "Footer links to pre-merger firm LinkedIn, outdated Avada layout with 23-minute reading time tag.",
     "status": "ready",
     "currentStep": 1,
     "steps": {
       "1": {
-        "subject": "Modern intake concept for Hazen Elder Law",
-        "body": "Hi team, I came across Hazen Elder Law while researching dedicated estate planning and Medicaid counsel in Pennsylvania. Families facing sudden elder care or probate transitions often feel overwhelmed and need a reassuring, confidential path to request consultations online. To show how effortless that can feel, I put together a modern client intake concept designed specifically for your practice areas: [[hazen-elder-law-redesign-mockup.html]]. We design premium websites for specialized legal practices, and I wanted to offer this free homepage mockup with zero obligation. Would you like me to share the interactive files with your team?"
+        "label": "Step 1 (Day 1)",
+        "subject": "Quick observation on Orr | Cook's website setup",
+        "body": "Hi Kevin, came across Orr | Cook's commercial litigation practice in Florida. While looking over your site, I noticed a couple of technical glitches: your footer social link still points to the old pre-merger LinkedIn URL, and your homepage metadata currently generates a 23-minute reading time tag when shared. We build custom, high-performance web systems for elite commercial litigation firms that need instant mobile responsiveness and clean client intake. I put together a streamlined concept for Orr | Cook. Open to a quick look?"
       },
       "2": {
-        "subject": "Re: Modern intake concept for Hazen Elder Law",
-        "body": "Hi team, following up on the intake concept I designed for Hazen Elder Law: [[hazen-elder-law-redesign-mockup.html]]. It streamlines confidential consultation scheduling for families navigating estate planning and Medicaid. Let me know if you would like me to pass along the details."
+        "label": "Step 2 (Day 3)",
+        "subject": "Re: Quick observation on Orr | Cook's website setup",
+        "body": "Hi Kevin, following up on the site concept I put together for Orr | Cook. When corporate executives evaluate litigation counsel, a fast, modern digital footprint reinforcing firm stature makes a major difference. Our Next.js architecture fixes broken legacy link metadata and delivers sub-second page loads without WordPress maintenance overhead. Would you like me to send over the preview link to review?"
       },
       "3": {
-        "subject": "Re: Modern intake concept for Hazen Elder Law",
-        "body": "Hi team, know counsel sessions and court filings keep your attorneys fully engaged. Leaving the prototype here in case your practice ever wants a cleaner online intake experience for families: [[hazen-elder-law-redesign-mockup.html]]. Wishing Hazen Elder Law continued success!"
+        "label": "Step 3 (Day 7)",
+        "subject": "Re: Quick observation on Orr | Cook's website setup",
+        "body": "Hi Kevin, know courtroom schedules and client depositions take precedence. I will keep the litigation portal mockup on file in case Orr | Cook evaluates a website refresh or mobile intake upgrade in the coming months: https://northsideintelligence.com/services. Wishing you and the firm continued success in trial!"
       }
     }
   },
   {
     "id": "web-4",
-    "company": "Blakinger Thomas, PC",
-    "vertical": "GrantBot Vertical · Legal, Trust & Nonprofit Governance",
-    "verticalColor": "emerald",
-    "contact": "Firm Administrators",
-    "email": "info@bbt-law.com",
-    "location": "Lancaster, PA",
-    "niche": "Corporate, Municipal & Estate Law",
-    "mockupKey": "bbt-law-redesign-mockup.html",
+    "company": "Dowdle Construction Group",
+    "vertical": "NI Services · Commercial General Contractor",
+    "verticalColor": "cyan",
+    "contact": "Chase Manning",
+    "name": "Chase Manning",
+    "email": "cmanning@dowdleconstruction.com",
+    "profileUrl": "https://www.linkedin.com/in/chase-manning-b4412328/",
+    "website": "https://dowdleconstruction.com",
+    "location": "Nashville, TN",
+    "niche": "Commercial General Contractor",
+    "channel": "Email & LinkedIn",
+    "hook": "Viewport disables user scaling violating accessibility, 5 synchronous fonts blocking render.",
     "status": "ready",
     "currentStep": 1,
     "steps": {
       "1": {
-        "subject": "Client intake prototype for Blakinger Thomas",
-        "body": "Hi team, I came across Blakinger Thomas and your deep multi-practice legal counsel across Central Pennsylvania. With corporate, municipal, and estate clients increasingly vetting legal counsel on mobile devices, dense desktop layouts often make finding the right partner or practice group difficult. I put together an interactive prototype demonstrating a streamlined practice navigator and direct consultation intake: [[bbt-law-redesign-mockup.html]]. As part of our web design work for regional firms, we built this free homepage mockup so your partners can explore the layout with zero cost. Would you be open to taking a quick look?"
+        "label": "Step 1 (Day 1)",
+        "subject": "Quick note on Dowdle Construction's mobile site",
+        "body": "Hi Chase, congratulations on Dowdle Construction's ongoing commercial projects across Tennessee. While checking out your site on mobile, I noticed your viewport configuration currently disables user pinch-to-zoom, which triggers accessibility warnings and hurts mobile search ranking. Additionally, multiple font files are loaded synchronously, slowing down initial project renders. We build custom, ultra-fast web platforms for top commercial general contractors so your completed builds and bidding credentials load instantly on any device. Would you be open to seeing a modern mobile concept for Dowdle?"
       },
       "2": {
-        "subject": "Re: Client intake prototype for Blakinger Thomas",
-        "body": "Hi team, checking back on the practice navigator concept for Blakinger Thomas: [[bbt-law-redesign-mockup.html]]. It helps prospective corporate and municipal clients evaluate practice areas and reach the appropriate attorney in under a minute. Happy to share the files if you'd like a look!"
+        "label": "Step 2 (Day 3)",
+        "subject": "Re: Quick note on Dowdle Construction's mobile site",
+        "body": "Hi Chase, checking back on my note regarding Dowdle Construction's mobile layout. Commercial developers and project owners increasingly inspect contractor credentials and job site galleries directly on phones, where speed and fluid image galleries build trust immediately. Our custom builds eliminate theme script bloat and provide seamless mobile viewing. Let me know if you would like to see the prototype."
       },
       "3": {
-        "subject": "Re: Client intake prototype for Blakinger Thomas",
-        "body": "Hi team, know client matters and active litigation keep your partners busy. I will leave the prototype link with you in case your marketing committee evaluates a website refresh in the future: [[bbt-law-redesign-mockup.html]]. Best regards to the firm!"
+        "label": "Step 3 (Day 7)",
+        "subject": "Re: Quick note on Dowdle Construction's mobile site",
+        "body": "Hi Chase, know job site walk-throughs and project estimates keep your boots on the ground all day. I will keep the contractor showcase prototype on hand in case Dowdle evaluates a site modernization or project bidding portal down the road: https://northsideintelligence.com/services. Wishing you and the crew safe, productive builds!"
       }
     }
   },
   {
     "id": "web-5",
-    "company": "Ritzi Law, LLC",
-    "vertical": "Signal Desk Vertical · Specialized Advisory & Clinical Practices",
-    "verticalColor": "sky",
-    "contact": "Office of Attorneys",
-    "email": "ritzilaw@sbcglobal.net",
-    "location": "Marion, IN",
-    "niche": "Estate Planning & Probate",
-    "mockupKey": "ritzi-law-redesign-mockup.html",
+    "company": "Massey and Company CPA",
+    "vertical": "NI Services · Boutique CPA & Tax Resolution",
+    "verticalColor": "cyan",
+    "contact": "Gary Massey, CPA",
+    "name": "Gary Massey, CPA",
+    "email": "gary.massey@masseyandcompanycpa.com",
+    "profileUrl": "https://www.linkedin.com/in/garymasseycpa/",
+    "website": "https://masseyandcompanycpa.com",
+    "location": "Atlanta, GA & Chicago, IL",
+    "niche": "Boutique CPA & Tax",
+    "channel": "Email & LinkedIn",
+    "hook": "Typo in title tag (1# Tax Services), distorted 385x220 OG image, and unoptimized Elementor bloat.",
     "status": "ready",
     "currentStep": 1,
     "steps": {
       "1": {
-        "subject": "Estate planning intake concept for Ritzi Law",
-        "body": "Hi team, I came across Ritzi Law and your compassionate estate planning and elder care advocacy across Indiana. Navigating wills, trusts, and healthcare directives can feel intimidating for local families, and many hesitate when online consultation booking feels complicated. To help resolve that barrier, I created a clean, welcoming mobile intake concept tailored to your practice: [[ritzi-law-redesign-mockup.html]]. We specialize in high-trust web design for estate attorneys, and this free homepage mockup is completely complimentary to review. Would you like me to send over the direct link for your review?"
+        "label": "Step 1 (Day 1)",
+        "subject": "Quick note on Massey & Company CPA's site previews",
+        "body": "Hi Gary, love the reputation Massey and Company CPA has built for small business tax resolution across Atlanta and Chicago. While checking your site, I noticed your homepage title tag has an inverted typo ('1# Tax Services') and your social share image is constrained to a low-res thumbnail, causing it to appear blurry on LinkedIn and messaging apps. We design custom, high-converting web systems for boutique CPA firms with automated consultation booking and crisp retina previews. I drafted a sleek concept for your practice. Open to a preview?"
       },
       "2": {
-        "subject": "Re: Estate planning intake concept for Ritzi Law",
-        "body": "Hi team, following up on the intake prototype I drafted for Ritzi Law: [[ritzi-law-redesign-mockup.html]]. It makes scheduling confidential estate planning and probate consultations effortless for local families on mobile. Let me know if you would like me to share the preview files."
+        "label": "Step 2 (Day 3)",
+        "subject": "Re: Quick note on Massey & Company CPA's site previews",
+        "body": "Hi Gary, following up on the redesign concept I put together for Massey and Company CPA. Business owners dealing with IRS disputes or tax planning need immediate trust when they click your link. Replacing Elementor plugin overhead with a clean Next.js build improves Google page speed scores and ensures your reviews and booking forms load instantly. Let me know if you would like the link!"
       },
       "3": {
-        "subject": "Re: Estate planning intake concept for Ritzi Law",
-        "body": "Hi team, know managing client estates and filings takes full focus. Leaving the interactive prototype here in case you ever want to upgrade your online scheduling: [[ritzi-law-redesign-mockup.html]]. Wishing you and your clients all the best!"
+        "label": "Step 3 (Day 7)",
+        "subject": "Re: Quick note on Massey & Company CPA's site previews",
+        "body": "Hi Gary, know quarterly tax filings and IRS representation keep your team running around the clock. Leaving the CPA practice mockup with you in case your firm considers a digital upgrade or booking funnel revamp ahead of the next tax season: https://northsideintelligence.com/services. Wishing Massey and Company a tremendous quarter!"
       }
     }
   },
   {
     "id": "web-6",
-    "company": "Kinnection Chiropractic",
-    "vertical": "Signal Desk Vertical · Specialized Advisory & Clinical Practices",
-    "verticalColor": "sky",
-    "contact": "Dr. Zach Williams",
-    "email": "drzachwilliams@kinnectionchiro.com",
-    "location": "Nashville, TN",
-    "niche": "Chiropractic & Pediatric Sports",
-    "mockupKey": "kinnection-chiropractic-redesign-mockup.html",
+    "company": "Neil Fink Associates",
+    "vertical": "NI Services · Executive Search & Talent Acquisition",
+    "verticalColor": "cyan",
+    "contact": "Neil Fink",
+    "name": "Neil Fink",
+    "email": "neil@neilfinkassociates.com",
+    "profileUrl": "https://www.linkedin.com/in/neil-fink-a8138/",
+    "website": "https://neilfinkassociates.com",
+    "location": "San Francisco, CA",
+    "niche": "Executive Search & Talent Acquisition",
+    "channel": "Email & LinkedIn",
+    "hook": "Executive search firm running on basic Weebly template with stuttering title and unscaled images.",
     "status": "ready",
     "currentStep": 1,
     "steps": {
       "1": {
-        "subject": "Patient booking concept for Kinnection Chiropractic",
-        "body": "Hi Dr. Zach, I came across Kinnection Chiropractic and really admire your specialized pediatric and sports biomechanics work in Nashville. Prospective patients dealing with chronic aches or athletic injuries usually want to book an initial assessment instantly from their phone rather than waiting to call during clinic hours. I designed an interactive concept featuring your $49 new patient exam booking funnel and patient outcomes: [[kinnection-chiropractic-redesign-mockup.html]]. We build conversion-focused websites for wellness clinics, and this free homepage mockup is 100% complimentary to explore. Open to taking a quick look at the preview?"
+        "label": "Step 1 (Day 1)",
+        "subject": "Quick note on Neil Fink Associates's web layout",
+        "body": "Hi Neil, came across Neil Fink Associates and the impressive C-suite talent placements your firm has executed for tech and media leaders like Electronic Arts and Charles Schwab. I noticed your firm is currently hosted on a legacy Weebly template with unscaled image assets and a repeated title tag header. An executive search practice operating at your caliber deserves a bespoke digital presence that matches the corporate boards you advise. We build custom, ultra-sleek websites for premier boutique search firms. Would you be open to seeing a tailored mockup?"
       },
       "2": {
-        "subject": "Re: Patient booking concept for Kinnection Chiropractic",
-        "body": "Hi Dr. Zach, checking back on the self-serve patient booking concept for Kinnection Chiropractic: [[kinnection-chiropractic-redesign-mockup.html]]. It takes 2 minutes to inspect and lets prospective patients reserve their initial adjustment online in under 30 seconds. Happy to share the files if you'd like a look!"
+        "label": "Step 2 (Day 3)",
+        "subject": "Re: Quick note on Neil Fink Associates's web layout",
+        "body": "Hi Neil, checking back on my note regarding a digital refresh for Neil Fink Associates. Enterprise boards and venture-backed founders look for world-class polish when selecting an executive search partner. Our custom builds eliminate site-builder templates entirely, giving you a lightning-fast, high-end presentation that reflects your decades of leadership placement experience. Happy to share a private preview if you have a moment."
       },
       "3": {
-        "subject": "Re: Patient booking concept for Kinnection Chiropractic",
-        "body": "Hi Dr. Zach, know patient appointments keep your treatment rooms packed all week. I will leave the concept link here in case you ever want to automate your new patient booking calendar: [[kinnection-chiropractic-redesign-mockup.html]]. Wishing Kinnection Chiropractic continued growth!"
+        "label": "Step 3 (Day 7)",
+        "subject": "Re: Quick note on Neil Fink Associates's web layout",
+        "body": "Hi Neil, know confidential executive searches require nonstop coordination. I will leave the tailored boutique design concept on file in case Neil Fink Associates explores an online presentation upgrade later this year: https://northsideintelligence.com/services. Wishing you continued success placing transformative leadership across tech and media!"
       }
     }
   },
   {
     "id": "web-7",
-    "company": "Espinoza Landscaping LLC",
-    "vertical": "GapScan Vertical · High-Ticket Contracting & Trade Operations",
-    "verticalColor": "amber",
-    "contact": "Project Estimator",
-    "email": "info@espinozalandscapingllc.com",
-    "location": "Columbus, OH",
-    "niche": "Landscaping & Hardscaping",
-    "mockupKey": "espinoza-landscaping-redesign-mockup.html",
+    "company": "ReInvest Capital, LLC",
+    "vertical": "NI Services · Franchise & Lower Middle Market M&A",
+    "verticalColor": "cyan",
+    "contact": "David Rego",
+    "name": "David Rego",
+    "email": "drego@reinvestcapital.com",
+    "profileUrl": "https://www.linkedin.com/in/david-rego-2101344/",
+    "website": "https://reinvestcapital.com",
+    "location": "Boston, MA",
+    "niche": "Franchise M&A Advisory",
+    "channel": "Email & LinkedIn",
+    "hook": "Missing meta description entirely, generic title, and heavy Elementor animation jank on mobile.",
     "status": "ready",
     "currentStep": 1,
     "steps": {
       "1": {
-        "subject": "Fast estimate funnel concept for Espinoza Landscaping",
-        "body": "Hi team, saw your impressive lawn care, hardscaping, and patio installations around Columbus. Most residential property owners searching for seasonal cleanups or paver patios want instant price estimates on mobile instead of waiting through back-and-forth phone tags. I built a mobile prototype demonstrating an instant project estimate generator and visual portfolio for your company: [[espinoza-landscaping-redesign-mockup.html]]. We develop high-converting websites for trade contractors, and I put together this free homepage mockup completely on the house so you can review it. Would you like me to send over the link to review?"
+        "label": "Step 1 (Day 1)",
+        "subject": "Quick note on ReInvest Capital's web presence",
+        "body": "Hi David, hope your week is off to a great start. I was researching lower middle market franchise advisors and reviewed ReInvest Capital's site. I noticed your homepage currently lacks a meta description tag in the code, which leaves your search results to unguided automated snippet generation. Additionally, heavier Elementor animations create slight layout jank on mobile browsers. We engineer custom, institutional-grade web platforms for specialized M&A boutiques to showcase transaction tombstones and buyer advisory credentials cleanly. Open to seeing a quick concept for ReInvest?"
       },
       "2": {
-        "subject": "Re: Fast estimate funnel concept for Espinoza Landscaping",
-        "body": "Hi team, following up on the instant estimate generator concept for Espinoza Landscaping: [[espinoza-landscaping-redesign-mockup.html]]. It allows Columbus homeowners to submit project dimensions and get instant quotes right from their phones. Let me know if you would like me to share the preview files."
+        "label": "Step 2 (Day 3)",
+        "subject": "Re: Quick note on ReInvest Capital's web presence",
+        "body": "Hi David, following up on the M&A advisory concept I put together for ReInvest Capital. Multi-unit franchise operators looking to sell $5M to $50M networks judge advisory credibility in seconds. Our Next.js architecture delivers clean typography, instant tombstone filtering, and zero WordPress plugin vulnerabilities. Would you be interested in taking a two-minute look at the layout?"
       },
       "3": {
-        "subject": "Re: Fast estimate funnel concept for Espinoza Landscaping",
-        "body": "Hi team, know fall cleanups and hardscaping projects keep your crew on the move. Leaving the prototype here in case you ever want to capture more high-margin landscaping jobs online: [[espinoza-landscaping-redesign-mockup.html]]. Wishing Espinoza Landscaping a great rest of the season!"
+        "label": "Step 3 (Day 7)",
+        "subject": "Re: Quick note on ReInvest Capital's web presence",
+        "body": "Hi David, know deal flow and transaction closings keep your schedule packed. I will keep the custom franchise M&A concept ready in case ReInvest Capital evaluates an advisory site revamp down the road: https://northsideintelligence.com/services. Best of luck on your active deal mandates!"
       }
     }
   },
   {
     "id": "web-8",
-    "company": "CLE Landscaping Co., LLC",
-    "vertical": "GapScan Vertical · High-Ticket Contracting & Trade Operations",
-    "verticalColor": "amber",
-    "contact": "Commercial Bidding Dept",
-    "email": "info@clelandscaping.com",
-    "location": "Cleveland, OH",
-    "niche": "Commercial Grounds & Snow Management",
-    "mockupKey": "cle-landscaping-redesign-mockup.html",
+    "company": "Proffitt PR",
+    "vertical": "NI Services · Boutique PR & Marketing Strategy",
+    "verticalColor": "cyan",
+    "contact": "Jessica Proffitt Bracken",
+    "name": "Jessica Proffitt Bracken",
+    "email": "jessica@proffittpr.com",
+    "profileUrl": "https://www.linkedin.com/in/jessica-proffitt-bracken-91b72a15/",
+    "website": "https://proffittpr.com",
+    "location": "Santa Rosa Beach, FL",
+    "niche": "Boutique PR & Marketing",
+    "channel": "Email, LinkedIn & Instagram",
+    "hook": "Raw HTML size exceeds 1.1MB before media, duplicate title text, and bloated legacy Avada structure.",
     "status": "ready",
     "currentStep": 1,
     "steps": {
       "1": {
-        "subject": "Commercial grounds & RFP concept for CLE Landscaping",
-        "body": "Hi team, came across CLE Landscaping and your extensive commercial grounds and snow management portfolio across Northeast Ohio. Commercial property managers bidding out corporate maintenance contracts need an expedited, frictionless way to upload site specifications and review seasonal credentials. I put together an interactive prototype demonstrating an expedited commercial RFP bid intake and property portfolio: [[cle-landscaping-redesign-mockup.html]]. We build performance web platforms for commercial contractors, and this free homepage mockup is completely complimentary to review. Would you be open to taking a quick look at the interactive files?"
+        "label": "Step 1 (Day 1)",
+        "subject": "Quick note on Proffitt PR's portfolio load speed",
+        "body": "Hi Jessica, love the creative energy and community impact Proffitt PR delivers across the Emerald Coast. While reviewing your site, I noticed the underlying homepage HTML payload is currently over 1.1MB before any images load, due to older Avada theme scripts and legacy mobile assets. For an elite PR and marketing agency, visual portfolio pages should load instantaneously to match your high standard of branding. We build custom, editorial-grade web platforms for premier creative agencies with zero theme bloat. Open to seeing a concept?"
       },
       "2": {
-        "subject": "Re: Commercial grounds & RFP concept for CLE Landscaping",
-        "body": "Hi team, checking back on the commercial RFP intake concept for CLE Landscaping: [[cle-landscaping-redesign-mockup.html]]. It streamlines seasonal snow and grounds proposals for corporate property managers. Let me know if you would like me to send over the direct files."
+        "label": "Step 2 (Day 3)",
+        "subject": "Re: Quick note on Proffitt PR's portfolio load speed",
+        "body": "Hi Jessica, checking back on my note regarding Proffitt PR's portfolio presentation. When luxury hospitality and lifestyle brands vet PR representation, an ultra-fast, modern editorial layout immediately proves your agency is ahead of the curve. Our custom builds deliver sub-second performance on mobile while making your case studies shine. Let me know if you would like me to send over the concept preview!"
       },
       "3": {
-        "subject": "Re: Commercial grounds & RFP concept for CLE Landscaping",
-        "body": "Hi team, know commercial site prep keeps everyone busy. I will leave the prototype here in case your leadership team ever considers upgrading your online bid intake: [[cle-landscaping-redesign-mockup.html]]. Wishing CLE Landscaping a profitable season ahead!"
+        "label": "Step 3 (Day 7)",
+        "subject": "Re: Quick note on Proffitt PR's portfolio load speed",
+        "body": "Hi Jessica, know event productions and media campaigns keep your agency moving at full speed. Leaving the editorial portfolio layout here with you in case Proffitt PR looks to modernize its web infrastructure down the road: https://northsideintelligence.com/services. Wishing your team high engagement and a wonderful month ahead!"
       }
     }
   },
   {
     "id": "web-9",
-    "company": "Ohio Heating & Refrigeration",
-    "vertical": "BridgeAI Vertical · Commercial Systems & Engineering",
-    "verticalColor": "indigo",
-    "contact": "Commercial Service Dept",
-    "email": "hvac@ohheating.com",
-    "location": "Columbus, OH",
-    "niche": "Commercial HVAC, Chillers & Refrigeration",
-    "mockupKey": "ohio-heating-redesign-mockup.html",
+    "company": "Westgate Capital Consultants",
+    "vertical": "NI Services · Fiduciary Wealth & Retirement Management",
+    "verticalColor": "cyan",
+    "contact": "Ian W. Hartley",
+    "name": "Ian W. Hartley",
+    "email": "Ian@westgatecapital.com",
+    "profileUrl": "https://www.linkedin.com/in/ian-hartley-a496884/",
+    "website": "https://westgatecapital.com",
+    "location": "University Place, WA",
+    "niche": "Fiduciary Wealth Management",
+    "channel": "Email & LinkedIn",
+    "hook": "Branding mismatch in schema vs title/domain, cookie-cutter FMG Suite template with 2012 IE code.",
     "status": "ready",
     "currentStep": 1,
     "steps": {
       "1": {
-        "subject": "Commercial dispatch & service concept for Ohio Heating",
-        "body": "Hi team, came across Ohio Heating & Refrigeration and your comprehensive commercial mechanical and cooling services across Central Ohio. When commercial facility managers face critical chiller or rooftop failures, every minute of phone tag costs money. I put together a modern digital prototype featuring an emergency 24/7 commercial dispatch flow and preventative maintenance agreement intake: [[ohio-heating-redesign-mockup.html]]. We build web platforms for commercial mechanical contractors, and this free homepage mockup is 100% complimentary to review with zero obligation. Would you be open to seeing how the interactive dispatch flow works?"
+        "label": "Step 1 (Day 1)",
+        "subject": "Quick observation on Westgate Capital's site branding",
+        "body": "Hi Ian, hope you are having a productive week. While analyzing fiduciary wealth management firms in the Pacific Northwest, I noticed an inconsistency in Westgate Capital's structured data: your schema code identifies the firm as 'HUB Retirement & Wealth Management' while your site title and domain reflect Westgate Capital. Additionally, the template still carries legacy code from 2012. We build custom, compliant web platforms for fiduciary wealth managers that reinforce distinctive firm brand identity and drive qualified plan inquiries. Would you be open to reviewing a fresh mockup?"
       },
       "2": {
-        "subject": "Re: Commercial dispatch & service concept for Ohio Heating",
-        "body": "Hi team, following up on the commercial dispatch prototype I put together for Ohio Heating: [[ohio-heating-redesign-mockup.html]]. It allows facility managers to log urgent commercial HVAC and refrigeration tickets with SMS verification in 45 seconds. Let me know if you would like me to pass along the files."
+        "label": "Step 2 (Day 3)",
+        "subject": "Re: Quick observation on Westgate Capital's site branding",
+        "body": "Hi Ian, following up on my note regarding Westgate Capital's digital positioning. Fiduciary retirement committees and high-net-worth clients expect an authoritative, customized digital experience that sets your advisory team apart from syndicated templates. Our custom Next.js builds ensure crisp brand consistency and streamlined meeting booking. Happy to send over the layout preview if you'd like to inspect it."
       },
       "3": {
-        "subject": "Re: Commercial dispatch & service concept for Ohio Heating",
-        "body": "Hi team, know emergency commercial calls and service contracts keep your techs on the road. Leaving the prototype here in case you ever want to streamline your online commercial service tickets: [[ohio-heating-redesign-mockup.html]]. Wishing Ohio Heating continued success!"
+        "label": "Step 3 (Day 7)",
+        "subject": "Re: Quick observation on Westgate Capital's site branding",
+        "body": "Hi Ian, know plan participant reviews and quarterly fiduciary meetings keep your calendar full. Leaving the tailored wealth advisory mockup with you in case Westgate Capital looks to upgrade its digital presentation or client acquisition flows in the future: https://northsideintelligence.com/services. Wishing you and your team continued success!"
       }
     }
   },
   {
     "id": "web-10",
-    "company": "The Superior Group",
-    "vertical": "BridgeAI Vertical · Commercial Systems & Engineering",
-    "verticalColor": "indigo",
-    "contact": "Christian Mans (New Business)",
-    "email": "cmans@superiorgroup.net",
-    "location": "Columbus, OH",
-    "niche": "Commercial Electrical, Low-Voltage & BIM",
-    "mockupKey": "superior-group-redesign-mockup.html",
+    "company": "Arch11 Inc.",
+    "vertical": "NI Services · High-End Architectural Design Practice",
+    "verticalColor": "cyan",
+    "contact": "E.J. Meade",
+    "name": "E.J. Meade",
+    "email": "EJMeade@arch11.com",
+    "profileUrl": "https://www.linkedin.com/in/e-j-meade-a616238/",
+    "website": "https://arch11.com",
+    "location": "Denver & Boulder, CO",
+    "niche": "High-End Architectural Design",
+    "channel": "Email, LinkedIn & Instagram",
+    "hook": "Script tag erroneously nested in style block in head, and schema leaks staging webflow.io URL.",
     "status": "ready",
     "currentStep": 1,
     "steps": {
       "1": {
-        "subject": "Commercial RFP & systems portal concept for The Superior Group",
-        "body": "Hi Christian, came across The Superior Group and your complex commercial electrical construction and BIM integration work across Ohio. General contractors and commercial developers often need a fast, secure portal to upload construction drawings and request bid proposals without navigating disconnected intake forms. I put together an interactive prototype demonstrating an expedited commercial RFP bid intake and systems capability showcase: [[superior-group-redesign-mockup.html]]. We design performance platforms for premier electrical contractors, and this free homepage mockup is completely complimentary to inspect. Would you be open to reviewing the preview?"
+        "label": "Step 1 (Day 1)",
+        "subject": "Quick technical note on Arch11's site code",
+        "body": "Hi E.J., admiring Arch11's contextual, modern residential and commercial architecture across Colorado. While reviewing your site code, I spotted two technical glitches: your CallRail script tag is currently placed inside a <style> block in the <head> markup, and your organization schema URL leaks your temporary staging domain ('arch11-finishing.webflow.io') to search engine indexing. An elite architectural practice designing spaces down to millimeter tolerances deserves clean, flawless digital architecture. We design custom, high-speed Next.js portfolio platforms tailored for award-winning architects. Open to seeing a prototype?"
       },
       "2": {
-        "subject": "Re: Commercial RFP & systems portal concept for The Superior Group",
-        "body": "Hi Christian, checking back on the commercial RFP proposal concept for The Superior Group: [[superior-group-redesign-mockup.html]]. It streamlines bid packages and drawing uploads for general contractors in under a minute. Happy to share the files if you would like a quick look!"
+        "label": "Step 2 (Day 3)",
+        "subject": "Re: Quick technical note on Arch11's site code",
+        "body": "Hi E.J., checking back on my note regarding Arch11's site code and digital portfolio. Luxury residential and commercial clients expect breathtaking visual fidelity and instant gallery browsing when evaluating architectural partners. Our custom builds eliminate Webflow staging leaks, resolve code syntax issues, and make your photography load with zero jank. Would you like to see the prototype concept?"
       },
       "3": {
-        "subject": "Re: Commercial RFP & systems portal concept for The Superior Group",
-        "body": "Hi Christian, know estimating and major commercial builds require deep focus. I will leave the RFP concept with you in case your team evaluates a digital intake refresh in the future: [[superior-group-redesign-mockup.html]]. Best regards on your upcoming projects!"
+        "label": "Step 3 (Day 7)",
+        "subject": "Re: Quick technical note on Arch11's site code",
+        "body": "Hi E.J., know active project builds and client consultations keep your studio focused. I will keep the custom architectural showcase concept on file in case Arch11 evaluates a digital platform upgrade or code clean-up down the road: https://northsideintelligence.com/services. Wishing Arch11 continued acclaim on your stunning projects!"
       }
     }
   }
