@@ -729,7 +729,17 @@ Run your free operational gap audit today at northsideintelligence.com/gapscan.
         onScreenText: "\"Stop guessing where your margin went. Run your free scan at northsideintelligence.com/gapscan\" Bold title font with emerald green interactive button."
       }
     ],
-    generatedMedia: [],
+    generatedMedia: [
+      {
+        id: "gen-gs-1",
+        name: "gapscan_slide_1.jpg",
+        url: "/Users/jonnybooth/.gemini/antigravity/brain/5ba82cd8-5bc5-4deb-980b-8c58e2b3e986/gapscan_slide_1_1791241598819.jpg",
+        type: "image",
+        size: "780 KB (1080x1440)",
+        source: "agent",
+        uploadedAt: "Today"
+      }
+    ],
     referenceMedia: [
       {
         id: "ref-gs-1",
