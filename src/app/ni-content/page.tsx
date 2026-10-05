@@ -649,6 +649,199 @@ Start free at northsideintelligence.com/bridgeai.
     ],
     referenceMedia: [],
     notes: "Approved for manual posting Friday Oct 2."
+  },
+
+  // 4. CAROUSEL: MONDAY OCT 5 (HERO IT POST - GAPSCAN)
+  {
+    id: "post-gapscan-oct5",
+    venture: "Northside Intelligence",
+    year: 2026,
+    month: "October 2026",
+    weekNumber: 2,
+    day: "Monday",
+    date: "Mon Oct 5, 2026",
+    dayOfMonth: 5,
+    scheduledTime: "5:00 PM ET",
+    channel: "IT",
+    slot: "Sector 3 IT Post (GapScan Operational Audit)",
+    brand: "GapScan",
+    format: "Carousel",
+    platforms: ["LinkedIn", "Instagram", "Threads", "Facebook"],
+    title: "GapScan: 5-Slide Operational Profit & Margin Leak Audit",
+    hook: "Where is your business silently losing 15-20% of its operating margin?",
+    status: "approved",
+    postedAt: null,
+    postingMethod: "manual",
+    pillar: "Identify operational margin leaks, unbilled deliverables, and workflow redundancies across your stack. Get one prioritized gap report with actionable fixes.",
+    caption: `Where is your business silently losing 15% to 20% of its operating margin? 🔍
+
+It's almost never a top-line revenue problem. It's operational drag:
+- Fragmented software subscriptions billing for unused team seats
+- Scope creep and unbilled deliverable hours slipping through manual tracking
+- Disconnected handoffs between sales closing and client onboarding
+
+Here is how GapScan audits your business in under 60 seconds:
+1. Connect your active tool stack and workflow outline.
+2. GapScan scans your operational pipeline for latency bottlenecks and cost redundancies.
+3. Hidden margin leaks get ranked by financial severity.
+4. Receive one prioritized executive report with direct, actionable fixes.
+5. Recover lost profit without raising your prices or increasing payroll.
+
+Stop guessing where your margin went.
+
+Run your free operational gap audit today at northsideintelligence.com/gapscan.
+
+#BusinessOperations #OperationsAudit #MarginOptimization #B2BStrategy #ProcessAutomation #OperationalEfficiency`,
+    hashtags: "#BusinessOperations #OperationsAudit #MarginOptimization #B2BStrategy #ProcessAutomation #OperationalEfficiency",
+    productionSpecs: {
+      dimensionsAndFormat: "1080 x 1440 px, 3:4 aspect ratio, PNG / JPG high resolution",
+      branding: "Dark obsidian canvas background, radiant emerald green efficiency indicators, warning amber margin highlight badges, and crisp high-contrast pure white typography. No hex color codes.",
+      references: "northsideintelligence.com/gapscan",
+      rules: [
+        "All text and important content of the images stays in the top 3/4 of the image",
+        "ALL TEXT WITHIN THE IMAGE AND UI DETAILS MUST BE COMPLETELY RENDERED WITHOUT ANY 'AI SLOP' AND POORLY RENDERED TEXT"
+      ]
+    },
+    slides: [
+      {
+        slideNumber: "Slide 1 of 5",
+        mainPrompt: "Cinematic executive audit dashboard view on an ultra-wide Apple Studio Display in an executive workspace at twilight. The GapScan interface displays on a dark obsidian canvas with radiant emerald green and warning amber data metrics highlighting operational margin leaks and cost redundancies. Minimalist Swiss layout, pristine editorial lighting. In the upper two-thirds safe zone, bold high-contrast pure white typography reads the headline.",
+        onScreenText: "\"Where is your business silently losing 15-20% of its operating margin?\" Bold white title with warning amber sub-glow."
+      },
+      {
+        slideNumber: "Slide 2 of 5",
+        mainPrompt: "High-contrast software interface card capture displaying the GapScan automated workflow scan. Dark obsidian background with deep navy glass cards. A clean scanning beam in emerald green reads 'Auditing 8 active tool integrations and billing pipelines'. Three categorized operational leaks are displayed: 1. Unused SaaS licenses, 2. Unbilled client scope drift, 3. Onboarding handoff friction.",
+        onScreenText: "\"Connect your stack in seconds. Instant automated pipeline analysis.\" Clean modern sans-serif in pure white with luminous emerald scanning badge."
+      },
+      {
+        slideNumber: "Slide 3 of 5",
+        mainPrompt: "Close-up macro UI view of the GapScan Margin Loss Radar. Dark obsidian canvas with 3 ranked financial leak cards: 'Tier 1: Disconnected Client Invoicing ($1,400/mo leak)', 'Tier 2: Duplicate Cloud Software Seats ($620/mo leak)', 'Tier 3: Manual Task Hand-offs (14 hours lost/week)'. Verified source tags and impact rankings.",
+        onScreenText: "\"Ranked by financial severity. No fluff, just real margin recovery.\" High-impact typography centered in the upper safe zone."
+      },
+      {
+        slideNumber: "Slide 4 of 5",
+        mainPrompt: "Sleek executive document generated inside the GapScan software titled 'GAPSCAN — EXECUTIVE MARGIN RECOVERY PLAN'. Shows bulleted actionable fixes: '1. Consolidate 3 duplicate tooling seats', '2. Automate invoice milestone triggers', '3. Estimated Annual Margin Recovery: $24,240'. Pure white text, crisp layout, emerald progress badge.",
+        onScreenText: "\"One prioritized executive report with direct, actionable fixes.\" Bold white headline with emerald green ROI highlight badge."
+      },
+      {
+        slideNumber: "Slide 5 of 5",
+        mainPrompt: "Authoritative closing brand CTA card for GapScan. Dark obsidian background with subtle emerald grid depth. In the center, a luminous 3D shield and radar emblem in emerald green and titanium white. Below the emblem is an interactive glassmorphism button displaying 'START FREE OPERATIONAL AUDIT'. Clean URL displayed at bottom: 'northsideintelligence.com/gapscan'.",
+        onScreenText: "\"Stop guessing where your margin went. Run your free scan at northsideintelligence.com/gapscan\" Bold title font with emerald green interactive button."
+      }
+    ],
+    generatedMedia: [],
+    referenceMedia: [
+      {
+        id: "ref-gs-1",
+        name: "gapscan-hero-mockup.png",
+        url: "https://northsideintelligence.com/gapscan",
+        type: "document",
+        size: "Web Reference",
+        source: "manual",
+        uploadedAt: "Today"
+      }
+    ],
+    notes: "Approved Sector 3 IT Post for Monday Oct 5. GapScan 5-Slide Carousel. Canonical template, zero hex codes, top-3/4 rule enforced."
+  },
+
+  // 5. VIDEO: MONDAY OCT 5 (SMART STORE VERTICAL REEL - 3-IN-1 CHARGING STATION)
+  {
+    id: "post-smart-store-oct5",
+    venture: "Northside Intelligence",
+    year: 2026,
+    month: "October 2026",
+    weekNumber: 2,
+    day: "Monday",
+    date: "Mon Oct 5, 2026",
+    dayOfMonth: 5,
+    scheduledTime: "8:00 PM ET",
+    channel: "Store",
+    slot: "Smart Store Video (3-in-1 Foldable Magnetic Charging Station)",
+    brand: "Smart Store",
+    format: "Video",
+    platforms: ["Instagram", "Facebook Reels", "TikTok", "YouTube Shorts"],
+    title: "Smart Store: The Nightstand Cable Mess vs 3-in-1 Magnetic Station",
+    hook: "Stop untangling five different chargers every night when direct manufacturer builds are twenty-two bucks.",
+    status: "approved",
+    postedAt: null,
+    postingMethod: "manual",
+    pillar: "Tell Smart Store what you want. It searches verified manufacturer catalogs and delivers high-capacity 3-in-1 wireless magnetic charging stands for $21.99 instead of $80 retail. Pay less for what you were already going to buy.",
+    caption: `Still fighting a tangled mess of charging cables on your nightstand every single night? 🛑
+
+Tell Smart Store what you want. It searches verified manufacturer catalogs and delivers fast 3-in-1 magnetic wireless charging stations for $21.99 instead of $80 brand retail.
+
+Charge your phone, watch, and earbuds on one sleek foldable stand. Zero cable clutter. Zero brand markup.
+
+$21.99 on Smart Store vs $80 retail.
+
+👉 Order yours now at northsideintelligence.com/store.
+
+#SmartStore #TechDeals #DeskSetup #NightstandOrganization #ShoppingHacks #SaveMoney #EDCGear #EverydayCarry`,
+    hashtags: "#SmartStore #TechDeals #DeskSetup #NightstandOrganization #ShoppingHacks #SaveMoney #EDCGear #EverydayCarry",
+    productionSpecs: {
+      dimensionsAndFormat: "1080 x 1920 px, 9:16 vertical aspect ratio, MP4 video",
+      narratorTone: "Direct, observational, humorous problem-solving tone with natural sound effects and fast-paced editing.",
+      sfx: "Cable snapping and knocking glass sound, quick comedic whoosh, magnetic snap click sound, clean confirmation chime.",
+      backgroundMusic: "Upbeat modern instrumental beat with crisp rhythmic percussion.",
+      branding: "Dark background with 3D Northside Intelligence logo, glowing neon blue letters illuminating 'Smart Store', no numeric hex codes.",
+      references: "northsideintelligence.com/store | attached UI and brand end card references",
+      rules: [
+        "All important content stays in top 3/4 of frame",
+        "ALL ON SCREEN TEXT ON A SMARTPHONE OR A COMPUTER MUST BE LEGIBLE TEXT CONSTRUCTION HOW IT WOULD SHOW UP ON A REAL APP. NO 'AI SLOP', FAKE NAMES, FAKE LETTERS, AND FAKE WORDS. ALL THE TEXT ON SCREENS IN THE IMAGES SHOULD LOOK HOW THEY SHOULD IN REAL LIFE!"
+      ]
+    },
+    scenes: [
+      {
+        sceneNum: "Scene 1",
+        description: "Close-up of a guy (late 20s, casual loungewear) sitting on the edge of his bed in dim bedroom lighting trying to plug his phone into a tangled rat's nest of 4 different cables on his nightstand. He accidentally pulls the wrong wire, knocking his water glass off the table. He throws his hands in the air in sheer exasperation.",
+        dialogue: "\"Why am I still fighting five different cables every single night?\"",
+        narrator: "",
+        transition: "Rapid whip-pan right to his roommate walking past the doorway holding his smartphone"
+      },
+      {
+        sceneNum: "Scene 2",
+        description: "Roommate (early 30s, black, stylish casual clothes) leans against the doorframe holding his phone with the Smart Store interface displayed. He gives a knowing smirk.",
+        dialogue: "\"Bro, stop buying eighty-dollar cables. Smart Store has the 3-in-1 magnetic station for twenty-one bucks.\"",
+        narrator: "",
+        transition: "Match cut to clean overhead product view"
+      },
+      {
+        sceneNum: "Scene 3",
+        description: "Clean overhead aesthetic view of a sleek obsidian black 3-in-1 foldable magnetic stand effortlessly snapping a phone, smartwatch, and earbuds into place with one subtle magnetic click. The screen shows the Smart Store verified price tag: '$21.99 (Free 2-Day Shipping)'.",
+        dialogue: "",
+        narrator: "\"Fast wireless charging. One cord. Zero brand markup.\"",
+        transition: "Transition fade to clean brand card"
+      },
+      {
+        sceneNum: "Scene 4",
+        description: "Dark background with a 3D rendering of the Northside Intelligence logo with glowing neon blue letters illuminating 'Smart Store' and the URL 'northsideintelligence.com/store'.",
+        dialogue: "",
+        narrator: "",
+        transition: "Fade to black"
+      }
+    ],
+    generatedMedia: [],
+    referenceMedia: [
+      {
+        id: "ref-ss-oct5-1",
+        name: "phone-ui-reference.png",
+        url: "https://northsideintelligence.com/store",
+        type: "image",
+        size: "UI Reference",
+        source: "manual",
+        uploadedAt: "Today"
+      },
+      {
+        id: "ref-ss-oct5-2",
+        name: "end-card-reference.png",
+        url: "https://northsideintelligence.com/store",
+        type: "image",
+        size: "End Card Reference",
+        source: "manual",
+        uploadedAt: "Today"
+      }
+    ],
+    notes: "Approved for Monday Oct 5 Smart Store vertical reel. Canonical video template, zero seconds in scenes, top-3/4 rule enforced."
   }
 ];
 
@@ -658,14 +851,14 @@ Start free at northsideintelligence.com/bridgeai.
 
 export default function NiContentPage() {
   const [posts, setPosts] = useState<ContentPost[]>(INITIAL_POSTS);
-  const [activeSlotId, setActiveSlotId] = useState<string>("post-signal-desk");
+  const [activeSlotId, setActiveSlotId] = useState<string>("post-gapscan-oct5");
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
 
   // Time Navigation States
   const [activeVenture, setActiveVenture] = useState<VentureName>("Northside Intelligence");
   const [selectedYear, setSelectedYear] = useState<number>(2026);
   const [selectedMonth, setSelectedMonth] = useState<string>("October 2026");
-  const [selectedWeek, setSelectedWeek] = useState<number>(1);
+  const [selectedWeek, setSelectedWeek] = useState<number>(2);
 
   // Workflow Stage Navigation
   const [workflowStage, setWorkflowStage] = useState<WorkflowStage>("hub");
@@ -709,11 +902,10 @@ export default function NiContentPage() {
   // 1. Load from localStorage on mount (with automatic migration to preserve real media)
   useEffect(() => {
     try {
-      const savedV4 = localStorage.getItem("ni_content_hub_master_v5");
-      if (savedV4) {
-        const parsed = JSON.parse(savedV4);
+      const savedV6 = localStorage.getItem("ni_content_hub_master_v6");
+      if (savedV6) {
+        const parsed = JSON.parse(savedV6);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          // Filter out any obsolete post IDs (like post-ni-thought-leadership)
           const validPosts = parsed.filter((p: ContentPost) => p.id !== "post-ni-thought-leadership");
           const merged = INITIAL_POSTS.map((initial) => {
             const existing = validPosts.find((p: ContentPost) => p.id === initial.id);
@@ -726,12 +918,11 @@ export default function NiContentPage() {
             };
           });
           setPosts(merged);
-          localStorage.setItem("ni_content_hub_master_v5", JSON.stringify(merged));
+          localStorage.setItem("ni_content_hub_master_v6", JSON.stringify(merged));
         }
       } else {
-        // First visit on v4: start fresh with INITIAL_POSTS (cleanly purges stale NI Services stubs)
         setPosts(INITIAL_POSTS);
-        localStorage.setItem("ni_content_hub_master_v5", JSON.stringify(INITIAL_POSTS));
+        localStorage.setItem("ni_content_hub_master_v6", JSON.stringify(INITIAL_POSTS));
       }
 
       const savedStrat = localStorage.getItem("ni_content_strategy_requests_v1");
