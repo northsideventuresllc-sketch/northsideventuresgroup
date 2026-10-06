@@ -852,6 +852,86 @@ $21.99 on Smart Store vs $80 retail.
       }
     ],
     notes: "Approved for Monday Oct 5 Smart Store vertical reel. Canonical video template, zero seconds in scenes, top-3/4 rule enforced."
+  },
+
+  // 6. STATIC: TUESDAY OCT 6 (HERO IT POST - REPLYFLOW)
+  {
+    id: "post-replyflow-oct6",
+    venture: "Northside Intelligence",
+    year: 2026,
+    month: "October 2026",
+    weekNumber: 2,
+    day: "Tuesday",
+    date: "Tue Oct 6, 2026",
+    dayOfMonth: 6,
+    scheduledTime: "5:00 PM ET",
+    channel: "IT",
+    slot: "Sector 3 IT Post (ReplyFlow Customer Response Engine)",
+    brand: "ReplyFlow",
+    format: "Static",
+    platforms: ["LinkedIn", "Instagram", "Threads", "Facebook"],
+    title: "ReplyFlow: Stop Writing The Same Five Support Replies",
+    hook: "Stop spending your mornings writing the same five customer support emails.",
+    status: "approved",
+    postedAt: null,
+    postingMethod: "manual",
+    pillar: "Turn customer inquiries and support tickets into on-brand, scenario-matched responses in under 10 seconds. Eliminate cognitive fatigue and support queue lag.",
+    caption: `Stop spending your mornings writing the same five customer support emails. ⚡
+
+Whether it's a refund inquiry, a delivery delay, or a complex VIP client question:
+- Tone matters
+- Speed matters
+- Getting it right on the first try matters
+
+Here is how ReplyFlow handles inbound messages in seconds:
+1. Paste any incoming customer email, DM, or support ticket.
+2. Select your desired tone (Professional, Friendly, Empathetic, or Firm).
+3. Choose the response scenario or custom instructions.
+4. Get a ready-to-send, on-brand draft in under 10 seconds.
+5. Review, copy, and send with zero cognitive fatigue.
+
+Free up your support queue and focus on growing your business.
+
+Start free today at northsideintelligence.com/replyflow.
+
+#CustomerSupport #WorkflowAutomation #ReplyFlow #AIAssistant #SmallBusinessTools #OpsAutomation`,
+    hashtags: "#CustomerSupport #WorkflowAutomation #ReplyFlow #AIAssistant #SmallBusinessTools #OpsAutomation",
+    productionSpecs: {
+      dimensionsAndFormat: "1080 x 1440 px, 3:4 aspect ratio, PNG / JPG high resolution",
+      branding: "Dark cyber navy canvas, radiant electric indigo accents, clean ice-cyan response routing beams, crisp high-contrast pure white typography. No hex color codes.",
+      references: "northsideintelligence.com/replyflow",
+      rules: [
+        "All text and important content of the image stays in the top 3/4 of the image",
+        "ALL TEXT WITHIN THE IMAGE AND UI DETAILS MUST BE COMPLETELY RENDERED WITHOUT ANY 'AI SLOP' AND POORLY RENDERED TEXT"
+      ]
+    },
+    staticPrompt: {
+      mainPrompt: "High-contrast modern software interface capture for ReplyFlow on a dark obsidian Apple Studio Display. Dark cyber navy canvas with glowing electric indigo and ice-cyan message cards showing an incoming customer message on the left transforming into a polished, professional on-brand customer reply on the right. An interactive status badge reads '10-Second Response • On-Brand Tone Selection'. Clean Swiss typography in top safe zone reading: 'Stop Writing The Same Five Support Replies'. Minimalist tech office workspace background with soft bokeh, crisp high-definition lighting, zero AI slop, no distorted text, 3:4 aspect ratio portrait.",
+      onScreenText: "\"Stop Writing The Same Five Support Replies\" Bold white headline with ice-cyan subtext badge."
+    },
+    generatedMedia: [
+      {
+        id: "gen-rf-1",
+        name: "replyflow_tue_static.jpg",
+        url: "/Users/jonnybooth/.gemini/antigravity/brain/5ba82cd8-5bc5-4deb-980b-8c58e2b3e986/replyflow_tue_static_1791312772390.jpg",
+        type: "image",
+        size: "740 KB (1080x1440)",
+        source: "agent",
+        uploadedAt: "Today"
+      }
+    ],
+    referenceMedia: [
+      {
+        id: "ref-rf-1",
+        name: "replyflow-dashboard.png",
+        url: "https://northsideintelligence.com/replyflow",
+        type: "document",
+        size: "Web Reference",
+        source: "manual",
+        uploadedAt: "Today"
+      }
+    ],
+    notes: "Approved Sector 3 IT Post for Tuesday Oct 6. ReplyFlow Static post with generated high-fidelity UI creative."
   }
 ];
 
@@ -861,7 +941,7 @@ $21.99 on Smart Store vs $80 retail.
 
 export default function NiContentPage() {
   const [posts, setPosts] = useState<ContentPost[]>(INITIAL_POSTS);
-  const [activeSlotId, setActiveSlotId] = useState<string>("post-gapscan-oct5");
+  const [activeSlotId, setActiveSlotId] = useState<string>("post-replyflow-oct6");
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
 
   // Time Navigation States
@@ -912,9 +992,9 @@ export default function NiContentPage() {
   // 1. Load from localStorage on mount (with automatic migration to preserve real media)
   useEffect(() => {
     try {
-      const savedV6 = localStorage.getItem("ni_content_hub_master_v6");
-      if (savedV6) {
-        const parsed = JSON.parse(savedV6);
+      const savedV7 = localStorage.getItem("ni_content_hub_master_v7");
+      if (savedV7) {
+        const parsed = JSON.parse(savedV7);
         if (Array.isArray(parsed) && parsed.length > 0) {
           const validPosts = parsed.filter((p: ContentPost) => p.id !== "post-ni-thought-leadership");
           const merged = INITIAL_POSTS.map((initial) => {
@@ -928,11 +1008,11 @@ export default function NiContentPage() {
             };
           });
           setPosts(merged);
-          localStorage.setItem("ni_content_hub_master_v6", JSON.stringify(merged));
+          localStorage.setItem("ni_content_hub_master_v7", JSON.stringify(merged));
         }
       } else {
         setPosts(INITIAL_POSTS);
-        localStorage.setItem("ni_content_hub_master_v6", JSON.stringify(INITIAL_POSTS));
+        localStorage.setItem("ni_content_hub_master_v7", JSON.stringify(INITIAL_POSTS));
       }
 
       const savedStrat = localStorage.getItem("ni_content_strategy_requests_v1");
