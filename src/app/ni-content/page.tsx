@@ -898,7 +898,7 @@ Start free today at northsideintelligence.com/replyflow.
     hashtags: "#CustomerSupport #WorkflowAutomation #ReplyFlow #AIAssistant #SmallBusinessTools #OpsAutomation",
     productionSpecs: {
       dimensionsAndFormat: "1080 x 1440 px, 3:4 aspect ratio, PNG / JPG high resolution",
-      branding: "Dark cyber navy canvas, radiant electric indigo accents, clean ice-cyan response routing beams, crisp high-contrast pure white typography. No hex color codes.",
+      branding: "Dark obsidian canvas, radiant rose-coral and sunset-orange glowing interface panels, subtle violet ambient accents, crisp high-contrast pure white typography. No hex color codes.",
       references: "northsideintelligence.com/replyflow",
       rules: [
         "All text and important content of the image stays in the top 3/4 of the image",
@@ -906,16 +906,16 @@ Start free today at northsideintelligence.com/replyflow.
       ]
     },
     staticPrompt: {
-      mainPrompt: "High-contrast modern software interface capture for ReplyFlow on a dark obsidian Apple Studio Display. Dark cyber navy canvas with glowing electric indigo and ice-cyan message cards showing an incoming customer message on the left transforming into a polished, professional on-brand customer reply on the right. An interactive status badge reads '10-Second Response • On-Brand Tone Selection'. Clean Swiss typography in top safe zone reading: 'Stop Writing The Same Five Support Replies'. Minimalist tech office workspace background with soft bokeh, crisp high-definition lighting, zero AI slop, no distorted text, 3:4 aspect ratio portrait.",
-      onScreenText: "\"Stop Writing The Same Five Support Replies\" Bold white headline with ice-cyan subtext badge."
+      mainPrompt: "High-contrast modern software interface capture for ReplyFlow on a sleek dark Apple Studio Display. Dark obsidian canvas with radiant rose-coral and sunset-orange glowing interface panels, accented by subtle violet ambient light. On the left screen card is an incoming customer support ticket, and on the right is a polished on-brand customer reply bordered in luminous rose-pink and coral. An interactive status badge reads '10-Second Response • On-Brand Tone Selection'. Clean Swiss typography in top safe zone reading: 'Stop Writing The Same Five Support Replies'. Minimalist executive desk, professional lighting, zero AI slop, no distorted text, 3:4 aspect ratio portrait.",
+      onScreenText: "\"Stop Writing The Same Five Support Replies\" Bold white headline with rose-coral subtext badge."
     },
     generatedMedia: [
       {
         id: "gen-rf-1",
         name: "replyflow_tue_static.jpg",
-        url: "/Users/jonnybooth/.gemini/antigravity/brain/5ba82cd8-5bc5-4deb-980b-8c58e2b3e986/replyflow_tue_static_1791312772390.jpg",
+        url: "/Users/jonnybooth/.gemini/antigravity/brain/5ba82cd8-5bc5-4deb-980b-8c58e2b3e986/replyflow_tue_static_rose_1791313212992.jpg",
         type: "image",
-        size: "740 KB (1080x1440)",
+        size: "720 KB (1080x1440)",
         source: "agent",
         uploadedAt: "Today"
       }
@@ -931,7 +931,7 @@ Start free today at northsideintelligence.com/replyflow.
         uploadedAt: "Today"
       }
     ],
-    notes: "Approved Sector 3 IT Post for Tuesday Oct 6. ReplyFlow Static post with generated high-fidelity UI creative."
+    notes: "Approved Sector 3 IT Post for Tuesday Oct 6. ReplyFlow Static post with verified Rose/Coral/Sunset-Orange brand identity."
   }
 ];
 
@@ -992,9 +992,9 @@ export default function NiContentPage() {
   // 1. Load from localStorage on mount (with automatic migration to preserve real media)
   useEffect(() => {
     try {
-      const savedV7 = localStorage.getItem("ni_content_hub_master_v7");
-      if (savedV7) {
-        const parsed = JSON.parse(savedV7);
+      const savedV8 = localStorage.getItem("ni_content_hub_master_v8");
+      if (savedV8) {
+        const parsed = JSON.parse(savedV8);
         if (Array.isArray(parsed) && parsed.length > 0) {
           const validPosts = parsed.filter((p: ContentPost) => p.id !== "post-ni-thought-leadership");
           const merged = INITIAL_POSTS.map((initial) => {
@@ -1008,11 +1008,11 @@ export default function NiContentPage() {
             };
           });
           setPosts(merged);
-          localStorage.setItem("ni_content_hub_master_v7", JSON.stringify(merged));
+          localStorage.setItem("ni_content_hub_master_v8", JSON.stringify(merged));
         }
       } else {
         setPosts(INITIAL_POSTS);
-        localStorage.setItem("ni_content_hub_master_v7", JSON.stringify(INITIAL_POSTS));
+        localStorage.setItem("ni_content_hub_master_v8", JSON.stringify(INITIAL_POSTS));
       }
 
       const savedStrat = localStorage.getItem("ni_content_strategy_requests_v1");
