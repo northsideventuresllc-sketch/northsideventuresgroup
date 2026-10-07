@@ -1,4 +1,9 @@
-export interface OutreachSocial {
+import fs from "fs";
+import path from "path";
+
+const targetPath = "/Users/jonnybooth/Desktop/Desktop/Northside Ventures/Northside Intelligence/Agentic OS Hub/02_Repos/northsideventuresgroup/src/data/ni-outreach-data.ts";
+
+const fileContent = `export interface OutreachSocial {
   platform: "LinkedIn" | "Instagram" | "Twitter" | "Facebook" | string;
   url: string;
   handle?: string;
@@ -53,7 +58,6 @@ export interface OutreachLeadItem {
   company?: string;
   business?: string;
   category?: "webdesign" | "ittools" | "archive" | "followup" | string;
-  serviceTrack?: "Creation (No Website Found)" | "Redesign (Legacy Site)" | "Management & Retainer" | string;
   vertical?: string;
   verticalColor?: string;
   contact?: string;
@@ -108,7 +112,6 @@ export const INITIAL_WEBDESIGN: OutreachLeadItem[] = [
   {
     id: "web-1",
     company: "Warner Summers",
-    serviceTrack: "Redesign (Legacy Site)",
     vertical: "NI Services · Commercial Architecture & Interior Design",
     verticalColor: "cyan",
     contact: "Dana Ladd",
@@ -512,7 +515,6 @@ export const INITIAL_WEBDESIGN: OutreachLeadItem[] = [
   {
     id: "web-4",
     company: "Dowdle Construction Group",
-    serviceTrack: "Redesign (Legacy Site)",
     vertical: "NI Services · Commercial General Contracting",
     verticalColor: "cyan",
     contact: "Chase Dowdle",
@@ -777,7 +779,6 @@ export const INITIAL_WEBDESIGN: OutreachLeadItem[] = [
   {
     id: "web-6",
     company: "Neil Fink Associates",
-    serviceTrack: "Creation (No Website Found)",
     vertical: "NI Services · Executive Search & Talent Advisory",
     verticalColor: "cyan",
     contact: "Neil Fink",
@@ -910,7 +911,6 @@ export const INITIAL_WEBDESIGN: OutreachLeadItem[] = [
   {
     id: "web-7",
     company: "ReInvest Capital",
-    serviceTrack: "Management & Retainer",
     vertical: "NI Services · Commercial Real Estate Syndication",
     verticalColor: "cyan",
     contact: "Gary Brown",
@@ -1498,7 +1498,23 @@ export const INITIAL_ITTOOLS: OutreachLeadItem[] = [
         { label: "ReplyFlow Product", url: "https://northsideintelligence.com/replyflow" }
       ]
     },
-    
+    deliverablePrototype: {
+      title: "Interactive Leasing Response Simulator for Poinciana",
+      type: "interactive_demo",
+      previewUrl: "/prototypes/replyflow-simulator.html",
+      downloadUrl: "/prototypes/replyflow-simulator.html",
+      downloadFilename: "poinciana-replyflow-simulator.html",
+      description: "Interactive tenant inquiry simulator allowing leasing staff to test 1-click tailored responses to pet policies, pricing, and tour scheduling.",
+      receipts: [
+        {
+          id: "rcpt-rf-1",
+          timestamp: "2026-10-06 17:38:00",
+          requestedOptions: ["Multi-Family Leasing Scenarios", "Tone Presets"],
+          summary: "Pre-loaded standard Florida leasing policies and warm professional tone preset.",
+          diffNotes: ["Configured 10-second response generator", "Added 1-click clipboard paste workflow"]
+        }
+      ]
+    },
     responseLikelihood: 85,
     responseLikelihoodReasons: [
       "Leasing desks actively seek ways to reduce repetitive clerical typing.",
@@ -1615,7 +1631,23 @@ export const INITIAL_ITTOOLS: OutreachLeadItem[] = [
         { label: "ReplyFlow Demo", url: "https://northsideintelligence.com/replyflow" }
       ]
     },
-    
+    deliverablePrototype: {
+      title: "HOA Communications Assistant for Florida's Property Management",
+      type: "interactive_demo",
+      previewUrl: "/prototypes/replyflow-simulator.html",
+      downloadUrl: "/prototypes/replyflow-simulator.html",
+      downloadFilename: "fl-property-mgmt-replyflow-simulator.html",
+      description: "Interactive communications simulator pre-configured with HOA compliance rules, architectural review responses, and vendor dispatch templates.",
+      receipts: [
+        {
+          id: "rcpt-rf-2",
+          timestamp: "2026-10-06 17:40:00",
+          requestedOptions: ["HOA Diplomacy Presets", "Architectural Review Responses"],
+          summary: "Pre-configured HOA board communication templates and firm diplomatic tone.",
+          diffNotes: ["Added HOA fine notice preset", "Validated 1-click clipboard paste"]
+        }
+      ]
+    },
     responseLikelihood: 84,
     responseLikelihoodReasons: [
       "HOA managers suffer extreme communication burnout from repetitive board and owner inquiries.",
@@ -1728,7 +1760,23 @@ export const INITIAL_ITTOOLS: OutreachLeadItem[] = [
         { label: "GrantBot Tool", url: "https://northsideintelligence.com/grantbot" }
       ]
     },
-    
+    deliverablePrototype: {
+      title: "Interactive Grant Proposal Drafter for New Haven Arts",
+      type: "interactive_demo",
+      previewUrl: "/prototypes/grantbot-builder.html",
+      downloadUrl: "/prototypes/grantbot-builder.html",
+      downloadFilename: "new-haven-arts-grantbot-builder.html",
+      description: "Interactive grant narrative builder with pre-drafted mission impact sections, budget justifications, and funder alignment criteria.",
+      receipts: [
+        {
+          id: "rcpt-gb-1",
+          timestamp: "2026-10-06 17:42:00",
+          requestedOptions: ["Connecticut Humanities Funder Criteria", "Impact Metrics"],
+          summary: "Pre-configured CT Humanities Council guidelines and Title I school metrics.",
+          diffNotes: ["Integrated funder rubric analysis", "Generated complete 5-section narrative draft"]
+        }
+      ]
+    },
     responseLikelihood: 83,
     responseLikelihoodReasons: [
       "Non-profit development teams are perennially understaffed and hungry for grant proposal assistance.",
@@ -1845,7 +1893,23 @@ export const INITIAL_ITTOOLS: OutreachLeadItem[] = [
         { label: "GrantBot Tool", url: "https://northsideintelligence.com/grantbot" }
       ]
     },
-    
+    deliverablePrototype: {
+      title: "Wildlife Conservation Grant Builder for SFWC",
+      type: "interactive_demo",
+      previewUrl: "/prototypes/grantbot-builder.html",
+      downloadUrl: "/prototypes/grantbot-builder.html",
+      downloadFilename: "sfwc-grantbot-builder.html",
+      description: "Interactive grant narrative builder featuring veterinary medical equipment justifications, wildlife trauma patient statistics, and habitat restoration milestones.",
+      receipts: [
+        {
+          id: "rcpt-gb-2",
+          timestamp: "2026-10-06 17:45:00",
+          requestedOptions: ["Veterinary Medical Justifications", "Emergency Intake Statistics"],
+          summary: "Configured 5,000+ patient volume statistics and Florida wildlife conservation rubrics.",
+          diffNotes: ["Added trauma care equipment budget template", "Automated outcome metric narrative generation"]
+        }
+      ]
+    },
     responseLikelihood: 84,
     responseLikelihoodReasons: [
       "Executive directors of wildlife centers are deeply dedicated to securing funding for animal care.",
@@ -1962,7 +2026,23 @@ export const INITIAL_ITTOOLS: OutreachLeadItem[] = [
         { label: "SignalDesk Demo", url: "https://northsideintelligence.com/signaldesk" }
       ]
     },
-    
+    deliverablePrototype: {
+      title: "Live Archival Intelligence Feed for Digital Heritage",
+      type: "interactive_demo",
+      previewUrl: "/prototypes/signaldesk-feed.html",
+      downloadUrl: "/prototypes/signaldesk-feed.html",
+      downloadFilename: "digital-heritage-signaldesk-feed.html",
+      description: "Interactive real-time signal monitoring feed tracking federal digitization RFPs, competitor moves, and museum endowment awards.",
+      receipts: [
+        {
+          id: "rcpt-sd-1",
+          timestamp: "2026-10-06 17:48:00",
+          requestedOptions: ["Federal RFP Tracking", "Preservation Technology Alerts"],
+          summary: "Pre-configured Library of Congress RFP alerts and competitor tracking.",
+          diffNotes: ["Filter noise from 400+ daily RSS feeds down to 3 high-impact signals", "Automated executive summary generation"]
+        }
+      ]
+    },
     responseLikelihood: 83,
     responseLikelihoodReasons: [
       "Researchers value high-signal, low-noise curation tools.",
@@ -2079,7 +2159,23 @@ export const INITIAL_ITTOOLS: OutreachLeadItem[] = [
         { label: "SignalDesk Tool", url: "https://northsideintelligence.com/signaldesk" }
       ]
     },
-    
+    deliverablePrototype: {
+      title: "Competitor Move Monitor for Aperture Strategy Partners",
+      type: "interactive_demo",
+      previewUrl: "/prototypes/signaldesk-feed.html",
+      downloadUrl: "/prototypes/signaldesk-feed.html",
+      downloadFilename: "aperture-strategy-signaldesk-feed.html",
+      description: "Interactive real-time intelligence dashboard tracking competitor product releases, pricing changes, and executive departures across target B2B sectors.",
+      receipts: [
+        {
+          id: "rcpt-sd-2",
+          timestamp: "2026-10-06 17:50:00",
+          requestedOptions: ["B2B SaaS Sector Tracking", "Executive Transition Alerts"],
+          summary: "Pre-configured competitor monitoring for mid-market B2B SaaS sectors.",
+          diffNotes: ["Integrated real-time patent and pricing alert feeds", "Added 1-click export to executive PDF brief"]
+        }
+      ]
+    },
     responseLikelihood: 85,
     responseLikelihoodReasons: [
       "Consulting partners are acutely aware of billable hour allocation and analyst efficiency.",
@@ -2196,7 +2292,23 @@ export const INITIAL_ITTOOLS: OutreachLeadItem[] = [
         { label: "GapScan Demo", url: "https://northsideintelligence.com/gapscan" }
       ]
     },
-    
+    deliverablePrototype: {
+      title: "Competitor Review Gap Audit for Velocity SaaS Studio",
+      type: "interactive_demo",
+      previewUrl: "/prototypes/gapscan-audit.html",
+      downloadUrl: "/prototypes/gapscan-audit.html",
+      downloadFilename: "velocity-saas-gapscan-audit.html",
+      description: "Interactive customer review audit scanning 450+ verified competitor reviews to pinpoint unaddressed product gaps and feature opportunities.",
+      receipts: [
+        {
+          id: "rcpt-gs-1",
+          timestamp: "2026-10-06 17:52:00",
+          requestedOptions: ["Multi-Currency Friction Analysis", "Onboarding Bottleneck Detection"],
+          summary: "Identified 38% user frustration regarding currency conversions in competitor tools.",
+          diffNotes: ["Scanned G2 and Capterra verified review datasets", "Generated quantitative feature demand scorecard"]
+        }
+      ]
+    },
     responseLikelihood: 86,
     responseLikelihoodReasons: [
       "Software founders and venture studios prioritize rapid product validation data.",
@@ -2313,7 +2425,23 @@ export const INITIAL_ITTOOLS: OutreachLeadItem[] = [
         { label: "GapScan Tool", url: "https://northsideintelligence.com/gapscan" }
       ]
     },
-    
+    deliverablePrototype: {
+      title: "E-Commerce Review Gap Audit for OmniCommerce",
+      type: "interactive_demo",
+      previewUrl: "/prototypes/gapscan-audit.html",
+      downloadUrl: "/prototypes/gapscan-audit.html",
+      downloadFilename: "omnicommerce-gapscan-audit.html",
+      description: "Interactive e-commerce review analysis scanning Amazon and Shopify buyer feedback to identify unaddressed product flaws in competitor products.",
+      receipts: [
+        {
+          id: "rcpt-gs-2",
+          timestamp: "2026-10-06 17:55:00",
+          requestedOptions: ["Packaging Durability Analysis", "Ingredient Transparency Feedback"],
+          summary: "Identified high return rates tied to fragile competitor bottle caps.",
+          diffNotes: ["Scanned 1,200 verified Amazon verified purchase reviews", "Generated actionable product packaging design recommendations"]
+        }
+      ]
+    },
     responseLikelihood: 85,
     responseLikelihoodReasons: [
       "E-commerce brand leaders are obsessed with customer review data and reducing return rates.",
@@ -2430,7 +2558,23 @@ export const INITIAL_ITTOOLS: OutreachLeadItem[] = [
         { label: "BridgeAI Tool", url: "https://northsideintelligence.com/bridgeai" }
       ]
     },
-    
+    deliverablePrototype: {
+      title: "Interactive Multi-App Pipeline Simulator for Agentic Solutions",
+      type: "interactive_demo",
+      previewUrl: "/prototypes/bridgeai-pipeline.html",
+      downloadUrl: "/prototypes/bridgeai-pipeline.html",
+      downloadFilename: "agentic-solutions-bridgeai-pipeline.html",
+      description: "Interactive integration pipeline simulator demonstrating live data syncing, schema transformation, and webhook dispatch between enterprise tools.",
+      receipts: [
+        {
+          id: "rcpt-ba-1",
+          timestamp: "2026-10-06 17:58:00",
+          requestedOptions: ["CRM to Slack/DB Webhook Relay", "Payload Validation"],
+          summary: "Pre-configured sub-100ms webhook routing between HubSpot and Supabase.",
+          diffNotes: ["Eliminated fragile Zapier script dependencies", "Added automated JSON schema verification"]
+        }
+      ]
+    },
     responseLikelihood: 85,
     responseLikelihoodReasons: [
       "Technical founders appreciate practical developer tools that eliminate boilerplate integration code.",
@@ -2547,7 +2691,23 @@ export const INITIAL_ITTOOLS: OutreachLeadItem[] = [
         { label: "BridgeAI Tool", url: "https://northsideintelligence.com/bridgeai" }
       ]
     },
-    
+    deliverablePrototype: {
+      title: "Monitored Data Sync Pipeline for DataBridge Analytics",
+      type: "interactive_demo",
+      previewUrl: "/prototypes/bridgeai-pipeline.html",
+      downloadUrl: "/prototypes/bridgeai-pipeline.html",
+      downloadFilename: "databridge-analytics-pipeline.html",
+      description: "Interactive data integration simulator with live schema validation, automatic retry mechanics, and real-time execution logging.",
+      receipts: [
+        {
+          id: "rcpt-ba-2",
+          timestamp: "2026-10-06 18:00:00",
+          requestedOptions: ["Enterprise Error Recovery", "Audit Trail Logging"],
+          summary: "Implemented automated retry logic and real-time execution trace dashboard.",
+          diffNotes: ["Added automatic Slack/Webhook alert on payload error", "Verified 99.99% uptime delivery guarantee"]
+        }
+      ]
+    },
     responseLikelihood: 84,
     responseLikelihoodReasons: [
       "Data consultants are highly attuned to pipeline reliability and monitoring.",
@@ -3025,3 +3185,7 @@ export const INITIAL_FOLLOWUPS: OutreachLeadItem[] = [
     }
   }
 ];
+`;
+
+fs.writeFileSync(targetPath, fileContent, "utf8");
+console.log("Successfully wrote enriched ni-outreach-data.ts!");

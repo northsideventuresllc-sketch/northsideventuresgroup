@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Westgate Capital Consultants — Interactive Prototype | Northside Intelligence</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+
+</head>
+<body class="bg-[#090D16] text-slate-100 min-h-screen antialiased flex flex-col">
+  <!-- Top Operator Bar -->
+  <header class="border-b border-slate-800/80 bg-[#0E1424]/90 backdrop-blur sticky top-0 z-50 px-6 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold text-xs uppercase tracking-wider">
+        NI Deliverable Prototype
+      </div>
+      <div class="text-xs text-slate-400">
+        Prepared for <span class="font-semibold text-white">Westgate Capital Consultants</span> (Tacoma, WA)
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button onclick="window.print()" class="px-3 py-1.5 text-xs font-semibold rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+        Export / Print PDF
+      </button>
+      <a href="data:text/html;charset=utf-8,%3C!--%20Westgate%20Capital%20Consultants%20Prototype%20--%3E" download="westgate-capital-consultants-prototype.html" class="px-3 py-1.5 text-xs font-semibold rounded bg-cyan-500 hover:bg-cyan-400 text-black transition">
+        Download Offline HTML
+      </a>
+    </div>
+  </header>
+
+  <!-- Prototype Hero -->
+  <main class="flex-1 max-w-6xl w-full mx-auto p-6 md:p-10 space-y-10">
+    <div class="rounded-2xl border border-slate-800 bg-gradient-to-b from-[#131B2E] to-[#0D1322] p-8 md:p-12 relative overflow-hidden shadow-2xl">
+      <div class="absolute -right-20 -top-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-xs text-slate-300 mb-6">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Wealth Management · Interactive Next.js Concept</span>
+      </div>
+
+      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white max-w-3xl leading-tight">
+        Fiduciary Digital Flagship & Executive Client Access
+      </h1>
+
+      <p class="mt-4 text-slate-400 text-base md:text-lg max-w-2xl leading-relaxed">
+        Sub-second client login redirects and institutional wealth advisory positioning. Engineered with sub-second page transitions, responsive touch controls, and zero legacy CMS script bloat.
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-4">
+        <button onclick="alert('Interactive demo: Project Showcase Filter Triggered')" class="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-sm shadow-lg shadow-cyan-500/20 transition">
+          Explore Portfolio Archive
+        </button>
+        <button onclick="alert('Interactive demo: Client Inquiry Modal Opened')" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm border border-slate-700 transition">
+          Direct Consultation Request
+        </button>
+      </div>
+    </div>
+
+    <!-- Interactive Features Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
+        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
+          01
+        </div>
+        <h3 class="font-bold text-lg text-white mb-2">Instant Mobile Speed</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          Google Lighthouse 98+ score with modern image compression, eliminating render delays on high-resolution project photography.
+        </p>
+      </div>
+
+      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
+        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
+          02
+        </div>
+        <h3 class="font-bold text-lg text-white mb-2">Frictionless Lead Intake</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          Streamlined client consultation intake with automatic validation, spam filtering, and direct CRM notification webhooks.
+        </p>
+      </div>
+
+      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
+        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
+          03
+        </div>
+        <h3 class="font-bold text-lg text-white mb-2">Zero CMS Maintenance</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          Static-first Next.js infrastructure deployed on high-availability edge nodes, completely immune to WordPress plugin vulnerabilities.
+        </p>
+      </div>
+    </div>
+
+    <!-- Verification & Proof Footer -->
+    <div class="rounded-xl border border-slate-800 bg-[#0E1424] p-6 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span>Prototype Status: <strong class="text-white">Active Preview Verified</strong></span>
+      </div>
+      <div>
+        Built by Northside Intelligence · Studio Architecture Division
+      </div>
+    </div>
+  </main>
+</body>
+</html>

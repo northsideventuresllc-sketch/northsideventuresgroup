@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SignalDesk — Interactive Software Demo | Northside Intelligence</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+
+</head>
+<body class="bg-[#090D16] text-slate-100 min-h-screen antialiased flex flex-col">
+  <!-- Top Operator Bar -->
+  <header class="border-b border-slate-800/80 bg-[#0E1424]/90 backdrop-blur sticky top-0 z-50 px-6 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="px-2.5 py-1 rounded bg-purple-500/10 border border-purple-500/30 text-purple-400 font-bold text-xs uppercase tracking-wider">
+        NI Sector 3 Software Prototype
+      </div>
+      <div class="text-xs text-slate-400">
+        Tool: <span class="font-semibold text-white">SignalDesk</span> — Continuous Market & Competitor Intelligence Feed
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button onclick="window.print()" class="px-3 py-1.5 text-xs font-semibold rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+        Export PDF
+      </button>
+      <a href="data:text/html;charset=utf-8,%3C!--%20SignalDesk%20Demo%20--%3E" download="signaldesk-demo.html" class="px-3 py-1.5 text-xs font-semibold rounded bg-purple-500 hover:bg-purple-400 text-white transition">
+        Download Offline Demo
+      </a>
+    </div>
+  </header>
+
+  <!-- Prototype Workspace -->
+  <main class="flex-1 max-w-5xl w-full mx-auto p-6 md:p-10 space-y-8">
+    <div class="rounded-2xl border border-slate-800 bg-gradient-to-b from-[#15122B] to-[#0E0D1F] p-8 relative overflow-hidden shadow-2xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/60 border border-purple-800/60 text-xs text-purple-300 mb-4">
+        <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+        <span>Interactive Qualification Instrument</span>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">SignalDesk</h1>
+      <p class="mt-2 text-slate-300 text-base max-w-2xl leading-relaxed">Real-time automated signal monitoring across regulatory filings, news, and market shifts.</p>
+    </div>
+
+    <!-- Live Interactive Simulator Box -->
+    <div class="rounded-2xl border border-slate-800 bg-[#101424] p-6 md:p-8 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <h2 class="font-bold text-lg text-white">Live Competitor Move Monitor</h2>
+          <p class="text-xs text-slate-400">Test live output generation with sample data</p>
+        </div>
+        <span class="px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs">
+          Engine: AXON Heuristic v2
+        </span>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Sample Input Parameter</label>
+          <textarea id="sampleInput" rows="3" class="w-full bg-[#090D18] border border-slate-700/80 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 mono">Target Sector: Archival Digitization & Cultural Preservation Tech
+Monitored Entities: Top 5 Regional Research Foundations</textarea>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <button onclick="runSimulation()" class="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs uppercase tracking-wider transition shadow-lg shadow-purple-600/20">
+            Generate Intelligence Output
+          </button>
+          <span id="statusNote" class="text-xs text-slate-400">Click to process</span>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Generated Output Preview</label>
+          <div id="sampleOutput" class="w-full bg-[#090D18] border border-slate-800 rounded-xl p-4 text-sm text-slate-200 mono whitespace-pre-wrap leading-relaxed">SignalDesk Live Feed (Last 24 Hours):
+[SIGNAL #104] Library of Congress announces $4.2M digital preservation RFP deadline Nov 15.
+[SIGNAL #105] Competitor 'HeritageScan' updates pricing model to recurring cloud storage tier.
+[SIGNAL #106] Grant endowment awarded to New England digital archive consortium.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function runSimulation() {
+      const status = document.getElementById('statusNote');
+      const out = document.getElementById('sampleOutput');
+      status.innerText = 'Synthesizing with AXON LLM...';
+      status.className = 'text-xs text-purple-400 animate-pulse';
+      setTimeout(() => {
+        status.innerText = 'Completed (120ms latency)';
+        status.className = 'text-xs text-emerald-400 font-semibold';
+        out.classList.add('border-purple-500');
+      }, 400);
+    }
+  </script>
+</body>
+</html>
