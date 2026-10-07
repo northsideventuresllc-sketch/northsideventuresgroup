@@ -932,6 +932,181 @@ Start free today at northsideintelligence.com/replyflow.
       }
     ],
     notes: "Approved Sector 3 IT Post for Tuesday Oct 6. ReplyFlow Static post with verified Rose/Coral/Sunset-Orange brand identity."
+  },
+
+  // 7. CAROUSEL: WEDNESDAY OCT 7 (HERO IT POST - GRANTBOT)
+  {
+    id: "post-grantbot-oct7",
+    venture: "Northside Intelligence",
+    year: 2026,
+    month: "October 2026",
+    weekNumber: 2,
+    day: "Wednesday",
+    date: "Wed Oct 7, 2026",
+    dayOfMonth: 7,
+    scheduledTime: "5:00 PM ET",
+    channel: "IT",
+    slot: "Sector 3 IT Post (GrantBot RFP Matching & Proposal Engine)",
+    brand: "GrantBot",
+    format: "Carousel",
+    platforms: ["LinkedIn", "Instagram", "Threads", "Facebook"],
+    title: "GrantBot: 5-Slide Grant Matching & Proposal Blueprint",
+    hook: "Most founders spend 40 hours per grant proposal just to get disqualified for formatting.",
+    status: "approved",
+    postedAt: null,
+    postingMethod: "manual",
+    pillar: "Match high-intent RFPs and foundation grants directly to your business profile, then auto-generate compliant narrative drafts in minutes.",
+    caption: `Most founders spend 40+ hours drafting a single grant proposal, only to get disqualified over rigid formatting requirements. 📋
+
+Every year, billions in non-dilutive grant funding go unclaimed simply because small businesses and non-profits don't have full-time grant writers.
+
+Here is how GrantBot gets you funded without the 40-hour grind:
+1. Input your organization profile, budget, and mission statement.
+2. GrantBot matches verified open federal, corporate, and foundation RFPs.
+3. Automated eligibility screening filters out low-fit programs instantly.
+4. Generate section-by-section compliant narrative drafts formatted to funder rubrics.
+5. Review, export, and submit with full compliance confidence.
+
+Stop leaving non-dilutive capital on the table.
+
+Run your free grant eligibility scan at northsideintelligence.com/grantbot.
+
+#SmallBusinessGrants #GrantWriting #FundingStrategy #NonProfitFunding #StartupFunding #GovernmentGrants`,
+    hashtags: "#SmallBusinessGrants #GrantWriting #FundingStrategy #NonProfitFunding #StartupFunding #GovernmentGrants",
+    productionSpecs: {
+      dimensionsAndFormat: "1080 x 1440 px, 3:4 aspect ratio, PNG / JPG high resolution",
+      branding: "Dark obsidian canvas background, radiant emerald green and glowing jade interface accents, warm gold eligibility indicators, crisp high-contrast pure white typography. No hex color codes.",
+      references: "northsideintelligence.com/grantbot",
+      rules: [
+        "All text and important content of the images stays in the top 3/4 of the image",
+        "ALL TEXT WITHIN THE IMAGE AND UI DETAILS MUST BE COMPLETELY RENDERED WITHOUT ANY 'AI SLOP' AND POORLY RENDERED TEXT"
+      ]
+    },
+    slides: [
+      {
+        slideNumber: "Slide 1 of 5",
+        mainPrompt: "Cinematic executive workspace at twilight with an Apple Studio Display showcasing the GrantBot funding radar interface. Dark obsidian canvas with radiant emerald green and glowing jade data panels highlighting open federal and private grants. Modern clean Swiss typography in the upper two-thirds safe zone.",
+        onScreenText: "\"Most founders spend 40 hours per grant proposal just to get disqualified for formatting.\" Bold white title with radiant emerald green subtext glow."
+      },
+      {
+        slideNumber: "Slide 2 of 5",
+        mainPrompt: "High-contrast software interface card capture displaying GrantBot RFP Auto-Matching on a dark glass dashboard. Three categorized funding opportunities are displayed with verified compliance scores: '1. Federal SBIR Innovation Grant ($275,000)', '2. Regional Small Business Tech Fund ($50,000)', '3. Green Initiative Foundation Grant ($35,000)'. Crisp white text, emerald badges.",
+        onScreenText: "\"Match open federal and foundation grants in seconds. Instant eligibility screening.\" Clean sans-serif header in pure white with luminous jade status tags."
+      },
+      {
+        slideNumber: "Slide 3 of 5",
+        mainPrompt: "Close-up macro UI view of the GrantBot narrative generator. Dark obsidian glass panel showing a split screen: left side has funder scoring rubric criteria; right side shows GrantBot draft perfectly addressing every compliance point. Gold highlight badges confirm 100% rubric alignment.",
+        onScreenText: "\"Automated narrative drafting aligned to funder scoring rubrics.\" High-impact typography centered in the upper safe zone."
+      },
+      {
+        slideNumber: "Slide 4 of 5",
+        mainPrompt: "Side-by-side comparison graphic for grant applications. Dark obsidian background. Left card in muted charcoal grey shows: 'MANUAL PROCESS: 40+ hours per submission, formatting errors, 80% rejection rate'. Right card in glowing emerald green border shows: 'GRANTBOT PIPELINE: 20 minutes, 100% rubric compliance, automated funder match'.",
+        onScreenText: "\"Stop wasting 40 hours per submission. Let software handle the compliance heavy lifting.\" Bold white text with emerald green highlight container."
+      },
+      {
+        slideNumber: "Slide 5 of 5",
+        mainPrompt: "Authoritative closing brand CTA card for GrantBot. Dark obsidian background with subtle emerald grid depth. In the center, a luminous 3D vault and key emblem in emerald green and titanium white. Interactive glassmorphism button displaying 'START FREE GRANT MATCH SCAN'. Clean URL at bottom: 'northsideintelligence.com/grantbot'.",
+        onScreenText: "\"Stop leaving non-dilutive capital on the table. Scan open grants at northsideintelligence.com/grantbot\" Bold white title with emerald green interactive button."
+      }
+    ],
+    generatedMedia: [],
+    referenceMedia: [
+      {
+        id: "ref-gb-1",
+        name: "grantbot-dashboard.png",
+        url: "https://northsideintelligence.com/grantbot",
+        type: "document",
+        size: "Web Reference",
+        source: "manual",
+        uploadedAt: "Today"
+      }
+    ],
+    notes: "Approved Sector 3 IT Post for Wednesday Oct 7. GrantBot 5-Slide Carousel. Canonical template, zero hex codes, top-3/4 rule enforced."
+  },
+
+  // 8. VIDEO: WEDNESDAY OCT 7 (SMART STORE VERTICAL REEL - 14-INCH DUAL LAPTOP MONITOR)
+  {
+    id: "post-smart-store-oct7",
+    venture: "Northside Intelligence",
+    year: 2026,
+    month: "October 2026",
+    weekNumber: 2,
+    day: "Wednesday",
+    date: "Wed Oct 7, 2026",
+    dayOfMonth: 7,
+    scheduledTime: "8:00 PM ET",
+    channel: "Store",
+    slot: "Smart Store Video (14-Inch Portable Dual Laptop Screen)",
+    brand: "Smart Store",
+    format: "Video",
+    platforms: ["Instagram", "Facebook Reels", "TikTok", "YouTube Shorts"],
+    title: "Smart Store: Overpriced Portable Monitors vs Direct Factory Build",
+    hook: "Stop paying three hundred dollars for a portable monitor when direct builds are sixty-nine.",
+    status: "approved",
+    postedAt: null,
+    postingMethod: "manual",
+    pillar: "Tell Smart Store what you want. It searches verified manufacturer catalogs and delivers 1080p magnetic clip-on dual laptop expansion screens for $69.99 instead of $299 retail markup.",
+    caption: `Still trying to multitask on one tiny laptop screen while working remotely? 💻
+
+Retail tech brands charge $300+ for portable monitors just because of the brand logo on the box.
+
+Smart Store bypasses the middleman and sources direct from verified factory lines. 1080p full HD, plug-and-play USB-C, clips directly to any laptop for $69.99.
+
+$69.99 on Smart Store vs $299 brand retail.
+
+👉 Claim yours today at northsideintelligence.com/store.
+
+#DeskSetup #RemoteWork #WorkFromHome #TechDeals #ProductivityHacks #LaptopSetup #ShoppingHacks`,
+    hashtags: "#DeskSetup #RemoteWork #WorkFromHome #TechDeals #ProductivityHacks #LaptopSetup #ShoppingHacks",
+    productionSpecs: {
+      dimensionsAndFormat: "1080 x 1920 px, 9:16 vertical aspect ratio, MP4 video",
+      narratorTone: "Energetic, authentic, observational consumer review tone with sharp comedic timing.",
+      sfx: "Smooth magnetic click sound, keyboard typing ambience, clean digital swoosh transition, crisp confirmation chime.",
+      backgroundMusic: "Muted energetic modern instrumental beat with punchy low-end percussion.",
+      branding: "Dark obsidian background with 3D Northside Intelligence emblem, glowing neon blue letters illuminating 'Smart Store', no numeric hex codes.",
+      references: "northsideintelligence.com/store | attached product and brand end card references",
+      rules: [
+        "All important content stays in top 3/4 of frame",
+        "ALL ON SCREEN TEXT ON A SMARTPHONE OR A COMPUTER MUST BE LEGIBLE TEXT CONSTRUCTION HOW IT WOULD SHOW UP ON A REAL APP. NO 'AI SLOP', FAKE NAMES, FAKE LETTERS, AND FAKE WORDS.",
+        "Dialogue strictly limited to under 20 words for 8-second generation to prevent speech cutoff or lip looping"
+      ]
+    },
+    scenes: [
+      {
+        sceneNum: "Scene 1",
+        description: "Medium Close-Up of an energetic remote professional (late 20s, casual work-from-home attire) sitting in a bright coffee shop, face occupying 40% of the upper frame. He holds up an ultra-thin magnetic dual laptop monitor that instantly clicks onto his laptop with a crisp snap. He looks directly into the smartphone camera lens.",
+        dialogue: "\"Stop paying three hundred dollars for a portable monitor. Smart Store has the dual screen for sixty-nine.\"",
+        narrator: "",
+        transition: "Smooth match cut to overhead desk setup"
+      },
+      {
+        sceneNum: "Scene 2",
+        description: "Overhead aesthetic shot of the dual monitor running a spreadsheet on one screen and video call on the other with zero lag. An interactive HUD badge displays: '$69.99 (Free 2-Day Shipping • 1080p IPS Display)'. The creator taps the screen and nods approvingly.",
+        dialogue: "",
+        narrator: "\"Plug and play dual screen. One cable. Zero retail markup.\"",
+        transition: "Transition to clean brand end card"
+      },
+      {
+        sceneNum: "Scene 3",
+        description: "Dark obsidian background with glowing electric neon blue letters illuminating 'Smart Store' with the URL 'northsideintelligence.com/store' and promo callout 'Direct Manufacturer Sourcing'.",
+        dialogue: "",
+        narrator: "",
+        transition: "Fade to black"
+      }
+    ],
+    generatedMedia: [],
+    referenceMedia: [
+      {
+        id: "ref-ss-oct7-1",
+        name: "portable-monitor-ui.png",
+        url: "https://northsideintelligence.com/store",
+        type: "image",
+        size: "Product Reference",
+        source: "manual",
+        uploadedAt: "Today"
+      }
+    ],
+    notes: "Approved Sector 4 Smart Store Post for Wednesday Oct 7. Video Reel strictly adhering to the 20-word speech budget for 8-second Veo pacing, zero timestamps, top-3/4 rule enforced."
   }
 ];
 
@@ -941,7 +1116,7 @@ Start free today at northsideintelligence.com/replyflow.
 
 export default function NiContentPage() {
   const [posts, setPosts] = useState<ContentPost[]>(INITIAL_POSTS);
-  const [activeSlotId, setActiveSlotId] = useState<string>("post-replyflow-oct6");
+  const [activeSlotId, setActiveSlotId] = useState<string>("post-grantbot-oct7");
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
 
   // Time Navigation States
@@ -992,9 +1167,9 @@ export default function NiContentPage() {
   // 1. Load from localStorage on mount (with automatic migration to preserve real media)
   useEffect(() => {
     try {
-      const savedV8 = localStorage.getItem("ni_content_hub_master_v8");
-      if (savedV8) {
-        const parsed = JSON.parse(savedV8);
+      const savedV9 = localStorage.getItem("ni_content_hub_master_v9");
+      if (savedV9) {
+        const parsed = JSON.parse(savedV9);
         if (Array.isArray(parsed) && parsed.length > 0) {
           const validPosts = parsed.filter((p: ContentPost) => p.id !== "post-ni-thought-leadership");
           const merged = INITIAL_POSTS.map((initial) => {
@@ -1008,11 +1183,11 @@ export default function NiContentPage() {
             };
           });
           setPosts(merged);
-          localStorage.setItem("ni_content_hub_master_v8", JSON.stringify(merged));
+          localStorage.setItem("ni_content_hub_master_v9", JSON.stringify(merged));
         }
       } else {
         setPosts(INITIAL_POSTS);
-        localStorage.setItem("ni_content_hub_master_v8", JSON.stringify(INITIAL_POSTS));
+        localStorage.setItem("ni_content_hub_master_v9", JSON.stringify(INITIAL_POSTS));
       }
 
       const savedStrat = localStorage.getItem("ni_content_strategy_requests_v1");
