@@ -319,6 +319,12 @@ export default function NiOutreachPage() {
           </div>
 
           <Link
+            href="/ni-content"
+            className="text-xs text-cyan-400 hover:text-cyan-300 border border-cyan-800/60 hover:border-cyan-700 bg-cyan-950/40 px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 font-semibold"
+          >
+            <span>📱</span> NI Content Hub
+          </Link>
+          <Link
             href="/"
             className="text-xs text-gray-400 hover:text-white border border-gray-800 hover:border-gray-700 bg-[#0E1424] px-3 py-1.5 rounded-lg transition"
           >
@@ -691,9 +697,24 @@ export default function NiOutreachPage() {
 
                         {chan.subject !== undefined && (
                           <div>
-                            <label className="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1">
-                              Subject Line
-                            </label>
+                            <div className="flex items-center justify-between mb-1.5">
+                              <label className="block text-[11px] font-bold uppercase tracking-wider text-gray-400">
+                                📝 Subject Line
+                              </label>
+                              <button
+                                onClick={() =>
+                                  copyToClipboard(
+                                    chan.subject || "",
+                                    `${lead.id}-step${stepNum}-chan${idx}-subj`
+                                  )
+                                }
+                                className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 bg-cyan-950/40 px-2.5 py-0.5 rounded border border-cyan-800/60 transition"
+                              >
+                                {copiedId === `${lead.id}-step${stepNum}-chan${idx}-subj`
+                                  ? "✓ Copied Subject"
+                                  : "📋 Copy Subject"}
+                              </button>
+                            </div>
                             <input
                               type="text"
                               value={chan.subject || ""}
@@ -868,8 +889,15 @@ export default function NiOutreachPage() {
             <div>Centralized Outreach Command & Intelligence Routing</div>
           </div>
 
-          <div className="flex items-center gap-6 flex-wrap">
-            <span className="font-semibold text-gray-300">Sector 1A Admin Links:</span>
+          <div className="flex items-center gap-4 flex-wrap">
+            <span className="font-semibold text-gray-300">Outreach & Content Portals:</span>
+            <Link
+              href="/ni-content"
+              className="px-3 py-1.5 rounded-lg bg-[#11192E] border border-cyan-500/30 text-cyan-300 hover:bg-cyan-900/40 transition flex items-center gap-1.5 font-semibold"
+            >
+              <span>📱 NI Content Hub</span>
+              <span>↗</span>
+            </Link>
             <a
               href="https://matchfit.app/admin/outreach"
               target="_blank"
