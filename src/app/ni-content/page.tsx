@@ -1107,6 +1107,86 @@ $69.99 on Smart Store vs $299 brand retail.
       }
     ],
     notes: "Approved Sector 4 Smart Store Post for Wednesday Oct 7. Video Reel strictly adhering to the 20-word speech budget for 8-second Veo pacing, zero timestamps, top-3/4 rule enforced."
+  },
+
+  // 9. STATIC: THURSDAY OCT 8 (HERO IT POST - SIGNAL DESK)
+  {
+    id: "post-signaldesk-oct8",
+    venture: "Northside Intelligence",
+    year: 2026,
+    month: "October 2026",
+    weekNumber: 2,
+    day: "Thursday",
+    date: "Thu Oct 8, 2026",
+    dayOfMonth: 8,
+    scheduledTime: "5:00 PM ET",
+    channel: "IT",
+    slot: "Sector 3 IT Post (Signal Desk Market Intelligence Radar)",
+    brand: "Signal Desk",
+    format: "Static",
+    platforms: ["LinkedIn", "Instagram", "Threads", "Facebook"],
+    title: "Signal Desk: Turn Quiet Competitor Moves Into Your Next Move",
+    hook: "By the time a competitor makes an announcement, you're already 3 months behind.",
+    status: "approved",
+    postedAt: null,
+    postingMethod: "manual",
+    pillar: "Turn raw competitor signals, stealth hiring moves, and silent pricing adjustments into a single executive briefing radar in seconds.",
+    caption: `By the time a competitor makes an official press announcement, you're already 3 months behind. ⚡
+
+The most critical market shifts happen quietly weeks in advance:
+• Key engineering job descriptions revealing unreleased product roadmaps
+• Silent pricing tier restructuring and discount changes
+• Negative customer review spikes highlighting feature dissatisfaction
+
+Here is how Signal Desk keeps your team ahead:
+1. Input your market parameters and target competitors.
+2. Signal Desk monitors web, hiring, and pricing signals 24/7.
+3. Silent market moves get categorized and ranked by strategic severity.
+4. Receive one clear executive radar brief with recommended counter-moves.
+5. Turn quiet shifts into your next offensive move before the market catches on.
+
+Stop manually digging through twenty open tabs.
+
+Start your free competitor radar scan today at northsideintelligence.com/signaldesk.
+
+#CompetitiveIntelligence #MarketSignals #B2BStrategy #MarketResearch #BusinessIntelligence #ProductOps`,
+    hashtags: "#CompetitiveIntelligence #MarketSignals #B2BStrategy #MarketResearch #BusinessIntelligence #ProductOps",
+    productionSpecs: {
+      dimensionsAndFormat: "1080 x 1440 px, 3:4 aspect ratio, PNG / JPG high resolution",
+      branding: "Dark cyber slate and obsidian canvas, radiant electric radar cyan and ice-blue glowing interface panels, subtle deep navy ambient accents, crisp high-contrast pure white typography. No hex color codes.",
+      references: "northsideintelligence.com/signaldesk",
+      rules: [
+        "All text and important content of the images stays in the top 3/4 of the image",
+        "ALL TEXT WITHIN THE IMAGE AND UI DETAILS MUST BE COMPLETELY RENDERED WITHOUT ANY 'AI SLOP' AND POORLY RENDERED TEXT"
+      ]
+    },
+    staticPrompt: {
+      mainPrompt: "High-contrast modern software interface capture for Signal Desk on a sleek dark Apple Studio Display monitor. Dark cyber slate and obsidian canvas with radiant electric cyan and ice-blue glowing interface panels, accented by subtle deep navy ambient light. On the screen, a high-tech competitive intelligence radar dashboard displays categorized real-time competitor signals: stealth engineering hiring detected, silent pricing tier changes, and customer review shifts. An interactive status badge reads 'Real-Time Radar • Automated Competitor Intelligence'. Clean Swiss typography in top safe zone reading: 'Turn Quiet Competitor Moves Into Your Next Move'. Minimalist executive desk, professional moody lighting, zero AI distortion, razor-sharp legible UI details, 3:4 aspect ratio portrait.",
+      onScreenText: "\"Turn Quiet Competitor Moves Into Your Next Move\" Bold white headline with electric cyan status badge."
+    },
+    generatedMedia: [
+      {
+        id: "gen-sd-oct8-1",
+        name: "signaldesk_oct8_static.jpg",
+        url: "/Users/jonnybooth/.gemini/antigravity/brain/dc713db1-2e17-4768-a6e3-965b812a7ddf/signaldesk_oct8_static_1791496813521.jpg",
+        type: "image",
+        size: "850 KB (1080x1440)",
+        source: "agent",
+        uploadedAt: "Today 6:00 PM"
+      }
+    ],
+    referenceMedia: [
+      {
+        id: "ref-sd-oct8-1",
+        name: "signaldesk-radar.png",
+        url: "https://northsideintelligence.com/signaldesk",
+        type: "document",
+        size: "Web Reference",
+        source: "manual",
+        uploadedAt: "Today"
+      }
+    ],
+    notes: "Approved Sector 3 IT Post for Thursday Oct 8. Signal Desk Static radar post with verified Cyan/Ice-Blue/Dark Slate brand identity and top-3/4 rule enforced."
   }
 ];
 
@@ -1116,7 +1196,7 @@ $69.99 on Smart Store vs $299 brand retail.
 
 export default function NiContentPage() {
   const [posts, setPosts] = useState<ContentPost[]>(INITIAL_POSTS);
-  const [activeSlotId, setActiveSlotId] = useState<string>("post-grantbot-oct7");
+  const [activeSlotId, setActiveSlotId] = useState<string>("post-signaldesk-oct8");
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
 
   // Time Navigation States
