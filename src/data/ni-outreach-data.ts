@@ -294,12 +294,12 @@ export const INITIAL_WEBDESIGN: OutreachLeadItem[] = [
       ]
     },
     deliverablePrototype: {
-      title: "Institutional Fiduciary Showcase for Crescent Wealth",
+      title: "The Anti-Wall-Street Ledger for Crescent Wealth",
       type: "interactive_html",
       previewUrl: "/prototypes/crescent-wealth-preview.html",
       downloadUrl: "/prototypes/crescent-wealth-preview.html",
       downloadFilename: "crescent-wealth-prototype.html",
-      description: "Executive wealth management interface featuring institutional typography, verified SSL compliance, and streamlined client portal routing.",
+      description: "Single-file ledger folio: Independence Ledger comparison, numbered entries with marginalia, IBM Plex Mono, zero dependencies.",
       receipts: [
         {
           id: "rcpt-cw-1",
@@ -426,12 +426,12 @@ export const INITIAL_WEBDESIGN: OutreachLeadItem[] = [
       ]
     },
     deliverablePrototype: {
-      title: "Litigation Flagship Prototype for Orr | Cook",
+      title: "The Coin-Flip Entry for Orr | Cook",
       type: "interactive_html",
       previewUrl: "/prototypes/orr-cook-preview.html",
       downloadUrl: "/prototypes/orr-cook-preview.html",
       downloadFilename: "orr-cook-prototype.html",
-      description: "High-authority trial practice interface featuring editorial legal typography, instant case result filtering, and confidential corporate intake.",
+      description: "Single-file interactive: the founding coin flip is the hero, three chapters unfold through flips, docket-list practice areas.",
       receipts: [
         {
           id: "rcpt-oc-1",
@@ -559,12 +559,12 @@ export const INITIAL_WEBDESIGN: OutreachLeadItem[] = [
       ]
     },
     deliverablePrototype: {
-      title: "Commercial Builder Digital Flagship for Dowdle",
+      title: "The Word-on-the-Street Wall for Dowdle",
       type: "interactive_html",
       previewUrl: "/prototypes/dowdle-construction-preview.html",
       downloadUrl: "/prototypes/dowdle-construction-preview.html",
       downloadFilename: "dowdle-construction-prototype.html",
-      description: "Fast commercial construction portfolio featuring modern image compression, sub-contractor bid intake, and safety credentials showcase.",
+      description: "Single-file showcase: rotating client-testimonial hero, Nashville project map with was-became story cards, zero dependencies.",
       receipts: [
         {
           id: "rcpt-dc-1",
@@ -691,12 +691,12 @@ export const INITIAL_WEBDESIGN: OutreachLeadItem[] = [
       ]
     },
     deliverablePrototype: {
-      title: "Bespoke Cross-Border Tax Flagship for Massey CPA",
+      title: "The 60-Second Tax Quiz for Massey CPA",
       type: "interactive_html",
       previewUrl: "/prototypes/massey-cpa-preview.html",
       downloadUrl: "/prototypes/massey-cpa-preview.html",
       downloadFilename: "massey-cpa-prototype.html",
-      description: "Executive international tax advisory platform with instant consultation booking, secure document upload gateway, and multi-currency tax guides.",
+      description: "Single-file interactive: the tax quiz is the landing, five questions with scored outcomes, services phrased as client questions.",
       receipts: [
         {
           id: "rcpt-mc-1",
@@ -824,12 +824,12 @@ export const INITIAL_WEBDESIGN: OutreachLeadItem[] = [
       ]
     },
     deliverablePrototype: {
-      title: "Executive Search Flagship for Neil Fink Associates",
+      title: "The Title Card for Neil Fink Associates",
       type: "interactive_html",
       previewUrl: "/prototypes/neil-fink-preview.html",
       downloadUrl: "/prototypes/neil-fink-preview.html",
       downloadFilename: "neil-fink-prototype.html",
-      description: "Editorial, minimalist executive recruitment interface featuring discreet placement case studies and private board inquiry funnels.",
+      description: "Single-file production: film title-card hero, searches as billing blocks, cast-and-credit roster, production-phase process.",
       receipts: [
         {
           id: "rcpt-nf-1",
@@ -957,12 +957,12 @@ export const INITIAL_WEBDESIGN: OutreachLeadItem[] = [
       ]
     },
     deliverablePrototype: {
-      title: "Commercial Syndication Flagship for ReInvest Capital",
+      title: "The Deal Wall for ReInvest Capital",
       type: "interactive_html",
       previewUrl: "/prototypes/reinvest-capital-preview.html",
       downloadUrl: "/prototypes/reinvest-capital-preview.html",
       downloadFilename: "reinvest-capital-prototype.html",
-      description: "Institutional real estate syndication platform featuring interactive property asset cards, accredited investor gates, and secure portal links.",
+      description: "Single-file mosaic: fourteen collectible deal tiles with slide-in panels, sector filters, trading-floor sign-plate hero.",
       receipts: [
         {
           id: "rcpt-rc-1",
@@ -1096,12 +1096,12 @@ export const INITIAL_WEBDESIGN: OutreachLeadItem[] = [
       ]
     },
     deliverablePrototype: {
-      title: "Luxury Editorial Media Kit & Showcase for Proffitt PR",
+      title: "The Emerald Coast Issue for Proffitt PR",
       type: "interactive_html",
       previewUrl: "/prototypes/proffitt-pr-preview.html",
       downloadUrl: "/prototypes/proffitt-pr-preview.html",
       downloadFilename: "proffitt-pr-prototype.html",
-      description: "Editorial PR showcase with smooth project animations, 1-click interactive press releases, and client roster galleries.",
+      description: "Single-file magazine: newsstand-cover hero, thirteen-card season ledger, narrative client address book.",
       receipts: [
         {
           id: "rcpt-pp-1",
@@ -1228,12 +1228,12 @@ export const INITIAL_WEBDESIGN: OutreachLeadItem[] = [
       ]
     },
     deliverablePrototype: {
-      title: "Fiduciary Wealth Management Flagship for Westgate Capital",
+      title: "The Two Doors for Westgate Capital",
       type: "interactive_html",
       previewUrl: "/prototypes/westgate-capital-preview.html",
       downloadUrl: "/prototypes/westgate-capital-preview.html",
       downloadFilename: "westgate-capital-prototype.html",
-      description: "Executive wealth management interface with secure client login redirects, fiduciary disclosure footers, and institutional typography.",
+      description: "Single-file fork: employer/individual doors re-orient the entire page, fiduciary story as dated record strip.",
       receipts: [
         {
           id: "rcpt-wc-1",
@@ -1367,12 +1367,12 @@ export const INITIAL_WEBDESIGN: OutreachLeadItem[] = [
       ]
     },
     deliverablePrototype: {
-      title: "Sculptural Architectural Showcase for Arch11",
+      title: "Sheet A-000 for Arch11",
       type: "interactive_html",
       previewUrl: "/prototypes/arch11-preview.html",
       downloadUrl: "/prototypes/arch11-preview.html",
       downloadFilename: "arch11-prototype.html",
-      description: "Full-bleed photographic showcase for modern architecture, eliminating horizontal scroll lag with smooth responsive touch galleries.",
+      description: "Single-file drawing set: drafting cover-sheet hero, sketch-to-structure sliders, mono title blocks.",
       receipts: [
         {
           id: "rcpt-a11-1",
