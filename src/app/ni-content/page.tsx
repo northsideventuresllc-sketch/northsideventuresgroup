@@ -1169,11 +1169,11 @@ Start your free competitor radar scan today at northsideintelligence.com/signald
       {
         id: "gen-sd-oct8-1",
         name: "signaldesk_oct8_static.jpg",
-        url: "/Users/jonnybooth/.gemini/antigravity/brain/dc713db1-2e17-4768-a6e3-965b812a7ddf/signaldesk_oct8_static_1791496813521.jpg",
+        url: "/media/signal-desk/2026-10-08/signaldesk_oct8_static.jpg",
         type: "image",
-        size: "850 KB (1080x1440)",
+        size: "647 KB (1080x1440)",
         source: "agent",
-        uploadedAt: "Today 6:00 PM"
+        uploadedAt: "Oct 8, 6:00 PM"
       }
     ],
     referenceMedia: [
@@ -1272,7 +1272,17 @@ Start free today at northsideintelligence.com/bridgeai.
         onScreenText: "\"Stop manual copy-paste. Connect your software at northsideintelligence.com/bridgeai\" Bold title font with electric indigo interactive button."
       }
     ],
-    generatedMedia: [],
+    generatedMedia: [
+      {
+        id: "gen-ba-oct9-1",
+        name: "bridgeai_oct9_slide1.jpg",
+        url: "/media/bridge-ai/2026-10-09/bridgeai_oct9_slide1.jpg",
+        type: "image",
+        size: "712 KB (1080x1440)",
+        source: "agent",
+        uploadedAt: "Today 1:26 PM"
+      }
+    ],
     referenceMedia: [
       {
         id: "ref-ba-oct9-1",
