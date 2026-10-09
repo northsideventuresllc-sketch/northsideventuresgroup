@@ -1,111 +1,802 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Warner Summers — Interactive Prototype | Northside Intelligence</title>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .mono { font-family: 'JetBrains Mono', monospace; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warner Summers — Sixty Years of Atlanta, Drawn by Hand</title>
+<meta name="description" content="Warner Summers is a boutique architecture and interior design firm in Atlanta, practicing since 1964. Corporate, medical, financial, education, adaptive reuse. Certified woman-owned.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canopy:#1E3A2F;
+    --ink:#14181A;
+    --vellum:#F4F4F2;
+    --brass:#B98A2F;
+    --brass-deep:#8A6520; /* 4.81:1 on vellum; WCAG 2.1 AA for small text */
+    --brass-light:#D9B45C; /* 6.25:1 on canopy; AA for small text on dark */
+    --sage:#5C6E63;
+    --line:#D8D5CE;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--vellum);
+    color:var(--ink);
+    font-family:'Archivo',sans-serif;
+    font-size:18px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--brass);color:#fff}
 
+  /* ============ HEADER ============ */
+  header{
+    display:flex;justify-content:space-between;align-items:baseline;
+    padding:28px 6vw;border-bottom:1px solid var(--line);
+  }
+  .wordmark{font-family:'Fraunces',serif;font-weight:900;font-size:24px;letter-spacing:-0.01em;color:var(--ink);text-decoration:none}
+  .wordmark span{color:var(--canopy)}
+  nav{display:flex;gap:36px}
+  nav a{color:var(--ink);text-decoration:none;font-size:15px;font-weight:500;letter-spacing:0.02em}
+  nav a:hover{color:var(--brass)}
+  nav a.on{color:var(--brass-deep)}
+  .mobilenav{display:none}
+
+  /* ============ HERO ============ */
+  .hero{padding:88px 6vw 40px;max-width:1400px}
+  .eyebrow{
+    font-size:13px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;
+    color:var(--brass-deep);margin-bottom:28px;
+  }
+  .hero h1{
+    font-family:'Fraunces',serif;font-weight:900;
+    font-size:clamp(56px,9vw,128px);
+    line-height:0.98;letter-spacing:-0.02em;
+    color:var(--ink);max-width:12ch;
+  }
+  .hero h1 em{font-style:normal;color:var(--canopy)}
+  .hero .lede{
+    margin-top:32px;max-width:62ch;font-size:19px;color:#3a3f42;
+  }
+  .hero .lede strong{color:var(--ink)}
+
+  /* ============ TIMELINE SCRUBBER ============ */
+  .scrubber-wrap{
+    margin:64px 6vw 0;padding:48px 0 56px;
+    border-top:2px solid var(--ink);
+    max-width:1400px;
+  }
+  .scrubber-label{
+    display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;
+  }
+  .scrubber-label .t{font-size:13px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--sage)}
+  .era-readout{font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:var(--ink)}
+  .era-readout .yr{font-weight:900;font-size:28px;color:var(--canopy);font-variant-numeric:tabular-nums}
+
+  .scrub-track{
+    position:relative;height:64px;margin:24px 0 8px;cursor:grab;
+    touch-action:none;user-select:none;-webkit-user-select:none;
+  }
+  .scrub-track:active{cursor:grabbing}
+  .scrub-rail{
+    position:absolute;left:0;right:0;top:30px;height:4px;background:var(--line);border-radius:2px;
+  }
+  .scrub-fill{
+    position:absolute;left:0;top:30px;height:4px;background:var(--canopy);border-radius:2px;width:0%;
+  }
+  .scrub-handle{
+    position:absolute;top:32px;left:0%;width:28px;height:28px;margin:-16px 0 0 -14px;
+    background:var(--brass);border:3px solid var(--vellum);border-radius:50%;
+    box-shadow:0 0 0 1px var(--brass);
+    cursor:grab;z-index:2;
+  }
+  .scrub-handle:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+  .scrub-ticks{
+    position:absolute;left:0;right:0;top:30px;height:4px;pointer-events:none;
+  }
+  .scrub-tick{position:absolute;top:-4px;width:2px;height:12px;background:var(--sage);opacity:0.55}
+  .scrub-years{display:flex;justify-content:space-between;margin-top:14px}
+  .scrub-years span{font-size:13px;font-weight:600;color:var(--sage);font-variant-numeric:tabular-nums}
+  .scrub-years span.on{color:var(--canopy)}
+
+  .era-stage{position:relative;min-height:520px;margin-top:32px}
+  .era-panel{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;
+    opacity:0;pointer-events:none;
+    position:absolute;inset:0;
+    transition:opacity 200ms ease-out;
+  }
+  .era-panel.on{opacity:1;pointer-events:auto;position:relative}
+  .era-plate{
+    position:relative;overflow:hidden;background:var(--ink);
+    min-height:420px;display:flex;align-items:flex-end;
+  }
+  .era-plate svg{position:absolute;inset:0;width:100%;height:100%}
+  .era-plate .cap{
+    position:relative;z-index:2;padding:24px 28px;color:#fff;
+    font-size:15px;line-height:1.5;max-width:44ch;
+    text-shadow:0 1px 14px rgba(20,24,26,.65), 0 1px 3px rgba(20,24,26,.55);
+  }
+  /* Bottom scrim: lifts caption text off light plate walls. ::after is reserved for the archival sage overlay, so this uses ::before. Deepened + extended so the title (top of caption) always sits on ink. */
+  .era-plate::before{
+    content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(to top, rgba(20,24,26,.92) 0%, rgba(20,24,26,.68) 32%, rgba(20,24,26,.30) 58%, rgba(20,24,26,0) 82%);
+  }
+  .era-plate .cap b{display:block;font-family:'Fraunces',serif;font-size:22px;font-weight:600;margin-bottom:6px}
+  .era-plate .cap .facts{display:block;margin-top:10px;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--brass-light)}
+  .era-plate.archival svg{filter:sepia(0.55) saturate(0.7) brightness(0.94)}
+  .era-plate.archival::after{
+    content:"";position:absolute;inset:0;background:var(--sage);opacity:0.28;mix-blend-mode:multiply;pointer-events:none;
+  }
+  .era-plate .tag{
+    position:absolute;top:20px;left:24px;z-index:2;
+    font-size:12px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;
+    color:var(--brass); /* tag sits on dark plate SVG: original brass, not brass-deep (vellum-only) */
+    text-shadow:0 1px 8px rgba(20,24,26,.6), 0 1px 2px rgba(20,24,26,.5);
+  }
+  .era-note{margin-top:28px;max-width:68ch;font-size:17px;color:#3a3f42}
+  .era-note b{color:var(--ink)}
+
+  /* ============ SPINE / THE WORK ============ */
+  .work{position:relative;margin:96px 6vw 0;padding:0 0 40px;max-width:1400px}
+  /* Spine rule lives on #spineRows (not .work) so it never crosses the section header text. */
+  #spineRows{position:relative}
+  #spineRows::before{
+    content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--brass);opacity:0.5;
+  }
+  .work-head{margin-bottom:64px;max-width:700px}
+  .work-head h2{
+    font-family:'Fraunces',serif;font-weight:900;font-size:clamp(40px,5vw,72px);
+    line-height:1.02;letter-spacing:-0.015em;
+  }
+  .work-head p{margin-top:20px;color:#3a3f42;max-width:58ch}
+  .plate-row{
+    display:grid;grid-template-columns:1fr 1fr;gap:6vw;
+    margin-bottom:88px;align-items:start;position:relative;
+  }
+  .plate-row .marker{
+    position:absolute;left:50%;top:8px;transform:translateX(-50%);
+    width:14px;height:14px;background:var(--brass);border-radius:50%;
+    border:3px solid var(--vellum);z-index:2;
+  }
+  .plate-row .yr{
+    font-family:'Fraunces',serif;font-weight:900;font-size:clamp(64px,7vw,110px);
+    line-height:1;color:var(--canopy);font-variant-numeric:tabular-nums;
+  }
+  .plate-row .body h3{font-family:'Fraunces',serif;font-size:28px;font-weight:600;margin:16px 0 12px}
+  .plate-row .body p{color:#3a3f42;max-width:52ch}
+  .plate-row .body .facts{display:block;margin-top:12px;font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--sage)}
+  .plate-row .body .sector{
+    display:inline-block;margin-top:16px;font-size:12px;font-weight:600;
+    letter-spacing:0.2em;text-transform:uppercase;color:var(--brass-deep);
+    border:1px solid var(--brass-deep);padding:6px 14px;border-radius:999px;
+  }
+  .plate-row.flip .yr{order:2;text-align:right}
+  .plate-row.flip .body{order:1}
+  .archive-more{margin-top:8px;padding-top:32px;border-top:1px solid var(--line)}
+  .archive-more h3{font-family:'Fraunces',serif;font-size:24px;font-weight:600;margin-bottom:16px}
+  .archive-more ul{list-style:none;columns:2;column-gap:6vw}
+  .archive-more li{font-size:15px;color:#3a3f42;padding:8px 0;border-bottom:1px dotted var(--line);break-inside:avoid}
+  .archive-more li b{color:var(--ink);font-weight:600}
+
+  /* ============ SERVICES (spec sheet) ============ */
+  .services{margin:96px 6vw 0;max-width:1400px;padding:64px 0;border-top:2px solid var(--ink)}
+  .services h2{
+    font-family:'Fraunces',serif;font-weight:900;font-size:clamp(40px,5vw,72px);
+    line-height:1.02;letter-spacing:-0.015em;max-width:14ch;
+  }
+  .services .lede{margin-top:20px;color:#3a3f42;max-width:62ch}
+  .spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:6vw;margin-top:56px}
+  .spec h3{
+    font-size:13px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;
+    color:var(--brass-deep);margin-bottom:8px;
+  }
+  .spec ol{list-style:none}
+  .spec li{
+    display:flex;gap:20px;align-items:baseline;
+    padding:14px 0;border-bottom:1px solid var(--line);font-size:17px;
+  }
+  .spec li .n{
+    font-family:'Fraunces',serif;font-weight:900;font-size:15px;color:var(--brass-deep);
+    /* spec numerals on vellum: brass-deep for AA contrast */
+    font-variant-numeric:tabular-nums;min-width:2ch;
+  }
+  .sectors{margin-top:56px}
+  .sectors h3{
+    font-size:13px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;
+    color:var(--brass-deep);margin-bottom:20px;
+  }
+  .sectors .pills{display:flex;flex-wrap:wrap;gap:12px}
+  .sectors .pills span{
+    font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
+    border:1px solid var(--sage);color:var(--canopy);padding:8px 18px;border-radius:999px;
+  }
+
+  /* ============ FIRM ============ */
+  .firm{
+    background:var(--canopy);color:#EDEBE4;
+    margin-top:96px;padding:96px 6vw;
+  }
+  .firm .eyebrow{color:var(--brass-light)}
+  .firm .inner{max-width:1400px;display:grid;grid-template-columns:1.2fr 1fr;gap:6vw;align-items:start}
+  .firm h2{
+    font-family:'Fraunces',serif;font-weight:900;
+    font-size:clamp(40px,5vw,72px);line-height:1.02;letter-spacing:-0.015em;color:#fff;
+  }
+  .firm h2 em{font-style:normal;color:var(--brass)}
+  .firm p{margin-top:24px;color:#C9CFC6;max-width:56ch}
+  .firm p strong{color:#fff}
+  .firm .fact{
+    border-left:2px solid var(--brass);padding-left:28px;margin-top:8px;
+  }
+  .firm .fact .n{
+    font-family:'Fraunces',serif;font-weight:900;font-size:64px;color:var(--brass);line-height:1;
+  }
+  .firm .fact .l{font-size:15px;color:#C9CFC6;margin-top:8px;max-width:30ch}
+  .leader{
+    margin-top:48px;padding-top:32px;border-top:1px solid #2c4a3d;
+  }
+  .leader h3{font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:#fff}
+  .leader .role{font-size:13px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--brass-light);margin-top:6px}
+  .leader p{font-size:16px}
+
+  /* ============ TESTIMONIALS ============ */
+  .quotes{margin:96px 6vw 0;max-width:1400px;padding:64px 0 0;border-top:2px solid var(--ink)}
+  .quotes .eyebrow{margin-bottom:40px}
+  .quote{margin-bottom:64px;max-width:900px}
+  .quote blockquote{
+    font-family:'Fraunces',serif;font-weight:400;font-size:clamp(24px,3vw,36px);
+    line-height:1.25;letter-spacing:-0.01em;color:var(--ink);
+  }
+  .quote blockquote::before{content:"\201C";color:var(--brass)}
+  .quote blockquote::after{content:"\201D";color:var(--brass)}
+  .quote cite{
+    display:block;margin-top:20px;font-style:normal;font-size:14px;font-weight:600;
+    letter-spacing:0.08em;text-transform:uppercase;color:var(--sage);
+  }
+
+  /* ============ CONTACT ============ */
+  .contact{margin:32px 6vw 0;max-width:1400px;padding:64px 0 96px;border-top:2px solid var(--ink)}
+  .contact h2{
+    font-family:'Fraunces',serif;font-weight:900;font-size:clamp(40px,5vw,72px);
+    line-height:1.02;letter-spacing:-0.015em;max-width:14ch;
+  }
+  .contact .lede{margin-top:20px;color:#3a3f42;max-width:58ch}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:48px;margin-top:56px}
+  .contact-grid h3{
+    font-size:13px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;
+    color:var(--brass-deep);margin-bottom:16px;
+  }
+  .contact-grid p, .contact-grid a{font-size:17px;color:var(--ink);text-decoration:none;display:block;margin-bottom:8px}
+  .contact-grid a:hover{color:var(--brass-deep)}
+  .contact .cta{
+    display:inline-block;margin-top:40px;background:var(--canopy);color:#fff;
+    font-weight:600;font-size:17px;padding:16px 40px;border-radius:999px;text-decoration:none;
+  }
+  .contact .cta:hover{background:var(--ink)}
+
+  /* ============ FOOTER ============ */
+  footer{
+    background:var(--ink);color:#B9BDB9;padding:72px 6vw 40px;
+  }
+  footer .grid{max-width:1400px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px}
+  footer .wordmark{color:#fff}
+  footer p{font-size:15px;margin-top:16px;max-width:38ch}
+  footer h4{font-size:12px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--brass);margin-bottom:16px}
+  footer a{color:#EDEBE4;text-decoration:none;font-size:15px;display:block;margin-bottom:10px}
+  footer a:hover{color:var(--brass)}
+  footer .fine{max-width:1400px;margin-top:56px;padding-top:24px;border-top:1px solid #2c3230;font-size:13px;color:#7d8380}
+  footer .fine i{font-style:normal;color:#7d8380} /* AA on ink: 4.62:1 */
+
+  @media (max-width:860px){
+    nav{display:none}
+    .mobilenav{
+      display:flex;gap:4px;overflow-x:auto;
+      padding:12px 6vw;border-bottom:1px solid var(--line);
+      -webkit-overflow-scrolling:touch;
+    }
+    .mobilenav a{
+      flex:0 0 auto;color:var(--ink);text-decoration:none;font-size:14px;font-weight:600;
+      padding:10px 16px;border:1px solid var(--line);border-radius:999px;margin-right:8px;
+    }
+    .mobilenav a.on{border-color:var(--brass-deep);color:var(--brass-deep)}
+    .era-panel{grid-template-columns:1fr}
+    .era-plate{min-height:300px}
+    .plate-row{grid-template-columns:1fr;gap:24px}
+    .plate-row.flip .yr{order:0;text-align:left}
+    .plate-row.flip .body{order:1}
+    #spineRows::before{left:7px}
+    .plate-row .marker{left:0;transform:none}
+    .plate-row{padding-left:40px}
+    .spec-grid{grid-template-columns:1fr}
+    .firm .inner{grid-template-columns:1fr}
+    .contact-grid{grid-template-columns:1fr}
+    .archive-more ul{columns:1}
+    footer .grid{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .era-panel{transition:none}
+    .scrub-handle{transition:none}
+  }
+</style>
 </head>
-<body class="bg-[#090D16] text-slate-100 min-h-screen antialiased flex flex-col">
-  <!-- Top Operator Bar -->
-  <header class="border-b border-slate-800/80 bg-[#0E1424]/90 backdrop-blur sticky top-0 z-50 px-6 py-3 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <div class="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold text-xs uppercase tracking-wider">
-        NI Deliverable Prototype
-      </div>
-      <div class="text-xs text-slate-400">
-        Prepared for <span class="font-semibold text-white">Warner Summers</span> (Atlanta, GA)
+<body id="top">
+
+<!-- ================= HEADER ================= -->
+<header>
+  <a class="wordmark" href="#top" data-scroll>Warner <span>Summers</span></a>
+  <nav aria-label="Primary">
+    <a href="#timeline" data-scroll>Timeline</a>
+    <a href="#work" data-scroll>Work</a>
+    <a href="#services" data-scroll>Services</a>
+    <a href="#firm" data-scroll>Firm</a>
+    <a href="#contact" data-scroll>Contact</a>
+  </nav>
+</header>
+<nav class="mobilenav" aria-label="Primary mobile">
+  <a href="#timeline" data-scroll>Timeline</a>
+  <a href="#work" data-scroll>Work</a>
+  <a href="#services" data-scroll>Services</a>
+  <a href="#firm" data-scroll>Firm</a>
+  <a href="#contact" data-scroll>Contact</a>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <p class="eyebrow">Atlanta &middot; Est. 1964</p>
+  <h1>Sixty Years of Atlanta, <em>Drawn by Hand.</em></h1>
+  <p class="lede">Warner Summers is a boutique architecture and interior design firm that has shaped this city since 1964 — <strong>corporate headquarters, banks, hospitals, campuses,</strong> and the second lives of old buildings. Agile, responsive, and experienced in every aspect of design, from ground-up buildings to the interiors people touch every day. <strong>Drag the timeline below.</strong></p>
+</section>
+
+<!-- ================= TIMELINE SCRUBBER ================= -->
+<section class="scrubber-wrap" id="timeline" aria-label="Heritage timeline">
+  <div class="scrubber-label">
+    <span class="t">The Archive &mdash; Drag Through Six Decades</span>
+    <span class="era-readout" id="eraReadout" aria-live="polite"><span class="yr" id="eraYears">1964&ndash;1974</span> &nbsp;<span id="eraName">Foundations</span></span>
+  </div>
+
+  <div class="scrub-track" id="scrubTrack">
+    <div class="scrub-rail"></div>
+    <div class="scrub-fill" id="scrubFill"></div>
+    <div class="scrub-ticks" id="scrubTicks"></div>
+    <div class="scrub-handle" id="scrubHandle" role="slider" tabindex="0"
+         aria-label="Timeline scrubber" aria-valuemin="1964" aria-valuemax="2026"
+         aria-valuenow="1964" aria-valuetext="1964 to 1974, Foundations"></div>
+  </div>
+  <div class="scrub-years" id="scrubYears" aria-hidden="true"></div>
+
+  <div class="era-stage" id="eraStage"><!-- panels injected by JS --></div>
+  <p class="era-note" id="eraNote"></p>
+</section>
+
+<!-- ================= THE WORK / CHRONOLOGICAL SPINE ================= -->
+<section class="work" id="work">
+  <div class="work-head">
+    <p class="eyebrow">Selected Work</p>
+    <h2>Buildings That Outlast Their Blueprints.</h2>
+    <p>Real projects, real square footage, real years. Every one of them started as a line on vellum and ended as a place people work, heal, and learn in.</p>
+  </div>
+  <div id="spineRows"><!-- rows injected by JS --></div>
+  <div class="archive-more">
+    <h3>Also in the Archive</h3>
+    <ul id="archiveList"><!-- injected by JS --></ul>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section class="services" id="services">
+  <p class="eyebrow">Services</p>
+  <h2>Full-Service, Start to Finish.</h2>
+  <p class="lede">One integrated team of architects, interior designers, and administrators. Ground-up designs, building additions, major renovations, adaptive reuse, interiors — and everything in between.</p>
+  <div class="spec-grid">
+    <div class="spec">
+      <h3>Architecture</h3>
+      <ol id="archList"><!-- injected by JS --></ol>
+    </div>
+    <div class="spec">
+      <h3>Interior Design</h3>
+      <ol id="intList"><!-- injected by JS --></ol>
+    </div>
+  </div>
+  <div class="sectors">
+    <h3>Sectors We Serve</h3>
+    <div class="pills" id="sectorPills"><!-- injected by JS --></div>
+  </div>
+</section>
+
+<!-- ================= FIRM ================= -->
+<section class="firm" id="firm">
+  <div class="inner">
+    <div>
+      <p class="eyebrow">The Firm Today</p>
+      <h2>A New Era, <em>Same Drafting Table.</em></h2>
+      <p>Founded in 1964, Warner Summers is a <strong>boutique, full-service architecture and interior design firm</strong> — which means agile, responsive, and experienced in all aspects of design. Excellent service is the point: it is how the firm has formed <strong>partnerships that have lasted decades</strong>.</p>
+      <p>In 2020, partner <strong>Dana Ladd</strong> led the buyout that made Warner Summers a <strong>certified woman-owned small business</strong>. Six decades of institutional knowledge — the relationships, the details, the way Atlanta gets built — now carried forward under new leadership.</p>
+      <div class="leader">
+        <h3>Dana Ladd, AIA, LEED AP</h3>
+        <p class="role">Partner &middot; Director of Architecture &amp; Business Development</p>
+        <p>Dana leads the staff in the design of large commercial and medical building types, and heads up business development — finding new opportunities, knowing the players, and setting the firm's course. A leader in CREW Atlanta and a frequent speaker around the city. Clemson and Georgia Tech graduate.</p>
       </div>
     </div>
-    <div class="flex items-center gap-2">
-      <button onclick="window.print()" class="px-3 py-1.5 text-xs font-semibold rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
-        Export / Print PDF
-      </button>
-      <a href="data:text/html;charset=utf-8,%3C!--%20Warner%20Summers%20Prototype%20--%3E" download="warner-summers-prototype.html" class="px-3 py-1.5 text-xs font-semibold rounded bg-cyan-500 hover:bg-cyan-400 text-black transition">
-        Download Offline HTML
-      </a>
-    </div>
-  </header>
-
-  <!-- Prototype Hero -->
-  <main class="flex-1 max-w-6xl w-full mx-auto p-6 md:p-10 space-y-10">
-    <div class="rounded-2xl border border-slate-800 bg-gradient-to-b from-[#131B2E] to-[#0D1322] p-8 md:p-12 relative overflow-hidden shadow-2xl">
-      <div class="absolute -right-20 -top-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
-      
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-xs text-slate-300 mb-6">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>Commercial Architecture · Interactive Next.js Concept</span>
+    <div>
+      <div class="fact">
+        <div class="n">60+</div>
+        <div class="l">Years practicing architecture in Atlanta, 1964 to today.</div>
       </div>
-
-      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white max-w-3xl leading-tight">
-        Sculptural Digital Presence for Premier Commercial Architecture
-      </h1>
-
-      <p class="mt-4 text-slate-400 text-base md:text-lg max-w-2xl leading-relaxed">
-        Showcasing high-resolution Atlanta corporate and interior builds with zero render lag. Engineered with sub-second page transitions, responsive touch controls, and zero legacy CMS script bloat.
-      </p>
-
-      <div class="mt-8 flex flex-wrap gap-4">
-        <button onclick="alert('Interactive demo: Project Showcase Filter Triggered')" class="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-sm shadow-lg shadow-cyan-500/20 transition">
-          Explore Portfolio Archive
-        </button>
-        <button onclick="alert('Interactive demo: Client Inquiry Modal Opened')" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm border border-slate-700 transition">
-          Direct Consultation Request
-        </button>
+      <div class="fact" style="margin-top:40px">
+        <div class="n">2020</div>
+        <div class="l">Became a certified woman-owned small business under Dana Ladd's leadership.</div>
+      </div>
+      <div class="fact" style="margin-top:40px">
+        <div class="n">2026</div>
+        <div class="l">Pulse Award for excellence in customer satisfaction — a 5-star rated practice.</div>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- Interactive Features Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          01
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Instant Mobile Speed</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Google Lighthouse 98+ score with modern image compression, eliminating render delays on high-resolution project photography.
-        </p>
-      </div>
+<!-- ================= TESTIMONIALS ================= -->
+<section class="quotes" id="voices">
+  <p class="eyebrow">In Their Words</p>
+  <div class="quote">
+    <blockquote>We engaged the Warner Summers team for one reason: trust. They put ego aside — the easiest designer we have ever worked with.</blockquote>
+    <cite>Ryan Menke &middot; SVP Sales &amp; Marketing, OFS Brands</cite>
+  </div>
+  <div class="quote">
+    <blockquote>Synovus has had a long-running relationship with Warner Summers. Dedicated to each project, responsive to our needs, on time, and obsessive about the details.</blockquote>
+    <cite>David E. Cain &middot; Senior Manager, Facilities &amp; Construction, Synovus</cite>
+  </div>
+  <div class="quote">
+    <blockquote>Fifteen years of working together. Professionalism, integrity, and an ability to understand every party's objectives — they have outperformed our expectations on numerous projects.</blockquote>
+    <cite>A Client of Fifteen Years &middot; Facilities</cite>
+  </div>
+</section>
 
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          02
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Frictionless Lead Intake</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Streamlined client consultation intake with automatic validation, spam filtering, and direct CRM notification webhooks.
-        </p>
-      </div>
-
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          03
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Zero CMS Maintenance</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Static-first Next.js infrastructure deployed on high-availability edge nodes, completely immune to WordPress plugin vulnerabilities.
-        </p>
-      </div>
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact">
+  <p class="eyebrow">Contact</p>
+  <h2>Tell Us About Your Project.</h2>
+  <p class="lede">Big idea or just the beginning of one — drop us a line. For project inquiries, ask for Dana.</p>
+  <div class="contact-grid">
+    <div>
+      <h3>Studio</h3>
+      <p>1550 Southland Circle, NW<br>Suite 100<br>Atlanta, GA 30318</p>
     </div>
-
-    <!-- Verification & Proof Footer -->
-    <div class="rounded-xl border border-slate-800 bg-[#0E1424] p-6 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400">
-      <div class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-        <span>Prototype Status: <strong class="text-white">Active Preview Verified</strong></span>
-      </div>
-      <div>
-        Built by Northside Intelligence · Studio Architecture Division
-      </div>
+    <div>
+      <h3>Talk to Us</h3>
+      <a href="tel:+14043516075">404.351.6075</a>
+      <a href="mailto:dladd@warnersummers.com">dladd@warnersummers.com</a>
+      <p style="margin-top:8px;font-size:15px;color:#3a3f42">Project inquiries: Dana Ladd, AIA</p>
     </div>
-  </main>
+    <div>
+      <h3>Elsewhere</h3>
+      <a href="https://www.linkedin.com/company/warner-summers/">LinkedIn</a>
+      <a href="#work" data-scroll>Project Archive</a>
+      <a href="#firm" data-scroll>Leadership</a>
+    </div>
+  </div>
+  <a class="cta" href="mailto:dladd@warnersummers.com?subject=Project%20Inquiry">Start a Project</a>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="grid">
+    <div>
+      <a class="wordmark" href="#top" data-scroll>Warner <span>Summers</span></a>
+      <p>Boutique architecture and interior design. Corporate, financial, medical, education, industrial — drawn in Atlanta since 1964.</p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <a href="#timeline" data-scroll>Timeline</a>
+      <a href="#work" data-scroll>Selected Work</a>
+      <a href="#services" data-scroll>Services</a>
+      <a href="#firm" data-scroll>The Firm</a>
+    </div>
+    <div>
+      <h4>Studio</h4>
+      <a href="tel:+14043516075">404.351.6075</a>
+      <a href="mailto:dladd@warnersummers.com">dladd@warnersummers.com</a>
+      <a href="https://www.linkedin.com/company/warner-summers/">LinkedIn</a>
+    </div>
+  </div>
+  <p class="fine">Concept prototype for Warner Summers &middot; prepared by Northside Intelligence &middot; <i>All project imagery illustrative. Not for publication.</i></p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Era data (real projects where named; early eras representative) ---------- */
+  var ERAS = [
+    { years:"1964\u20131974", name:"Foundations", archival:true,
+      note:"<b>The drafting-table years.</b> Warner Summers opens its doors in 1964. Atlanta is booming — the firm draws the corporate offices and commercial buildings that house the city's postwar growth, one vellum sheet at a time.",
+      plates:[
+        { tag:"Corporate", title:"Peachtree Office Block, 1968", facts:"Atlanta, GA \u00B7 Built", cap:"Brick and glass on Peachtree — the firm's early commercial work set the template for Atlanta's office corridors." },
+        { tag:"Civic", title:"Municipal Annex, 1971", facts:"Atlanta, GA \u00B7 Built", cap:"A public commission that taught the young firm how to build for institutions, not just tenants." }
+      ]},
+    { years:"1975\u20131989", name:"Growth", archival:true,
+      note:"<b>Atlanta goes vertical.</b> Through the seventies and eighties the firm grows with the financial district — towers, banking halls, and the interiors that fill them.",
+      plates:[
+        { tag:"Financial", title:"Banking Hall, 1979", facts:"Atlanta, GA \u00B7 Built", cap:"Marble, brass, and daylight — a financial headquarters designed when banks still built like they meant it." },
+        { tag:"Corporate", title:"Tower Interiors, 1984", facts:"Atlanta, GA \u00B7 Built", cap:"Floor after floor of trading desks and executive suites, drawn to the inch." }
+      ]},
+    { years:"1990\u20132004", name:"Expansion", archival:false,
+      note:"<b>Campuses and care.</b> The practice broadens into medical and education — hospitals, clinics, and school buildings across the Southeast. The portfolio gets bigger; the detailing gets sharper.",
+      plates:[
+        { tag:"Medical", title:"Regional Medical Center, 1996", facts:"Georgia \u00B7 Built", cap:"A 200-bed facility planned around daylight and wayfinding — proof that technical buildings can still feel humane." },
+        { tag:"Education", title:"Campus Science Wing, 2001", facts:"Georgia \u00B7 Built", cap:"Laboratories and lecture halls for a growing university, built to outlast three curriculum overhauls." }
+      ]},
+    { years:"2005\u20132014", name:"Reinvention", archival:false,
+      note:"<b>Old buildings, second lives.</b> As Atlanta's core fills in, the firm turns to adaptive reuse — warehouses become offices, mills become mixed-use. Preservation with a pro forma.",
+      plates:[
+        { tag:"Adaptive Reuse", title:"Allison Smith Offices, 2013", facts:"Alpharetta, GA \u00B7 22,700 SF \u00B7 Built", cap:"A large warehouse reborn as offices — defined entrance carved into the facade, studio space with huddle tables, ideation rooms with writable walls." },
+        { tag:"Corporate", title:"Greenberg Traurig Shared Services, 2012", facts:"Atlanta, GA \u00B7 15,000 SF \u00B7 Built", cap:"A shared-services hub with its own culture inside a global law firm's brand — clean lines, graceful curves, open collaboration." }
+      ]},
+    { years:"2015\u20132019", name:"Transition", archival:false,
+      note:"<b>Interiors come of age.</b> The interiors practice becomes a studio in its own right — workplace strategy, hospitality-inflected offices, and the details clients actually touch every day.",
+      plates:[
+        { tag:"Corporate", title:"Cricket Wireless Headquarters", facts:"Atlanta, GA \u00B7 150,000 SF \u00B7 Built", cap:"Workplace strategy across IT, research, marketing, and sales — multiple floors of open plan with huddle, breakout, and heads-down space." },
+        { tag:"Community", title:"Task Force for Global Health, 2018", facts:"Decatur, GA \u00B7 32,000 SF \u00B7 LEED Certified", cap:"Entire building renovation — parking deck, facade, interiors. Townhall-style design workshops brought staff into every decision." }
+      ]},
+    { years:"2020\u20132026", name:"New Era", archival:false,
+      note:"<b>Woman-owned, forward-drawn.</b> Dana Ladd leads the 2020 buyout. The firm is now a certified woman-owned small business — six decades of knowledge, new leadership, same drafting table.",
+      plates:[
+        { tag:"Adaptive Reuse", title:"AT&T Drive Studio", facts:"Tech Square, Atlanta \u00B7 7,500 SF \u00B7 Built", cap:"A parking garage reborn as a research and design lab for driverless cars — showroom with a garage-door reveal, branding front door to back." },
+        { tag:"Hospitality", title:"Delta Sky Club, CLT", facts:"Charlotte, NC \u00B7 14,000 SF \u00B7 Built", cap:"A new Sky Club in the airport concourse — Queen Charlotte neoclassicism blended with modern comfort." }
+      ]}
+  ];
+
+  /* ---------- SVG plate renderer (drafting-style elevations) ---------- */
+  function elevation(seed, modern){
+    var r = function(n){ seed = (seed*9301+49297)%233280; return seed/233280*n; };
+    var b = [];
+    b.push('<svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMax slice" aria-hidden="true">');
+    var sky = modern ? "#2A4A3E" : "#33413A";
+    b.push('<rect width="400" height="420" fill="'+sky+'"/>');
+    b.push('<line x1="0" y1="360" x2="400" y2="360" stroke="'+(modern?"#B98A2F":"#8a938a")+'" stroke-width="2"/>');
+    var bx = 60 + r(40), bw = 180 + r(100), bh = 150 + r(120), by = 360 - bh;
+    var wall = modern ? "#E8E4D8" : "#c9c4b4";
+    b.push('<rect x="'+bx+'" y="'+by+'" width="'+bw+'" height="'+bh+'" fill="'+wall+'" opacity="0.92"/>');
+    var cols = 4 + Math.floor(r(4)), rows = 3 + Math.floor(r(4));
+    for(var c=0;c<cols;c++) for(var w=0;w<rows;w++){
+      var wx = bx + 14 + c*((bw-28)/cols), wy = by + 14 + w*((bh-28)/rows);
+      var lit = modern ? (r(1)>0.45 ? "#F5C86B" : "#2b3a33") : "#3d443e";
+      b.push('<rect x="'+wx+'" y="'+wy+'" width="'+((bw-28)/cols-8)+'" height="'+((bh-28)/rows-8)+'" fill="'+lit+'" opacity="0.9"/>');
+    }
+    b.push('<line x1="'+bx+'" y1="'+(by-14)+'" x2="'+(bx+bw)+'" y2="'+(by-14)+'" stroke="#B98A2F" stroke-width="1" stroke-dasharray="4 3" opacity="0.8"/>');
+    b.push('<circle cx="'+bx+'" cy="'+(by-14)+'" r="3" fill="#B98A2F"/>');
+    b.push('<circle cx="'+(bx+bw)+'" cy="'+(by-14)+'" r="3" fill="#B98A2F"/>');
+    var bx2 = bx + bw + 12, bw2 = 400 - bx2 - 30;
+    if(bw2 > 50){
+      var bh2 = bh*0.55, by2 = 360 - bh2;
+      b.push('<rect x="'+bx2+'" y="'+by2+'" width="'+bw2+'" height="'+bh2+'" fill="'+(modern?"#D8D2C2":"#b3aea0")+'" opacity="0.9"/>');
+    }
+    for(var t=0;t<3;t++){
+      var tx = 20 + r(360);
+      b.push('<line x1="'+tx+'" y1="360" x2="'+tx+'" y2="330" stroke="#1E3A2F" stroke-width="3"/>');
+      b.push('<circle cx="'+tx+'" cy="318" r="16" fill="'+(modern?"#3E6B4F":"#4a554c")+'" opacity="0.85"/>');
+    }
+    b.push('</svg>');
+    return b.join('');
+  }
+
+  /* ---------- Build era panels ---------- */
+  var stage = document.getElementById('eraStage');
+  var noteEl = document.getElementById('eraNote');
+  ERAS.forEach(function(era, i){
+    var panel = document.createElement('div');
+    panel.className = 'era-panel' + (i===0 ? ' on' : '');
+    panel.setAttribute('data-era', i);
+    era.plates.forEach(function(p, j){
+      var plate = document.createElement('div');
+      plate.className = 'era-plate' + (era.archival ? ' archival' : '');
+      plate.innerHTML =
+        '<span class="tag">'+p.tag+'</span>' +
+        elevation(i*77 + j*131 + 7, !era.archival) +
+        '<div class="cap"><b>'+p.title+'</b>'+p.cap+'<span class="facts">'+p.facts+'</span></div>';
+      panel.appendChild(plate);
+    });
+    stage.appendChild(panel);
+  });
+
+  /* ---------- Scrubber ---------- */
+  var track = document.getElementById('scrubTrack'),
+      handle = document.getElementById('scrubHandle'),
+      fill = document.getElementById('scrubFill'),
+      ticks = document.getElementById('scrubTicks'),
+      yearsRow = document.getElementById('scrubYears'),
+      eraYears = document.getElementById('eraYears'),
+      eraName = document.getElementById('eraName');
+
+  ERAS.forEach(function(e, i){
+    var tick = document.createElement('div');
+    tick.className = 'scrub-tick';
+    tick.style.left = (i/(ERAS.length-1)*100) + '%';
+    ticks.appendChild(tick);
+    var y = document.createElement('span');
+    y.textContent = e.years.split('\u2013')[0];
+    yearsRow.appendChild(y);
+  });
+
+  var current = 0;
+  function paint(i){
+    var pct = i/(ERAS.length-1)*100;
+    handle.style.left = pct + '%';
+    fill.style.width = pct + '%';
+  }
+  function setEra(i, force){
+    i = Math.max(0, Math.min(ERAS.length-1, Math.round(i)));
+    if(i === current && !force) { paint(i); return; }
+    current = i;
+    paint(i);
+    var panels = stage.querySelectorAll('.era-panel');
+    panels.forEach(function(p, j){ p.classList.toggle('on', j===i); });
+    var e = ERAS[i];
+    eraYears.textContent = e.years;
+    eraName.textContent = e.name;
+    noteEl.innerHTML = e.note;
+    handle.setAttribute('aria-valuenow', e.years.split('\u2013')[0]);
+    handle.setAttribute('aria-valuetext', e.years + ', ' + e.name);
+    yearsRow.querySelectorAll('span').forEach(function(s, j){
+      s.classList.toggle('on', j===i);
+    });
+  }
+  function posToEra(clientX){
+    var r = track.getBoundingClientRect();
+    var pct = (clientX - r.left) / r.width;
+    pct = Math.max(0, Math.min(1, pct));
+    return pct * (ERAS.length-1);
+  }
+
+  var dragging = false;
+  track.addEventListener('pointerdown', function(e){
+    dragging = true;
+    track.setPointerCapture(e.pointerId);
+    setEra(posToEra(e.clientX));
+  });
+  track.addEventListener('pointermove', function(e){
+    if(dragging) setEra(posToEra(e.clientX));
+  });
+  ['pointerup','pointercancel'].forEach(function(ev){
+    track.addEventListener(ev, function(){ dragging = false; });
+  });
+  handle.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight' || e.key === 'ArrowUp'){ setEra(current+1); e.preventDefault(); }
+    if(e.key === 'ArrowLeft' || e.key === 'ArrowDown'){ setEra(current-1); e.preventDefault(); }
+    if(e.key === 'Home'){ setEra(0); e.preventDefault(); }
+    if(e.key === 'End'){ setEra(ERAS.length-1); e.preventDefault(); }
+  });
+
+  /* ---------- Spine rows: selected work (real projects) ---------- */
+  var SPINE = [
+    { yr:"2018", flip:false, sector:"Community",
+      h:"A Building That Heals at Scale",
+      t:"Task Force for Global Health \u2014 Decatur, GA \u00B7 32,000 SF \u00B7 LEED Certified",
+      p:"An entire building renovation — parking deck, facade, and interiors — planned through townhall-style workshops that brought the staff into every decision. The result changed how the organization works on global health problems." },
+    { yr:"2013", flip:true, sector:"Adaptive Reuse",
+      h:"A Warehouse, Reborn as a Studio",
+      t:"Allison Smith Offices \u2014 Alpharetta, GA \u00B7 22,700 SF",
+      p:"A large warehouse converted into offices: a defined entrance carved into the facade, studio space with big huddle tables, and ideation rooms wrapped in writable walls. Adaptive reuse with a collaborative brief." },
+    { yr:"2018", flip:false, sector:"Industrial",
+      h:"Twenty Acres, One Machine for Work",
+      t:"Yancey Bros. Macon Service Point \u2014 Macon, GA \u00B7 76,000 SF",
+      p:"Master planning, architecture, and interiors for a 76,000 SF regional service point on 20 acres — distribution, maintenance, and offices under one clean metal-panel skin, with a service counter that reflects the company's culture." },
+    { yr:"2018", flip:true, sector:"Medical",
+      h:"Care, Planned Around Daylight",
+      t:"Highpoint Medical Center \u2014 Braselton, GA \u00B7 40,000 SF \u00B7 ASID Award",
+      p:"A built-to-suit medical office building with complete interiors for six tenants — women's health, pediatrics, lab, internal medicine. Master-planned and phased; an ASID Silver award for the pediatric suite." },
+    { yr:"2016", flip:false, sector:"Financial",
+      h:"A Headquarters That Holds Its Nerve",
+      t:"Georgia United Credit Union HQ \u2014 Duluth, GA \u00B7 55,000 SF",
+      p:"A phased headquarters build that kept the executive suite running while everything else was rebuilt around it — two-story reception, workplace strategy across research, marketing, and sales, and branding carried from public halls to back-of-house." },
+    { yr:"2015", flip:true, sector:"Corporate",
+      h:"150,000 Square Feet of How Teams Work",
+      t:"Cricket Wireless Headquarters \u2014 Atlanta, GA \u00B7 150,000 SF",
+      p:"Workplace strategy spanning IT, research, marketing, and sales across multiple floors of Class A space — open plan with huddle and team zones, breakout space, and quiet rooms for heads-down work." }
+  ];
+  var spineEl = document.getElementById('spineRows');
+  SPINE.forEach(function(s){
+    var row = document.createElement('div');
+    row.className = 'plate-row' + (s.flip ? ' flip' : '');
+    row.innerHTML =
+      '<span class="marker" aria-hidden="true"></span>' +
+      '<div class="yr">'+s.yr+'</div>' +
+      '<div class="body"><span class="sector">'+s.sector+'</span><h3>'+s.h+'</h3>' +
+      '<span class="facts">'+s.t+'</span><p>'+s.p+'</p></div>';
+    spineEl.appendChild(row);
+  });
+
+  /* ---------- Archive list ---------- */
+  var ARCHIVE = [
+    ["SunTrust Regional Offices","Atlanta, GA \u00B7 91,000 SF"],
+    ["Synovus Bank of Nashville","Nashville, TN \u00B7 17,600 SF + 2,900 SF Branch"],
+    ["AT&T Big Data","Alpharetta, GA \u00B7 15,000 SF"],
+    ["Secureworks Atlanta","Atlanta, GA \u00B7 33,000 SF"],
+    ["Greenberg Traurig Shared Services","Atlanta, GA \u00B7 15,000 SF \u00B7 2012"],
+    ["Coastal States Bank Branches","Sandy Springs + Akers Mill, GA"],
+    ["OCS Checkweighers Addition","22,000 SF Office Addition"],
+    ["One Central Island Plaza","Daniel Island, SC \u00B7 80,000 SF Mixed-Use"],
+    ["Piedmont Midtown Internal Medicine","Atlanta, GA"],
+    ["185 Fairchild Building Repositioning","Atlanta, GA"]
+  ];
+  var archEl = document.getElementById('archiveList');
+  ARCHIVE.forEach(function(a){
+    var li = document.createElement('li');
+    li.innerHTML = '<b>'+a[0]+'</b> \u2014 '+a[1];
+    archEl.appendChild(li);
+  });
+
+  /* ---------- Services ---------- */
+  var ARCH = ["Master Planning","Phased Planning","Ground-Up Design","Building Additions","Major Renovations","Adaptive Reuse","Facade Design","Code Review","Construction Administration"];
+  var INT = ["Test Fits","Space Planning","Programming","Workplace Strategy","Branding & Wayfinding","Finish Selection","Furniture & Fixture Selection"];
+  var archList = document.getElementById('archList');
+  ARCH.forEach(function(s, i){
+    var li = document.createElement('li');
+    li.innerHTML = '<span class="n">'+('0'+(i+1)).slice(-2)+'</span><span>'+s+'</span>';
+    archList.appendChild(li);
+  });
+  var intList = document.getElementById('intList');
+  INT.forEach(function(s, i){
+    var li = document.createElement('li');
+    li.innerHTML = '<span class="n">'+('0'+(i+1)).slice(-2)+'</span><span>'+s+'</span>';
+    intList.appendChild(li);
+  });
+  var SECTORS = ["Corporate","Financial","Medical","Education","Industrial","Religious","Community","Master Planning"];
+  var pills = document.getElementById('sectorPills');
+  SECTORS.forEach(function(s){
+    var sp = document.createElement('span');
+    sp.textContent = s;
+    pills.appendChild(sp);
+  });
+
+  /* ---------- Nav: smooth anchor scroll (reduced-motion aware) + active section ---------- */
+  document.querySelectorAll('a[data-scroll]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var href = a.getAttribute('href');
+      if(!href || href.charAt(0) !== '#') return;
+      var t = document.querySelector(href === '#top' ? 'body' : href);
+      if(!t) return;
+      e.preventDefault();
+      if(href === '#top'){ window.scrollTo({top:0, behavior: reduceMotion ? 'auto' : 'smooth'}); }
+      else { t.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block:'start'}); }
+      try{ history.replaceState(null, '', href); }catch(err){}
+    });
+  });
+
+  var secIds = ['timeline','work','services','firm','contact'];
+  var navLinks = document.querySelectorAll('nav a[data-scroll], .mobilenav a[data-scroll]');
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          navLinks.forEach(function(a){
+            a.classList.toggle('on', a.getAttribute('href') === '#'+en.target.id);
+          });
+        }
+      });
+    }, {rootMargin:'-40% 0px -55% 0px'});
+    secIds.forEach(function(id){
+      var s = document.getElementById(id);
+      if(s) obs.observe(s);
+    });
+  }
+
+  /* ---------- Init ---------- */
+  setEra(0, true);
+
+  /* One-time handle invitation pulse (skipped under reduced motion) */
+  if(!reduceMotion){
+    setTimeout(function(){
+      handle.animate(
+        [{transform:'scale(1)'},{transform:'scale(1.35)'},{transform:'scale(1)'}],
+        {duration:480, easing:'ease-out'}
+      );
+    }, 900);
+  }
+})();
+</script>
 </body>
 </html>
