@@ -48,6 +48,7 @@ export interface ProductionSpecs {
   platformFormatting?: string;
   toneAndVoice?: string;
   targetPlatforms?: string;
+  duration?: string;
 }
 
 export interface MediaAsset {
