@@ -1187,6 +1187,191 @@ Start your free competitor radar scan today at northsideintelligence.com/signald
       }
     ],
     notes: "Approved Sector 3 IT Post for Thursday Oct 8. Signal Desk Static radar post with verified Cyan/Ice-Blue/Dark Slate brand identity and top-3/4 rule enforced."
+  },
+
+  // 10. CAROUSEL: FRIDAY OCT 9 (HERO IT POST - BRIDGEAI)
+  {
+    id: "post-bridgeai-oct9",
+    venture: "Northside Intelligence",
+    year: 2026,
+    month: "October 2026",
+    weekNumber: 2,
+    day: "Friday",
+    date: "Fri Oct 9, 2026",
+    dayOfMonth: 9,
+    scheduledTime: "5:00 PM ET",
+    channel: "IT",
+    slot: "Sector 3 IT Post (BridgeAI Software Connection Engine)",
+    brand: "BridgeAI",
+    format: "Carousel",
+    platforms: ["LinkedIn", "Instagram", "Threads", "Facebook"],
+    title: "BridgeAI: Eliminating The Spreadsheet Middleman",
+    hook: "Is your team acting as an overpriced human API between your software tools?",
+    status: "approved",
+    postedAt: null,
+    postingMethod: "manual",
+    pillar: "Find the bridge between all your tools to optimize your workflow. Stop manual copy-paste across disconnected software stacks.",
+    caption: `If your daily workflow still involves:
+1. Exporting a CSV from your CRM
+2. Formatting and filtering rows in Google Sheets
+3. Re-uploading leads to your marketing engine
+4. Manually updating client billing and task boards
+
+Your team is functioning as an overpriced human API. 🛑
+
+Fragmented software creates silent friction:
+• 10+ hours lost per employee every week on data entry
+• Human copy-paste errors corrupting customer records
+• Broken handoffs between sales closing and operations delivery
+
+BridgeAI connects your existing software stack into one autonomous data conduit:
+• True two-way synchronization across all your active logins
+• Real-time webhook & API event triggers with zero manual exports
+• Autonomous error catching so records stay clean without human oversight
+
+Stop manual copy-paste. Orchestrate your workflow.
+
+Start free today at northsideintelligence.com/bridgeai.
+
+#WorkflowAutomation #SoftwareIntegration #BusinessOperations #ProductivityTools #OpsManagement #BridgeAI`,
+    hashtags: "#WorkflowAutomation #SoftwareIntegration #BusinessOperations #ProductivityTools #OpsManagement #BridgeAI",
+    productionSpecs: {
+      dimensionsAndFormat: "1080 x 1440 px, 3:4 aspect ratio, PNG / JPG high resolution",
+      branding: "Dark obsidian navy canvas background, glowing electric indigo orchestration nodes, radiant ice-cyan data pathways, pure white typography. No hex color codes.",
+      references: "northsideintelligence.com/bridgeai",
+      rules: [
+        "All text and important content of the images stays in the top 3/4 of the image",
+        "ALL TEXT WITHIN THE IMAGE AND UI DETAILS MUST BE COMPLETELY RENDERED WITHOUT ANY 'AI SLOP' AND POORLY RENDERED TEXT"
+      ]
+    },
+    slides: [
+      {
+        slideNumber: "Slide 1 of 5",
+        mainPrompt: "Cinematic executive workspace at twilight with an Apple Studio Display. Dark obsidian navy canvas with glowing electric indigo orchestration nodes connecting fragmented SaaS tool icons into a unified luminous circular data conduit. A high-tech status badge reads 'Zero Manual Exports • Autonomous Sync'. Pristine studio lighting, atmospheric depth. In the upper two-thirds safe zone, bold high-contrast pure white typography reads the headline.",
+        onScreenText: "\"Is your team acting as an overpriced human API between your software tools?\" Bold modern sans-serif typography in titanium white with radiant electric indigo sub-glow."
+      },
+      {
+        slideNumber: "Slide 2 of 5",
+        mainPrompt: "High-contrast software interface diagram on dark obsidian glass. Displays the 4-step manual CSV export nightmare: Step 1 CRM Export, Step 2 Spreadsheet Cleanup, Step 3 Email Re-upload, Step 4 Project Board Update. Warning amber highlight badges on lost hours: '14 Hours Lost / Week to Manual Data Entry'. Clean Swiss layout, razor-sharp vector lines.",
+        onScreenText: "\"The Manual Data Trap: 4 steps, 3 tools, and hours lost to copy-paste.\" Clean sans-serif header in pure white with amber warning indicators."
+      },
+      {
+        slideNumber: "Slide 3 of 5",
+        mainPrompt: "Close-up macro UI capture of BridgeAI's Live Connection Radar. Dark obsidian navy background with deep midnight panels. Shows real-time two-way synchronization pipelines active between CRM, Invoicing, and Project boards with glowing ice-cyan checkmarks: 'Live Event Triggered • 0ms Latency • 100% Record Match'.",
+        onScreenText: "\"Two-way automated sync across all your logins. Zero CSV exports.\" Crisp white title font with luminous ice-cyan pipeline conduits."
+      },
+      {
+        slideNumber: "Slide 4 of 5",
+        mainPrompt: "Side-by-side comparison graphic for software architecture. Dark obsidian background. Left card in muted charcoal grey shows: 'DISCONNECTED STACK: 5 logins, manual exports, human data errors, constant cognitive drag'. Right card in glowing electric indigo border shows: 'BRIDGEAI ENGINE: Unified autonomous data conduit, instant event propagation, zero manual touches'.",
+        onScreenText: "\"Stop being the middleman between your own apps. Automate the bridge.\" Bold white headline inside radiant indigo container."
+      },
+      {
+        slideNumber: "Slide 5 of 5",
+        mainPrompt: "Authoritative closing brand CTA card for BridgeAI. Dark obsidian navy background with subtle glowing cyan grid depth. In the center, a 3D geometric bridge conduit emblem in electric indigo and titanium white. Interactive glassmorphism button displaying 'CONNECT YOUR STACK FREE'. Clean URL at bottom: 'northsideintelligence.com/bridgeai'.",
+        onScreenText: "\"Stop manual copy-paste. Connect your software at northsideintelligence.com/bridgeai\" Bold title font with electric indigo interactive button."
+      }
+    ],
+    generatedMedia: [],
+    referenceMedia: [
+      {
+        id: "ref-ba-oct9-1",
+        name: "bridgeai-pipeline.png",
+        url: "https://northsideintelligence.com/bridgeai",
+        type: "document",
+        size: "Web Reference",
+        source: "manual",
+        uploadedAt: "Today"
+      }
+    ],
+    notes: "Approved Sector 3 IT Post for Friday Oct 9. BridgeAI 5-Slide Carousel. Canonical template, zero numeric hex codes, top-3/4 rule enforced."
+  },
+
+  // 11. VIDEO: FRIDAY OCT 9 (SMART STORE VERTICAL REEL - 65W GaN TRAVEL TECH CHARGER)
+  {
+    id: "post-smart-store-oct9",
+    venture: "Northside Intelligence",
+    year: 2026,
+    month: "October 2026",
+    weekNumber: 2,
+    day: "Friday",
+    date: "Fri Oct 9, 2026",
+    dayOfMonth: 9,
+    scheduledTime: "8:00 PM ET",
+    channel: "Store",
+    slot: "Smart Store Video (65W GaN Dual-Port Travel Tech Charger)",
+    brand: "Smart Store",
+    format: "Video",
+    platforms: ["Instagram", "Facebook Reels", "TikTok", "YouTube Shorts"],
+    title: "Smart Store: The Airport Tech Markup vs Direct Factory GaN Charger",
+    hook: "Airport shops charge sixty dollars for a brick charger. Smart Store has direct factory builds for eighteen.",
+    status: "approved",
+    postedAt: null,
+    postingMethod: "manual",
+    pillar: "Tell Smart Store what you are after. It searches verified manufacturer catalogs and delivers ultra-compact 65W GaN dual fast chargers for $18.99 instead of $60 retail. Pay less for what you were already going to buy.",
+    caption: `Airport retailers and big tech brands charging $60+ for a standard travel charging brick? 🛑
+
+Tell Smart Store what you are after. It searches verified manufacturer catalogs and finds identical direct-factory builds for a fraction of retail.
+
+Ultra-compact 65W GaN fast charger. Foldable prongs, dual USB-C plus USB-A, powers your laptop and phone simultaneously from one outlet. Zero retail markup.
+
+$18.99 on Smart Store vs $60 brand retail.
+
+👉 Claim yours today at northsideintelligence.com/store.
+
+#SmartStore #TravelHacks #TravelTech #EDCGear #ShoppingHacks #SaveMoney #TechDeals #PackingTips`,
+    hashtags: "#SmartStore #TravelHacks #TravelTech #EDCGear #ShoppingHacks #SaveMoney #TechDeals #PackingTips",
+    productionSpecs: {
+      dimensionsAndFormat: "1080 x 1920 px, 9:16 vertical aspect ratio, MP4 video",
+      duration: "Strictly 10 seconds total",
+      narratorTone: "Direct, confident, authentic UGC product unboxing with sharp visual pacing.",
+      sfx: "Crisp package unboxing peel, solid tactile snap of foldable prongs opening, high-speed charging chime.",
+      backgroundMusic: "Muted energetic modern instrumental beat with tight low-end percussion.",
+      branding: "Dark obsidian background with 3D Northside Intelligence emblem, glowing neon blue letters illuminating 'Smart Store', no numeric hex codes.",
+      references: "northsideintelligence.com/store | attached product and UI reference cards",
+      rules: [
+        "All critical action, face, product proofs, and on-screen text stay in top 3/4 of frame",
+        "ALL ON SCREEN TEXT ON A SMARTPHONE OR A COMPUTER MUST BE LEGIBLE TEXT CONSTRUCTION MATCHING REAL APPS. ZERO AI SLOP, FAKE LETTERS, OR SYNTHETIC DISTORTION.",
+        "Zero timestamps in scene headers or narration lines",
+        "Strict single-creator UGC unboxing format (Learning #12941) — no narrative skits or comedic slapstick",
+        "Dialogue strictly under 15 words to prevent audio rush or cutoff"
+      ]
+    },
+    scenes: [
+      {
+        sceneNum: "Scene 1",
+        description: "Medium Close-Up of a sleek creator (late 20s, casual travel attire) in a modern terminal lounge holding up an ultra-compact matte black 65W GaN charger with foldable prongs in the upper frame. In the top safe zone, high-contrast text overlay reads: 'Airport Tech: $60 vs Direct Factory: $18.99'. Creator looks directly into camera lens.",
+        dialogue: "\"Airport shops charge sixty dollars for a charger. Smart Store has direct builds for eighteen.\"",
+        narrator: "",
+        transition: "Smooth macro match cut to product plug-in"
+      },
+      {
+        sceneNum: "Scene 2",
+        description: "Macro aesthetic table shot showing the compact GaN charger plugged into a wall outlet, simultaneously fast-charging a laptop and a smartphone. An on-screen interactive badge reads: '$18.99 • 65W GaN Fast Charge • Free 2-Day Shipping'.",
+        dialogue: "",
+        narrator: "\"Powers your laptop and phone together. Foldable prongs. Direct factory price.\"",
+        transition: "Transition to clean brand end card"
+      },
+      {
+        sceneNum: "Scene 3",
+        description: "Dark obsidian canvas with glowing electric neon blue letters illuminating 'Smart Store' and URL 'northsideintelligence.com/store' with promo callout 'Direct Manufacturer Sourcing • Zero Brand Markup'.",
+        dialogue: "",
+        narrator: "",
+        transition: "Fade to black"
+      }
+    ],
+    generatedMedia: [],
+    referenceMedia: [
+      {
+        id: "ref-ss-oct9-1",
+        name: "gan-charger-spec.png",
+        url: "https://northsideintelligence.com/store",
+        type: "image",
+        size: "Product Spec Reference",
+        source: "manual",
+        uploadedAt: "Today"
+      }
+    ],
+    notes: "Approved Sector 4 Smart Store Post for Friday Oct 9. Video Reel strictly adhering to Learning #12941 (single-creator unboxing, under 15 words dialogue, zero timestamps, top-3/4 rule enforced)."
   }
 ];
 
@@ -1196,7 +1381,7 @@ Start your free competitor radar scan today at northsideintelligence.com/signald
 
 export default function NiContentPage() {
   const [posts, setPosts] = useState<ContentPost[]>(INITIAL_POSTS);
-  const [activeSlotId, setActiveSlotId] = useState<string>("post-signaldesk-oct8");
+  const [activeSlotId, setActiveSlotId] = useState<string>("post-bridgeai-oct9");
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
 
   // Time Navigation States
@@ -1289,7 +1474,7 @@ export default function NiContentPage() {
     setSaveFlash(true);
     setTimeout(() => setSaveFlash(false), 1200);
     try {
-      localStorage.setItem("ni_content_hub_master_v5", JSON.stringify(cleaned));
+      localStorage.setItem("ni_content_hub_master_v9", JSON.stringify(cleaned));
     } catch {
       // Fallback
     }
