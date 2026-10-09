@@ -1,111 +1,832 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Arch11 Inc. — Interactive Prototype | Northside Intelligence</title>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .mono { font-family: 'JetBrains Mono', monospace; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arch11 — Design Begins With the Hand</title>
+<meta name="description" content="Arch11 is an award-winning architecture and interiors firm in Boulder, Denver, and North Carolina. 2024 AIA Colorado Firm of the Year. Design begins with the hand.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal:#232220;
+    --stone:#E9E5DB;
+    --clay:#A34A28;
+    --clay-deep:#7E3A1F;
+    --inkgray:#5F594E;
+    --rule:#857E6E;
+    --sheet:#F7F4EC;
+    --glass:#AEBBB8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--stone);
+    color:var(--charcoal);
+    font-family:'Source Sans 3',sans-serif;
+    font-size:18px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--clay);color:#fff}
 
+  /* ============ HEADER ============ */
+  .a11__header{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:20px 5vw;border-bottom:1px solid var(--rule);
+    background:var(--stone);
+    position:sticky;top:0;z-index:50;
+  }
+  .a11__wordmark{
+    font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:19px;
+    letter-spacing:0.28em;color:var(--charcoal);text-decoration:none;
+  }
+  .a11__wordmark em{font-style:normal;color:var(--clay)}
+  .a11__nav{display:flex;gap:30px}
+  .a11__nav a{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.18em;
+    color:var(--inkgray);text-decoration:none;text-transform:uppercase;
+    padding:4px 0;border-bottom:2px solid transparent;
+  }
+  .a11__nav a:hover{color:var(--charcoal)}
+  .a11__nav a.on{color:var(--clay-deep);border-bottom-color:var(--clay)}
+  .a11__mobilenav{display:none}
+
+  /* ============ SHEET PRIMITIVE ============ */
+  .a11__sheet{
+    background:var(--sheet);
+    margin:48px 5vw 0;padding:0 0 72px;
+    border:1px solid var(--rule);
+    max-width:1440px;
+  }
+  @media(min-width:1560px){.a11__sheet{margin-left:auto;margin-right:auto}}
+  .a11__titleblock{
+    display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+    padding:18px 48px;border-bottom:1px solid var(--rule);
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.2em;
+    color:var(--inkgray);text-transform:uppercase;
+  }
+  .a11__sheetbody{padding:64px 48px 0}
+  .a11__sheet--dark{background:var(--charcoal);color:var(--stone);border-color:var(--charcoal)}
+  .a11__sheet--dark .a11__titleblock{border-bottom-color:#4a463c;color:#b9b2a2}
+  .a11__sheet--dark .a11__eyebrow{color:#c98d64}
+
+  .a11__eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;
+    letter-spacing:0.24em;text-transform:uppercase;color:var(--clay-deep);
+    margin-bottom:24px;
+  }
+  .a11__h1{
+    font-family:'Spectral',serif;font-weight:700;
+    font-size:clamp(44px,7vw,96px);line-height:1.02;letter-spacing:0.01em;
+    text-transform:uppercase;color:var(--charcoal);max-width:14ch;
+  }
+  .a11__h1 .clay{color:var(--clay)}
+  .a11__h2{
+    font-family:'Spectral',serif;font-weight:700;
+    font-size:clamp(28px,4vw,44px);line-height:1.08;letter-spacing:0.01em;
+    text-transform:uppercase;color:var(--charcoal);max-width:20ch;margin-bottom:20px;
+  }
+  .a11__lede{margin-top:28px;max-width:60ch;font-size:19px;color:#3a362e}
+  .a11__lede strong{color:var(--charcoal)}
+  .a11__sheet--dark .a11__h2{color:var(--stone)}
+  .a11__sheet--dark .a11__lede{color:#cfc8b8}
+  .a11__sheet--dark .a11__lede strong{color:var(--stone)}
+
+  .a11__meta{
+    display:flex;flex-wrap:wrap;margin-top:48px;border-top:1px solid var(--rule);
+  }
+  .a11__meta div{padding:20px 32px 20px 0;margin-right:32px;border-right:1px solid var(--rule)}
+  .a11__meta div:last-child{border-right:none}
+  .a11__meta .k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;color:var(--inkgray);text-transform:uppercase;display:block;margin-bottom:6px}
+  .a11__meta .v{font-family:'Spectral',serif;font-weight:600;font-size:20px;color:var(--charcoal)}
+
+  /* ============ COVER SHEET HERO (A-000) ============ */
+  .a11__coverbody{
+    padding:56px 48px 64px;
+    background-color:var(--sheet);
+    background-image:
+      linear-gradient(rgba(35,34,32,.06) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(35,34,32,.06) 1px,transparent 1px),
+      linear-gradient(rgba(35,34,32,.11) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(35,34,32,.11) 1px,transparent 1px);
+    background-size:28px 28px,28px 28px,140px 140px,140px 140px;
+  }
+  .a11__covergrid{display:grid;grid-template-columns:7fr 5fr;gap:48px;align-items:start}
+  /* Title block: the dominant element; the h1 lives here as the sheet title */
+  .a11__tb{width:100%;border-collapse:collapse;border:2px solid var(--charcoal);background:var(--sheet)}
+  .a11__tb th,.a11__tb td{border:1px solid var(--rule);padding:16px 20px;vertical-align:top;text-align:left}
+  .a11__tb th{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;
+    letter-spacing:0.2em;text-transform:uppercase;color:var(--inkgray);width:104px;
+  }
+  .a11__tb td{font-family:'Spectral',serif;font-weight:600;font-size:19px;line-height:1.4;color:var(--charcoal)}
+  .a11__tb-title td{border-top:3px solid var(--charcoal);border-bottom:3px solid var(--charcoal)}
+  .a11__tb-title .a11__h1{max-width:none;margin:0;font-size:clamp(36px,4.4vw,62px)}
+  .a11__tb-foot{
+    display:flex;flex-wrap:wrap;border:2px solid var(--charcoal);border-top:none;background:var(--sheet);
+  }
+  .a11__tb-foot span{
+    flex:1 1 0;padding:14px 20px;border-right:1px solid var(--rule);
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;
+    text-transform:uppercase;color:var(--charcoal);white-space:nowrap;
+  }
+  .a11__tb-foot span:last-child{border-right:none}
+  .a11__tb-foot b{display:block;font-size:10px;font-weight:500;letter-spacing:0.2em;color:var(--inkgray);margin-bottom:4px}
+  .a11__tb-sheetno{color:var(--clay-deep)}
+  /* Drawing field */
+  .a11__field{position:relative;min-height:420px}
+  .a11__study{display:block;width:100%;height:auto}
+  .a11__stamp{
+    position:absolute;top:8px;right:6px;transform:rotate(-6deg);
+    font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;letter-spacing:0.18em;
+    text-transform:uppercase;text-align:center;color:var(--clay-deep);
+    border:3px double var(--clay-deep);border-radius:8px;padding:10px 16px;background:rgba(247,244,236,.82);
+  }
+  .a11__si{margin-top:36px}
+  .a11__si-k,.a11__narr-k{
+    display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;
+    letter-spacing:0.22em;text-transform:uppercase;color:var(--inkgray);margin-bottom:12px;
+  }
+  .a11__si a{
+    display:flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--charcoal);
+    font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;
+    padding:7px 0;
+  }
+  .a11__si a .no{color:var(--clay-deep)}
+  .a11__si a .dots{flex:1;border-bottom:1px dotted var(--rule);transform:translateY(-4px)}
+  .a11__si a:hover .t,.a11__si a:focus-visible .t{color:var(--clay-deep)}
+  .a11__si a:focus-visible{outline:3px solid var(--clay);outline-offset:4px}
+  .a11__narr{margin-top:36px;max-width:52ch}
+  .a11__narr p{font-size:18px;color:#3a362e}
+  .a11__narr p strong{color:var(--charcoal)}
+  @media(max-width:900px){
+    .a11__coverbody{padding:40px 24px 48px}
+    .a11__covergrid{grid-template-columns:1fr;gap:40px}
+    .a11__tb th{width:88px;padding:12px 14px}
+    .a11__tb td{padding:12px 14px;font-size:17px}
+    .a11__stamp{position:static;transform:rotate(-3deg);display:inline-block;margin-top:16px}
+    .a11__field{min-height:0}
+  }
+
+  /* ============ SKETCH-TO-STRUCTURE ============ */
+  .a11__plates{display:grid;grid-template-columns:1fr;gap:64px;margin-top:48px}
+  .a11__plate{border:1px solid var(--rule);background:var(--sheet)}
+  .a11__plate .a11__titleblock{padding:14px 24px}
+  .a11__stage{position:relative;min-height:380px;background:var(--sheet);overflow:hidden}
+  .a11__stage svg{position:absolute;inset:0;width:100%;height:100%}
+  .a11__layer-sketch{transition:opacity 200ms ease-out}
+  .a11__layer-structure{transition:opacity 200ms ease-out}
+  .a11__sliderow{
+    display:flex;align-items:center;gap:20px;
+    padding:20px 24px;border-top:1px solid var(--rule);
+  }
+  .a11__sliderow .cap{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;
+    color:var(--inkgray);text-transform:uppercase;white-space:nowrap;
+  }
+  .a11__sliderow .cap:last-child{color:var(--clay-deep)}
+  .a11__slider{
+    flex:1;-webkit-appearance:none;appearance:none;height:2px;background:var(--rule);outline:none;cursor:pointer;
+  }
+  .a11__slider::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;
+    background:var(--sheet);border:3px solid var(--clay);cursor:grab;
+  }
+  .a11__slider::-moz-range-thumb{
+    width:20px;height:20px;border-radius:50%;
+    background:var(--sheet);border:3px solid var(--clay);cursor:grab;
+  }
+  .a11__slider:focus-visible{outline:3px solid var(--clay);outline-offset:6px}
+  .a11__platenote{padding:0 24px 24px;font-size:16px;color:#3a362e;max-width:68ch}
+  .a11__platenote strong{color:var(--charcoal)}
+
+  /* ============ INDEX LIST (practice) ============ */
+  .a11__index{margin-top:40px;border-top:2px solid var(--charcoal)}
+  .a11__indexrow{
+    display:grid;grid-template-columns:80px 1fr 2fr;gap:24px;align-items:baseline;
+    padding:28px 0;border-bottom:1px solid var(--rule);
+  }
+  .a11__indexrow .n{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--clay-deep);letter-spacing:0.1em}
+  .a11__indexrow h3{font-family:'Spectral',serif;font-weight:700;font-size:24px;text-transform:uppercase;letter-spacing:0.01em}
+  .a11__indexrow p{color:#3a362e;max-width:56ch}
+
+  /* ============ WORK PLATES ============ */
+  .a11__workgrid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:40px}
+  .a11__workplate{border:1px solid var(--rule);background:var(--stone);padding:0}
+  .a11__workplate .thumb{height:220px;position:relative;overflow:hidden;background:var(--sheet)}
+  .a11__workplate .thumb svg{position:absolute;inset:0;width:100%;height:100%}
+  .a11__workplate .info{padding:20px 24px 24px}
+  .a11__workplate h3{font-family:'Spectral',serif;font-weight:700;font-size:22px;text-transform:uppercase;letter-spacing:0.01em;margin-bottom:8px}
+  .a11__workplate .facts{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;color:var(--inkgray);text-transform:uppercase}
+  .a11__workplate p{margin-top:12px;font-size:16px;color:#3a362e}
+  .a11__morelist{margin-top:32px;padding-top:24px;border-top:1px solid var(--rule)}
+  .a11__morelist h3{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:var(--inkgray);margin-bottom:16px}
+  .a11__morelist ul{list-style:none;columns:2;column-gap:48px}
+  .a11__morelist li{font-size:16px;padding:8px 0;border-bottom:1px dotted var(--rule);break-inside:avoid}
+  .a11__morelist li b{font-weight:600}
+
+  /* ============ MAKERS ============ */
+  .a11__makers{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:40px}
+  .a11__maker{border-top:2px solid var(--clay);padding-top:20px}
+  .a11__maker .who{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;color:var(--inkgray);text-transform:uppercase;margin-bottom:12px}
+  .a11__maker h3{font-family:'Spectral',serif;font-weight:700;font-size:26px;text-transform:uppercase;margin-bottom:4px}
+  .a11__maker .role{font-size:15px;font-weight:600;color:var(--clay-deep);margin-bottom:16px}
+  .a11__maker p{font-size:16px;color:#3a362e}
+  .a11__maker p + p{margin-top:12px}
+
+  /* ============ FIRSTS (dark sheet) ============ */
+  .a11__firsts{margin-top:40px}
+  .a11__first{
+    display:grid;grid-template-columns:120px 1fr;gap:24px;align-items:baseline;
+    padding:24px 0;border-bottom:1px solid #4a463c;
+  }
+  .a11__first .yr{font-family:'Spectral',serif;font-weight:700;font-size:32px;color:#c98d64;font-variant-numeric:tabular-nums}
+  .a11__first p{font-size:18px;color:var(--stone)}
+  .a11__first p strong{color:#fff}
+
+  /* ============ CONTACT ============ */
+  .a11__contactgrid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:40px}
+  .a11__contactgrid .block h3{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:var(--inkgray);margin-bottom:16px}
+  .a11__contactgrid address{font-style:normal;font-size:20px;line-height:1.7}
+  .a11__contactgrid a{color:var(--clay-deep);text-decoration:none;border-bottom:1px solid var(--clay)}
+  .a11__contactgrid a:hover{color:var(--clay)}
+  .a11__dialogue{margin-top:40px;padding:32px;border:1px solid var(--rule);background:var(--stone)}
+  .a11__dialogue p{font-family:'Spectral',serif;font-size:22px;line-height:1.5;max-width:56ch}
+  .a11__dialogue p strong{color:var(--clay-deep)}
+
+  /* ============ FOOTER ============ */
+  .a11__footer{
+    margin:48px 5vw 48px;max-width:1440px;
+    border-top:2px solid var(--charcoal);padding-top:24px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;
+  }
+  @media(min-width:1560px){.a11__footer{margin-left:auto;margin-right:auto}}
+  .a11__footer .fmono{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;color:var(--inkgray);text-transform:uppercase}
+  .a11__footer .fine{font-size:13px;font-style:italic;color:var(--inkgray);max-width:60ch}
+
+  @media(max-width:900px){
+    .a11__nav{display:none}
+    .a11__mobilenav{
+      display:flex;gap:8px;overflow-x:auto;padding:12px 5vw;
+      border-bottom:1px solid var(--rule);background:var(--stone);
+      position:sticky;top:58px;z-index:49;
+    }
+    .a11__mobilenav a{
+      flex:0 0 auto;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;
+      text-transform:uppercase;color:var(--inkgray);text-decoration:none;
+      border:1px solid var(--rule);border-radius:999px;padding:8px 16px;background:var(--sheet);
+    }
+    .a11__mobilenav a.on{color:var(--clay-deep);border-color:var(--clay)}
+    .a11__sheet{margin:32px 4vw 0}
+    .a11__sheetbody{padding:40px 24px 0}
+    .a11__titleblock{padding:14px 24px}
+    .a11__indexrow{grid-template-columns:48px 1fr;grid-template-rows:auto auto}
+    .a11__indexrow p{grid-column:2}
+    .a11__workgrid{grid-template-columns:1fr}
+    .a11__makers{grid-template-columns:1fr}
+    .a11__contactgrid{grid-template-columns:1fr}
+    .a11__morelist ul{columns:1}
+    .a11__stage{min-height:300px}
+    .a11__footer{margin:32px 4vw 32px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .a11__layer-sketch,.a11__layer-structure{transition:none}
+  }
+</style>
 </head>
-<body class="bg-[#090D16] text-slate-100 min-h-screen antialiased flex flex-col">
-  <!-- Top Operator Bar -->
-  <header class="border-b border-slate-800/80 bg-[#0E1424]/90 backdrop-blur sticky top-0 z-50 px-6 py-3 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <div class="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold text-xs uppercase tracking-wider">
-        NI Deliverable Prototype
-      </div>
-      <div class="text-xs text-slate-400">
-        Prepared for <span class="font-semibold text-white">Arch11 Inc.</span> (Boulder, CO)
-      </div>
-    </div>
-    <div class="flex items-center gap-2">
-      <button onclick="window.print()" class="px-3 py-1.5 text-xs font-semibold rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
-        Export / Print PDF
-      </button>
-      <a href="data:text/html;charset=utf-8,%3C!--%20Arch11%20Inc.%20Prototype%20--%3E" download="arch11-inc--prototype.html" class="px-3 py-1.5 text-xs font-semibold rounded bg-cyan-500 hover:bg-cyan-400 text-black transition">
-        Download Offline HTML
-      </a>
-    </div>
-  </header>
+<body id="top">
 
-  <!-- Prototype Hero -->
-  <main class="flex-1 max-w-6xl w-full mx-auto p-6 md:p-10 space-y-10">
-    <div class="rounded-2xl border border-slate-800 bg-gradient-to-b from-[#131B2E] to-[#0D1322] p-8 md:p-12 relative overflow-hidden shadow-2xl">
-      <div class="absolute -right-20 -top-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
-      
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-xs text-slate-300 mb-6">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>Modern Architectural Design · Interactive Next.js Concept</span>
-      </div>
+<!-- ============ HEADER ============ -->
+<header class="a11__header">
+  <a class="a11__wordmark" href="#top" data-scroll>ARCH<em>11</em></a>
+  <nav class="a11__nav" aria-label="Primary">
+    <a href="#sketch" data-scroll>The Hand</a>
+    <a href="#practice" data-scroll>Practice</a>
+    <a href="#work" data-scroll>Work</a>
+    <a href="#studio" data-scroll>Studio</a>
+    <a href="#contact" data-scroll>Dialogue</a>
+  </nav>
+</header>
+<nav class="a11__mobilenav" aria-label="Primary mobile">
+  <a href="#sketch" data-scroll>The Hand</a>
+  <a href="#practice" data-scroll>Practice</a>
+  <a href="#work" data-scroll>Work</a>
+  <a href="#studio" data-scroll>Studio</a>
+  <a href="#contact" data-scroll>Dialogue</a>
+</nav>
 
-      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white max-w-3xl leading-tight">
-        Full-Bleed Photographic Showcase for Award-Winning Architecture
-      </h1>
-
-      <p class="mt-4 text-slate-400 text-base md:text-lg max-w-2xl leading-relaxed">
-        Eliminating horizontal scroll lag with smooth responsive touch galleries. Engineered with sub-second page transitions, responsive touch controls, and zero legacy CMS script bloat.
-      </p>
-
-      <div class="mt-8 flex flex-wrap gap-4">
-        <button onclick="alert('Interactive demo: Project Showcase Filter Triggered')" class="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-sm shadow-lg shadow-cyan-500/20 transition">
-          Explore Portfolio Archive
-        </button>
-        <button onclick="alert('Interactive demo: Client Inquiry Modal Opened')" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm border border-slate-700 transition">
-          Direct Consultation Request
-        </button>
-      </div>
-    </div>
-
-    <!-- Interactive Features Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          01
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Instant Mobile Speed</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Google Lighthouse 98+ score with modern image compression, eliminating render delays on high-resolution project photography.
-        </p>
-      </div>
-
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          02
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Frictionless Lead Intake</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Streamlined client consultation intake with automatic validation, spam filtering, and direct CRM notification webhooks.
-        </p>
-      </div>
-
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          03
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Zero CMS Maintenance</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Static-first Next.js infrastructure deployed on high-availability edge nodes, completely immune to WordPress plugin vulnerabilities.
-        </p>
-      </div>
-    </div>
-
-    <!-- Verification & Proof Footer -->
-    <div class="rounded-xl border border-slate-800 bg-[#0E1424] p-6 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400">
-      <div class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-        <span>Prototype Status: <strong class="text-white">Active Preview Verified</strong></span>
-      </div>
+<!-- ============ HERO: SHEET A-000 — COVER ============ -->
+<section class="a11__sheet" aria-label="Cover sheet">
+  <div class="a11__titleblock"><span>Sheet A-000 · Cover</span><span>Arch11 · Boulder / Denver / North Carolina</span></div>
+  <div class="a11__coverbody">
+    <div class="a11__covergrid">
+      <!-- Title block: the dominant element; the h1 is the sheet title -->
       <div>
-        Built by Northside Intelligence · Studio Architecture Division
+        <table class="a11__tb" aria-label="Cover sheet title block">
+          <tr><th scope="row">Project</th><td>Arch11 — Architecture + Interiors</td></tr>
+          <tr class="a11__tb-title"><th scope="row">Sheet Title</th><td><h1 class="a11__h1">Design Begins With the Hand</h1></td></tr>
+          <tr><th scope="row">Drawn By</th><td>Architects Who Build</td></tr>
+          <tr><th scope="row">Est.</th><td>1993 · Boulder, Colorado</td></tr>
+          <tr><th scope="row">Honors</th><td>2024 AIA Colorado Firm of the Year · 25+ AIA Awards</td></tr>
+          <tr><th scope="row">Studios</th><td>Boulder · Denver · North Carolina</td></tr>
+        </table>
+        <div class="a11__tb-foot">
+          <span><b>Scale</b>As Noted</span>
+          <span><b>Date</b>2026</span>
+          <span class="a11__tb-sheetno"><b>Sheet</b>A-000</span>
+        </div>
+      </div>
+      <!-- Drawing field -->
+      <div class="a11__field">
+        <svg class="a11__study" viewBox="0 0 520 300" role="img" aria-label="Hand-drawn roofline study: a gabled form sketched over a ground line">
+          <g fill="none" stroke="#232220" stroke-linecap="round">
+            <line x1="24" y1="262" x2="496" y2="262" stroke-width="3" opacity="0.9"/>
+            <path d="M60 262 L150 170 L240 170 L330 262" stroke-width="2.5" opacity="0.85"/>
+            <path d="M150 170 L150 262 M240 170 L240 262" stroke-width="1.2" opacity="0.5"/>
+            <path d="M96 218 L294 218" stroke-width="1.2" opacity="0.55"/>
+            <path d="M330 262 L420 190 L470 190 L470 262" stroke-width="2.5" opacity="0.85"/>
+            <path d="M420 190 L420 262" stroke-width="1.2" opacity="0.5"/>
+            <circle cx="440" cy="80" r="26" stroke-width="2" opacity="0.7"/>
+            <path d="M440 40 L440 52 M440 108 L440 120 M400 80 L412 80 M468 80 L480 80" stroke-width="1.6" opacity="0.6"/>
+            <path d="M370 262 q4 -34 18 -40 q14 6 18 40 M388 226 q2 -14 8 -18" stroke-width="1.6" opacity="0.6"/>
+            <path d="M24 262 L24 244 M150 262 L150 250 M496 262 L496 244" stroke-width="1.4" opacity="0.55"/>
+            <path d="M150 120 q30 -18 60 0 q30 18 60 0" stroke-width="1.4" opacity="0.45"/>
+          </g>
+          <g font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="2" fill="#5F594E">
+            <text x="30" y="290">ROOFLINE STUDY — N. ELEVATION</text>
+            <text x="392" y="290">1/8" = 1'-0"</text>
+          </g>
+        </svg>
+        <div class="a11__stamp" aria-hidden="true">2024 AIA Colorado<br>Firm of the Year</div>
+        <nav class="a11__si" aria-label="Sheet index">
+          <span class="a11__si-k">Sheet Index</span>
+          <a href="#sketch" data-scroll><span class="no">A-100</span><span class="dots"></span><span class="t">The Hand</span></a>
+          <a href="#practice" data-scroll><span class="no">A-200</span><span class="dots"></span><span class="t">Practice</span></a>
+          <a href="#work" data-scroll><span class="no">A-300</span><span class="dots"></span><span class="t">Selected Work</span></a>
+          <a href="#studio" data-scroll><span class="no">A-400</span><span class="dots"></span><span class="t">Studio</span></a>
+          <a href="#contact" data-scroll><span class="no">A-500</span><span class="dots"></span><span class="t">Dialogue</span></a>
+        </nav>
+        <div class="a11__narr">
+          <span class="a11__narr-k">Project Narrative</span>
+          <p><strong>Artful, resilient design to evoke a sense of awe.</strong> Arch11 is a studio of architects who came to the discipline as builders — framers, boat builders, cabinetmakers — and never stopped working with their hands. From the foothills of Boulder to the streets of New York, we shape spaces where <strong>craft, context, and conscience</strong> meet.</p>
+        </div>
       </div>
     </div>
-  </main>
+  </div>
+</section>
+
+<!-- ============ SIGNATURE INTERACTIVE ============ -->
+<section class="a11__sheet" id="sketch" aria-label="Sketch to structure">
+  <div class="a11__titleblock"><span>Sheet A-100 · The Hand</span><span>Process · Sketch → Structure</span></div>
+  <div class="a11__sheetbody">
+    <p class="a11__eyebrow">The Signature Study</p>
+    <h2 class="a11__h2">Every Building Starts as a Line Drawn by a Hand</h2>
+    <p class="a11__lede">Drag the slider on each plate. Watch the pencil study dissolve into the built work — the same lines, resolved. Our architects stay on the project from the first sketch to the final walk-through, because the hand that draws should be the hand that checks the joint.</p>
+
+    <div class="a11__plates">
+      <!-- PLATE 1: SYNCLINE HOUSE -->
+      <div class="a11__plate">
+        <div class="a11__titleblock"><span>Plate 01 · Syncline House · Boulder, CO</span><span>2007 · LEED Gold</span></div>
+        <div class="a11__stage">
+          <svg class="a11__layer-sketch" data-sketch viewBox="0 0 800 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <filter id="a11pencil1" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" result="n"/>
+                <feDisplacementMap in="SourceGraphic" in2="n" scale="7"/>
+              </filter>
+            </defs>
+            <g filter="url(#a11pencil1)" fill="none" stroke="#4a463c" stroke-width="2.5" stroke-linecap="round">
+              <path d="M40,430 L760,390" stroke-width="2" opacity="0.5"/>
+              <path d="M40,430 L760,390 M120,428 L700,392" stroke-width="1" opacity="0.3"/>
+              <path d="M180,382 L418,182 L622,182 L558,382 Z"/>
+              <path d="M186,376 L420,190 L616,190 L552,376" stroke-width="1.2" opacity="0.5"/>
+              <path d="M418,182 L622,182 L582,382 L458,382 Z"/>
+              <path d="M252,302 L310,302 L310,382 L252,382 Z"/>
+              <line x1="418" y1="182" x2="418" y2="120" stroke-dasharray="6 5" opacity="0.45"/>
+              <line x1="622" y1="182" x2="622" y2="120" stroke-dasharray="6 5" opacity="0.45"/>
+              <line x1="120" y1="182" x2="680" y2="182" stroke-dasharray="4 6" opacity="0.3"/>
+              <path d="M600,382 l14,-14 M614,382 l14,-14 M628,382 l14,-14" stroke-width="1.4" opacity="0.6"/>
+              <path d="M200,400 l10,10 M220,400 l10,10" stroke-width="1.2" opacity="0.5"/>
+            </g>
+            <text x="620" y="150" font-family="IBM Plex Mono,monospace" font-size="13" fill="#5F594E" letter-spacing="2">ROOF PLANE?</text>
+            <text x="90" y="360" font-family="IBM Plex Mono,monospace" font-size="13" fill="#5F594E" letter-spacing="2">SLOPE →</text>
+          </svg>
+          <svg class="a11__layer-structure" data-structure viewBox="0 0 800 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="opacity:0">
+            <polygon points="0,480 800,480 800,388 0,432" fill="#DCD4BF"/>
+            <polygon points="180,382 420,182 620,182 560,382" fill="#232220"/>
+            <polygon points="420,182 620,182 580,382 460,382" fill="#AEBBB8" opacity="0.9"/>
+            <polygon points="420,182 470,182 450,382 400,382" fill="#8fa0a0" opacity="0.55"/>
+            <rect x="252" y="302" width="58" height="80" fill="#A34A28"/>
+            <line x1="180" y1="382" x2="620" y2="182" stroke="#F7F4EC" stroke-width="2" opacity="0.35"/>
+            <rect x="180" y="376" width="440" height="6" fill="#171614"/>
+          </svg>
+        </div>
+        <div class="a11__sliderow">
+          <span class="cap">Sketch</span>
+          <input class="a11__slider" type="range" min="0" max="100" value="0" step="1"
+                 aria-label="Syncline House: morph sketch into structure" data-slider>
+          <span class="cap">Structure</span>
+        </div>
+        <p class="a11__platenote"><strong>Syncline House, 2007</strong> — Boulder's first LEED Gold home, drawn for a rock-climbing couple. The wedge answers the slope; the glass corner chases the view. Pencil first, then proof.</p>
+      </div>
+
+      <!-- PLATE 2: 303 CANYON -->
+      <div class="a11__plate">
+        <div class="a11__titleblock"><span>Plate 02 · 303 Canyon · Boulder, CO</span><span>3 Townhomes · NYT Featured</span></div>
+        <div class="a11__stage">
+          <svg class="a11__layer-sketch" data-sketch viewBox="0 0 800 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <filter id="a11pencil2" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" result="n"/>
+                <feDisplacementMap in="SourceGraphic" in2="n" scale="7"/>
+              </filter>
+            </defs>
+            <g filter="url(#a11pencil2)" fill="none" stroke="#4a463c" stroke-width="2.5" stroke-linecap="round">
+              <path d="M40,420 L760,420" stroke-width="2" opacity="0.5"/>
+              <rect x="150" y="220" width="130" height="200"/>
+              <rect x="156" y="226" width="118" height="188" stroke-width="1.2" opacity="0.5"/>
+              <rect x="310" y="170" width="130" height="250"/>
+              <rect x="316" y="176" width="118" height="238" stroke-width="1.2" opacity="0.5"/>
+              <rect x="470" y="240" width="130" height="180"/>
+              <rect x="476" y="246" width="118" height="168" stroke-width="1.2" opacity="0.5"/>
+              <line x1="150" y1="220" x2="150" y2="140" stroke-dasharray="6 5" opacity="0.45"/>
+              <line x1="440" y1="170" x2="440" y2="140" stroke-dasharray="6 5" opacity="0.45"/>
+              <line x1="100" y1="140" x2="660" y2="140" stroke-dasharray="4 6" opacity="0.3"/>
+              <path d="M185,300 l18,18 M205,300 l18,18" stroke-width="1.4" opacity="0.6"/>
+              <path d="M345,250 l18,18 M365,250 l18,18" stroke-width="1.4" opacity="0.6"/>
+            </g>
+            <text x="560" y="120" font-family="IBM Plex Mono,monospace" font-size="13" fill="#5F594E" letter-spacing="2">EQUAL VIEWS × 3</text>
+          </svg>
+          <svg class="a11__layer-structure" data-structure viewBox="0 0 800 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="opacity:0">
+            <rect x="0" y="420" width="800" height="60" fill="#DCD4BF"/>
+            <rect x="150" y="220" width="130" height="200" fill="#232220"/>
+            <rect x="310" y="170" width="130" height="250" fill="#2e2c28"/>
+            <rect x="470" y="240" width="130" height="180" fill="#232220"/>
+            <rect x="150" y="220" width="130" height="10" fill="#171614"/>
+            <rect x="310" y="170" width="130" height="10" fill="#171614"/>
+            <rect x="470" y="240" width="130" height="10" fill="#171614"/>
+            <rect x="196" y="330" width="38" height="90" fill="#A34A28"/>
+            <rect x="356" y="330" width="38" height="90" fill="#A34A28"/>
+            <rect x="516" y="330" width="38" height="90" fill="#A34A28"/>
+            <rect x="170" y="250" width="90" height="50" fill="#AEBBB8" opacity="0.85"/>
+            <rect x="330" y="200" width="90" height="50" fill="#AEBBB8" opacity="0.85"/>
+            <rect x="490" y="270" width="90" height="40" fill="#AEBBB8" opacity="0.85"/>
+            <rect x="130" y="420" width="490" height="8" fill="#857E6E" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="a11__sliderow">
+          <span class="cap">Sketch</span>
+          <input class="a11__slider" type="range" min="0" max="100" value="0" step="1"
+                 aria-label="303 Canyon: morph sketch into structure" data-slider>
+          <span class="cap">Structure</span>
+        </div>
+        <p class="a11__platenote"><strong>303 Canyon</strong> — three townhomes on a single Boulder lot, each with equal claim to the Flatiron views. Featured in <em>The New York Times</em> as "a clever and elegant land-use solution." Density, drawn by hand.</p>
+      </div>
+
+      <!-- PLATE 3: WILD BEAR NATURE CENTER -->
+      <div class="a11__plate">
+        <div class="a11__titleblock"><span>Plate 03 · Wild Bear Nature Center · Nederland, CO</span><span>Carbon-Positive</span></div>
+        <div class="a11__stage">
+          <svg class="a11__layer-sketch" data-sketch viewBox="0 0 800 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <filter id="a11pencil3" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" result="n"/>
+                <feDisplacementMap in="SourceGraphic" in2="n" scale="7"/>
+              </filter>
+            </defs>
+            <g filter="url(#a11pencil3)" fill="none" stroke="#4a463c" stroke-width="2.5" stroke-linecap="round">
+              <path d="M40,420 L760,420" stroke-width="2" opacity="0.5"/>
+              <path d="M140,240 L660,210 L640,250 L160,280 Z"/>
+              <path d="M148,246 L652,218" stroke-width="1.2" opacity="0.5"/>
+              <line x1="220" y1="272" x2="220" y2="420" />
+              <line x1="400" y1="262" x2="400" y2="420" />
+              <line x1="580" y1="252" x2="580" y2="420" />
+              <line x1="220" y1="272" x2="220" y2="200" stroke-dasharray="6 5" opacity="0.45"/>
+              <line x1="580" y1="252" x2="580" y2="200" stroke-dasharray="6 5" opacity="0.45"/>
+              <path d="M180,420 L620,420" stroke-width="1.4" opacity="0.6"/>
+              <path d="M250,340 l16,16 M270,340 l16,16" stroke-width="1.4" opacity="0.55"/>
+            </g>
+            <text x="120" y="180" font-family="IBM Plex Mono,monospace" font-size="13" fill="#5F594E" letter-spacing="2">ROOF AS CANOPY</text>
+          </svg>
+          <svg class="a11__layer-structure" data-structure viewBox="0 0 800 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="opacity:0">
+            <rect x="0" y="420" width="800" height="60" fill="#DCD4BF"/>
+            <polygon points="140,240 660,210 640,252 160,282" fill="#A34A28"/>
+            <polygon points="140,240 660,210 650,224 150,254" fill="#7E3A1F" opacity="0.6"/>
+            <rect x="214" y="272" width="12" height="148" fill="#232220"/>
+            <rect x="394" y="262" width="12" height="158" fill="#232220"/>
+            <rect x="574" y="252" width="12" height="168" fill="#232220"/>
+            <rect x="180" y="380" width="440" height="40" fill="#2e2c28"/>
+            <rect x="240" y="330" width="120" height="50" fill="#AEBBB8" opacity="0.85"/>
+            <rect x="420" y="322" width="100" height="58" fill="#AEBBB8" opacity="0.85"/>
+          </svg>
+        </div>
+        <div class="a11__sliderow">
+          <span class="cap">Sketch</span>
+          <input class="a11__slider" type="range" min="0" max="100" value="0" step="1"
+                 aria-label="Wild Bear Nature Center: morph sketch into structure" data-slider>
+          <span class="cap">Structure</span>
+        </div>
+        <p class="a11__platenote"><strong>Wild Bear Nature Center</strong> — Colorado's first carbon-positive nature center. Designed to generate more energy than it consumes. The roof is a canopy; the building behaves like the forest it teaches.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTIONS ============ -->
+<section class="a11__sheet" aria-label="The hand">
+  <div class="a11__titleblock"><span>Sheet A-101 · Philosophy</span><span>Shokunin · The Craft Ethic</span></div>
+  <div class="a11__sheetbody">
+    <p class="a11__eyebrow">Why The Hand Matters</p>
+    <h2 class="a11__h2">Making Is Not a Skill. It Is an Ethic.</h2>
+    <p class="a11__lede">Arch11 is led by architects who came to the discipline as builders — craftspeople who learned the language of materials through direct experience. Like the Japanese <strong>shokunin</strong>, we hold that making carries a responsibility: to understand, to refine, and to execute with integrity.</p>
+    <p class="a11__lede">That lineage shapes everything. Our architects stay with a project from the first sketch to the final moments of construction — checking the joint the hand drew. "We've tried to gather people who are <strong>makers</strong>," says co-founder E.J. Meade. "Cabinetmakers, people who make wedding cakes. They have an engagement with the tactile qualities of the world."</p>
+    <p class="a11__lede">Each line, joint, and threshold should reflect the precision, care, and intention with which it was imagined. <strong>Nothing leaves the studio that the hand hasn't touched.</strong></p>
+  </div>
+</section>
+
+<section class="a11__sheet" id="practice" aria-label="Practice areas">
+  <div class="a11__titleblock"><span>Sheet A-102 · Practice</span><span>Index of Services</span></div>
+  <div class="a11__sheetbody">
+    <p class="a11__eyebrow">What We Draw</p>
+    <h2 class="a11__h2">Four Disciplines, One Standard</h2>
+    <div class="a11__index">
+      <div class="a11__indexrow">
+        <span class="n">01</span>
+        <h3>Custom Residential</h3>
+        <p>Bespoke homes that answer to landscape and living patterns — from foothill retreats to a five-story Manhattan townhome. Wildly specific, never repeated.</p>
+      </div>
+      <div class="a11__indexrow">
+        <span class="n">02</span>
+        <h3>Commercial Architecture</h3>
+        <p>Headquarters, hospitality, mixed-use, and restaurants — including Denver and Boulder dining rooms that reset what a room can do for a meal.</p>
+      </div>
+      <div class="a11__indexrow">
+        <span class="n">03</span>
+        <h3>Interior Architecture</h3>
+        <p>Interiors drawn as architecture, not decoration — light, material, and scale composed from the first sketch so inside and outside read as one.</p>
+      </div>
+      <div class="a11__indexrow">
+        <span class="n">04</span>
+        <h3>Sustainable Design</h3>
+        <p>AIA 2030 Commitment signatory. LEED, Passive House, and Net-Zero strategies woven into every project — not added on, just part of good architecture.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="a11__sheet" id="work" aria-label="Selected work">
+  <div class="a11__titleblock"><span>Sheet A-103 · Selected Work</span><span>Residential / Commercial / Institutional</span></div>
+  <div class="a11__sheetbody">
+    <p class="a11__eyebrow">The Portfolio</p>
+    <h2 class="a11__h2">Built Work, Drawn First</h2>
+    <div class="a11__workgrid">
+      <div class="a11__workplate">
+        <div class="thumb" aria-hidden="true">
+          <svg viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice">
+            <rect x="0" y="180" width="400" height="40" fill="#DCD4BF"/>
+            <polygon points="90,180 200,80 300,80 270,180" fill="#232220"/>
+            <polygon points="200,80 300,80 285,180 215,180" fill="#AEBBB8" opacity="0.9"/>
+            <rect x="120" y="140" width="28" height="40" fill="#A34A28"/>
+          </svg>
+        </div>
+        <div class="info">
+          <h3>Syncline House</h3>
+          <p class="facts">Boulder, CO · 2007 · LEED Gold</p>
+          <p>Boulder's first LEED Gold home — a wedge for a rock-climbing couple, tuned to slope, sun, and the way climbers move through a day.</p>
+        </div>
+      </div>
+      <div class="a11__workplate">
+        <div class="thumb" aria-hidden="true">
+          <svg viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice">
+            <rect x="0" y="180" width="400" height="40" fill="#DCD4BF"/>
+            <rect x="80" y="100" width="70" height="80" fill="#232220"/>
+            <rect x="165" y="70" width="70" height="110" fill="#2e2c28"/>
+            <rect x="250" y="110" width="70" height="70" fill="#232220"/>
+            <rect x="98" y="140" width="20" height="40" fill="#A34A28"/>
+            <rect x="183" y="140" width="20" height="40" fill="#A34A28"/>
+            <rect x="268" y="140" width="20" height="40" fill="#A34A28"/>
+          </svg>
+        </div>
+        <div class="info">
+          <h3>303 Canyon</h3>
+          <p class="facts">Boulder, CO · 3 Townhomes</p>
+          <p>Three households, one small lot, equal Flatiron views for all. The New York Times called it "a clever and elegant land-use solution."</p>
+        </div>
+      </div>
+      <div class="a11__workplate">
+        <div class="thumb" aria-hidden="true">
+          <svg viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice">
+            <rect x="0" y="180" width="400" height="40" fill="#DCD4BF"/>
+            <polygon points="70,110 330,95 320,115 80,130" fill="#A34A28"/>
+            <rect x="110" y="128" width="8" height="52" fill="#232220"/>
+            <rect x="200" y="124" width="8" height="56" fill="#232220"/>
+            <rect x="290" y="120" width="8" height="60" fill="#232220"/>
+            <rect x="90" y="160" width="220" height="20" fill="#2e2c28"/>
+          </svg>
+        </div>
+        <div class="info">
+          <h3>Wild Bear Nature Center</h3>
+          <p class="facts">Nederland, CO · Carbon-Positive</p>
+          <p>Colorado's first carbon-positive nature center — designed to generate more energy than it consumes. A roof like a forest canopy.</p>
+        </div>
+      </div>
+      <div class="a11__workplate">
+        <div class="thumb" aria-hidden="true">
+          <svg viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice">
+            <rect x="0" y="180" width="400" height="40" fill="#DCD4BF"/>
+            <rect x="100" y="90" width="200" height="90" fill="#232220"/>
+            <rect x="100" y="90" width="200" height="12" fill="#171614"/>
+            <rect x="130" y="115" width="140" height="35" fill="#AEBBB8" opacity="0.85"/>
+            <rect x="190" y="150" width="24" height="30" fill="#A34A28"/>
+          </svg>
+        </div>
+        <div class="info">
+          <h3>Pearl Izumi Headquarters</h3>
+          <p class="facts">Louisville, CO · Commercial</p>
+          <p>A healthy workplace that moved retention and recruiting numbers — proof that a well-drawn room is a business asset.</p>
+        </div>
+      </div>
+    </div>
+    <div class="a11__morelist">
+      <h3>Also on the Boards &amp; in the Archive</h3>
+      <ul>
+        <li><b>Grid House</b> — overlapping spaces, deep indoor-outdoor connection</li>
+        <li><b>Lodgepole Retreat</b> — net-zero retreat at 9,300 feet</li>
+        <li><b>House 306</b> — two walls converging on a single mountain view</li>
+        <li><b>Balsam Residence</b> — infill at the foot of the Flatirons</li>
+        <li><b>Manhattan Residence</b> — a serene five-story NYC townhome</li>
+        <li><b>Canyon Center</b> — a 40-year-old office reborn LEED Class-A</li>
+        <li><b>DynaEnergetics</b> — commercial headquarters</li>
+        <li><b>Roth Living HQ</b> — an inverted showroom</li>
+        <li><b>Phantom Roost</b> — mountain living, view capture</li>
+        <li><b>Oak at Fourteenth</b> — Boulder dining, open-kitchen theater</li>
+        <li><b>Fate Brewing Co.</b> — industrial shell, boutique-batch soul</li>
+        <li><b>Monastery House</b> — shou-sugi-ban cypress, tatami room (WSJ)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="a11__sheet" id="studio" aria-label="The makers">
+  <div class="a11__titleblock"><span>Sheet A-104 · Studio</span><span>Principals · Makers First</span></div>
+  <div class="a11__sheetbody">
+    <p class="a11__eyebrow">Who Holds the Pencil</p>
+    <h2 class="a11__h2">Architects Who Came Up Through the Trades</h2>
+    <div class="a11__makers">
+      <div class="a11__maker">
+        <p class="who">Co-Founder · Principal</p>
+        <h3>E.J. Meade</h3>
+        <p class="role">Bookbinder, carpenter, ecologist</p>
+        <p>Worked in an antiquarian book bindery at Colby College, then swung a hammer as a New England carpenter before studying architecture at the University of Washington and Colorado. "As architects we are first ecologists — <em>oikos</em>: house; <em>logia</em>: study of."</p>
+        <p>Circle of Excellence, Colorado Homes &amp; Lifestyles.</p>
+      </div>
+      <div class="a11__maker">
+        <p class="who">Co-Founder · Principal</p>
+        <h3>James Trewitt</h3>
+        <p class="role">Framer, boat builder, furniture maker</p>
+        <p>Louisiana Tech '89. Has made a living as a framer, boat builder, pool builder, and furniture maker — "the act of making is a mode of self-expression and a focused state-of-being." Lectures on the "Architecture of the Specific."</p>
+        <p>25+ AIA awards across the partnership he leads.</p>
+      </div>
+      <div class="a11__maker">
+        <p class="who">Principal · Since 2010</p>
+        <h3>Ken Andrews</h3>
+        <p class="role">Teacher, mentor, modernist</p>
+        <p>AIA Colorado Young Architect and Instructor of the Year (2011), Mentor of the Year (2013). "We are modernists at heart, seeking high-performance solutions that weave interior spaces to outdoor areas."</p>
+        <p>Keeps one foot in academia — the studio always has a leg in teaching.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="a11__sheet" aria-label="Stewardship">
+  <div class="a11__titleblock"><span>Sheet A-105 · Stewardship</span><span>AIA 2030 Commitment Signatory</span></div>
+  <div class="a11__sheetbody">
+    <p class="a11__eyebrow">Sustainability Is Not an Add-On</p>
+    <h2 class="a11__h2">Stewardship Is the Practice</h2>
+    <p class="a11__lede">At Arch11, sustainability was never a checklist item. "Sustainable building practices are just <strong>inherent in each design</strong>," Meade says. "It's not something that's added — it's just part of good architecture."</p>
+    <p class="a11__lede">We begin with the land: light, topography, climate, vegetation. Buildings are oriented to invite winter warmth and summer shade, positioned to catch daylight and prevailing winds, and detailed to last — because <strong>the greenest building is the one never torn down</strong>.</p>
+    <div class="a11__meta">
+      <div><span class="k">Commitment</span><span class="v">AIA 2030 · Carbon-Neutral Goals</span></div>
+      <div><span class="k">Certifications</span><span class="v">LEED · Passive House</span></div>
+      <div><span class="k">Energy</span><span class="v">Net-Zero · Carbon-Positive</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="a11__sheet a11__sheet--dark" aria-label="Firsts and recognition">
+  <div class="a11__titleblock"><span>Sheet A-106 · Record</span><span>Firsts · Recognition</span></div>
+  <div class="a11__sheetbody">
+    <p class="a11__eyebrow">We Specialize in Firsts</p>
+    <h2 class="a11__h2">Firsts, Not Typologies</h2>
+    <p class="a11__lede">We don't define ourselves by building type. We define ourselves by the rigor of the process — and a habit of getting there first.</p>
+    <div class="a11__firsts">
+      <div class="a11__first"><span class="yr">2007</span><p><strong>Boulder's first LEED Gold home</strong> — the Syncline House proved a mountain home could lead on performance.</p></div>
+      <div class="a11__first"><span class="yr">2024</span><p><strong>AIA Colorado Firm of the Year</strong> — the state's highest practice honor, for design, leadership, and lasting impact.</p></div>
+      <div class="a11__first"><span class="yr">2025</span><p><strong>Colorado's first carbon-positive nature center</strong> — Wild Bear generates more energy than it uses.</p></div>
+      <div class="a11__first"><span class="yr">—</span><p><strong>25+ AIA awards</strong> across residential, commercial, and institutional work — plus national press in <strong>The New York Times</strong> and <strong>The Wall Street Journal</strong>.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="a11__sheet" id="contact" aria-label="Contact">
+  <div class="a11__titleblock"><span>Sheet A-107 · Contact</span><span>Begin the Dialogue</span></div>
+  <div class="a11__sheetbody">
+    <p class="a11__eyebrow">Begin the Dialogue</p>
+    <h2 class="a11__h2">Every Project Begins With a Conversation</h2>
+    <div class="a11__dialogue">
+      <p>Not with a plan — <strong>with a dialogue.</strong> Whether you're exploring an idea, refining a vision, or simply wondering what's possible, we're here to listen. Carefully, openly.</p>
+    </div>
+    <div class="a11__contactgrid">
+      <div class="block">
+        <h3>Studio</h3>
+        <address>
+          Arch11, Inc.<br>
+          1200 Bannock Street<br>
+          Denver, CO 80204<br>
+          <a href="tel:+13035466868">+1 (303) 546-6868</a>
+        </address>
+      </div>
+      <div class="block">
+        <h3>Elsewhere</h3>
+        <address>
+          Boulder, Colorado<br>
+          North Carolina<br>
+          <a href="https://arch11.com" rel="noopener">arch11.com</a>
+        </address>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="a11__footer">
+  <div>
+    <p class="fmono">ARCH11 · Design Concept Prototype</p>
+    <p class="fmono" style="margin-top:8px">Boulder · Denver · North Carolina</p>
+  </div>
+  <p class="fine"><em>Concept redesign mockup for Arch11's review — not a live site. Content adapted from the firm's public website; project imagery rendered as original SVG studies. No affiliation implied.</em></p>
+</footer>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+(function(){
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Smooth scroll for nav links */
+  function scrollToTarget(id){
+    var el = document.getElementById(id);
+    if(!el) return;
+    if(reduceMotion){ el.scrollIntoView(); }
+    else{ el.scrollIntoView({behavior:'smooth', block:'start'}); }
+  }
+  document.querySelectorAll('[data-scroll]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var href = a.getAttribute('href');
+      if(href && href.charAt(0) === '#'){
+        e.preventDefault();
+        var id = href.slice(1);
+        if(id === 'top'){ reduceMotion ? window.scrollTo(0,0) : window.scrollTo({top:0, behavior:'smooth'}); }
+        else{ scrollToTarget(id); }
+        history.replaceState(null, '', href === '#top' ? ' ' : href);
+      }
+    });
+  });
+
+  /* Active-section highlighting */
+  var navLinks = document.querySelectorAll('.a11__nav a[href^="#"], .a11__mobilenav a[href^="#"]');
+  var sections = ['sketch','practice','work','studio','contact'].map(function(id){ return document.getElementById(id); }).filter(Boolean);
+  if('IntersectionObserver' in window && sections.length){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          var id = '#' + en.target.id;
+          navLinks.forEach(function(l){ l.classList.toggle('on', l.getAttribute('href') === id); });
+        }
+      });
+    }, {rootMargin:'-40% 0px -55% 0px'});
+    sections.forEach(function(s){ obs.observe(s); });
+  }
+
+  /* Sketch-to-structure sliders */
+  document.querySelectorAll('[data-slider]').forEach(function(slider){
+    var plate = slider.closest('.a11__plate');
+    if(!plate) return;
+    var sketch = plate.querySelector('[data-sketch]');
+    var structure = plate.querySelector('[data-structure]');
+    function apply(){
+      var t = Math.min(100, Math.max(0, parseFloat(slider.value) || 0)) / 100;
+      if(structure) structure.style.opacity = t.toFixed(3);
+      if(sketch) sketch.style.opacity = (1 - 0.72 * t).toFixed(3);
+      var label = t < 0.25 ? 'mostly sketch' : (t < 0.6 ? 'resolving' : (t < 0.95 ? 'nearly built' : 'structure'));
+      slider.setAttribute('aria-valuetext', Math.round(t * 100) + ' percent toward structure — ' + label);
+    }
+    slider.addEventListener('input', apply);
+    apply();
+  });
+})();
+</script>
 </body>
 </html>

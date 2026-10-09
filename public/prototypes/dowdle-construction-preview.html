@@ -1,111 +1,614 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dowdle Construction Group — Interactive Prototype | Northside Intelligence</title>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .mono { font-family: 'JetBrains Mono', monospace; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dowdle Construction Group — We Build Places People Keep Coming Back To</title>
+<meta name="description" content="Nashville commercial general contractor. 30+ years building restaurants, workplaces, and landmarks across Middle Tennessee. Prototype redesign concept.">
+<!-- ============ HEAD: meta, fonts, styles ============ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dc-leather:#2A2118;   /* workboot leather — primary dark */
+    --dc-paper:#F5F1E8;     /* job-site paper — page bg */
+    --dc-amber:#D9A441;     /* amber work light — accent */
+    --dc-sage:#5C6E5A;      /* cumberland sage — secondary */
+    --dc-sawdust:#8A7B66;   /* sawdust — rules, secondary */
+    --dc-ink:#1F2A33;       /* deep ink for map panel */
+    --dc-line:rgba(42,33,24,.16);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+  body{
+    font-family:'Source Sans 3',system-ui,sans-serif;
+    background:var(--dc-paper);color:var(--dc-leather);
+    font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.dc__slab{font-family:'Zilla Slab',Georgia,serif;line-height:1.08;letter-spacing:-0.01em}
+  img,svg{max-width:100%}
+  a{color:inherit}
+  ::selection{background:var(--dc-amber);color:var(--dc-leather)}
 
+  .dc__wrap{max-width:1200px;margin:0 auto;padding:0 6vw}
+  .dc__kicker{
+    font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--dc-sage);margin-bottom:18px;
+  }
+  .dc__kicker--amber{color:var(--dc-amber)}
+
+  /* ---------- header / nav ---------- */
+  .dc__sitehead{
+    position:sticky;top:0;z-index:50;
+    background:rgba(245,241,232,.96);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--dc-line);
+  }
+  .dc__sitehead-in{max-width:1200px;margin:0 auto;padding:14px 6vw;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .dc__brand{font-family:'Zilla Slab',serif;font-weight:700;font-size:20px;text-decoration:none;white-space:nowrap}
+  .dc__brand em{font-style:normal;color:var(--dc-sage)}
+  .dc__nav{display:flex;gap:28px;align-items:center}
+  .dc__nav a{
+    text-decoration:none;font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+    padding:6px 2px;border-bottom:2px solid transparent;color:var(--dc-leather);
+  }
+  .dc__nav a:hover{color:var(--dc-sage)}
+  .dc__nav a.dc__active{border-bottom-color:var(--dc-amber)}
+  .dc__nav-cta{
+    background:var(--dc-leather);color:var(--dc-paper)!important;border-radius:999px;
+    padding:10px 20px!important;border-bottom:none!important;
+  }
+  .dc__nav-cta:hover{background:var(--dc-sage);color:#fff!important}
+  .dc__pillnav{display:none}
+
+  /* ---------- hero: the word-on-the-street wall ---------- */
+  .dc__hero{background:var(--dc-leather);color:var(--dc-paper);position:relative;overflow:hidden;display:flex;align-items:center;min-height:calc(100svh - 72px);padding:72px 0 88px}
+  .dc__hero::after{ /* faint blueprint grid texture, code-generated */
+    content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background-image:linear-gradient(rgba(217,164,65,.05) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(217,164,65,.05) 1px,transparent 1px);
+    background-size:56px 56px;
+  }
+  .dc__hero-in{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 6vw;width:100%}
+  .dc__wall-label{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--dc-amber);border:1px solid rgba(217,164,65,.45);border-radius:999px;padding:9px 18px;margin:0 0 44px}
+  .dc__quote{position:relative;max-width:960px;margin:0;padding-left:clamp(48px,8vw,104px)}
+  .dc__quote::before{ /* oversized pull-quote mark, decorative */
+    content:"\201C";position:absolute;left:0;top:-0.32em;font-family:'Zilla Slab',serif;font-weight:700;
+    font-size:clamp(120px,14vw,220px);line-height:1;color:var(--dc-amber);opacity:.9;pointer-events:none
+  }
+  .dc__quote-text{font-family:'Zilla Slab',serif;font-size:clamp(26px,3.4vw,42px);line-height:1.32;font-weight:500;margin:0}
+  .dc__quote-credit{margin:40px 0 0}
+  .dc__quote-name{display:block;font-family:'Zilla Slab',serif;font-weight:700;font-size:clamp(44px,6.4vw,88px);line-height:1.04;letter-spacing:-0.01em;color:var(--dc-amber)}
+  .dc__quote-firm{display:block;margin-top:12px;font-size:13px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#A99B82}
+  .dc__quote-ctrl{margin-top:32px;display:flex;gap:10px;align-items:center}
+  .dc__quote-dot{width:10px;height:10px;border-radius:50%;border:1px solid var(--dc-amber);background:transparent;cursor:pointer;padding:0}
+  .dc__quote-dot[aria-current="true"]{background:var(--dc-amber)}
+  .dc__quote-dot:focus-visible{outline:2px solid #fff;outline-offset:3px}
+  .dc__quote-fade{transition:opacity 200ms ease-out}
+  @media (prefers-reduced-motion:reduce){ .dc__quote-fade{transition:none} }
+  .dc__hero-note{margin-top:56px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#A99B82}
+  .dc__hero-note a{color:var(--dc-amber);text-decoration:none;border-bottom:1px solid var(--dc-amber)}
+
+  /* ---------- tour stops ---------- */
+  .dc__stop{padding:96px 0;border-top:1px solid var(--dc-line)}
+  .dc__stop:first-of-type{border-top:none}
+  .dc__stop-tag{
+    display:inline-block;font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--dc-paper);background:var(--dc-sage);padding:8px 16px;border-radius:999px;margin-bottom:28px;
+  }
+  .dc__stop h2{font-size:clamp(32px,4.4vw,52px);font-weight:700;max-width:20ch;margin-bottom:20px}
+  .dc__stop-lede{font-size:19px;max-width:62ch;color:#4A4238;margin-bottom:48px}
+
+  .dc__split{display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:start}
+  .dc__fact{border-top:2px solid var(--dc-leather);padding:18px 0}
+  .dc__fact b{display:block;font-family:'Zilla Slab',serif;font-size:32px;font-weight:700}
+  .dc__fact span{font-size:15px;color:#4A4238}
+
+  /* people rows — documentary captions, not cards */
+  .dc__person{border-top:1px solid var(--dc-line);padding:26px 0;display:grid;grid-template-columns:220px 1fr;gap:32px;align-items:baseline}
+  .dc__person:last-of-type{border-bottom:1px solid var(--dc-line)}
+  .dc__person-name{font-family:'Zilla Slab',serif;font-size:24px;font-weight:600}
+  .dc__person-role{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--dc-sage);margin-top:6px}
+  .dc__person-note{font-size:17px;color:#4A4238;max-width:60ch}
+  .dc__person-note b{color:var(--dc-leather)}
+
+  /* services — plain-spoken list */
+  .dc__services{columns:2;column-gap:6vw;list-style:none}
+  .dc__services li{
+    break-inside:avoid;border-top:1px solid var(--dc-line);padding:16px 0;
+    font-family:'Zilla Slab',serif;font-size:21px;font-weight:500;
+  }
+  .dc__services li span{display:block;font-family:'Source Sans 3',sans-serif;font-size:15px;color:#4A4238;margin-top:4px}
+
+  /* how we work — labeled rows, not numbered steps */
+  .dc__way{border-top:1px solid var(--dc-line);padding:30px 0;display:grid;grid-template-columns:280px 1fr;gap:32px}
+  .dc__way:last-of-type{border-bottom:1px solid var(--dc-line)}
+  .dc__way h3{font-size:24px;font-weight:600}
+  .dc__way p{color:#4A4238;max-width:62ch}
+  .dc__way p b{color:var(--dc-leather)}
+
+  /* testimonial wall */
+  .dc__wall{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+  .dc__wall figure{border-left:3px solid var(--dc-sawdust);padding-left:24px}
+  .dc__wall blockquote{font-size:17px;line-height:1.55}
+  .dc__wall figcaption{margin-top:12px;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dc-sage)}
+
+  /* ---------- footer / contact ---------- */
+  .dc__footer{background:var(--dc-leather);color:var(--dc-paper);padding:88px 0 40px}
+  .dc__footer h2{font-size:clamp(32px,4.4vw,52px);margin-bottom:16px}
+  .dc__footer h2 .dc__amp{color:var(--dc-amber)}
+  .dc__contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:6vw;margin:48px 0}
+  .dc__contact-grid h3{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--dc-amber);margin-bottom:12px;font-family:'Source Sans 3',sans-serif;font-weight:700}
+  .dc__contact-grid p{font-size:19px;color:#D8CFBC}
+  .dc__contact-grid a{color:var(--dc-paper)}
+  .dc__fine{margin-top:64px;padding-top:24px;border-top:1px solid rgba(245,241,232,.18);font-size:13px;color:#A99B82;font-style:italic}
+
+  @media (max-width:860px){
+    .dc__nav{display:none}
+    .dc__pillnav{
+      display:flex;gap:8px;overflow-x:auto;padding:12px 6vw;
+      background:rgba(245,241,232,.96);border-bottom:1px solid var(--dc-line);
+      position:sticky;top:57px;z-index:49;scrollbar-width:none;
+    }
+    .dc__pillnav::-webkit-scrollbar{display:none}
+    .dc__pillnav a{
+      flex:0 0 auto;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+      border:1px solid var(--dc-sawdust);border-radius:999px;padding:8px 16px;color:var(--dc-leather);white-space:nowrap;
+    }
+    .dc__pillnav a.dc__active{background:var(--dc-leather);color:var(--dc-paper);border-color:var(--dc-leather)}
+    .dc__split,.dc__contact-grid,.dc__wall{grid-template-columns:1fr}
+    .dc__person,.dc__way{grid-template-columns:1fr;gap:8px}
+    .dc__services{columns:1}
+    .dc__stop{padding:64px 0}
+    .dc__hero{padding:64px 0}
+  }
+</style>
 </head>
-<body class="bg-[#090D16] text-slate-100 min-h-screen antialiased flex flex-col">
-  <!-- Top Operator Bar -->
-  <header class="border-b border-slate-800/80 bg-[#0E1424]/90 backdrop-blur sticky top-0 z-50 px-6 py-3 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <div class="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold text-xs uppercase tracking-wider">
-        NI Deliverable Prototype
-      </div>
-      <div class="text-xs text-slate-400">
-        Prepared for <span class="font-semibold text-white">Dowdle Construction Group</span> (Nashville, TN)
-      </div>
-    </div>
-    <div class="flex items-center gap-2">
-      <button onclick="window.print()" class="px-3 py-1.5 text-xs font-semibold rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
-        Export / Print PDF
-      </button>
-      <a href="data:text/html;charset=utf-8,%3C!--%20Dowdle%20Construction%20Group%20Prototype%20--%3E" download="dowdle-construction-group-prototype.html" class="px-3 py-1.5 text-xs font-semibold rounded bg-cyan-500 hover:bg-cyan-400 text-black transition">
-        Download Offline HTML
-      </a>
-    </div>
-  </header>
+<body>
 
-  <!-- Prototype Hero -->
-  <main class="flex-1 max-w-6xl w-full mx-auto p-6 md:p-10 space-y-10">
-    <div class="rounded-2xl border border-slate-800 bg-gradient-to-b from-[#131B2E] to-[#0D1322] p-8 md:p-12 relative overflow-hidden shadow-2xl">
-      <div class="absolute -right-20 -top-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
-      
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-xs text-slate-300 mb-6">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>Commercial General Contracting · Interactive Next.js Concept</span>
-      </div>
+<style>
+  /* ---------- signature: Nashville project map ---------- */
+  .dc__mapsec{background:var(--dc-ink);color:var(--dc-paper);padding:96px 0}
+  .dc__mapsec .dc__stop-tag{background:var(--dc-amber);color:var(--dc-leather)}
+  .dc__mapsec h2{color:var(--dc-paper);font-size:clamp(32px,4.4vw,52px);max-width:22ch;margin-bottom:16px}
+  .dc__mapsec .dc__stop-lede{color:#C9BFA9}
+  .dc__filters{display:flex;flex-wrap:wrap;gap:10px;margin:32px 0}
+  .dc__filter{
+    font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    background:transparent;color:var(--dc-paper);border:1px solid rgba(245,241,232,.4);
+    border-radius:999px;padding:10px 20px;cursor:pointer;
+  }
+  .dc__filter:hover{border-color:var(--dc-amber);color:var(--dc-amber)}
+  .dc__filter[aria-pressed="true"]{background:var(--dc-amber);border-color:var(--dc-amber);color:var(--dc-leather)}
+  .dc__filter:focus-visible{outline:2px solid #fff;outline-offset:3px}
+  .dc__mapgrid{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:start}
+  .dc__mapframe{position:relative;border:1px solid rgba(245,241,232,.2);border-radius:4px;overflow:hidden;background:#232E38}
+  .dc__mapframe svg{display:block;width:100%;height:auto}
+  .dc__pin{
+    position:absolute;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;
+    background:var(--dc-amber);border:3px solid var(--dc-paper);cursor:pointer;padding:0;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Zilla Slab',serif;font-weight:700;font-size:14px;color:var(--dc-leather);
+    transition:opacity 200ms ease-out;
+  }
+  .dc__pin:hover{background:#fff}
+  .dc__pin:focus-visible{outline:3px solid #fff;outline-offset:2px}
+  .dc__pin.dc__hidden{opacity:.12;pointer-events:none}
+  .dc__pin.dc__selected{background:#fff;box-shadow:0 0 0 6px rgba(217,164,65,.35)}
+  .dc__pin-legend{position:absolute;left:16px;bottom:14px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,241,232,.65)}
+  .dc__card{
+    background:var(--dc-paper);color:var(--dc-leather);border-radius:4px;padding:32px;
+    position:sticky;top:120px;
+  }
+  .dc__card-sector{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--dc-sage);margin-bottom:12px}
+  .dc__card h3{font-size:30px;font-weight:700;margin-bottom:8px}
+  .dc__card-was{font-size:15px;color:#4A4238;margin-bottom:20px}
+  .dc__card-was b{color:var(--dc-leather)}
+  .dc__card-arrow{display:block;text-align:center;font-size:20px;color:var(--dc-amber);margin:4px 0}
+  .dc__card-facts{list-style:none;margin:20px 0;border-top:1px solid var(--dc-line)}
+  .dc__card-facts li{padding:10px 0;border-bottom:1px solid var(--dc-line);font-size:15px}
+  .dc__card-facts li b{display:inline-block;min-width:110px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dc-sage)}
+  .dc__card-human{font-style:italic;color:#4A4238;border-left:3px solid var(--dc-amber);padding-left:16px;margin-top:8px}
+  .dc__card-empty{color:#A99B82;font-style:italic}
+  @media (max-width:860px){ .dc__mapgrid{grid-template-columns:1fr} .dc__card{position:static} }
+</style>
 
-      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white max-w-3xl leading-tight">
-        Field-Tested Digital Presence for Commercial Construction
-      </h1>
+<!-- ============ HERO ============ -->
+<header class="dc__sitehead">
+  <div class="dc__sitehead-in">
+    <a class="dc__brand" href="#top" data-scroll>Dowdle <em>Construction Group</em></a>
+    <nav class="dc__nav" aria-label="Primary">
+      <a href="#map" data-scroll>Map</a>
+      <a href="#story" data-scroll>Story</a>
+      <a href="#people" data-scroll>People</a>
+      <a href="#work" data-scroll>Work</a>
+      <a href="#contact" data-scroll class="dc__nav-cta">Start a Project</a>
+    </nav>
+  </div>
+  <nav class="dc__pillnav" aria-label="Primary mobile">
+    <a href="#map" data-scroll>Map</a>
+    <a href="#story" data-scroll>Story</a>
+    <a href="#people" data-scroll>People</a>
+    <a href="#work" data-scroll>Work</a>
+    <a href="#contact" data-scroll>Start a Project</a>
+  </nav>
+</header>
 
-      <p class="mt-4 text-slate-400 text-base md:text-lg max-w-2xl leading-relaxed">
-        Instant project gallery navigation, sub-contractor bid forms, and safety credentials. Engineered with sub-second page transitions, responsive touch controls, and zero legacy CMS script bloat.
-      </p>
+<div class="dc__hero" id="top">
+  <div class="dc__hero-in">
+    <p class="dc__wall-label">The Word-on-the-Street Wall</p>
+    <figure class="dc__quote" aria-live="polite">
+      <blockquote class="dc__quote-text dc__quote-fade" id="dcQuoteText"></blockquote>
+      <figcaption class="dc__quote-credit">
+        <h1 class="dc__quote-name dc__quote-fade" id="dcQuoteName"></h1>
+        <span class="dc__quote-firm dc__quote-fade" id="dcQuoteFirm"></span>
+      </figcaption>
+      <div class="dc__quote-ctrl" role="tablist" aria-label="Client testimonials" id="dcQuoteDots"></div>
+    </figure>
+    <p class="dc__hero-note">Tour the places these voices built — <a href="#map" data-scroll>see the map</a></p>
+  </div>
+</div>
 
-      <div class="mt-8 flex flex-wrap gap-4">
-        <button onclick="alert('Interactive demo: Project Showcase Filter Triggered')" class="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-sm shadow-lg shadow-cyan-500/20 transition">
-          Explore Portfolio Archive
-        </button>
-        <button onclick="alert('Interactive demo: Client Inquiry Modal Opened')" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm border border-slate-700 transition">
-          Direct Consultation Request
-        </button>
-      </div>
-    </div>
-
-    <!-- Interactive Features Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          01
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Instant Mobile Speed</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Google Lighthouse 98+ score with modern image compression, eliminating render delays on high-resolution project photography.
-        </p>
-      </div>
-
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          02
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Frictionless Lead Intake</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Streamlined client consultation intake with automatic validation, spam filtering, and direct CRM notification webhooks.
-        </p>
-      </div>
-
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          03
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Zero CMS Maintenance</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Static-first Next.js infrastructure deployed on high-availability edge nodes, completely immune to WordPress plugin vulnerabilities.
-        </p>
-      </div>
-    </div>
-
-    <!-- Verification & Proof Footer -->
-    <div class="rounded-xl border border-slate-800 bg-[#0E1424] p-6 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400">
-      <div class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-        <span>Prototype Status: <strong class="text-white">Active Preview Verified</strong></span>
+<!-- ============ SECTIONS ============ -->
+<main>
+<section class="dc__stop" id="story" aria-labelledby="dcStoryH">
+  <div class="dc__wrap">
+    <span class="dc__stop-tag">Stop 01 — The Story</span>
+    <h2 id="dcStoryH">A Salesman Who Picked Up a Hammer</h2>
+    <p class="dc__stop-lede">Glynn Dowdle spent his early career in sales — learning how to listen, how to read a room, how to keep a promise. In 1986 he carried all of that onto a job site, and never left. Four decades later, Dowdle Construction Group is the Nashville contractor clients call back, years after the punch list is done.</p>
+    <div class="dc__split">
+      <div>
+        <div class="dc__fact"><b>30+</b><span>Years in the trade, all of it in Middle Tennessee</span></div>
+        <div class="dc__fact"><b>94th</b><span>Percentile BuildZoom score — top 6% of Tennessee contractors</span></div>
       </div>
       <div>
-        Built by Northside Intelligence · Studio Architecture Division
+        <div class="dc__fact"><b>33+</b><span>Projects completed in the last three years alone</span></div>
+        <div class="dc__fact"><b>100%</b><span>Negotiated, open-book work — no bid-day surprises</span></div>
       </div>
     </div>
-  </main>
+  </div>
+</section>
+
+<section class="dc__stop" id="people" aria-labelledby="dcPeopleH">
+  <div class="dc__wrap">
+    <span class="dc__stop-tag">Stop 02 — The People</span>
+    <h2 id="dcPeopleH">Clients Rave About Our Superintendents by Name</h2>
+    <p class="dc__stop-lede">Ask around Nashville about Dowdle and you won't hear about square footage first. You'll hear about the people who showed up every day. The crew is the product.</p>
+    <div class="dc__person">
+      <div><div class="dc__person-name">Glynn Dowdle</div><div class="dc__person-role">Founder</div></div>
+      <p class="dc__person-note"><b>Started in sales, switched to construction in 1986.</b> Still runs the company like every handshake matters — because to him, it does.</p>
+    </div>
+    <div class="dc__person">
+      <div><div class="dc__person-name">David Plott</div><div class="dc__person-role">Director of Preconstruction</div></div>
+      <p class="dc__person-note"><b>Runs the numbers before the first shovel.</b> Leads the open-book budgeting that lets owners see exactly where every dollar goes.</p>
+    </div>
+    <div class="dc__person">
+      <div><div class="dc__person-name">Jim Mears</div><div class="dc__person-role">Construction Supervisor</div></div>
+      <p class="dc__person-note"><b>The name clients put in testimonials.</b> "Polite, knowledgeable, extremely positive — a true professional. If he were one of ours, we'd keep him!"</p>
+    </div>
+    <div class="dc__person">
+      <div><div class="dc__person-name">Joe Riegle</div><div class="dc__person-role">Preconstruction Manager</div></div>
+      <p class="dc__person-note"><b>Design-assist from schematic drawings.</b> Partners with owners early so the vision stays on budget from day one.</p>
+    </div>
+    <div class="dc__person">
+      <div><div class="dc__person-name">Marcelo Cortes</div><div class="dc__person-role">Project Manager</div></div>
+      <p class="dc__person-note"><b>Keeps compressed schedules honest.</b> The reason "extremely fast timeline" shows up in client after client review.</p>
+    </div>
+    <div class="dc__person">
+      <div><div class="dc__person-name">Korey Benedict</div><div class="dc__person-role">Project Manager</div></div>
+      <p class="dc__person-note"><b>The call-back guy.</b> Clients say the team stays reachable years after completion — Korey is why.</p>
+    </div>
+  </div>
+</section>
+
+<section class="dc__stop" id="services" aria-labelledby="dcSvcH">
+  <div class="dc__wrap">
+    <span class="dc__stop-tag">Stop 03 — What We Build</span>
+    <h2 id="dcSvcH">Plain Work, Done Right</h2>
+    <p class="dc__stop-lede">No capabilities matrix. Here's what we build, in plain words.</p>
+    <ul class="dc__services">
+      <li>Restaurants &amp; Bars<span>From fast-casual to white-tablecloth — kitchens, dining rooms, and vibe.</span></li>
+      <li>Retail &amp; Markets<span>Storefronts, food halls, and marketplaces people detour for.</span></li>
+      <li>Medical Offices<span>Clean, calm, on-time clinical space.</span></li>
+      <li>Office &amp; Tenant Build-Outs<span>Workplaces sized from startup to headquarters.</span></li>
+      <li>Fire Halls<span>Public-safety facilities built to serve for decades.</span></li>
+      <li>Greenways &amp; Public Space<span>Trails and gathering places the whole city uses.</span></li>
+      <li>Places of Worship<span>Sacred space, handled with care.</span></li>
+      <li>Adaptive Reuse<span>Old warehouses, churches, and motels with a second life in them.</span></li>
+      <li>Convenience Markets<span>High-velocity retail on compressed schedules.</span></li>
+      <li>Design-Assist &amp; Preconstruction<span>Budgeting and planning from schematic drawings forward.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="dc__stop" id="work" aria-labelledby="dcWorkH">
+  <div class="dc__wrap">
+    <span class="dc__stop-tag">Stop 04 — How We Work</span>
+    <h2 id="dcWorkH">The Way We Do Business</h2>
+    <p class="dc__stop-lede">Four things you can count on. None of them are slogans — they're how the jobs actually run.</p>
+    <div class="dc__way">
+      <h3>Open-Book, Negotiated</h3>
+      <p><b>Much of our work is negotiated, not bid.</b> We show our math. Owners see costs as they develop and make decisions with real numbers, not allowances and change orders.</p>
+    </div>
+    <div class="dc__way">
+      <h3>Design-Assist From Day One</h3>
+      <p><b>We start at schematic drawings,</b> partnering with owners and architects early so the vision stays on budget and on track before a single wall comes down.</p>
+    </div>
+    <div class="dc__way">
+      <h3>Compressed Schedules</h3>
+      <p><b>"We don't like to say that can't be done."</b> Fast-track delivery is our native language — restaurants that have to open, markets that have to launch, timelines other contractors won't touch.</p>
+    </div>
+    <div class="dc__way">
+      <h3>Built Green</h3>
+      <p><b>LEED-trained project managers,</b> solar and skylight installations, construction waste minimized and recycled. Environmental responsibility is part of the bid, not an upgrade.</p>
+    </div>
+  </div>
+</section>
+
+<section class="dc__stop" id="voices" aria-labelledby="dcVoiceH">
+  <div class="dc__wrap">
+    <span class="dc__stop-tag">Stop 05 — Client Voice</span>
+    <h2 id="dcVoiceH">Don't Take Our Word for It</h2>
+    <p class="dc__stop-lede">Unscripted, from the people who hired us.</p>
+    <div class="dc__wall">
+      <figure><blockquote>"The project team's hard work and attention to detail allowed us to meet a tight construction schedule. We are proud to call them an important part of Casa Azafrán's story."</blockquote><figcaption>Renata Soto — Conexión Américas</figcaption></figure>
+      <figure><blockquote>"I expected a burdensome headache. The absolute opposite was true. I have a beautiful, well-built office I get complimented on constantly."</blockquote><figcaption>Jeff Matthews, M.D.</figcaption></figure>
+      <figure><blockquote>"Dowdle has been a true team player — solution oriented, with integrity and honesty in all of our work together. I strongly recommend them."</blockquote><figcaption>Lindsay Nevin — Flyway</figcaption></figure>
+      <figure><blockquote>"Any apprehension disappeared in our very first meeting. Honest, upfront, transparent, and fair — from the first day of construction to the last."</blockquote><figcaption>Brad Womack — Carmack Concepts</figcaption></figure>
+      <figure><blockquote>"An unmatched creative eye that helped us create a uniquely sophisticated and inviting space. Wonderfully communicative."</blockquote><figcaption>Joe McHugh — STK Nashville</figcaption></figure>
+      <figure><blockquote>"I typically self-perform my own construction work. With Dowdle it was easier to turn loose than I thought. The highest compliment I can pay: they are normal."</blockquote><figcaption>Richard Bacon — Cottage Partners</figcaption></figure>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ SIGNATURE INTERACTIVE ============ -->
+<section class="dc__mapsec" id="map" aria-labelledby="dcMapH">
+  <div class="dc__wrap">
+    <span class="dc__stop-tag">Stop 06 — The Map</span>
+    <h2 id="dcMapH">Places You Want to Go, Pinned</h2>
+    <p class="dc__stop-lede">Every pin is a Dowdle project somewhere in Nashville — a warehouse reborn, a church remade, a restaurant that had to open on time. Click a pin for its story. <em>Pin positions are illustrative.</em></p>
+    <div class="dc__filters" role="group" aria-label="Filter projects by sector">
+      <button class="dc__filter" data-sector="all" aria-pressed="true">All Places</button>
+      <button class="dc__filter" data-sector="eat" aria-pressed="false">Eat</button>
+      <button class="dc__filter" data-sector="work" aria-pressed="false">Work</button>
+      <button class="dc__filter" data-sector="gather" aria-pressed="false">Gather</button>
+      <button class="dc__filter" data-sector="restore" aria-pressed="false">Restore</button>
+    </div>
+    <div class="dc__mapgrid">
+      <div class="dc__mapframe">
+        <!-- Stylized Nashville: Cumberland River curve, street grid, neighborhood labels. Code-drawn, illustrative. -->
+        <svg viewBox="0 0 800 560" role="img" aria-label="Stylized map of Nashville with Dowdle project locations">
+          <rect width="800" height="560" fill="#232E38"/>
+          <g stroke="#3A4654" stroke-width="1.5" opacity="0.8">
+            <line x1="0" y1="120" x2="800" y2="120"/><line x1="0" y1="200" x2="800" y2="200"/>
+            <line x1="0" y1="280" x2="800" y2="280"/><line x1="0" y1="360" x2="800" y2="360"/>
+            <line x1="0" y1="440" x2="800" y2="440"/><line x1="0" y1="520" x2="800" y2="520"/>
+            <line x1="120" y1="0" x2="120" y2="560"/><line x1="240" y1="0" x2="240" y2="560"/>
+            <line x1="360" y1="0" x2="360" y2="560"/><line x1="480" y1="0" x2="480" y2="560"/>
+            <line x1="600" y1="0" x2="600" y2="560"/><line x1="720" y1="0" x2="720" y2="560"/>
+          </g>
+          <path d="M -20 90 C 150 130, 260 60, 380 110 S 560 220, 540 320 S 640 420, 820 400"
+                fill="none" stroke="#5C6E5A" stroke-width="26" stroke-linecap="round" opacity="0.85"/>
+          <path d="M -20 90 C 150 130, 260 60, 380 110 S 560 220, 540 320 S 640 420, 820 400"
+                fill="none" stroke="#7A8B78" stroke-width="4" stroke-linecap="round" opacity="0.5"/>
+          <g font-family="'Source Sans 3',sans-serif" font-size="13" letter-spacing="3" fill="rgba(245,241,232,.75)" text-anchor="middle">
+            <text x="380" y="60">GERMANTOWN</text>
+            <text x="620" y="170">EAST NASHVILLE</text>
+            <text x="400" y="330" font-size="15" fill="rgba(245,241,232,.8)">DOWNTOWN</text>
+            <text x="180" y="250">WEST END</text>
+            <text x="560" y="470">SOUTH NASHVILLE</text>
+            <text x="250" y="480">12SOUTH</text>
+          </g>
+          <text x="700" y="350" font-family="'Source Sans 3',sans-serif" font-size="12" font-style="italic" fill="#A8B8A4" transform="rotate(38 700 350)">Cumberland River</text>
+          <circle cx="400" cy="310" r="5" fill="#D9A441" opacity="0.9"/>
+        </svg>
+        <span class="dc__pin-legend">Illustrative locations — Dowdle Construction Group</span>
+        <!-- pins injected by JS -->
+      </div>
+      <aside class="dc__card" id="dcCard" aria-live="polite" aria-label="Project details">
+        <p class="dc__card-empty">Select a pin on the map to read that building's story.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="dc__footer" id="contact">
+  <div class="dc__wrap">
+    <p class="dc__kicker dc__kicker--amber">Start a Project</p>
+    <h2>Give Us a Try. <span class="dc__amp">We Don't Like Saying It Can't Be Done.</span></h2>
+    <div class="dc__contact-grid">
+      <div>
+        <h3>Find Us</h3>
+        <p>150 Athens Way<br>Nashville, TN 37228</p>
+      </div>
+      <div>
+        <h3>Call Us</h3>
+        <p><a href="tel:+16152511311">(615) 251-1311</a><br>dowdleconstruction.com</p>
+      </div>
+    </div>
+    <p class="dc__fine">Prototype redesign concept for Dowdle Construction Group — not affiliated. Project details paraphrased from public sources; pin positions illustrative. ULI Nashville Excellence in Development Award — The Wilder.</p>
+  </div>
+</footer>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- smooth scroll nav ---------- */
+  document.querySelectorAll('[data-scroll]').forEach(function(link){
+    link.addEventListener('click', function(e){
+      var target = document.querySelector(link.getAttribute('href'));
+      if(!target) return;
+      e.preventDefault();
+      target.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block:'start'});
+      target.setAttribute('tabindex','-1'); target.focus({preventScroll:true});
+    });
+  });
+
+  /* active section highlighting */
+  var sections = ['map','story','people','work','contact'];
+  var navLinks = document.querySelectorAll('.dc__nav a[data-scroll], .dc__pillnav a[data-scroll]');
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          navLinks.forEach(function(a){
+            a.classList.toggle('dc__active', a.getAttribute('href') === '#' + en.target.id);
+          });
+        }
+      });
+    }, {rootMargin:'-40% 0px -55% 0px'});
+    sections.forEach(function(id){ var el = document.getElementById(id); if(el) obs.observe(el); });
+  }
+
+  /* ---------- hero rotating testimonials (paraphrased client voices) ---------- */
+  var quotes = [
+    {t:"\u201CThe highest compliment I can pay their team is that they are normal. In today's business world that is not as easy to find as one might imagine.\u201D", c:"Richard Bacon — Cottage Partners"},
+    {t:"\u201CDowdle came over, looked at the project, and immediately started talking about solutions. They were passionate about it. That says a lot to me about a company.\u201D", c:"Mike Wolfe — American Pickers"},
+    {t:"\u201CIt was a pleasure to work through your site superintendent. Polite, knowledgeable, extremely positive — a true professional.\u201D", c:"Pride Scanlan — Benefit Communications"},
+    {t:"\u201CAside from an extremely fast timeline, we were blown away by the quality — and by a superintendent who stopped at nothing to make sure we were happy.\u201D", c:"Kevin Antoon — Southern Grist Brewing"},
+    {t:"\u201CThey have an unmatched creative eye that helped us create a uniquely sophisticated, inviting space. Wonderfully communicative.\u201D", c:"Joe McHugh — STK Nashville"}
+  ];
+  var qText = document.getElementById('dcQuoteText');
+  var qName = document.getElementById('dcQuoteName');
+  var qFirm = document.getElementById('dcQuoteFirm');
+  var qDots = document.getElementById('dcQuoteDots');
+  var qi = 0, qTimer = null;
+  quotes.forEach(function(q, i){
+    var d = document.createElement('button');
+    d.className = 'dc__quote-dot';
+    d.setAttribute('role','tab');
+    d.setAttribute('aria-label','Testimonial ' + (i+1) + ': ' + q.c);
+    d.setAttribute('aria-current', i===0 ? 'true' : 'false');
+    d.addEventListener('click', function(){ showQuote(i); restartQuotes(); });
+    qDots.appendChild(d);
+  });
+  function renderQuote(i){
+    qText.textContent = quotes[i].t;
+    var parts = quotes[i].c.split(" — ");
+    qName.textContent = parts[0];
+    qFirm.textContent = parts[1] || "";
+  }
+  function showQuote(i){
+    qi = i;
+    [qText, qName, qFirm].forEach(function(el){ el.style.opacity = 0; });
+    setTimeout(function(){
+      renderQuote(i);
+      [qText, qName, qFirm].forEach(function(el){ el.style.opacity = 1; });
+      Array.prototype.forEach.call(qDots.children, function(d, j){
+        d.setAttribute('aria-current', j===i ? 'true' : 'false');
+      });
+    }, reduceMotion ? 0 : 200);
+  }
+  function restartQuotes(){
+    if(qTimer) clearInterval(qTimer);
+    if(!reduceMotion){ qTimer = setInterval(function(){ showQuote((qi+1) % quotes.length); }, 6000); }
+  }
+  renderQuote(0);
+  restartQuotes();
+
+  /* ---------- Nashville project map ---------- */
+  var projects = [
+    {name:"L&L Market", sector:"restore", x:27, y:50, was:"100-Year-Old Warehouse", became:"Food & Retail Marketplace",
+     facts:[["Scale","55,000+ SF renovated"],["Kept","Brick, beams, steel windows"]],
+     human:"\u201COne of Nashville's most popular food and retail spots — and it still feels like the warehouse it was.\u201D"},
+    {name:"The Wilder", sector:"restore", x:72, y:56, was:"Super 8 Motel", became:"Affordable Housing",
+     facts:[["Award","ULI Nashville Excellence in Development"],["Approach","Kept the bones, upgraded everything"]],
+     human:"A dated roadside motel, reborn as much-needed housing. Award-winning proof that old buildings deserve second chances."},
+    {name:"Riverside Revival", sector:"gather", x:66, y:44, was:"Neighborhood Church", became:"Community Hub & Event Space",
+     facts:[["Kept","Sanctuary ceilings, stained glass"],["Added","Mural by Danielle Duer"]],
+     human:"High ceilings, good bones, good sound — now a gathering place for the whole neighborhood."},
+    {name:"Sunnyside Mansion", sector:"restore", x:44, y:22, was:"Historic Mansion", became:"Restored Landmark",
+     facts:[["Restored","Hand-hewn log framing"],["Survived","Bullet-scarred wood, old chimneys"]],
+     human:"History you can touch — original materials brought back to life."},
+    {name:"Casa Azafr\u00E1n", sector:"gather", x:52, y:78, was:"Community Vision", became:"Conexión Américas Home",
+     facts:[["Client","Conexión Américas"],["Met","A tight construction schedule"]],
+     human:"\u201CWe are proud to call them an important part of Casa Azafrán's story.\u201D — Renata Soto"},
+    {name:"Southern Grist Brewing", sector:"eat", x:62, y:36, was:"Empty Shell", became:"Brewery & Taproom",
+     facts:[["Delivered","Extremely fast timeline"],["Noted","Superintendent stopped at nothing"]],
+     human:"Beyond what the founder envisioned as the optimal location for the business."},
+    {name:"STK Nashville", sector:"eat", x:50, y:56, was:"Raw Restaurant Space", became:"Vibe-Dining Destination",
+     facts:[["Client","The ONE Group"],["Praised","Responsiveness and creative eye"]],
+     human:"\u201CSexy, sophisticated, and inviting — they embraced every bit of what vibe dining truly means.\u201D"},
+    {name:"Flyway", sector:"work", x:38, y:66, was:"Challenging Building", became:"Adaptive-Reuse Offices",
+     facts:[["Challenge","Complicated adaptive reuse"],["Won On","Solutions, integrity, honesty"]],
+     human:"\u201CA true team player — solution oriented in all of our work together.\u201D — Lindsay Nevin"},
+    {name:"Historic Preservation", sector:"restore", x:56, y:20, was:"Untouchable Landmark", became:"Saved & Restored",
+     facts:[["Others Said","Wouldn't touch the liability"],["Dowdle","Talked solutions immediately"]],
+     human:"\u201CThey were passionate about it. That says a lot to me about a company.\u201D — Mike Wolfe"},
+    {name:"Carmack Concepts", sector:"eat", x:55, y:62, was:"First Out-of-State Bet", became:"Nashville Restaurant & Bar",
+     facts:[["Client","Texas-based group"],["De-risked","Honest, upfront, transparent"]],
+     human:"Their first project outside Texas — apprehension gone after the first meeting."}
+  ];
+  var sectorNames = {eat:"Eat", work:"Work", gather:"Gather", restore:"Restore"};
+  var frame = document.querySelector('.dc__mapframe');
+  var card = document.getElementById('dcCard');
+  var pins = [];
+
+  projects.forEach(function(p, i){
+    var b = document.createElement('button');
+    b.className = 'dc__pin';
+    b.style.left = p.x + '%';
+    b.style.top = p.y + '%';
+    b.textContent = (i+1);
+    b.setAttribute('aria-label', p.name + ' — ' + sectorNames[p.sector] + '. Activate for project story.');
+    b.dataset.sector = p.sector;
+    b.dataset.index = i;
+    b.addEventListener('click', function(){ selectPin(i); });
+    frame.appendChild(b);
+    pins.push(b);
+  });
+
+  function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+  function selectPin(i){
+    var p = projects[i];
+    pins.forEach(function(pb, j){ pb.classList.toggle('dc__selected', j===i); });
+    var factsHtml = p.facts.map(function(f){
+      return '<li><b>' + esc(f[0]) + '</b>' + esc(f[1]) + '</li>';
+    }).join('');
+    card.innerHTML =
+      '<p class="dc__card-sector">' + sectorNames[p.sector] + ' — Nashville</p>' +
+      '<h3>' + esc(p.name) + '</h3>' +
+      '<p class="dc__card-was"><b>Was:</b> ' + esc(p.was) + '<span class="dc__card-arrow" aria-hidden="true">\u2193</span><b>Became:</b> ' + esc(p.became) + '</p>' +
+      '<ul class="dc__card-facts">' + factsHtml + '</ul>' +
+      '<p class="dc__card-human">' + esc(p.human) + '</p>';
+  }
+
+  document.querySelectorAll('.dc__filter').forEach(function(f){
+    f.addEventListener('click', function(){
+      document.querySelectorAll('.dc__filter').forEach(function(o){ o.setAttribute('aria-pressed','false'); });
+      f.setAttribute('aria-pressed','true');
+      var s = f.dataset.sector;
+      pins.forEach(function(pb){
+        pb.classList.toggle('dc__hidden', s !== 'all' && pb.dataset.sector !== s);
+      });
+    });
+  });
+
+  /* keyboard: arrows move between pins */
+  frame.addEventListener('keydown', function(e){
+    if(e.target.classList && e.target.classList.contains('dc__pin')){
+      var idx = parseInt(e.target.dataset.index, 10);
+      var visible = pins.filter(function(pb){ return !pb.classList.contains('dc__hidden'); });
+      var pos = visible.indexOf(e.target);
+      if(e.key === 'ArrowRight' || e.key === 'ArrowDown'){
+        e.preventDefault();
+        visible[(pos+1) % visible.length].focus();
+      } else if(e.key === 'ArrowLeft' || e.key === 'ArrowUp'){
+        e.preventDefault();
+        visible[(pos-1+visible.length) % visible.length].focus();
+      }
+    }
+  });
+
+  selectPin(0);
+})();
+</script>
 </body>
 </html>

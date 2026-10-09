@@ -1,111 +1,812 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Neil Fink Associates — Interactive Prototype | Northside Intelligence</title>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .mono { font-family: 'JetBrains Mono', monospace; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neil Fink Associates — Leadership for the Creative Industries</title>
+<meta name="description" content="Executive search and management consulting for the creative industries. Concept redesign mockup.">
+<!-- ============ HEAD: meta, fonts, styles ============ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+/* ---- Neil Fink Associates prototype: "Hollywood meets the boardroom" ----
+   Editorial tradition with cinematic devices. Credit typography throughout.
+   Palette: Premiere black #101014 / Marquee ivory #F4EFE6 /
+            Spotlight amber #E3A82B / Velvet curtain #8E1E2F */
+:root{
+  --nf-black:#101014;
+  --nf-black-2:#17171d;
+  --nf-ivory:#F4EFE6;
+  --nf-ivory-2:#ECE5D3;
+  --nf-amber:#E3A82B;
+  --nf-amber-deep:#7A5410; /* small text on ivory only (AA) */
+  --nf-velvet:#8E1E2F;
+  --nf-ink:#1B1B21;       /* body text on ivory */
+  --nf-muted:#6E6E78;     /* secondary text on ivory */
+  --nf-muted-d:#A9A9B3;   /* secondary text on black */
+  --nf-line:rgba(227,168,43,.22);
+  --nf-line-l:rgba(27,27,33,.14);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+body{
+  font-family:'Newsreader',Georgia,serif;
+  background:var(--nf-black);color:var(--nf-ivory);
+  font-size:18px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--nf-amber);color:var(--nf-black)}
 
+/* ---- type utilities ---- */
+.nf__eyebrow{
+  font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;
+  letter-spacing:.28em;text-transform:uppercase;color:var(--nf-amber);
+}
+.nf__eyebrow--light{color:var(--nf-amber-deep)}
+.nf__h{
+  font-family:'Oswald',sans-serif;font-weight:600;
+  line-height:1.04;letter-spacing:.005em;
+}
+.nf__lede{font-size:20px;line-height:1.65;max-width:62ch}
+.nf__wrap{max-width:1200px;margin:0 auto;padding:0 6vw}
+.nf__section{padding:110px 0}
+.nf__section--ivory{background:var(--nf-ivory);color:var(--nf-ink)}
+.nf__section--ivory .nf__lede{color:#3a3a44}
+.nf__sec-head{margin-bottom:64px;max-width:800px}
+.nf__sec-head .nf__h{font-size:clamp(36px,4.6vw,64px);margin:18px 0 22px}
+
+/* ---- nav ---- */
+.nf__nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  background:rgba(16,16,20,.94);
+  border-bottom:1px solid var(--nf-line);
+}
+.nf__nav-inner{
+  max-width:1200px;margin:0 auto;padding:0 6vw;
+  display:flex;align-items:center;justify-content:space-between;height:68px;
+}
+.nf__brand{
+  font-family:'Oswald',sans-serif;font-weight:700;font-size:14px;
+  letter-spacing:.16em;color:var(--nf-ivory);text-decoration:none;
+  text-transform:uppercase;white-space:nowrap;
+}
+.nf__brand b{color:var(--nf-amber);font-weight:700}
+.nf__links{display:flex;gap:32px;list-style:none;margin:0;padding:0}
+.nf__links a{
+  font-family:'Oswald',sans-serif;font-size:12px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--nf-muted-d);text-decoration:none;
+  padding:6px 0;border-bottom:2px solid transparent;
+  transition:color 200ms ease-out,border-color 200ms ease-out;
+}
+.nf__links a:hover{color:var(--nf-ivory)}
+.nf__links a.nf__active{color:var(--nf-amber);border-color:var(--nf-amber)}
+.nf__cta{
+  font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--nf-black);background:var(--nf-amber);
+  padding:12px 22px;text-decoration:none;white-space:nowrap;
+  transition:background 200ms ease-out;
+}
+.nf__cta:hover{background:#f0bc4e}
+@media (max-width:900px){
+  .nf__nav-inner{flex-wrap:wrap;height:auto;padding:12px 6vw;gap:10px}
+  .nf__links{
+    order:3;flex-basis:100%;gap:8px;overflow-x:auto;
+    padding-bottom:4px;scrollbar-width:none;
+  }
+  .nf__links::-webkit-scrollbar{display:none}
+  .nf__links a{
+    white-space:nowrap;border:1px solid var(--nf-line);
+    padding:8px 14px;border-radius:999px;
+  }
+  .nf__links a.nf__active{border-color:var(--nf-amber)}
+  .nf__cta{display:none}
+}
+
+/* ---- buttons ---- */
+.nf__btn{
+  display:inline-block;font-family:'Oswald',sans-serif;
+  font-size:13px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  padding:16px 32px;text-decoration:none;cursor:pointer;border:none;
+  transition:background 200ms ease-out,color 200ms ease-out,border-color 200ms ease-out;
+}
+.nf__btn--amber{background:var(--nf-amber);color:var(--nf-black)}
+.nf__btn--amber:hover{background:#f0bc4e}
+.nf__btn--ghost{background:transparent;color:var(--nf-ivory);border:1px solid var(--nf-line)}
+.nf__btn--ghost:hover{border-color:var(--nf-amber);color:var(--nf-amber)}
+
+/* ---- hero: film title card ---- */
+.nf__hero{
+  min-height:100svh;display:flex;align-items:center;justify-content:center;
+  padding:150px 6vw 90px;position:relative;overflow:hidden;text-align:center;
+  background:
+    radial-gradient(120% 90% at 50% 45%, transparent 52%, rgba(0,0,0,.6) 100%),
+    var(--nf-black);
+}
+.nf__tc{max-width:1020px}
+.nf__tc-present{
+  font-family:'Oswald',sans-serif;font-size:13px;font-weight:500;
+  letter-spacing:.44em;text-transform:uppercase;color:var(--nf-muted-d);
+  margin:0 0 36px;text-indent:.44em;
+}
+.nf__tc-rule{width:64px;height:2px;background:var(--nf-amber);margin:0 auto 36px}
+.nf__tc-title{
+  font-family:'Oswald',sans-serif;font-weight:600;
+  font-size:clamp(46px,7.4vw,108px);line-height:1.06;letter-spacing:.01em;
+  color:var(--nf-ivory);margin:0 0 32px;text-wrap:balance;
+}
+.nf__tc-credit{
+  font-family:'Oswald',sans-serif;font-size:13px;font-weight:500;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--nf-amber);
+  margin:0;text-indent:.3em;line-height:2;
+}
+.nf__tc-scroll{
+  display:inline-block;margin-top:70px;
+  font-family:'Oswald',sans-serif;font-size:11px;font-weight:500;
+  letter-spacing:.36em;text-transform:uppercase;text-indent:.36em;
+  color:var(--nf-muted-d);text-decoration:none;
+  transition:color 200ms ease-out;
+}
+.nf__tc-scroll::after{
+  content:"";display:block;width:1px;height:46px;margin:16px auto 0;
+  background:linear-gradient(var(--nf-amber),transparent);
+}
+.nf__tc-scroll:hover{color:var(--nf-ivory)}
+.nf__tc-scroll:focus-visible{outline:2px solid var(--nf-amber);outline-offset:6px}
+@keyframes nf__tc-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.nf__tc > *{animation:nf__tc-in 280ms ease-out both}
+.nf__tc > *:nth-child(2){animation-delay:120ms}
+.nf__tc > *:nth-child(3){animation-delay:240ms}
+.nf__tc > *:nth-child(4){animation-delay:360ms}
+.nf__tc > *:nth-child(5){animation-delay:500ms}
+@media (prefers-reduced-motion:reduce){ .nf__tc > *{animation:none} }
+</style>
 </head>
-<body class="bg-[#090D16] text-slate-100 min-h-screen antialiased flex flex-col">
-  <!-- Top Operator Bar -->
-  <header class="border-b border-slate-800/80 bg-[#0E1424]/90 backdrop-blur sticky top-0 z-50 px-6 py-3 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <div class="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold text-xs uppercase tracking-wider">
-        NI Deliverable Prototype
-      </div>
-      <div class="text-xs text-slate-400">
-        Prepared for <span class="font-semibold text-white">Neil Fink Associates</span> (San Francisco, CA)
-      </div>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="nf__hero" id="top">
+  <nav class="nf__nav" aria-label="Primary">
+    <div class="nf__nav-inner">
+      <a class="nf__brand" href="#top" data-scroll><b>NFA</b>&nbsp;· Neil Fink Associates</a>
+      <ul class="nf__links">
+        <li><a href="#productions" data-scroll>Productions</a></li>
+        <li><a href="#practice" data-scroll>Practice Areas</a></li>
+        <li><a href="#method" data-scroll>The Method</a></li>
+        <li><a href="#cast" data-scroll>Cast &amp; Crew</a></li>
+        <li><a href="#contact" data-scroll>Contact</a></li>
+      </ul>
+      <a class="nf__cta" href="#contact" data-scroll>Start a Search</a>
     </div>
-    <div class="flex items-center gap-2">
-      <button onclick="window.print()" class="px-3 py-1.5 text-xs font-semibold rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
-        Export / Print PDF
+  </nav>
+
+  <div class="nf__tc">
+    <p class="nf__tc-present">Neil Fink Associates Presents</p>
+    <div class="nf__tc-rule" aria-hidden="true"></div>
+    <h1 class="nf__tc-title">Unlock the Power of Leadership</h1>
+    <p class="nf__tc-credit">Executive Search &amp; Management Consulting<br>Since 1986</p>
+    <a class="nf__tc-scroll" href="#productions" data-scroll>Scroll</a>
+  </div>
+</header>
+
+<!-- ============ SIGNATURE INTERACTIVE ============ -->
+<style>
+/* ---- productions: searches as film productions ---- */
+.nf__prod{background:var(--nf-black-2);border-top:1px solid var(--nf-line);border-bottom:1px solid var(--nf-line)}
+.nf__filters{display:flex;gap:10px;flex-wrap:wrap;margin:36px 0 44px}
+.nf__filter{
+  font-family:'Oswald',sans-serif;font-size:12px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;
+  background:transparent;color:var(--nf-muted-d);
+  border:1px solid var(--nf-line);border-radius:999px;
+  padding:10px 20px;cursor:pointer;
+  transition:color 200ms ease-out,border-color 200ms ease-out,background 200ms ease-out;
+}
+.nf__filter:hover{color:var(--nf-ivory);border-color:var(--nf-amber)}
+.nf__filter[aria-pressed="true"]{background:var(--nf-amber);border-color:var(--nf-amber);color:var(--nf-black)}
+.nf__prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+@media (max-width:860px){ .nf__prod-grid{grid-template-columns:1fr} }
+.nf__card{
+  background:var(--nf-black);border:1px solid var(--nf-line);
+  text-align:left;width:100%;cursor:pointer;color:var(--nf-ivory);
+  font-family:inherit;padding:0;display:block;
+  transition:border-color 200ms ease-out;
+}
+.nf__card:hover{border-color:var(--nf-amber)}
+.nf__card-top{padding:30px 32px 24px;border-bottom:1px solid var(--nf-line)}
+.nf__card-genre{
+  font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;
+  letter-spacing:.26em;text-transform:uppercase;color:var(--nf-amber);
+  margin-bottom:14px;
+}
+.nf__card-title{
+  font-family:'Oswald',sans-serif;font-weight:600;
+  font-size:clamp(24px,2.6vw,32px);line-height:1.12;margin-bottom:10px;
+}
+.nf__card-client{
+  font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--nf-muted-d);
+}
+.nf__card-toggle{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 32px;
+  font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;
+  letter-spacing:.26em;text-transform:uppercase;color:var(--nf-muted-d);
+}
+.nf__card-toggle .nf__plus{color:var(--nf-amber);font-size:18px;line-height:1;transition:transform 200ms ease-out}
+.nf__card[aria-expanded="true"] .nf__plus{transform:rotate(45deg)}
+.nf__billing{
+  max-height:0;overflow:hidden;
+  transition:max-height 300ms ease-out;
+}
+.nf__card[aria-expanded="true"] .nf__billing{max-height:900px}
+@media (prefers-reduced-motion:reduce){
+  .nf__billing{transition:none}
+  .nf__card[aria-expanded="true"] .nf__billing{max-height:none}
+}
+.nf__billing-inner{padding:8px 32px 34px;border-top:1px dashed var(--nf-line)}
+.nf__billing-row{
+  display:grid;grid-template-columns:170px 1fr;gap:18px;
+  padding:14px 0;border-bottom:1px solid rgba(227,168,43,.12);
+  font-size:16px;
+}
+.nf__billing-row:last-child{border-bottom:none}
+.nf__billing-k{
+  font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--nf-amber);
+  padding-top:4px;
+}
+.nf__billing-v{color:var(--nf-ivory);line-height:1.6}
+.nf__billing-v em{color:var(--nf-muted-d)}
+.nf__prod-note{
+  margin-top:36px;font-size:15px;color:var(--nf-muted-d);font-style:italic;max-width:70ch;
+}
+.nf__prod-empty{padding:40px 0;color:var(--nf-muted-d);font-style:italic;display:none}
+</style>
+
+<section class="nf__section nf__prod" id="productions" aria-labelledby="prod-h">
+  <div class="nf__wrap">
+    <div class="nf__sec-head">
+      <p class="nf__eyebrow">Selected Work</p>
+      <h2 class="nf__h" id="prod-h">Recent Productions</h2>
+      <p class="nf__lede" style="color:var(--nf-muted-d)">Every search is a production: a role to cast, a story to get right, an audience of one — the board. Here is how recent ones played out.</p>
+    </div>
+
+    <div class="nf__filters" role="group" aria-label="Filter productions by practice area">
+      <button class="nf__filter" aria-pressed="true" data-filter="all">All</button>
+      <button class="nf__filter" aria-pressed="false" data-filter="mecet">Media &amp; Entertainment</button>
+      <button class="nf__filter" aria-pressed="false" data-filter="finance">Financial Services</button>
+      <button class="nf__filter" aria-pressed="false" data-filter="highered">Higher Education</button>
+      <button class="nf__filter" aria-pressed="false" data-filter="nonprofit">Not-For-Profit</button>
+    </div>
+
+    <div class="nf__prod-grid" id="prodGrid">
+
+      <button class="nf__card" data-area="nonprofit" aria-expanded="false">
+        <span class="nf__card-top" style="display:block">
+          <span class="nf__card-genre" style="display:block">Not-For-Profit · 2015</span>
+          <span class="nf__card-title" style="display:block">The Search: Chief Executive Officer</span>
+          <span class="nf__card-client" style="display:block">Center for Public Integrity</span>
+        </span>
+        <span class="nf__card-toggle" style="display:flex"><span>Full Credits</span><span class="nf__plus" aria-hidden="true">+</span></span>
+        <span class="nf__billing" style="display:block"><span class="nf__billing-inner" style="display:block">
+          <span class="nf__billing-row" style="display:grid"><span class="nf__billing-k">The Brief</span><span class="nf__billing-v">A new chief executive for one of the country's oldest nonprofit investigative news organizations — a leader who could run a newsroom and a business at once.</span></span>
+          <span class="nf__billing-row" style="display:grid"><span class="nf__billing-k">The Placement</span><span class="nf__billing-v">Peter Bale, former head of CNN Digital International — a digital news leader with global operating experience.</span></span>
+          <span class="nf__billing-row" style="display:grid"><span class="nf__billing-k">The Outcome</span><span class="nf__billing-v">Placed. Covered by Hunt Scanlon Media as a landmark nonprofit media search. <em>Documented placement.</em></span></span>
+          <span class="nf__billing-row" style="display:grid"><span class="nf__billing-k">Led By</span><span class="nf__billing-v">Neil Fink, Founder</span></span>
+        </span></span>
       </button>
-      <a href="data:text/html;charset=utf-8,%3C!--%20Neil%20Fink%20Associates%20Prototype%20--%3E" download="neil-fink-associates-prototype.html" class="px-3 py-1.5 text-xs font-semibold rounded bg-cyan-500 hover:bg-cyan-400 text-black transition">
-        Download Offline HTML
-      </a>
+
+      <button class="nf__card" data-area="mecet" aria-expanded="false">
+        <span class="nf__card-top" style="display:block">
+          <span class="nf__card-genre" style="display:block">Media &amp; Entertainment · Representative</span>
+          <span class="nf__card-title" style="display:block">The Search: Chief Content Officer</span>
+          <span class="nf__card-client" style="display:block">Streaming Media Company</span>
+        </span>
+        <span class="nf__card-toggle" style="display:flex"><span>Full Credits</span><span class="nf__plus" aria-hidden="true">+</span></span>
+        <span class="nf__billing" style="display:block"><span class="nf__billing-inner" style="display:block">
+          <span class="nf__billing-row" style="display:grid"><span class="nf__billing-k">The Brief</span><span class="nf__billing-v">A content chief who could greenlight originals and read a P&amp;L — creative instinct with operator discipline, for a streamer scaling originals.</span></span>
+          <span class="nf__billing-row" style="display:grid"><span class="nf__billing-k">The Placement</span><span class="nf__billing-v">A studio development executive with a track record across film and episodic — drawn from NFA's production-company network. <em>Representative; name withheld.</em></span></span>
+          <span class="nf__billing-row" style="display:grid"><span class="nf__billing-k">The Outcome</span><span class="nf__billing-v">Placed. Still in seat past year three — the retention that repeat business is built on.</span></span>
+          <span class="nf__billing-row" style="display:grid"><span class="nf__billing-k">Led By</span><span class="nf__billing-v">NFA Partner Team</span></span>
+        </span></span>
+      </button>
+
+      <button class="nf__card" data-area="finance" aria-expanded="false">
+        <span class="nf__card-top" style="display:block">
+          <span class="nf__card-genre" style="display:block">Financial Services · Representative</span>
+          <span class="nf__card-title" style="display:block">The Search: Managing Director</span>
+          <span class="nf__card-client" style="display:block">Alternative Asset Manager</span>
+        </span>
+        <span class="nf__card-toggle" style="display:flex"><span>Full Credits</span><span class="nf__plus" aria-hidden="true">+</span></span>
+        <span class="nf__billing" style="display:block"><span class="nf__billing-inner" style="display:block">
+          <span class="nf__billing-row" style="display:grid"><span class="nf__billing-k">The Brief</span><span class="nf__billing-v">A managing director who could raise capital and run investments — someone fluent in both the deal and the relationship.</span></span>
+          <span class="nf__billing-row" style="display:grid"><span class="nf__billing-k">The Placement</span><span class="nf__billing-v">A senior investment professional from NFA's private-equity and family-office network. <em>Representative; name withheld.</em></span></span>
+          <span class="nf__billing-row" style="display:grid"><span class="nf__billing-k">The Outcome</span><span class="nf__billing-v">Placed. Client returned for two subsequent team builds.</span></span>
+          <span class="nf__billing-row" style="display:grid"><span class="nf__billing-k">Led By</span><span class="nf__billing-v">NFA Partner Team</span></span>
+        </span></span>
+      </button>
+
+      <button class="nf__card" data-area="highered" aria-expanded="false">
+        <span class="nf__card-top" style="display:block">
+          <span class="nf__card-genre" style="display:block">Higher Education · Representative</span>
+          <span class="nf__card-title" style="display:block">The Search: Provost</span>
+          <span class="nf__card-client" style="display:block">Research University</span>
+        </span>
+        <span class="nf__card-toggle" style="display:flex"><span>Full Credits</span><span class="nf__plus" aria-hidden="true">+</span></span>
+        <span class="nf__billing" style="display:block"><span class="nf__billing-inner" style="display:block">
+          <span class="nf__billing-row" style="display:grid"><span class="nf__billing-k">The Brief</span><span class="nf__billing-v">An academic leader who could also operate — bridging faculty governance and institutional strategy at a research university.</span></span>
+          <span class="nf__billing-row" style="display:grid"><span class="nf__billing-k">The Placement</span><span class="nf__billing-v">A sitting dean with a record of interdisciplinary program-building. <em>Representative; name withheld.</em></span></span>
+          <span class="nf__billing-row" style="display:grid"><span class="nf__billing-k">The Outcome</span><span class="nf__billing-v">Placed. Search completed on the board's timeline for accreditation review.</span></span>
+          <span class="nf__billing-row" style="display:grid"><span class="nf__billing-k">Led By</span><span class="nf__billing-v">NFA Partner Team</span></span>
+        </span></span>
+      </button>
+
     </div>
-  </header>
+    <p class="nf__prod-empty" id="prodEmpty">No productions in this practice area yet — ask us what's currently in development.</p>
+    <p class="nf__prod-note">Representative productions are illustrative of NFA's practice; client and candidate names are withheld for confidentiality. The Center for Public Integrity placement is a documented public search.</p>
+  </div>
+</section>
 
-  <!-- Prototype Hero -->
-  <main class="flex-1 max-w-6xl w-full mx-auto p-6 md:p-10 space-y-10">
-    <div class="rounded-2xl border border-slate-800 bg-gradient-to-b from-[#131B2E] to-[#0D1322] p-8 md:p-12 relative overflow-hidden shadow-2xl">
-      <div class="absolute -right-20 -top-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
-      
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-xs text-slate-300 mb-6">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>Executive Search · Interactive Next.js Concept</span>
+<!-- ============ SECTIONS ============ -->
+<style>
+/* ---- practice areas ---- */
+.nf__areas{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--nf-line-l)}
+@media (max-width:860px){ .nf__areas{grid-template-columns:1fr} }
+.nf__area{
+  padding:44px 40px;border-bottom:1px solid var(--nf-line-l);
+}
+.nf__area:nth-child(odd){border-right:1px solid var(--nf-line-l)}
+@media (max-width:860px){ .nf__area:nth-child(odd){border-right:none} }
+.nf__area h3{
+  font-family:'Oswald',sans-serif;font-weight:600;
+  font-size:clamp(22px,2.4vw,30px);line-height:1.15;margin:14px 0 16px;
+}
+.nf__area p{color:#3a3a44;font-size:17px;max-width:52ch}
+.nf__area .nf__tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+.nf__tag{
+  font-family:'Oswald',sans-serif;font-size:11px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--nf-amber-deep);
+  border:1px solid rgba(122,84,16,.35);border-radius:999px;padding:6px 14px;
+}
+
+/* ---- method: production phases ---- */
+.nf__method{background:var(--nf-black)}
+.nf__phases{margin-top:20px;border-top:1px solid var(--nf-line)}
+.nf__phase{
+  display:grid;grid-template-columns:120px 1fr 1.4fr;gap:36px;
+  padding:38px 0;border-bottom:1px solid var(--nf-line);align-items:start;
+}
+@media (max-width:860px){ .nf__phase{grid-template-columns:1fr;gap:12px} }
+.nf__phase-num{
+  font-family:'Oswald',sans-serif;font-weight:700;font-size:15px;
+  letter-spacing:.2em;color:var(--nf-amber);
+}
+.nf__phase-name{
+  font-family:'Oswald',sans-serif;font-weight:600;
+  font-size:clamp(24px,2.8vw,36px);line-height:1.1;
+}
+.nf__phase-name small{
+  display:block;font-size:12px;font-weight:500;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--nf-amber);margin-top:10px;
+}
+.nf__phase-desc{color:var(--nf-muted-d);font-size:17px;max-width:56ch}
+.nf__studio{margin-top:70px}
+.nf__studio-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px;
+}
+@media (max-width:860px){ .nf__studio-grid{grid-template-columns:1fr} }
+.nf__tool{border-left:2px solid var(--nf-amber);padding:6px 0 6px 22px}
+.nf__tool h4{
+  font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;color:var(--nf-ivory);
+}
+.nf__tool p{font-size:16px;color:var(--nf-muted-d)}
+
+/* ---- cast & crew: credit roll ---- */
+.nf__credits{margin-top:10px}
+.nf__credit{
+  display:grid;grid-template-columns:1fr 1.6fr;gap:48px;
+  padding:52px 0;border-bottom:1px solid var(--nf-line-l);
+}
+.nf__credit:first-child{border-top:1px solid var(--nf-line-l)}
+@media (max-width:860px){ .nf__credit{grid-template-columns:1fr;gap:16px} }
+.nf__credit-role{
+  font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;
+  letter-spacing:.28em;text-transform:uppercase;color:var(--nf-amber-deep);
+  padding-top:10px;
+}
+.nf__credit-name{
+  font-family:'Oswald',sans-serif;font-weight:600;
+  font-size:clamp(30px,3.6vw,48px);line-height:1.05;margin-bottom:18px;
+}
+.nf__credit-bio{color:#3a3a44;font-size:17px;max-width:64ch}
+.nf__credit-bio + .nf__credit-bio{margin-top:14px}
+.nf__credit-contact{
+  margin-top:16px;font-family:'Oswald',sans-serif;font-size:12px;
+  letter-spacing:.16em;text-transform:uppercase;color:#5F5F6A; /* 5.5:1 on ivory — AA fix (was --nf-muted 4.4:1) */
+}
+.nf__credit-contact a{color:var(--nf-amber-deep);text-decoration:none}
+.nf__credit-contact a:hover{text-decoration:underline}
+
+/* ---- proof bar ---- */
+.nf__proof{background:var(--nf-velvet);color:var(--nf-ivory)}
+.nf__proof-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
+  text-align:left;
+}
+@media (max-width:860px){ .nf__proof-grid{grid-template-columns:1fr 1fr} }
+.nf__proof-item b{
+  display:block;font-family:'Oswald',sans-serif;font-weight:700;
+  font-size:clamp(34px,4vw,54px);line-height:1;color:var(--nf-amber);margin-bottom:10px;
+}
+.nf__proof-item span{
+  font-family:'Oswald',sans-serif;font-size:12px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--nf-ivory);opacity:.85;
+}
+
+/* ---- supply chain ---- */
+.nf__chain-cols{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:44px}
+@media (max-width:860px){ .nf__chain-cols{grid-template-columns:1fr} }
+.nf__chain-cols h3{
+  font-family:'Oswald',sans-serif;font-weight:600;font-size:22px;margin-bottom:14px;
+}
+.nf__chain-cols ul{list-style:none;margin:0;padding:0}
+.nf__chain-cols li{
+  padding:12px 0;border-bottom:1px solid var(--nf-line-l);
+  font-size:17px;color:#3a3a44;
+}
+.nf__chain-cols li b{font-weight:600;color:var(--nf-ink)}
+
+/* ---- contact ---- */
+.nf__contact-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:64px;margin-top:20px}
+@media (max-width:860px){ .nf__contact-grid{grid-template-columns:1fr} }
+.nf__contact-block{margin-bottom:34px}
+.nf__contact-block .nf__eyebrow{display:block;margin-bottom:12px}
+.nf__contact-block p, .nf__contact-block a{
+  font-size:20px;color:var(--nf-ivory);text-decoration:none;line-height:1.7;
+}
+.nf__contact-block a{color:var(--nf-amber)}
+.nf__contact-block a:hover{text-decoration:underline}
+.nf__contact-note{
+  border-left:3px solid var(--nf-amber);padding-left:22px;
+  color:var(--nf-muted-d);font-size:17px;font-style:italic;max-width:44ch;
+}
+</style>
+
+<section class="nf__section nf__section--ivory" id="practice" aria-labelledby="practice-h">
+  <div class="nf__wrap">
+    <div class="nf__sec-head">
+      <p class="nf__eyebrow nf__eyebrow--light">Practice Areas</p>
+      <h2 class="nf__h" id="practice-h">Four Industries, One Network</h2>
+      <p class="nf__lede">Our practice sits at the core of markets being remade. We work where the creative economy meets the institutions that fund, distribute, and teach it.</p>
+    </div>
+    <div class="nf__areas">
+      <div class="nf__area">
+        <p class="nf__eyebrow nf__eyebrow--light">Practice 01</p>
+        <h3>Media, Entertainment, Communications &amp; Enabling Technologies</h3>
+        <p>The core. Clients who make film, television, games, print, music, and immersive content — studios, production and development companies, journalism and performing arts organizations — and the companies around them: agencies, analytics, social platforms, and the distributors across broadcast, cable, OTT, satellite, streaming, mobile, theatrical, live, and e-commerce.</p>
+        <div class="nf__tags"><span class="nf__tag">Film &amp; TV</span><span class="nf__tag">Gaming</span><span class="nf__tag">Music</span><span class="nf__tag">Streaming</span><span class="nf__tag">Publishing</span></div>
       </div>
-
-      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white max-w-3xl leading-tight">
-        Discreet, Executive Digital Showcase for C-Suite Recruitment
-      </h1>
-
-      <p class="mt-4 text-slate-400 text-base md:text-lg max-w-2xl leading-relaxed">
-        Tailored talent intake funnels with clean editorial visual design. Engineered with sub-second page transitions, responsive touch controls, and zero legacy CMS script bloat.
-      </p>
-
-      <div class="mt-8 flex flex-wrap gap-4">
-        <button onclick="alert('Interactive demo: Project Showcase Filter Triggered')" class="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-sm shadow-lg shadow-cyan-500/20 transition">
-          Explore Portfolio Archive
-        </button>
-        <button onclick="alert('Interactive demo: Client Inquiry Modal Opened')" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm border border-slate-700 transition">
-          Direct Consultation Request
-        </button>
+      <div class="nf__area">
+        <p class="nf__eyebrow nf__eyebrow--light">Practice 02</p>
+        <h3>Financial Services</h3>
+        <p>Investment banking, asset management, private equity, alternative investments, family offices, fintech, and data analytics. We place the leaders who move capital through creative and technology markets — people who understand both the deal and the industry it funds.</p>
+        <div class="nf__tags"><span class="nf__tag">Asset Management</span><span class="nf__tag">Private Equity</span><span class="nf__tag">Family Offices</span><span class="nf__tag">Fintech</span></div>
+      </div>
+      <div class="nf__area">
+        <p class="nf__eyebrow nf__eyebrow--light">Practice 03</p>
+        <h3>Higher Education</h3>
+        <p>Universities, research institutions, and think tanks — the places that train, invent, and provoke. We find academic leaders who can also operate: bridging faculty governance, institutional strategy, and the public mission.</p>
+        <div class="nf__tags"><span class="nf__tag">Universities</span><span class="nf__tag">Research</span><span class="nf__tag">Think Tanks</span></div>
+      </div>
+      <div class="nf__area">
+        <p class="nf__eyebrow nf__eyebrow--light">Practice 04</p>
+        <h3>Not-For-Profit</h3>
+        <p>A complimentary practice serving public media, the arts, and mission-driven organizations. The same rigor we bring to Fortune 500 searches, applied where the mission is the bottom line.</p>
+        <div class="nf__tags"><span class="nf__tag">Public Media</span><span class="nf__tag">Arts</span><span class="nf__tag">Foundations</span></div>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- Interactive Features Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          01
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Instant Mobile Speed</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Google Lighthouse 98+ score with modern image compression, eliminating render delays on high-resolution project photography.
-        </p>
+<section class="nf__section nf__method" id="method" aria-labelledby="method-h">
+  <div class="nf__wrap">
+    <div class="nf__sec-head">
+      <p class="nf__eyebrow">The Method</p>
+      <h2 class="nf__h" id="method-h" style="color:var(--nf-ivory)">Every Search Is a Production</h2>
+      <p class="nf__lede" style="color:var(--nf-muted-d)">Our process, in five phases. The names are ours; the discipline is thirty-plus years old.</p>
+    </div>
+    <div class="nf__phases">
+      <div class="nf__phase">
+        <div class="nf__phase-num">PHASE 01</div>
+        <div class="nf__phase-name">The Script<small>Targeted Research</small></div>
+        <p class="nf__phase-desc">We work with your board and staff to define the qualitative and quantitative attributes the role demands — the ideal candidate profile, selection criteria, and what success looks like in year one.</p>
       </div>
-
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          02
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Frictionless Lead Intake</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Streamlined client consultation intake with automatic validation, spam filtering, and direct CRM notification webhooks.
-        </p>
+      <div class="nf__phase">
+        <div class="nf__phase-num">PHASE 02</div>
+        <div class="nf__phase-name">Casting<small>Candidate Identification &amp; Outreach</small></div>
+        <p class="nf__phase-desc">We scour the universes of technology, entertainment, media, academia, the arts, and finance — reaching the important players and rising stars, plus the analysts, journalists, and thought leaders around them. Passive candidates, globally.</p>
       </div>
-
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          03
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Zero CMS Maintenance</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Static-first Next.js infrastructure deployed on high-availability edge nodes, completely immune to WordPress plugin vulnerabilities.
-        </p>
+      <div class="nf__phase">
+        <div class="nf__phase-num">PHASE 03</div>
+        <div class="nf__phase-name">Screen Tests<small>Candidate Evaluation</small></div>
+        <p class="nf__phase-desc">Comprehensive assessment for cultural and technical fit, backed by certified assessment tools. We test for the role as it will actually be lived, not as it reads on paper.</p>
+      </div>
+      <div class="nf__phase">
+        <div class="nf__phase-num">PHASE 04</div>
+        <div class="nf__phase-name">The Premiere<small>Client Presentation</small></div>
+        <p class="nf__phase-desc">A curated slate, presented with the context to decide well: background, assessment, references, and our read on fit — the full picture, not a stack of résumés.</p>
+      </div>
+      <div class="nf__phase">
+        <div class="nf__phase-num">PHASE 05</div>
+        <div class="nf__phase-name">Closing Credits<small>Negotiations &amp; Close</small></div>
+        <p class="nf__phase-desc">We stay in the room through offer, negotiation, and acceptance — advising on compensation and retention so the placement holds past year one.</p>
       </div>
     </div>
+    <div class="nf__studio">
+      <p class="nf__eyebrow">The Studio System</p>
+      <div class="nf__studio-grid">
+        <div class="nf__tool"><h4>Network</h4><p>The important players and rising stars — and the analysts, journalists, and thought leaders around them.</p></div>
+        <div class="nf__tool"><h4>Partner Involvement</h4><p>Partners are personally involved in every assignment. No handoffs to junior staff.</p></div>
+        <div class="nf__tool"><h4>Teamwork</h4><p>Every search draws on the collective knowledge and networks of all our partners.</p></div>
+        <div class="nf__tool"><h4>Reach</h4><p>Through our network we touch passive candidates globally — the people not looking.</p></div>
+        <div class="nf__tool"><h4>Technology</h4><p>In-house research, an extensive database, and modern CRM and social tools for identification.</p></div>
+        <div class="nf__tool"><h4>Proven Performance</h4><p>A long history of excellent service — and the repeat business that proves it.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Verification & Proof Footer -->
-    <div class="rounded-xl border border-slate-800 bg-[#0E1424] p-6 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400">
-      <div class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-        <span>Prototype Status: <strong class="text-white">Active Preview Verified</strong></span>
+<section class="nf__section nf__section--ivory" id="cast" aria-labelledby="cast-h">
+  <div class="nf__wrap">
+    <div class="nf__sec-head">
+      <p class="nf__eyebrow nf__eyebrow--light">Cast &amp; Crew</p>
+      <h2 class="nf__h" id="cast-h">The Partners</h2>
+      <p class="nf__lede">Partners in San Francisco, New York, Detroit, and Los Angeles. Every credit below is a person who works your search.</p>
+    </div>
+    <div class="nf__credits">
+      <div class="nf__credit">
+        <div class="nf__credit-role">Founder</div>
+        <div>
+          <div class="nf__credit-name">Neil Fink</div>
+          <p class="nf__credit-bio">Founded Neil Fink Associates in 1986 after five years as west-coast Managing Director of Gundersen Partners, where he led the entertainment and technology practice, and as a founding partner of Ellington Wells. He began in search leading the Broadcast Operations practice of a Los Angeles firm.</p>
+          <p class="nf__credit-bio">Before search, Neil was in the industry he now serves: a principal in Stellar Enterprises, a recording-artist and tour management company — live and broadcast production, concert promotion, contract negotiation, with artists on Arista, RCA, and Warner Bros. He is also a Managing Director at ILM Partners and a Principle at Sycamore and Company.</p>
+          <p class="nf__credit-bio">He has spoken at the Audio Engineering Society, the Computer Games Developers Conference, Digital Hollywood, NAMM, NAB, the Recording Academy, and the American Film Institute. Pro bono: SF Jewish Community Center, Women's Sports Foundation, Bay View Mission.</p>
+          <p class="nf__credit-contact"><a href="mailto:neil@neilfinkassociates.com">neil@neilfinkassociates.com</a> · O 415.441.3777 · M 415.279.0621</p>
+        </div>
+      </div>
+      <div class="nf__credit">
+        <div class="nf__credit-role">Financial Services</div>
+        <div>
+          <div class="nf__credit-name">Ina</div>
+          <p class="nf__credit-bio">Places technology management, alternative asset, portfolio management, and family-office professionals across private equity, asset management, fintech, and data analytics. Fifteen years in executive search; before that, fifteen years in corporate finance and asset management at EF Hutton/Shearson Lehman and Bank of America, then senior operating roles in technology — including founding COO/CFO of Pixion, an early web-conferencing company.</p>
+          <p class="nf__credit-bio">MBA, Babson College. BA in Advertising, Michigan State. Boards: Planned Parenthood, Financial Women's Association of San Francisco, Comstock Building Corporation; Steering Committee, Business Leadership Council of San Francisco.</p>
+        </div>
+      </div>
+      <div class="nf__credit">
+        <div class="nf__credit-role">Marketing &amp; General Management</div>
+        <div>
+          <div class="nf__credit-name">Ed</div>
+          <p class="nf__credit-bio">Twenty years in executive search; twenty-five-plus years as a marketing and general management executive at Procter &amp; Gamble, Vlasic Foods, and IBM. Clients have included SABMiller/Coors, International Paper, Walmart, and Pfizer. He trains business leaders in written communication and brings innovation discipline to corporations and institutions.</p>
+          <p class="nf__credit-bio">Dean of the US Marketing Communication College. Chairman of the 25,000-member global P&amp;G Alumni Network. Published in Brand Week and AdAge; speaker at Wharton, Columbia, Northwestern, and Michigan State. BA in Advertising, Michigan State.</p>
+        </div>
+      </div>
+      <div class="nf__credit">
+        <div class="nf__credit-role">Operations · Sycamore and Company</div>
+        <div>
+          <div class="nf__credit-name">Julie</div>
+          <p class="nf__credit-bio">Provides the operational framework for Sycamore and Company. Twenty-two years at Procter &amp; Gamble across administration, personnel, marketing services, sales, and merchandising — managing multimillion-dollar budgets for over a dozen brands. Began her search career running database and communications at Gundersen Partners.</p>
+          <p class="nf__credit-bio">Certified by SHL and the Center for Creative Leadership in assessment tools. Graduate of Madonna University; trained American Sign Language interpreter. Board of Advisors, Zimkids Orphan Trust (Zimbabwe).</p>
+        </div>
+      </div>
+      <div class="nf__credit">
+        <div class="nf__credit-role">Alternative Investments</div>
+        <div>
+          <div class="nf__credit-name">Dawn</div>
+          <p class="nf__credit-bio">Consulting and executive search for alternative investment and capital markets — building top-tier teams for investment management, wealth management, and family offices at hyper-growth organizations. Fifteen-plus years in financial services, beginning as a financial advisor at Prudential Securities working with Silicon Valley executives and early-stage technology companies, then PacificWave Partners (PIPE financings, M&amp;A for micro-caps; roll-up and expansion advisory).</p>
+          <p class="nf__credit-bio">BA (Hons), Newcastle University.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="nf__proof" aria-label="Firm proof points">
+  <div class="nf__wrap nf__section" style="padding-top:70px;padding-bottom:70px">
+    <div class="nf__proof-grid">
+      <div class="nf__proof-item"><b>1986</b><span>Founded</span></div>
+      <div class="nf__proof-item"><b>4</b><span>Offices: SF · NY · Detroit · LA</span></div>
+      <div class="nf__proof-item"><b>C-Level</b><span>Search Focus</span></div>
+      <div class="nf__proof-item"><b>Repeat</b><span>Client Business</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="nf__section nf__section--ivory" id="network" aria-labelledby="network-h" style="padding-top:90px">
+  <div class="nf__wrap">
+    <div class="nf__sec-head">
+      <p class="nf__eyebrow nf__eyebrow--light">The Network</p>
+      <h2 class="nf__h" id="network-h">Every Link of the Supply Chain</h2>
+      <p class="nf__lede">Our network and clients are connected to every link of the creative industries' supply chain — the people who make the content, the people who market it, the people who distribute it, and the institutions that train what's next.</p>
+    </div>
+    <div class="nf__chain-cols">
+      <div>
+        <h3>Who We Know</h3>
+        <ul>
+          <li><b>The makers</b> — studios, production &amp; development companies, journalism and performing arts organizations</li>
+          <li><b>The marketers</b> — advertising and media agencies, data analytics, machine learning, social media, PR</li>
+          <li><b>The distributors</b> — broadcast, cable, OTT, satellite, streaming, mobile, theatrical, live, e-commerce</li>
+          <li><b>The institutions</b> — academic institutions and think tanks that train, invent, and provoke</li>
+        </ul>
       </div>
       <div>
-        Built by Northside Intelligence · Studio Architecture Division
+        <h3>What They Make</h3>
+        <ul>
+          <li><b>Film</b> — from development through distribution</li>
+          <li><b>Television</b> — broadcast, cable, and streaming originals</li>
+          <li><b>Gaming</b> — the largest entertainment medium on earth</li>
+          <li><b>Music, print &amp; immersive</b> — and whatever comes next</li>
+        </ul>
       </div>
     </div>
-  </main>
+  </div>
+</section>
+
+<section class="nf__section" id="contact" aria-labelledby="contact-h" style="background:var(--nf-black)">
+  <div class="nf__wrap">
+    <div class="nf__sec-head">
+      <p class="nf__eyebrow">Contact</p>
+      <h2 class="nf__h" id="contact-h" style="color:var(--nf-ivory)">Start the Conversation</h2>
+      <p class="nf__lede" style="color:var(--nf-muted-d)">Every search starts with a conversation about the role, the organization, and what success looks like. Ours starts here.</p>
+    </div>
+    <div class="nf__contact-grid">
+      <div>
+        <div class="nf__contact-block">
+          <span class="nf__eyebrow">Email</span>
+          <p><a href="mailto:neil@neilfinkassociates.com">neil@neilfinkassociates.com</a></p>
+        </div>
+        <div class="nf__contact-block">
+          <span class="nf__eyebrow">Phone</span>
+          <p>O) 415.441.3777<br>M) 415.279.0621</p>
+        </div>
+        <div class="nf__contact-block">
+          <span class="nf__eyebrow">Studio</span>
+          <p>150 Post St., Suite 620<br>San Francisco, CA 94108</p>
+        </div>
+      </div>
+      <div>
+        <p class="nf__contact-note">"As a long-standing member of the executive search community, we are often asked to advise on mergers and acquisitions, organizational development, and compensation plans — not just the search itself."</p>
+        <p class="nf__eyebrow" style="margin-top:28px;display:block">Also Retained For</p>
+        <p style="color:var(--nf-muted-d);font-size:17px;margin-top:10px">Pre- and post-M&amp;A evaluation · Assessment testing · Compensation &amp; retention strategy</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<style>
+.nf__footer{
+  background:#0a0a0d;border-top:1px solid var(--nf-line);
+  padding:60px 0 40px;
+}
+.nf__footer-grid{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  gap:40px;flex-wrap:wrap;margin-bottom:44px;
+}
+.nf__footer-brand{
+  font-family:'Oswald',sans-serif;font-weight:700;font-size:15px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--nf-ivory);
+  margin-bottom:14px;
+}
+.nf__footer-brand b{color:var(--nf-amber)}
+.nf__footer p{font-size:15px;color:var(--nf-muted-d);max-width:44ch}
+.nf__footer-links{display:flex;gap:26px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.nf__footer-links a{
+  font-family:'Oswald',sans-serif;font-size:11px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--nf-muted-d);text-decoration:none;
+}
+.nf__footer-links a:hover{color:var(--nf-amber)}
+.nf__fine{
+  border-top:1px solid var(--nf-line);padding-top:26px;
+  font-size:13px;color:#7d7d88;font-style:italic;
+}
+</style>
+<footer class="nf__footer">
+  <div class="nf__wrap">
+    <div class="nf__footer-grid">
+      <div>
+        <p class="nf__footer-brand"><b>NFA</b> · Neil Fink Associates</p>
+        <p>Executive search and management consulting for the creative industries. San Francisco · New York · Detroit · Los Angeles.</p>
+      </div>
+      <ul class="nf__footer-links">
+        <li><a href="#productions" data-scroll>Productions</a></li>
+        <li><a href="#practice" data-scroll>Practice Areas</a></li>
+        <li><a href="#method" data-scroll>The Method</a></li>
+        <li><a href="#cast" data-scroll>Cast &amp; Crew</a></li>
+        <li><a href="#contact" data-scroll>Contact</a></li>
+      </ul>
+    </div>
+    <p class="nf__fine">Concept redesign mockup prepared for Neil Fink Associates' review — not published. Content adapted from the firm's public website; representative productions are illustrative.</p>
+  </div>
+</footer>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Smooth scroll for nav links (respects reduced motion) */
+  document.querySelectorAll('[data-scroll]').forEach(function(link){
+    link.addEventListener('click', function(e){
+      var id = link.getAttribute('href');
+      if(!id || id.charAt(0) !== '#') return;
+      var target = document.querySelector(id);
+      if(!target) return;
+      e.preventDefault();
+      target.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block: 'start'});
+      target.setAttribute('tabindex','-1');
+      target.focus({preventScroll:true});
+    });
+  });
+
+  /* Active-section highlighting */
+  var navLinks = document.querySelectorAll('.nf__links a[data-scroll]');
+  var sections = ['productions','practice','method','cast','contact']
+    .map(function(id){ return document.getElementById(id); })
+    .filter(Boolean);
+  if('IntersectionObserver' in window && sections.length){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          navLinks.forEach(function(a){
+            a.classList.toggle('nf__active', a.getAttribute('href') === '#' + entry.target.id);
+          });
+        }
+      });
+    }, {rootMargin: '-40% 0px -55% 0px'});
+    sections.forEach(function(s){ obs.observe(s); });
+  }
+
+  /* Productions: filter */
+  var filters = document.querySelectorAll('.nf__filter');
+  var cards = document.querySelectorAll('.nf__card');
+  var emptyMsg = document.getElementById('prodEmpty');
+  filters.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      filters.forEach(function(b){ b.setAttribute('aria-pressed','false'); });
+      btn.setAttribute('aria-pressed','true');
+      var f = btn.getAttribute('data-filter');
+      var visible = 0;
+      cards.forEach(function(card){
+        var show = (f === 'all' || card.getAttribute('data-area') === f);
+        card.style.display = show ? '' : 'none';
+        if(show) visible++;
+      });
+      if(emptyMsg) emptyMsg.style.display = visible ? 'none' : 'block';
+    });
+  });
+
+  /* Productions: expand/collapse billing block */
+  cards.forEach(function(card){
+    card.addEventListener('click', function(){
+      var open = card.getAttribute('aria-expanded') === 'true';
+      /* close others (accordion) */
+      cards.forEach(function(c){ c.setAttribute('aria-expanded','false'); });
+      card.setAttribute('aria-expanded', open ? 'false' : 'true');
+    });
+    card.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        card.click();
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>

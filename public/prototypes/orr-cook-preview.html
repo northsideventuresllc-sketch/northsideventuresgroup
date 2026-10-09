@@ -1,111 +1,676 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Orr | Cook — Interactive Prototype | Northside Intelligence</title>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .mono { font-family: 'JetBrains Mono', monospace; }
-  </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orr | Cook — North Florida's Preeminent Business Law Firm (Concept Redesign)</title>
+<meta name="description" content="Concept redesign for Orr | Cook, Jacksonville commercial litigation firm. A coin flip named this firm — twice.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<!-- ============ HEAD: meta, fonts, styles ============ -->
+<style>
+:root{
+  --ink:#0E0D0B;
+  --ink-2:#171512;
+  --amber:#E8A020;
+  --amber-deep:#8A5A0E; /* 5.07:1 on parchment — AA pass (was #B97A12 at 3.07:1) */
+  --parchment:#F2EDE3;
+  --parchment-2:#E9E2D2;
+  --oxblood:#7A1E1E;
+  --ash:#A8A094;
+  --line-dark:#2A2721;
+  --line-light:#D8CFB9;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  font-family:'Spectral',Georgia,serif;
+  background:var(--ink);color:var(--parchment);
+  font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.oc__display{
+  font-family:'Bebas Neue',Impact,sans-serif;
+  font-weight:400;letter-spacing:0.02em;line-height:0.95;
+  text-transform:uppercase;
+}
+/* ============ NAV ============ */
+.oc__nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 4vw;
+  background:rgba(14,13,11,0.92);
+  border-bottom:1px solid var(--line-dark);
+  backdrop-filter:blur(6px);
+}
+.oc__wordmark{
+  font-family:'Bebas Neue',Impact,sans-serif;font-size:26px;letter-spacing:0.06em;
+  color:var(--parchment);text-decoration:none;white-space:nowrap;
+}
+.oc__wordmark span{color:var(--amber)}
+.oc__nav-links{display:flex;gap:28px;list-style:none}
+.oc__nav-links a{
+  color:var(--ash);text-decoration:none;
+  font-family:'Bebas Neue',Impact,sans-serif;font-size:17px;letter-spacing:0.12em;
+  padding:6px 2px;border-bottom:2px solid transparent;
+}
+.oc__nav-links a:hover{color:var(--parchment)}
+.oc__nav-links a.oc__active{color:var(--amber);border-bottom-color:var(--amber)}
+.oc__nav-cta{
+  font-family:'Bebas Neue',Impact,sans-serif;font-size:17px;letter-spacing:0.12em;
+  color:var(--ink);background:var(--amber);text-decoration:none;
+  padding:10px 22px;
+}
+.oc__nav-cta:hover{background:var(--parchment)}
+.oc__nav-mobile{display:none}
+/* ============ TITLE-CARD SECTIONS (dark) ============ */
+.oc__card{
+  background:var(--ink);color:var(--parchment);
+  padding:120px 6vw;position:relative;overflow:hidden;
+}
+.oc__card--ink2{background:var(--ink-2)}
+.oc__eyebrow{
+  font-family:'Bebas Neue',Impact,sans-serif;font-size:15px;letter-spacing:0.3em;
+  color:var(--amber);margin-bottom:24px;text-transform:uppercase;
+}
+.oc__card h2{
+  font-size:clamp(56px,9vw,132px);color:var(--parchment);
+  max-width:14ch;
+}
+.oc__card h2 em{font-style:normal;color:var(--amber)}
+.oc__lede{
+  margin-top:28px;max-width:62ch;font-size:19px;color:var(--parchment);
+}
+.oc__lede strong{color:var(--amber);font-weight:600}
+/* ============ EXHIBIT SECTIONS (parchment) ============ */
+.oc__exhibit{
+  background:var(--parchment);color:var(--ink);
+  padding:110px 6vw;position:relative;
+}
+.oc__exhibit .oc__eyebrow{color:var(--amber-deep)}
+.oc__exhibit h2{
+  font-size:clamp(48px,7vw,104px);color:var(--ink);max-width:14ch;
+}
+.oc__exhibit h2 em{font-style:normal;color:var(--oxblood)}
+.oc__exhibit .oc__lede{color:#2b2620}
+/* exhibit tag like a stamped label */
+.oc__stamp{
+  display:inline-block;font-family:'Bebas Neue',Impact,sans-serif;
+  font-size:15px;letter-spacing:0.22em;color:var(--oxblood);
+  border:2px solid var(--oxblood);padding:8px 18px;margin-bottom:28px;
+  transform:rotate(-2deg);text-transform:uppercase;
+}
+/* ============ HERO ============ */
+</style>
 </head>
-<body class="bg-[#090D16] text-slate-100 min-h-screen antialiased flex flex-col">
-  <!-- Top Operator Bar -->
-  <header class="border-b border-slate-800/80 bg-[#0E1424]/90 backdrop-blur sticky top-0 z-50 px-6 py-3 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <div class="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold text-xs uppercase tracking-wider">
-        NI Deliverable Prototype
+<body>
+<!-- ============ HERO ============ -->
+<header class="oc__nav" id="top">
+  <a class="oc__wordmark" href="#top" data-scroll>ORR <span>|</span> COOK</a>
+  <nav aria-label="Primary">
+    <ul class="oc__nav-links">
+      <li><a href="#flip" data-scroll>THE FLIP</a></li>
+      <li><a href="#practice" data-scroll>PRACTICE</a></li>
+      <li><a href="#verdicts" data-scroll>VERDICTS</a></li>
+      <li><a href="#team" data-scroll>THE TEAM</a></li>
+      <li><a href="#contact" data-scroll>CONTACT</a></li>
+    </ul>
+  </nav>
+  <a class="oc__nav-cta" href="#contact" data-scroll>PUT US ON YOUR SIDE</a>
+  <div class="oc__nav-mobile" aria-label="Primary mobile">
+    <a href="#flip" data-scroll>FLIP</a>
+    <a href="#practice" data-scroll>PRACTICE</a>
+    <a href="#verdicts" data-scroll>VERDICTS</a>
+    <a href="#team" data-scroll>TEAM</a>
+    <a href="#contact" data-scroll>CONTACT</a>
+  </div>
+</header>
+<style>
+@media (max-width:900px){
+  .oc__nav-links,.oc__nav-cta{display:none}
+  .oc__nav{flex-wrap:wrap;gap:10px}
+  .oc__nav-mobile{
+    display:flex;gap:8px;overflow-x:auto;width:100%;
+    padding-bottom:4px;scrollbar-width:none;
+  }
+  .oc__nav-mobile::-webkit-scrollbar{display:none}
+  .oc__nav-mobile a{
+    flex:0 0 auto;font-family:'Bebas Neue',Impact,sans-serif;font-size:15px;
+    letter-spacing:0.12em;color:var(--ash);text-decoration:none;
+    border:1px solid var(--line-dark);padding:8px 16px;border-radius:999px;
+  }
+  .oc__nav-mobile a.oc__active{color:var(--amber);border-color:var(--amber)}
+}
+.oc__hero{
+  min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:120px 6vw 80px;position:relative;overflow:hidden;text-align:center;
+  background:
+    radial-gradient(1200px 600px at 50% 0%, rgba(232,160,32,0.12), transparent 60%),
+    var(--ink);
+}
+/* the coin IS the hero — giant, centered, the entry action */
+.oc__hero-coin-stage{
+  perspective:1400px;width:min(400px,78vw);height:min(400px,78vw);cursor:pointer;
+}
+/* reuses .oc__coin / .oc__coin-face from the flip-section styles below */
+.oc__hero-enter{
+  margin-top:48px;font-family:'Bebas Neue',Impact,sans-serif;font-size:24px;letter-spacing:0.22em;
+  color:var(--ink);background:var(--amber);border:none;cursor:pointer;
+  padding:20px 64px;text-transform:uppercase;
+}
+.oc__hero-enter:hover{background:var(--parchment)}
+.oc__hero-enter:disabled{opacity:0.45;cursor:default}
+.oc__hero-enter:focus-visible{outline:3px solid var(--parchment);outline-offset:4px}
+/* the headline only exists on screen after the coin lands */
+.oc__hero-reveal{margin-top:56px;max-width:1000px}
+.oc__hero-reveal[hidden]{display:none}
+.oc__hero-reveal h1{
+  font-size:clamp(56px,10vw,148px);color:var(--parchment);
+}
+.oc__hero-reveal h1 em{font-style:normal;color:var(--amber)}
+.oc__hero-reveal .oc__scroll-cue{margin-top:40px}
+.oc__scroll-cue{
+  margin-top:56px;display:inline-flex;align-items:center;gap:14px;
+  font-family:'Bebas Neue',Impact,sans-serif;font-size:18px;letter-spacing:0.2em;
+  color:var(--amber);text-decoration:none;text-transform:uppercase;
+}
+.oc__scroll-cue .oc__coin-mini{
+  width:34px;height:34px;border-radius:50%;
+  border:2px solid var(--amber);display:inline-flex;align-items:center;justify-content:center;
+  font-size:15px;animation:oc__bob 2.4s ease-in-out infinite;
+}
+@keyframes oc__bob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+@media (prefers-reduced-motion:reduce){.oc__scroll-cue .oc__coin-mini{animation:none}}
+/* ============ SECTIONS ============ */
+</style>
+
+<main>
+<section class="oc__hero" aria-label="Introduction">
+  <div class="oc__hero-coin-stage" id="ocHeroStage" aria-hidden="true">
+    <div class="oc__coin" id="ocHeroCoin">
+      <div class="oc__coin-face oc__coin-face--front">
+        <span class="oc__coin-yr">1951</span>
+        <span class="oc__coin-sub">where it started</span>
       </div>
-      <div class="text-xs text-slate-400">
-        Prepared for <span class="font-semibold text-white">Orr | Cook</span> (Jacksonville, FL)
+      <div class="oc__coin-face oc__coin-face--back">
+        <span class="oc__coin-name">ORR | COOK</span>
+        <span class="oc__coin-sub">where it landed</span>
       </div>
     </div>
-    <div class="flex items-center gap-2">
-      <button onclick="window.print()" class="px-3 py-1.5 text-xs font-semibold rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
-        Export / Print PDF
-      </button>
-      <a href="data:text/html;charset=utf-8,%3C!--%20Orr%20%7C%20Cook%20Prototype%20--%3E" download="orr-cook-prototype.html" class="px-3 py-1.5 text-xs font-semibold rounded bg-cyan-500 hover:bg-cyan-400 text-black transition">
-        Download Offline HTML
-      </a>
+  </div>
+  <div><button class="oc__hero-enter" id="ocHeroEnter">FLIP TO ENTER</button></div>
+  <div class="oc__hero-reveal" id="ocHeroReveal" hidden aria-live="polite">
+    <h1>A COIN FLIP <em>NAMED THIS FIRM.</em> TWICE.</h1>
+    <a class="oc__scroll-cue" href="#flip" data-scroll><span class="oc__coin-mini" aria-hidden="true">&#8595;</span> HEAR THE STORY</a>
+  </div>
+</section>
+<!-- ============ SIGNATURE INTERACTIVE ============ -->
+<style>
+.oc__flip{
+  background:var(--ink-2);padding:120px 6vw;text-align:center;
+  border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark);
+}
+.oc__flip h2{font-size:clamp(48px,7vw,104px);color:var(--parchment)}
+.oc__flip h2 em{font-style:normal;color:var(--amber)}
+.oc__flip-sub{margin:20px auto 0;max-width:58ch;color:var(--parchment);font-size:18px}
+/* coin */
+.oc__coin-stage{margin:56px auto 0;perspective:1200px;width:min(320px,70vw);height:min(320px,70vw)}
+.oc__coin{
+  position:relative;width:100%;height:100%;transform-style:preserve-3d;
+  transition:transform 1.05s cubic-bezier(0.2,0.7,0.3,1);
+}
+.oc__coin-face{
+  position:absolute;inset:0;border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  background:radial-gradient(circle at 35% 30%, #F4BE55, var(--amber) 55%, #9A6410 100%);
+  border:10px solid #8A5A0E;
+  box-shadow:inset 0 0 0 4px rgba(14,13,11,0.35), 0 18px 50px rgba(0,0,0,0.55);
+  color:#3A2A08;
+}
+.oc__coin-face--back{transform:rotateY(180deg)}
+.oc__coin-face .oc__coin-yr{font-family:'Bebas Neue',Impact,sans-serif;font-size:clamp(48px,12vw,84px);line-height:1}
+.oc__coin-face .oc__coin-name{font-family:'Bebas Neue',Impact,sans-serif;font-size:clamp(20px,5vw,32px);letter-spacing:0.08em}
+.oc__coin-face .oc__coin-sub{font-family:'Spectral',serif;font-size:13px;font-style:italic}
+/* reeded edge suggestion */
+.oc__coin-face::after{
+  content:"";position:absolute;inset:8px;border-radius:50%;
+  border:3px dashed rgba(58,42,8,0.5);
+}
+.oc__flip-btn{
+  margin-top:44px;font-family:'Bebas Neue',Impact,sans-serif;font-size:22px;letter-spacing:0.18em;
+  color:var(--ink);background:var(--amber);border:none;cursor:pointer;
+  padding:18px 54px;text-transform:uppercase;
+}
+.oc__flip-btn:hover{background:var(--parchment)}
+.oc__flip-btn:disabled{opacity:0.45;cursor:default}
+.oc__flip-btn:focus-visible{outline:3px solid var(--parchment);outline-offset:4px}
+.oc__flip-count{
+  margin-top:18px;font-family:'Bebas Neue',Impact,sans-serif;font-size:15px;
+  letter-spacing:0.3em;color:var(--ash);text-transform:uppercase;
+}
+/* chapters */
+.oc__chapters{max-width:760px;margin:64px auto 0;text-align:left}
+.oc__chapter{
+  display:none;border-left:3px solid var(--amber);padding:8px 0 8px 32px;margin-bottom:44px;
+}
+.oc__chapter.oc__on{display:block;animation:oc__rise 300ms ease-out}
+@keyframes oc__rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.oc__chapter.oc__on{animation:none}}
+.oc__chapter .oc__ch-kicker{
+  font-family:'Bebas Neue',Impact,sans-serif;font-size:16px;letter-spacing:0.3em;
+  color:var(--amber);text-transform:uppercase;margin-bottom:12px;
+}
+.oc__chapter h3{font-size:clamp(32px,5vw,56px);color:var(--parchment);margin-bottom:14px}
+.oc__chapter p{color:var(--parchment);font-size:18px;max-width:62ch}
+.oc__chapter p strong{color:var(--amber)}
+.oc__pivot{
+  display:none;margin:72px auto 0;max-width:900px;text-align:center;
+  border:2px solid var(--amber);padding:56px 40px;
+}
+.oc__pivot.oc__on{display:block;animation:oc__rise 300ms ease-out}
+.oc__pivot h3{font-size:clamp(36px,6vw,72px);color:var(--parchment)}
+.oc__pivot h3 em{font-style:normal;color:var(--amber)}
+.oc__pivot p{margin-top:18px;color:var(--parchment);font-size:19px}
+.oc__pivot a{
+  display:inline-block;margin-top:32px;font-family:'Bebas Neue',Impact,sans-serif;
+  font-size:20px;letter-spacing:0.18em;color:var(--ink);background:var(--amber);
+  padding:16px 44px;text-decoration:none;text-transform:uppercase;
+}
+.oc__pivot a:hover{background:var(--parchment)}
+</style>
+
+<section class="oc__flip" id="flip" aria-label="The coin flip founding story">
+  <p class="oc__eyebrow">THE FOUNDING STORY — TOLD IN THREE FLIPS</p>
+  <h2>FLIP <em>THE COIN</em></h2>
+  <p class="oc__flip-sub">Every firm has an origin story. Ours was decided the way high-stakes things get decided — in the air. Flip three times.</p>
+
+  <div class="oc__coin-stage" aria-hidden="true">
+    <div class="oc__coin" id="ocCoin">
+      <div class="oc__coin-face oc__coin-face--front">
+        <span class="oc__coin-yr">1951</span>
+        <span class="oc__coin-sub">where it started</span>
+      </div>
+      <div class="oc__coin-face oc__coin-face--back">
+        <span class="oc__coin-name">ORR | COOK</span>
+        <span class="oc__coin-sub">where it landed</span>
+      </div>
     </div>
-  </header>
+  </div>
 
-  <!-- Prototype Hero -->
-  <main class="flex-1 max-w-6xl w-full mx-auto p-6 md:p-10 space-y-10">
-    <div class="rounded-2xl border border-slate-800 bg-gradient-to-b from-[#131B2E] to-[#0D1322] p-8 md:p-12 relative overflow-hidden shadow-2xl">
-      <div class="absolute -right-20 -top-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
-      
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-xs text-slate-300 mb-6">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>Trial & Complex Litigation · Interactive Next.js Concept</span>
-      </div>
+  <div><button class="oc__flip-btn" id="ocFlipBtn">FLIP THE COIN</button></div>
+  <p class="oc__flip-count" id="ocFlipCount" aria-hidden="true">FLIP 1 OF 3</p>
 
-      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white max-w-3xl leading-tight">
-        Formidable Digital Flagship for Complex Business Litigation
-      </h1>
+  <div class="oc__chapters" aria-live="polite" id="ocChapters">
+    <article class="oc__chapter" id="ocCh1">
+      <p class="oc__ch-kicker">FLIP ONE — 1951</p>
+      <h3>A LAWYER HANGS HIS SHINGLE</h3>
+      <p>Carl Dawson helps his first client in Jacksonville, Florida — a small Southern town about a third the size it is today. He builds a reputation the old way: <strong>integrity, professionalism, and showing up.</strong> As Jacksonville grows into a major city, the firm keeps pace.</p>
+    </article>
+    <article class="oc__chapter" id="ocCh2">
+      <p class="oc__ch-kicker">FLIP TWO — 1953</p>
+      <h3>DAWSON FLIPS A COIN WITH LUKE GALANT</h3>
+      <p>Two lawyers. One coin. It lands, and the partnership is set — on the ground where the firm's downtown Jacksonville office still stands today. <strong>Some firms are founded on paperwork. This one was founded on a toss.</strong></p>
+    </article>
+    <article class="oc__chapter" id="ocCh3">
+      <p class="oc__ch-kicker">FLIP THREE — THE NAMING</p>
+      <h3>ORR AND COOK STAND WITH CARL</h3>
+      <p>Decades later, Michael Orr and Kevin Cook stand beside Carl Dawson as he flips the coin one more time — to name the firm. It lands: <strong>Orr | Cook.</strong> Storied roots, a team at the top of their game, and a name decided the way this firm decides everything: all in.</p>
+    </article>
+  </div>
 
-      <p class="mt-4 text-slate-400 text-base md:text-lg max-w-2xl leading-relaxed">
-        Executive typography, verified case results showcase, and confidential client intake. Engineered with sub-second page transitions, responsive touch controls, and zero legacy CMS script bloat.
-      </p>
+  <div class="oc__pivot" id="ocPivot">
+    <h3>THE COIN LANDED. <em>WE NEVER STOPPED BETTING ON OUR CLIENTS.</em></h3>
+    <p>High-stakes deals, disputes, and litigation — handled like a client's first and last choice. That's the firm the coin built.</p>
+    <a href="#practice" data-scroll>SEE WHAT WE FIGHT OVER</a>
+  </div>
+</section>
+<!-- ============ SECTIONS ============ -->
+<style>
+/* docket list — practice areas as case filings, not cards */
+.oc__docket{list-style:none;margin-top:56px;border-top:2px solid var(--ink)}
+.oc__docket li{
+  display:grid;grid-template-columns:90px 1fr;gap:24px;
+  padding:28px 8px;border-bottom:1px solid var(--line-light);
+  align-items:baseline;
+}
+.oc__docket .oc__d-no{
+  font-family:'Bebas Neue',Impact,sans-serif;font-size:22px;color:var(--amber-deep);
+  letter-spacing:0.08em;
+}
+.oc__docket h3{font-size:clamp(26px,3.4vw,40px);color:var(--ink);margin-bottom:8px}
+.oc__docket p{color:#2b2620;max-width:68ch;font-size:16.5px}
+/* verdict cards */
+.oc__verdict-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:2px;background:var(--line-dark);margin-top:56px;border:1px solid var(--line-dark);
+}
+.oc__verdict{
+  background:var(--ink);padding:44px 36px;position:relative;
+}
+.oc__verdict--alt{background:var(--ink-2)}
+.oc__verdict .oc__v-stamp{
+  font-family:'Bebas Neue',Impact,sans-serif;font-size:15px;letter-spacing:0.24em;
+  color:var(--oxblood);border:2px solid var(--oxblood);display:inline-block;
+  padding:6px 16px;margin-bottom:22px;transform:rotate(-2deg);text-transform:uppercase;
+  background:var(--parchment);
+}
+.oc__verdict blockquote{font-size:19px;color:var(--parchment);font-style:italic}
+.oc__verdict blockquote strong{color:var(--amber);font-style:normal}
+.oc__verdict .oc__v-src{
+  margin-top:18px;font-family:'Bebas Neue',Impact,sans-serif;font-size:15px;
+  letter-spacing:0.18em;color:var(--ash);text-transform:uppercase;
+}
+.oc__verdict .oc__v-big{
+  font-family:'Bebas Neue',Impact,sans-serif;font-size:clamp(56px,6vw,88px);
+  color:var(--amber);line-height:1;
+}
+.oc__verdict .oc__v-cap{margin-top:12px;color:var(--parchment);font-size:16px}
+/* awards strip */
+.oc__awards{
+  margin-top:64px;display:flex;flex-wrap:wrap;gap:12px;
+}
+.oc__awards span{
+  font-family:'Bebas Neue',Impact,sans-serif;font-size:15px;letter-spacing:0.16em;
+  color:var(--parchment);border:1px solid var(--line-dark);padding:10px 20px;
+  text-transform:uppercase;
+}
+.oc__awards span b{color:var(--amber);font-weight:400}
+/* team table */
+.oc__team{list-style:none;margin-top:56px}
+.oc__team li{
+  display:grid;grid-template-columns:1fr 2fr;gap:24px;
+  padding:30px 8px;border-bottom:1px solid var(--line-light);align-items:baseline;
+}
+.oc__team li:first-child{border-top:2px solid var(--ink)}
+.oc__team h3{font-size:clamp(28px,3.6vw,44px);color:var(--ink)}
+.oc__team .oc__t-cred{
+  display:block;margin-top:6px;font-size:14px;letter-spacing:0.06em;
+  color:var(--amber-deep);font-weight:600;
+}
+.oc__team p{color:#2b2620;font-size:16.5px;max-width:64ch}
+/* interstitial title card */
+.oc__inter{
+  background:var(--oxblood);color:var(--parchment);text-align:center;
+  padding:110px 6vw;
+}
+.oc__inter h2{font-size:clamp(52px,8vw,120px);max-width:16ch;margin:0 auto}
+.oc__inter p{margin:24px auto 0;max-width:60ch;font-size:19px}
+/* contact */
+.oc__contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:56px;
+}
+.oc__office h3{font-size:clamp(30px,4vw,52px);color:var(--parchment);margin-bottom:16px}
+.oc__office h3 em{font-style:normal;color:var(--amber)}
+.oc__office address{font-style:normal;color:var(--parchment);font-size:18px;line-height:1.8}
+.oc__office .oc__phone{
+  display:inline-block;margin-top:20px;font-family:'Bebas Neue',Impact,sans-serif;
+  font-size:34px;letter-spacing:0.06em;color:var(--amber);text-decoration:none;
+}
+.oc__office .oc__phone:hover{color:var(--parchment)}
+@media (max-width:760px){
+  .oc__docket li{grid-template-columns:1fr;gap:8px}
+  .oc__team li{grid-template-columns:1fr;gap:10px}
+  .oc__contact-grid{grid-template-columns:1fr}
+}
+</style>
 
-      <div class="mt-8 flex flex-wrap gap-4">
-        <button onclick="alert('Interactive demo: Project Showcase Filter Triggered')" class="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-sm shadow-lg shadow-cyan-500/20 transition">
-          Explore Portfolio Archive
-        </button>
-        <button onclick="alert('Interactive demo: Client Inquiry Modal Opened')" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm border border-slate-700 transition">
-          Direct Consultation Request
-        </button>
-      </div>
+<section class="oc__exhibit" id="practice" aria-label="Practice areas">
+  <span class="oc__stamp">EXHIBIT A — THE DOCKET</span>
+  <h2>WHAT WE <em>FIGHT OVER</em></h2>
+  <p class="oc__lede">Complex cases and high-stakes matters, filed like we mean it. Every entry below is a fight this firm takes on — clear advice, no hedging, committed to the outcome.</p>
+  <ol class="oc__docket">
+    <li><span class="oc__d-no">01</span><div><h3>COMMERCIAL &amp; BUSINESS LITIGATION</h3><p>Contract disputes, shareholder fights, trademark and trade-dress infringement. Aggressive litigators who negotiate when it's smart and try the case when it's right — plaintiff or defense.</p></div></li>
+    <li><span class="oc__d-no">02</span><div><h3>CONSTRUCTION LITIGATION</h3><p>Defects, delays, payment fights, liens. We know how buildings go up — and how the disputes come down.</p></div></li>
+    <li><span class="oc__d-no">03</span><div><h3>EMPLOYMENT LITIGATION</h3><p>Workplace disputes on both sides of the table, handled with the same trial-ready preparation as everything else.</p></div></li>
+    <li><span class="oc__d-no">04</span><div><h3>INSURANCE LITIGATION</h3><p>Coverage disputes and plaintiff-side bad faith — when the carrier won't pay what the policy promises, we make the case that it must. Auto, CGL, builder's risk, cyber, professional liability, reinsurance, and more.</p></div></li>
+    <li><span class="oc__d-no">05</span><div><h3>PROFESSIONAL LIABILITY</h3><p>Claims against lawyers, and defense of professionals whose reputations are on the line.</p></div></li>
+    <li><span class="oc__d-no">06</span><div><h3>PERSONAL INJURY</h3><p>Serious injury cases tried like business cases: meticulously prepared, relentlessly pursued.</p></div></li>
+    <li><span class="oc__d-no">07</span><div><h3>REAL ESTATE LITIGATION &amp; TRANSACTIONS</h3><p>From acquisitions and development to leasing, financing, and workouts — plus the litigation when deals break.</p></div></li>
+    <li><span class="oc__d-no">08</span><div><h3>APPELLATE, PRODUCTS &amp; CLASS ACTIONS</h3><p>Appellate practice, products liability, and class action defense for clients who need the long game played well.</p></div></li>
+    <li><span class="oc__d-no">09</span><div><h3>MERGERS, ACQUISITIONS &amp; CORPORATE</h3><p>Buying, selling, or restructuring — from multibillion-dollar public deals to closely held transitions. Sometimes protecting the client means advising them to walk.</p></div></li>
+  </ol>
+</section>
+
+<section class="oc__card" id="verdicts" aria-label="Record and recognition">
+  <p class="oc__eyebrow">EXHIBIT B — READ THE RECORD</p>
+  <h2>THE VERDICTS <em>ARE IN</em></h2>
+  <p class="oc__lede">We don't publish other firms' trophies. Here's what <strong>peers, clients, and the ratings that matter</strong> say about this firm — in their words.</p>
+  <div class="oc__verdict-grid">
+    <div class="oc__verdict">
+      <span class="oc__v-stamp">PEER VERDICT</span>
+      <blockquote>"<strong>Strong advocacy and success</strong> on behalf of his clients — exercises ethical conduct and promotes it."</blockquote>
+      <p class="oc__v-src">MARTINDALE PEER REVIEW — MICHAEL ORR</p>
     </div>
-
-    <!-- Interactive Features Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          01
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Instant Mobile Speed</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Google Lighthouse 98+ score with modern image compression, eliminating render delays on high-resolution project photography.
-        </p>
-      </div>
-
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          02
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Frictionless Lead Intake</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Streamlined client consultation intake with automatic validation, spam filtering, and direct CRM notification webhooks.
-        </p>
-      </div>
-
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          03
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Zero CMS Maintenance</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Static-first Next.js infrastructure deployed on high-availability edge nodes, completely immune to WordPress plugin vulnerabilities.
-        </p>
-      </div>
+    <div class="oc__verdict oc__verdict--alt">
+      <span class="oc__v-stamp">PEER VERDICT</span>
+      <blockquote>"<strong>Tremendous vision</strong> in anticipating client needs, and studious preparation of their interests."</blockquote>
+      <p class="oc__v-src">MARTINDALE PEER REVIEW — MICHAEL ORR</p>
     </div>
-
-    <!-- Verification & Proof Footer -->
-    <div class="rounded-xl border border-slate-800 bg-[#0E1424] p-6 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400">
-      <div class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-        <span>Prototype Status: <strong class="text-white">Active Preview Verified</strong></span>
-      </div>
-      <div>
-        Built by Northside Intelligence · Studio Architecture Division
-      </div>
+    <div class="oc__verdict oc__verdict--alt">
+      <span class="oc__v-stamp">PEER VERDICT</span>
+      <blockquote>"<strong>Consummately professional, always prepared</strong> — the highest ethical standards."</blockquote>
+      <p class="oc__v-src">MARTINDALE PEER REVIEW — GIOVANNI STEWART</p>
     </div>
-  </main>
+    <div class="oc__verdict">
+      <span class="oc__v-stamp">THE NUMBERS</span>
+      <p class="oc__v-big">4.8 / 5.0</p>
+      <p class="oc__v-cap">Across 125 Martindale peer reviews. Legal knowledge 4.8. Judgment 4.8. Communication 4.7.</p>
+    </div>
+    <div class="oc__verdict">
+      <span class="oc__v-stamp">THE NUMBERS</span>
+      <p class="oc__v-big">250+</p>
+      <p class="oc__v-cap">Years of combined trial, arbitration, mediation, and negotiation experience across 22 attorneys.</p>
+    </div>
+    <div class="oc__verdict oc__verdict--alt">
+      <span class="oc__v-stamp">THE NUMBERS</span>
+      <p class="oc__v-big">1951</p>
+      <p class="oc__v-cap">The year it started. Seven decades of Jacksonville courtrooms since.</p>
+    </div>
+  </div>
+  <div class="oc__awards" aria-label="Awards and recognition">
+    <span><b>★</b> CHAMBERS SPOTLIGHT 2026</span>
+    <span><b>★</b> BEST LAW FIRMS — U.S. NEWS 2021</span>
+    <span><b>★</b> SUPER LAWYERS 2021</span>
+    <span><b>★</b> FLORIDA TREND LEGAL ELITE 2020</span>
+    <span><b>★</b> NATIONAL TRIAL LAWYERS</span>
+  </div>
+</section>
+
+<div class="oc__inter" aria-label="Firm philosophy">
+  <h2>WHEN IT IS ALL ON THE LINE, WE ARE ALREADY IN THE ROOM.</h2>
+  <p>Inspired litigators who roll up their sleeves. We don't wait for opportunities — we create them. We don't let the opponent control the outcome.</p>
+</div>
+
+<section class="oc__exhibit" id="team" aria-label="The team">
+  <span class="oc__stamp">EXHIBIT C — COUNSEL AT THE TABLE</span>
+  <h2>THE LAWYERS <em>BEHIND THE FLIP</em></h2>
+  <p class="oc__lede">Twenty-two attorneys. Here are the names on the door and the ones leading the fights.</p>
+  <ul class="oc__team">
+    <li><div><h3>MICHAEL FOX ORR</h3><span class="oc__t-cred">SUPER LAWYERS 2013–2026 · BOARD CERTIFIED CIVIL TRIAL · FL BAR BOARD OF GOVERNORS, PRESIDENT-ELECT</span></div><p>Business litigation. Florida Coastal School of Law, 2005. The name on the coin — and the advocate peers call when the case matters.</p></li>
+    <li><div><h3>KEVIN B. COOK</h3><span class="oc__t-cred">BUSINESS LITIGATION · BUSINESS/CORPORATE · M&amp;A</span></div><p>The other name on the coin. Business disputes, corporate work, and deals — from handshake to closing table to courtroom.</p></li>
+    <li><div><h3>JOHN W. LEONARD</h3><span class="oc__t-cred">BUSINESS &amp; CONSTRUCTION LITIGATION · PERSONAL INJURY · APPELLATE</span></div><p>Tries the hard cases and argues the appeals when they don't end at trial.</p></li>
+    <li><div><h3>JOSEPH D. PICKLES</h3><span class="oc__t-cred">BUSINESS LITIGATION · ESTATE &amp; TRUST LITIGATION · CONSTRUCTION</span></div><p>Opposing counsel's words: "an excellent attorney." The fights over money, property, and family businesses.</p></li>
+    <li><div><h3>GIOVANNI STEWART</h3><span class="oc__t-cred">BUSINESS &amp; CONSTRUCTION LITIGATION · PERSONAL INJURY</span></div><p>Prepared, professional, and relentless — the peer reviews say it better than we can.</p></li>
+  </ul>
+</section>
+
+<section class="oc__card oc__card--ink2" id="contact" aria-label="Contact">
+  <p class="oc__eyebrow">EXHIBIT D — MAKE THE CALL</p>
+  <h2>PUT US <em>ON YOUR SIDE</em></h2>
+  <p class="oc__lede">A client's first and last choice. Two offices, one phone number, zero runaround.</p>
+  <div class="oc__contact-grid">
+    <div class="oc__office">
+      <h3>JACK<em>SONVILLE</em></h3>
+      <address>Bank of America Tower<br>50 N. Laura Street, Suite 2800<br>Jacksonville, FL 32202</address>
+      <a class="oc__phone" href="tel:+19043588300">(904) 358-8300</a>
+    </div>
+    <div class="oc__office">
+      <h3>PONTE <em>VEDRA</em></h3>
+      <address>The Veranda Building<br>818 N A1A, Suite 302<br>Ponte Vedra Beach, FL 32082</address>
+      <a class="oc__phone" href="tel:+19043588300">(904) 358-8300</a>
+    </div>
+  </div>
+</section>
+</main>
+<!-- ============ FOOTER ============ -->
+<style>
+.oc__footer{
+  background:#080706;color:var(--ash);padding:64px 6vw 40px;
+  border-top:1px solid var(--line-dark);
+}
+.oc__footer-top{
+  display:flex;justify-content:space-between;align-items:baseline;gap:32px;
+  flex-wrap:wrap;margin-bottom:40px;
+}
+.oc__footer .oc__wordmark{font-size:32px}
+.oc__footer nav ul{display:flex;gap:24px;list-style:none;flex-wrap:wrap}
+.oc__footer nav a{
+  color:var(--ash);text-decoration:none;font-family:'Bebas Neue',Impact,sans-serif;
+  font-size:15px;letter-spacing:0.14em;
+}
+.oc__footer nav a:hover{color:var(--amber)}
+.oc__fine{
+  border-top:1px solid var(--line-dark);padding-top:28px;
+  font-size:13.5px;line-height:1.7;max-width:90ch;
+}
+.oc__fine i{font-style:italic;color:#8f887a}
+</style>
+<footer class="oc__footer">
+  <div class="oc__footer-top">
+    <a class="oc__wordmark" href="#top" data-scroll>ORR <span>|</span> COOK</a>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="#flip" data-scroll>THE FLIP</a></li>
+        <li><a href="#practice" data-scroll>PRACTICE</a></li>
+        <li><a href="#verdicts" data-scroll>VERDICTS</a></li>
+        <li><a href="#team" data-scroll>THE TEAM</a></li>
+        <li><a href="#contact" data-scroll>CONTACT</a></li>
+      </ul>
+    </nav>
+  </div>
+  <p class="oc__fine"><i>Concept redesign mockup prepared for Orr | Cook's review — not the firm's live site, not legal advice. Firm facts, attorney credentials, and peer-review excerpts drawn from the firm's public website and public attorney profiles, paraphrased. No attorney-client relationship is formed by visiting this page.</i></p>
+</footer>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+(function(){
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- smooth scroll for [data-scroll] links ---- */
+  document.querySelectorAll('[data-scroll]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href');
+      if(!id || id.charAt(0) !== '#') return;
+      var t = document.querySelector(id);
+      if(!t) return;
+      e.preventDefault();
+      t.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block: 'start'});
+      t.setAttribute('tabindex','-1');
+      t.focus({preventScroll:true});
+    });
+  });
+
+  /* ---- active section highlighting ---- */
+  var navAs = document.querySelectorAll('.oc__nav-links a, .oc__nav-mobile a');
+  var secs = ['flip','practice','verdicts','team','contact'].map(function(id){
+    return document.getElementById(id);
+  }).filter(Boolean);
+  if('IntersectionObserver' in window && secs.length){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          navAs.forEach(function(a){
+            a.classList.toggle('oc__active', a.getAttribute('href') === '#' + en.target.id);
+          });
+        }
+      });
+    }, {rootMargin:'-40% 0px -55% 0px'});
+    secs.forEach(function(s){ obs.observe(s); });
+  }
+
+  /* ---- the coin flip ---- */
+  var coin = document.getElementById('ocCoin');
+  var btn = document.getElementById('ocFlipBtn');
+  var count = document.getElementById('ocFlipCount');
+  var chapters = [
+    document.getElementById('ocCh1'),
+    document.getElementById('ocCh2'),
+    document.getElementById('ocCh3')
+  ];
+  var pivot = document.getElementById('ocPivot');
+  var flips = 0;         // completed flips
+  var spinning = false;
+  var face = 0;          // 0 = front (1951), 1 = back (ORR | COOK)
+  var turns = 0;
+
+  var labels = ['FLIP 1 OF 3','FLIP 2 OF 3','FLIP 3 OF 3','THE STORY IS TOLD'];
+
+  function land(){
+    spinning = false;
+    flips++;
+    face = flips % 2 === 1 ? 1 : 0; // alternate landing faces
+    var ch = chapters[flips - 1];
+    if(ch) ch.classList.add('oc__on');
+    if(flips >= 3){
+      pivot.classList.add('oc__on');
+      btn.disabled = true;
+      btn.textContent = 'THE COIN HAS SPOKEN';
+      count.textContent = labels[3];
+    } else {
+      count.textContent = labels[flips];
+      btn.textContent = 'FLIP AGAIN';
+    }
+  }
+
+  btn.addEventListener('click', function(){
+    if(spinning || flips >= 3) return;
+    spinning = true;
+    btn.disabled = true;
+    if(reduceMotion){
+      // no spin: reveal immediately
+      land();
+      btn.disabled = flips >= 3;
+      return;
+    }
+    turns += 5; // five full rotations per flip
+    var target = turns * 360 + (face === 0 ? 180 : 0);
+    coin.style.transform = 'rotateY(' + target + 'deg)';
+    // land slightly before the transition ends so the chapter reads as the coin settles
+    window.setTimeout(function(){
+      land();
+      btn.disabled = flips >= 3;
+    }, 950);
+  });
+  // keyboard: button natively handles Enter/Space
+
+  /* ---- hero: the coin is the entry ---- */
+  var heroCoin = document.getElementById('ocHeroCoin');
+  var heroStage = document.getElementById('ocHeroStage');
+  var heroBtn = document.getElementById('ocHeroEnter');
+  var heroReveal = document.getElementById('ocHeroReveal');
+  var heroDone = false;
+  function heroFlip(){
+    if(heroDone || !heroCoin || !heroBtn || !heroReveal) return;
+    heroDone = true;
+    heroBtn.disabled = true;
+    if(reduceMotion){
+      heroReveal.hidden = false;
+      heroBtn.textContent = 'YOU\u2019RE IN';
+      return;
+    }
+    heroCoin.style.transform = 'rotateY(1620deg)'; // four turns, lands on the ORR | COOK face
+    window.setTimeout(function(){
+      heroReveal.hidden = false;
+      heroBtn.textContent = 'YOU\u2019RE IN';
+    }, 950);
+  }
+  if(heroBtn) heroBtn.addEventListener('click', heroFlip);
+  if(heroStage) heroStage.addEventListener('click', heroFlip);
+})();
+</script>
 </body>
 </html>

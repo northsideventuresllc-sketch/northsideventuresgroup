@@ -1,111 +1,636 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Massey and Company CPA — Interactive Prototype | Northside Intelligence</title>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .mono { font-family: 'JetBrains Mono', monospace; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Massey and Company CPA — Taxes Are Stressful. We Aren't.</title>
+<meta name="description" content="Massey and Company CPA: the friendliest CPA firm in town. Tax preparation, planning, IRS problem resolution, and bookkeeping for small businesses — Atlanta, Chicago, and nationwide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<!-- ============ HEAD: meta, fonts, styles ============ -->
+<style>
+  :root{
+    --paper:#FBF7EE;
+    --card:#FFFDF8;
+    --teal:#0E5A56;
+    --teal-deep:#0A4441;
+    --ink:#2A2521;
+    --ink-soft:#4a4239;
+    --honey:#D9A441;
+    --honey-light:#E8C06A;
+    --eucalyptus:#7A9186;
+    --eucalyptus-deep:#56705F;
+    --line:rgba(42,37,33,.14);
+    --radius:20px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{transition:none !important;animation:none !important}
+  }
+  body{
+    font-family:'Public Sans',system-ui,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    font-size:16px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--honey);color:var(--ink)}
 
+  /* ============ NAV ============ */
+  .mc__nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(251,247,238,.96);
+    border-bottom:1px solid var(--line);
+  }
+  .mc__nav-inner{
+    max-width:1080px;margin:0 auto;padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .mc__wordmark{
+    font-family:'Zilla Slab',serif;font-weight:700;font-size:20px;color:var(--teal);
+    text-decoration:none;white-space:nowrap;
+  }
+  .mc__wordmark small{font-family:'Public Sans',sans-serif;font-weight:600;font-size:12px;color:var(--eucalyptus-deep);display:block;letter-spacing:.08em}
+  .mc__nav-links{display:flex;gap:4px;list-style:none}
+  .mc__nav-links a{
+    text-decoration:none;color:var(--ink-soft);font-weight:600;font-size:14px;
+    padding:8px 14px;border-radius:999px;
+  }
+  .mc__nav-links a:hover{background:rgba(14,90,86,.08);color:var(--teal)}
+  .mc__nav-links a.mc__nav-active{background:var(--teal);color:var(--paper)}
+  .mc__nav-links a:focus-visible,.mc__wordmark:focus-visible{outline:3px solid var(--honey);outline-offset:2px}
+  .mc__nav-call{
+    background:var(--honey);color:var(--ink);font-weight:700;font-size:14px;
+    padding:10px 18px;border-radius:999px;text-decoration:none;white-space:nowrap;
+  }
+  .mc__nav-call:hover{background:#c9973a}
+
+  /* ============ SHARED ============ */
+  .mc__wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  .mc__section{padding:88px 0}
+  .mc__eyebrow{
+    font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--eucalyptus-deep);margin-bottom:16px;
+  }
+  .mc__h2{
+    font-family:'Zilla Slab',serif;font-weight:700;
+    font-size:clamp(32px,4.5vw,48px);line-height:1.12;letter-spacing:-.01em;
+    color:var(--teal);margin-bottom:18px;
+  }
+  .mc__lede{font-size:20px;color:var(--ink-soft);max-width:62ch}
+  .mc__btn{
+    display:inline-block;background:var(--teal);color:var(--paper);
+    font-weight:700;font-size:16px;padding:14px 28px;border-radius:999px;
+    text-decoration:none;border:none;cursor:pointer;font-family:inherit;
+  }
+  .mc__btn:hover{background:var(--teal-deep)}
+  .mc__btn--honey{background:var(--honey);color:var(--ink)}
+  .mc__btn--honey:hover{background:#c9973a}
+  .mc__btn:focus-visible{outline:3px solid var(--honey);outline-offset:3px}
+
+  /* ============ HERO: THE QUIZ IS THE LANDING ============ */
+  /* No headline block. The first viewport is quiz question 1, already in progress. */
+  .mc__quiz-section.mc__hero{margin-top:28px}
+  .mc__hero .mc__quiz-inner{padding:52px 24px 60px}
+  .mc__hero-entry{
+    font-family:'Zilla Slab',serif;font-weight:600;
+    font-size:clamp(22px,2.8vw,30px);line-height:1.3;
+    color:var(--paper);text-align:center;max-width:34ch;
+    margin:0 auto 10px;
+  }
+  .mc__hero-note{text-align:center;color:rgba(251,247,238,.78);font-size:16px;margin:0 0 6px}
+  .mc__hero-foot{text-align:center;color:rgba(251,247,238,.75);font-size:14px;margin:26px 0 0}
+  .mc__stars{color:var(--honey);font-size:20px;letter-spacing:.1em}
+
+  /* ============ SIGNATURE INTERACTIVE: QUIZ (LIVES IN THE HERO) ============ */
+  .mc__quiz-section{background:var(--teal);border-radius:28px;margin:0 auto;max-width:1032px;width:calc(100% - 48px)}
+  .mc__quiz-inner{max-width:760px;margin:0 auto;padding:72px 24px}
+  .mc__quiz-card{
+    background:var(--paper);border-radius:var(--radius);
+    padding:40px;margin-top:36px;min-height:380px;
+  }
+  .mc__quiz-progress{margin-bottom:28px}
+  .mc__quiz-progress-label{font-size:14px;font-weight:600;color:var(--eucalyptus-deep);margin-bottom:10px}
+  .mc__quiz-bar{height:10px;background:rgba(42,37,33,.1);border-radius:999px;overflow:hidden}
+  .mc__quiz-bar-fill{
+    height:100%;background:var(--honey);border-radius:999px;width:0%;
+    transition:width 200ms ease-out;
+  }
+  .mc__quiz-q{font-family:'Zilla Slab',serif;font-size:24px;font-weight:600;color:var(--teal);margin-bottom:8px}
+  .mc__quiz-hint{font-size:14px;color:var(--ink-soft);margin-bottom:20px}
+  .mc__quiz-answers{display:grid;gap:12px;margin-bottom:20px}
+  .mc__quiz-answer{
+    text-align:left;background:var(--card);border:2px solid var(--line);
+    border-radius:14px;padding:16px 20px;font-size:16px;font-family:inherit;
+    color:var(--ink);cursor:pointer;font-weight:500;line-height:1.5;
+  }
+  .mc__quiz-answer:hover{border-color:var(--teal);background:#fff}
+  .mc__quiz-answer:focus-visible{outline:3px solid var(--honey);outline-offset:2px}
+  .mc__quiz-back{
+    background:none;border:none;color:var(--eucalyptus-deep);font-size:14px;font-weight:600;
+    cursor:pointer;font-family:inherit;padding:8px 0;text-decoration:underline;text-underline-offset:3px;
+  }
+  .mc__quiz-back:hover{color:var(--teal)}
+  .mc__quiz-result h3{
+    font-family:'Zilla Slab',serif;font-size:32px;font-weight:700;color:var(--teal);margin-bottom:14px;
+  }
+  .mc__quiz-result p{color:var(--ink-soft);margin-bottom:16px;max-width:56ch}
+  .mc__quiz-result ul{list-style:none;margin:0 0 24px;display:grid;gap:10px}
+  .mc__quiz-result li{
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:12px 18px;font-size:15px;
+  }
+  .mc__quiz-result li strong{color:var(--teal)}
+  .mc__quiz-result-cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+
+  /* ============ SECTIONS ============ */
+  .mc__service{padding:40px 0;border-top:1px solid var(--line)}
+  .mc__service:first-of-type{border-top:none}
+  .mc__service-tag{
+    display:inline-block;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--teal);background:rgba(14,90,86,.08);
+    padding:6px 14px;border-radius:999px;margin-bottom:14px;
+  }
+  .mc__service h3{
+    font-family:'Zilla Slab',serif;font-size:clamp(24px,3vw,32px);font-weight:600;
+    color:var(--ink);margin-bottom:12px;
+  }
+  .mc__service p{color:var(--ink-soft);max-width:68ch;margin-bottom:14px}
+  .mc__service-includes{font-size:14px;color:var(--eucalyptus-deep)}
+  .mc__service-includes strong{color:var(--ink-soft);font-weight:600}
+
+  .mc__reviews{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .mc__reviews-head{text-align:center;max-width:640px;margin:0 auto 48px}
+  .mc__reviews-head .mc__stars{font-size:28px}
+  .mc__review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .mc__review{
+    background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+    padding:28px;display:flex;flex-direction:column;gap:14px;
+  }
+  .mc__review .mc__stars{font-size:16px}
+  .mc__review blockquote{font-size:15px;color:var(--ink-soft);flex:1}
+  .mc__review cite{font-style:normal;font-weight:700;font-size:14px;color:var(--teal)}
+  .mc__review cite span{display:block;font-weight:500;color:var(--eucalyptus-deep);font-size:13px}
+  .mc__review--featured{grid-column:span 3;background:var(--teal);border-color:var(--teal)}
+  .mc__review--featured blockquote{color:rgba(251,247,238,.92);font-size:18px}
+  .mc__review--featured cite{color:var(--honey-light)}
+  .mc__review--featured cite span{color:rgba(251,247,238,.7)}
+  .mc__review--featured .mc__stars{color:var(--honey)}
+
+  .mc__team-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-top:40px}
+  .mc__gary{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:36px;
+  }
+  .mc__gary h3{font-family:'Zilla Slab',serif;font-size:28px;font-weight:700;color:var(--teal);margin-bottom:4px}
+  .mc__gary-role{font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--eucalyptus-deep);margin-bottom:18px}
+  .mc__gary p{color:var(--ink-soft);margin-bottom:14px}
+  .mc__gary-creds{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .mc__cred{
+    font-size:13px;font-weight:600;background:rgba(14,90,86,.08);color:var(--teal);
+    padding:6px 14px;border-radius:999px;
+  }
+  .mc__team-note h3{font-family:'Zilla Slab',serif;font-size:24px;font-weight:600;color:var(--teal);margin-bottom:12px}
+  .mc__team-note p{color:var(--ink-soft);margin-bottom:16px}
+  .mc__team-names{display:flex;gap:12px;flex-wrap:wrap}
+  .mc__team-chip{
+    background:var(--honey);color:var(--ink);font-weight:700;
+    padding:10px 20px;border-radius:999px;font-size:15px;
+  }
+  .mc__year-round{
+    margin-top:40px;background:rgba(217,164,65,.14);border:1px solid rgba(217,164,65,.4);
+    border-radius:var(--radius);padding:28px 32px;
+  }
+  .mc__year-round h3{font-family:'Zilla Slab',serif;font-size:22px;color:var(--teal);margin-bottom:8px}
+  .mc__year-round p{color:var(--ink-soft)}
+
+  /* ============ FOOTER ============ */
+  .mc__footer{background:var(--teal-deep);color:rgba(251,247,238,.85);margin-top:88px}
+  .mc__footer-inner{max-width:1080px;margin:0 auto;padding:72px 24px 32px}
+  .mc__footer h2{
+    font-family:'Zilla Slab',serif;font-size:clamp(32px,4.5vw,48px);font-weight:700;
+    color:var(--paper);margin-bottom:12px;
+  }
+  .mc__footer-sub{font-size:18px;margin-bottom:32px;max-width:56ch}
+  .mc__footer-contact{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:48px}
+  .mc__footer-contact h3{
+    font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--honey);margin-bottom:12px;
+  }
+  .mc__footer-contact p{margin-bottom:6px}
+  .mc__footer-contact a{color:var(--paper);text-decoration:none;font-weight:600}
+  .mc__footer-contact a:hover{text-decoration:underline}
+  .mc__footer-phone{font-family:'Zilla Slab',serif;font-size:28px;font-weight:700;color:var(--paper) !important}
+  .mc__footer-fine{
+    border-top:1px solid rgba(251,247,238,.18);padding-top:24px;
+    font-size:13px;color:rgba(251,247,238,.6);font-style:italic;
+  }
+  .mc__footer-fine a{color:rgba(251,247,238,.6)}
+
+  @media (max-width:860px){
+    .mc__quiz-section.mc__hero{margin-top:16px}
+    .mc__review-grid{grid-template-columns:1fr}
+    .mc__review--featured{grid-column:span 1}
+    .mc__team-grid{grid-template-columns:1fr}
+    .mc__footer-contact{grid-template-columns:1fr}
+    .mc__nav-inner{flex-wrap:wrap}
+    .mc__nav-links{
+      order:3;flex-basis:100%;overflow-x:auto;flex-wrap:nowrap;
+      padding-bottom:4px;scrollbar-width:none;
+    }
+    .mc__nav-links::-webkit-scrollbar{display:none}
+    .mc__nav-links a{white-space:nowrap}
+    .mc__quiz-section{margin:0 12px;width:calc(100% - 24px)}
+    .mc__section{padding:64px 0}
+  }
+</style>
 </head>
-<body class="bg-[#090D16] text-slate-100 min-h-screen antialiased flex flex-col">
-  <!-- Top Operator Bar -->
-  <header class="border-b border-slate-800/80 bg-[#0E1424]/90 backdrop-blur sticky top-0 z-50 px-6 py-3 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <div class="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold text-xs uppercase tracking-wider">
-        NI Deliverable Prototype
-      </div>
-      <div class="text-xs text-slate-400">
-        Prepared for <span class="font-semibold text-white">Massey and Company CPA</span> (Atlanta, GA)
-      </div>
-    </div>
-    <div class="flex items-center gap-2">
-      <button onclick="window.print()" class="px-3 py-1.5 text-xs font-semibold rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
-        Export / Print PDF
-      </button>
-      <a href="data:text/html;charset=utf-8,%3C!--%20Massey%20and%20Company%20CPA%20Prototype%20--%3E" download="massey-and-company-cpa-prototype.html" class="px-3 py-1.5 text-xs font-semibold rounded bg-cyan-500 hover:bg-cyan-400 text-black transition">
-        Download Offline HTML
-      </a>
-    </div>
-  </header>
+<body>
 
-  <!-- Prototype Hero -->
-  <main class="flex-1 max-w-6xl w-full mx-auto p-6 md:p-10 space-y-10">
-    <div class="rounded-2xl border border-slate-800 bg-gradient-to-b from-[#131B2E] to-[#0D1322] p-8 md:p-12 relative overflow-hidden shadow-2xl">
-      <div class="absolute -right-20 -top-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
-      
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-xs text-slate-300 mb-6">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>Boutique Tax & Advisory · Interactive Next.js Concept</span>
-      </div>
+<!-- ============ HERO ============ -->
+<nav class="mc__nav" aria-label="Main navigation">
+  <div class="mc__nav-inner">
+    <a class="mc__wordmark" href="#top" data-scroll>Massey &amp; Company<small>CERTIFIED PUBLIC ACCOUNTANTS</small></a>
+    <ul class="mc__nav-links">
+      <li><a href="#quiz" data-scroll>Tax Quiz</a></li>
+      <li><a href="#services" data-scroll>Services</a></li>
+      <li><a href="#reviews" data-scroll>Reviews</a></li>
+      <li><a href="#team" data-scroll>The Humans</a></li>
+      <li><a href="#contact" data-scroll>Contact</a></li>
+    </ul>
+    <a class="mc__nav-call" href="tel:6782355460">678-235-5460</a>
+  </div>
+</nav>
 
-      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white max-w-3xl leading-tight">
-        Bespoke Digital Interface for Complex International Tax
-      </h1>
-
-      <p class="mt-4 text-slate-400 text-base md:text-lg max-w-2xl leading-relaxed">
-        Instant consultation scheduler with verified security and sub-second loading. Engineered with sub-second page transitions, responsive touch controls, and zero legacy CMS script bloat.
-      </p>
-
-      <div class="mt-8 flex flex-wrap gap-4">
-        <button onclick="alert('Interactive demo: Project Showcase Filter Triggered')" class="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-sm shadow-lg shadow-cyan-500/20 transition">
-          Explore Portfolio Archive
-        </button>
-        <button onclick="alert('Interactive demo: Client Inquiry Modal Opened')" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm border border-slate-700 transition">
-          Direct Consultation Request
-        </button>
-      </div>
-    </div>
-
-    <!-- Interactive Features Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          01
+<header class="mc__quiz-section mc__hero" id="top">
+  <div class="mc__quiz-inner" id="quiz">
+    <h1 class="mc__hero-entry">5 Questions. 60 Seconds. Find Out Where You Stand.</h1>
+    <p class="mc__hero-note">No judgment — we've heard it all, and none of it shocks us.</p>
+    <div class="mc__quiz-card" id="mcQuiz" role="region" aria-label="Tax situation quiz">
+      <div class="mc__quiz-progress">
+        <p class="mc__quiz-progress-label" id="mcQuizProgressLabel">Setting things down… 1 of 5</p>
+        <div class="mc__quiz-bar" role="progressbar" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1" id="mcQuizBar" aria-label="Quiz progress">
+          <div class="mc__quiz-bar-fill" id="mcQuizBarFill"></div>
         </div>
-        <h3 class="font-bold text-lg text-white mb-2">Instant Mobile Speed</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Google Lighthouse 98+ score with modern image compression, eliminating render delays on high-resolution project photography.
-        </p>
       </div>
+      <div id="mcQuizBody" aria-live="polite"></div>
+    </div>
+    <p class="mc__hero-foot">Takes about a minute. Your answers never leave this page.</p>
+  </div>
+</header>
 
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          02
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Frictionless Lead Intake</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Streamlined client consultation intake with automatic validation, spam filtering, and direct CRM notification webhooks.
-        </p>
-      </div>
+<!-- ============ SECTIONS ============ -->
+<section class="mc__section" id="services">
+  <div class="mc__wrap">
+    <p class="mc__eyebrow">What We Do — In Plain Words</p>
+    <h2 class="mc__h2">Start With Your Worry. We'll Take It From There.</h2>
+    <p class="mc__lede" style="margin-bottom:32px">Every service below started as a question a real client asked us. Find yours.</p>
 
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          03
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Zero CMS Maintenance</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Static-first Next.js infrastructure deployed on high-availability edge nodes, completely immune to WordPress plugin vulnerabilities.
-        </p>
-      </div>
+    <div class="mc__service">
+      <span class="mc__service-tag">Tax Problem Resolution</span>
+      <h3>What If I Haven't Filed in Years?</h3>
+      <p>Then you're our favorite kind of client — because the relief is enormous. We file the back returns, deal with the IRS and the state directly, and negotiate what you owe down to what's fair: offers in compromise, payment plans, penalty relief. You never have to talk to the IRS yourself.</p>
+      <p class="mc__service-includes"><strong>Includes:</strong> back tax returns · audit defense · liens &amp; levies · payroll tax problems · currently-not-collectible status</p>
     </div>
 
-    <!-- Verification & Proof Footer -->
-    <div class="rounded-xl border border-slate-800 bg-[#0E1424] p-6 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400">
-      <div class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-        <span>Prototype Status: <strong class="text-white">Active Preview Verified</strong></span>
+    <div class="mc__service">
+      <span class="mc__service-tag">Tax Planning</span>
+      <h3>Am I Paying More Tax Than I Should?</h3>
+      <p>Probably. Most people are. We meet with you through the year — not just in April — and look for every legal way to keep your money: entity choice, retirement planning, cost segregation on real estate, R&amp;D credits, charitable strategies, 1031 exchanges. Planning is where the real savings live.</p>
+      <p class="mc__service-includes"><strong>Includes:</strong> year-round strategy meetings · entity choice · retirement &amp; estate coordination · real estate tax strategy</p>
+    </div>
+
+    <div class="mc__service">
+      <span class="mc__service-tag">Tax Preparation</span>
+      <h3>Just the Returns, Done Right</h3>
+      <p>Individual 1040s, partnerships, S corporations, C corporations, nonprofits, trusts, estates — prepared accurately, filed on time, with every deduction and credit you qualify for. And we actually explain what we did, in words you'd use.</p>
+      <p class="mc__service-includes"><strong>Includes:</strong> federal &amp; all state returns · quarterly estimates · e-filing · IRS correspondence handled</p>
+    </div>
+
+    <div class="mc__service">
+      <span class="mc__service-tag">Bookkeeping &amp; QuickBooks</span>
+      <h3>Who Handles the Monthly Mess?</h3>
+      <p>We do. Clean books, done on time, in QuickBooks Online set up the right way from day one. Financial statements you can actually read, budgets and forecasts, AP/AR handled. You run the business; we keep the numbers honest.</p>
+      <p class="mc__service-includes"><strong>Includes:</strong> monthly bookkeeping · QuickBooks setup &amp; training · financial statements · budgeting &amp; forecasting</p>
+    </div>
+
+    <div class="mc__service">
+      <span class="mc__service-tag">Business Formation</span>
+      <h3>Starting Something New?</h3>
+      <p>The entity you pick on day one decides how much tax you pay for years. We walk you through sole proprietorship vs. LLC vs. S corporation in plain English, set it up right, and stay with you as it grows. The cheapest tax decision you'll ever make is the first one.</p>
+      <p class="mc__service-includes"><strong>Includes:</strong> entity selection · formation paperwork · startup tax calendar · first-year planning</p>
+    </div>
+
+    <div class="mc__service">
+      <span class="mc__service-tag">Fractional CFO</span>
+      <h3>Need a Finance Brain Without the Hire?</h3>
+      <p>A full-time CFO is overkill; no CFO at all is risky. We sit in the middle — cash-flow planning, pricing decisions, growth strategy, someone to call before the big moves. Senior financial thinking, sized for a small business budget.</p>
+      <p class="mc__service-includes"><strong>Includes:</strong> cash-flow forecasting · KPI dashboards · growth planning · on-call advice</p>
+    </div>
+  </div>
+</section>
+
+<section class="mc__section mc__reviews" id="reviews">
+  <div class="mc__wrap">
+    <div class="mc__reviews-head">
+      <p class="mc__eyebrow">204 Google Reviews — 4.9 Stars</p>
+      <h2 class="mc__h2">Don't Take Our Word for It</h2>
+      <p class="mc__stars" aria-label="4.9 out of 5 stars">★★★★★</p>
+      <p class="mc__lede" style="margin-top:12px">Real clients, real words. We paraphrased for space — the originals are on Google.</p>
+    </div>
+    <div class="mc__review-grid">
+      <div class="mc__review mc__review--featured">
+        <span class="mc__stars" aria-hidden="true">★★★★★</span>
+        <blockquote>"I interviewed about ten firms and worked with three over the years. This team is the best I've found in 30 years — professional, fast to respond, and personal at the same time. I can finally focus on growing my business."</blockquote>
+        <cite>Tem Morgan<span>Chiropractor, client after his longtime CPA retired</span></cite>
+      </div>
+      <div class="mc__review">
+        <span class="mc__stars" aria-hidden="true">★★★★★</span>
+        <blockquote>"Years of back taxes from an estate. Massey was the third firm we tried — the others wouldn't reply or said they couldn't help. Now we're all caught up, and that's a huge load off."</blockquote>
+        <cite>Daniele Albert<span>Estate tax cleanup</span></cite>
+      </div>
+      <div class="mc__review">
+        <span class="mc__stars" aria-hidden="true">★★★★★</span>
+        <blockquote>"After a string of accountants who never called back, these folks are professional, quick, and genuinely seem to care about doing a great job."</blockquote>
+        <cite>Jill Flournoy<span>Small business owner</span></cite>
+      </div>
+      <div class="mc__review">
+        <span class="mc__stars" aria-hidden="true">★★★★★</span>
+        <blockquote>"Professional, kind, prompt, and patient — for many years now. Couldn't ask for better service."</blockquote>
+        <cite>Joseph<span>Longtime client</span></cite>
+      </div>
+      <div class="mc__review">
+        <span class="mc__stars" aria-hidden="true">★★★★★</span>
+        <blockquote>"Amazing to work with — professional, responsive, knowledgeable, and always willing to help. I recommend them to any business owner."</blockquote>
+        <cite>Ricky Rapalo<span>Business owner</span></cite>
+      </div>
+      <div class="mc__review">
+        <span class="mc__stars" aria-hidden="true">★★★★★</span>
+        <blockquote>"They always return phone calls in a timely manner. Professional and responsive, every time."</blockquote>
+        <cite>David Wiley<span>Client</span></cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mc__section" id="team">
+  <div class="mc__wrap">
+    <p class="mc__eyebrow">The Humans</p>
+    <h2 class="mc__h2">Meet the People Who Answer the Phone</h2>
+    <p class="mc__lede">Credentials matter — ours are serious. But you'd rather know who you're actually talking to.</p>
+    <div class="mc__team-grid">
+      <div class="mc__gary">
+        <h3>Gary Massey</h3>
+        <p class="mc__gary-role">Founder &amp; Managing Partner</p>
+        <p>Gary started this firm in 2013 on a simple idea: a CPA practice built on kindness. Thirty-five years later, he's still the person clients ask for by name when the IRS comes knocking — and the reason they stay is that he treats a scary letter like a solvable problem, because it usually is.</p>
+        <p>When he's not negotiating with the IRS, he's collecting art and spending time with his kids and grandkids. He's married to Chelly, a native of the Netherlands, who keeps him honest.</p>
+        <div class="mc__gary-creds">
+          <span class="mc__cred">CPA</span>
+          <span class="mc__cred">Master's in Accounting</span>
+          <span class="mc__cred">MBA, Taxation</span>
+          <span class="mc__cred">Certified Tax Representation Consultant</span>
+        </div>
+      </div>
+      <div class="mc__team-note">
+        <h3>The Rest of the Team</h3>
+        <p>Ask our reviewers and two names come up again and again. Austin has guided clients through multi-year estate cleanups with patience reviewers call out by name. Evelina keeps the whole operation warm and moving. The full team spans CPAs, Enrolled Agents, and tax accountants across Atlanta and Chicago.</p>
+        <div class="mc__team-names">
+          <span class="mc__team-chip">Austin</span>
+          <span class="mc__team-chip">Evelina</span>
+          <span class="mc__team-chip">+ CPAs &amp; Enrolled Agents</span>
+        </div>
+        <div class="mc__year-round">
+          <h3>Here All Year, Not Just April</h3>
+          <p>We're a modern, cloud-based firm — which mostly means we're easy to reach and your documents don't live in a filing cabinet. Call in July with a question. We like that.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="mc__footer" id="contact">
+  <div class="mc__footer-inner">
+    <p class="mc__eyebrow" style="color:var(--honey)">No Stress, No Drama — Just Call</p>
+    <h2>Talk to a Human</h2>
+    <p class="mc__footer-sub">The fastest way to feel better about your taxes is a five-minute conversation. We answer our phones.</p>
+    <div class="mc__footer-contact">
+      <div>
+        <h3>Call Us</h3>
+        <p><a class="mc__footer-phone" href="tel:6782355460">678-235-5460</a></p>
+        <p style="font-size:14px">Atlanta Office</p>
+        <p style="margin-top:12px"><a class="mc__footer-phone" href="tel:7738280551" style="font-size:22px">773-828-0551</a></p>
+        <p style="font-size:14px">Chicago Office</p>
       </div>
       <div>
-        Built by Northside Intelligence · Studio Architecture Division
+        <h3>Write Us</h3>
+        <p><a href="mailto:info@masseyandcompanycpa.com">info@masseyandcompanycpa.com</a></p>
+        <p style="margin-top:16px;font-size:14px">P.O. Box 421396<br>Atlanta, GA 30342</p>
+        <p style="margin-top:12px;font-size:14px">Monday–Friday, 9:00 AM – 6:00 PM</p>
       </div>
     </div>
-  </main>
+    <p class="mc__footer-fine">Concept redesign prototype prepared for Massey and Company CPA's review — not published or affiliated. Firm facts, services, and reviews drafted from the company's public website; review quotes paraphrased. Not tax advice.</p>
+  </div>
+</footer>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+(function(){
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Smooth scroll for nav links */
+  document.querySelectorAll('[data-scroll]').forEach(function(link){
+    link.addEventListener('click', function(e){
+      var target = document.querySelector(link.getAttribute('href'));
+      if(!target) return;
+      e.preventDefault();
+      target.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block:'start'});
+      target.setAttribute('tabindex','-1');
+      target.focus({preventScroll:true});
+    });
+  });
+
+  /* Active nav highlighting */
+  var navLinks = document.querySelectorAll('.mc__nav-links a[data-scroll]');
+  var sections = ['quiz','services','reviews','team','contact'].map(function(id){ return document.getElementById(id); }).filter(Boolean);
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          navLinks.forEach(function(a){
+            a.classList.toggle('mc__nav-active', a.getAttribute('href') === '#' + entry.target.id);
+          });
+        }
+      });
+    }, {rootMargin:'-40% 0px -55% 0px'});
+    sections.forEach(function(s){ obs.observe(s); });
+  }
+
+  /* ============ TAX-ANXIETY QUIZ ============ */
+  var QUESTIONS = [
+    {
+      q: 'When You Think About Your Taxes, What Hits First?',
+      hint: 'No wrong answers. We mean that.',
+      answers: [
+        {t: 'Mostly fine — I just want to pay less than I do now.', s: 0},
+        {t: 'A low hum of worry I keep putting off.', s: 1},
+        {t: 'Dread. There is something specific I am avoiding.', s: 2}
+      ]
+    },
+    {
+      q: 'Any Unopened IRS or State Letters Sitting Around?',
+      hint: 'Be honest. The pile on the counter counts.',
+      answers: [
+        {t: 'No — everything is filed and paid.', s: 0},
+        {t: 'Maybe one I have been meaning to open.', s: 1},
+        {t: 'More than one. I stopped opening them a while ago.', s: 2}
+      ]
+    },
+    {
+      q: 'How Many Years Are Fully Filed and Settled?',
+      hint: 'Settled means filed, paid, and behind you.',
+      answers: [
+        {t: 'All caught up.', s: 0},
+        {t: 'This year is fine; older years are fuzzy.', s: 1},
+        {t: 'Behind by a year or more.', s: 2}
+      ]
+    },
+    {
+      q: 'Who Handles Your Books Right Now?',
+      hint: 'The shoebox is a valid answer. We have seen it.',
+      answers: [
+        {t: 'Me, and it is under control.', s: 0},
+        {t: 'Me, and it is held together with hope.', s: 1},
+        {t: 'No one, really. It is a mess.', s: 2}
+      ]
+    },
+    {
+      q: 'If the IRS Called Tomorrow, You Would…',
+      hint: 'Last one. Then we tell you where you stand.',
+      answers: [
+        {t: 'Hand over my records, no sweat.', s: 0},
+        {t: 'Panic quietly, then call someone.', s: 1},
+        {t: 'Not answer. Definitely not answer.', s: 2}
+      ]
+    }
+  ];
+
+  var RESULTS = [
+    {
+      max: 2,
+      title: 'Lighter Than You Think',
+      body: 'Here is the good news: your situation is a planning opportunity, not a problem. You are caught up and organized — which means every dollar of our effort goes toward paying less, not cleaning up.',
+      steps: [
+        ['<strong>Year-round tax planning</strong> — we look for legal savings across the whole year, not just in April.'],
+        ['<strong>Entity &amp; structure checkup</strong> — the right structure quietly saves money every single year.'],
+        ['<strong>Retirement &amp; investment coordination</strong> — so your money works as hard as you do.']
+      ],
+      cta: 'Talk Planning With Us'
+    },
+    {
+      max: 6,
+      title: 'A Real Load — We Have Carried Heavier',
+      body: 'You are carrying something real, but this is familiar territory for us. Most of our favorite client stories started exactly here: a little behind, a little messy, and completely fixable.',
+      steps: [
+        ['<strong>Back returns, filed properly</strong> — we get every missing year filed and stop the penalties from growing.'],
+        ['<strong>Books cleaned up in QuickBooks</strong> — so next year starts clean instead of scary.'],
+        ['<strong>A plan going forward</strong> — quarterly check-ins so this never builds up again.']
+      ],
+      cta: 'Start the Cleanup'
+    },
+    {
+      max: 10,
+      title: 'Time to Set It Down',
+      body: 'Okay. Deep breath. People come to us in this exact spot every week, and they leave it behind — that is literally what our tax problem resolution practice exists for. The IRS is far more reasonable when a professional calls than when a letter sits unopened.',
+      steps: [
+        ['<strong>We talk to the IRS for you</strong> — audits, liens, levies, payment plans, offers in compromise. You never have to.'],
+        ['<strong>Penalty relief</strong> — we ask for abatements as a matter of routine; they are granted more often than people think.'],
+        ['<strong>A clean slate plan</strong> — filed, negotiated, and structured so you stay out of trouble for good.']
+      ],
+      cta: 'Let Us Carry It'
+    }
+  ];
+
+  var quizBody = document.getElementById('mcQuizBody');
+  var progressLabel = document.getElementById('mcQuizProgressLabel');
+  var progressFill = document.getElementById('mcQuizBarFill');
+  var progressBar = document.getElementById('mcQuizBar');
+  var step = 0;
+  var score = 0;
+  var answers = [];
+
+  function render(){
+    var total = QUESTIONS.length;
+    if(step < total){
+      var q = QUESTIONS[step];
+      progressLabel.textContent = 'Setting things down… ' + (step + 1) + ' of ' + total;
+      progressFill.style.width = ((step + 1) / total * 100) + '%';
+      progressBar.setAttribute('aria-valuenow', step + 1);
+      var html = '<h3 class="mc__quiz-q">' + q.q + '</h3>';
+      html += '<p class="mc__quiz-hint">' + q.hint + '</p><div class="mc__quiz-answers" role="group" aria-label="Answer choices">';
+      q.answers.forEach(function(a, i){
+        html += '<button type="button" class="mc__quiz-answer" data-score="' + a.s + '" data-idx="' + i + '">' + a.t + '</button>';
+      });
+      html += '</div>';
+      if(step > 0){
+        html += '<button type="button" class="mc__quiz-back" id="mcQuizBack">&larr; Go back one question</button>';
+      }
+      quizBody.innerHTML = html;
+      quizBody.querySelectorAll('.mc__quiz-answer').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          answers[step] = parseInt(btn.getAttribute('data-score'), 10);
+          score = answers.reduce(function(a, b){ return a + b; }, 0);
+          step++;
+          render();
+          var first = quizBody.querySelector('.mc__quiz-answer, .mc__quiz-result h3');
+          if(first){ first.setAttribute('tabindex','-1'); first.focus({preventScroll:true}); }
+        });
+      });
+      var back = document.getElementById('mcQuizBack');
+      if(back){
+        back.addEventListener('click', function(){
+          step--;
+          render();
+        });
+      }
+    } else {
+      var result = RESULTS[0];
+      for(var i = 0; i < RESULTS.length; i++){
+        if(score <= RESULTS[i].max){ result = RESULTS[i]; break; }
+      }
+      progressLabel.textContent = 'All set — here is where you stand.';
+      progressFill.style.width = '100%';
+      progressBar.setAttribute('aria-valuenow', total);
+      var rhtml = '<div class="mc__quiz-result"><h3 tabindex="-1">' + result.title + '</h3>';
+      rhtml += '<p>' + result.body + '</p><ul>';
+      result.steps.forEach(function(s){
+        rhtml += '<li>' + s[0] + '</li>';
+      });
+      rhtml += '</ul><div class="mc__quiz-result-cta">';
+      rhtml += '<a class="mc__btn" href="tel:6782355460">' + result.cta + ': 678-235-5460</a>';
+      rhtml += '<a class="mc__btn mc__btn--honey" href="#services" data-scroll>See the Services</a>';
+      rhtml += '</div>';
+      rhtml += '<button type="button" class="mc__quiz-back" id="mcQuizRetake">Retake the quiz</button></div>';
+      quizBody.innerHTML = rhtml;
+      quizBody.querySelector('[data-scroll]').addEventListener('click', function(e){
+        var target = document.querySelector('#services');
+        e.preventDefault();
+        target.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth'});
+      });
+      document.getElementById('mcQuizRetake').addEventListener('click', function(){
+        step = 0; score = 0; answers = [];
+        render();
+      });
+      var h = quizBody.querySelector('.mc__quiz-result h3');
+      if(h){ h.focus({preventScroll:true}); }
+    }
+  }
+
+  if(quizBody){ render(); }
+})();
+</script>
 </body>
 </html>

@@ -1,111 +1,557 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ReInvest Capital — Interactive Prototype | Northside Intelligence</title>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .mono { font-family: 'JetBrains Mono', monospace; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReInvest Capital, LLC — Focused on Franchise | M&A Advisory Concept</title>
+<meta name="description" content="ReInvest Capital is a boutique investment bank offering M&A advisory exclusively for the franchise space. Interactive redesign concept.">
+<!-- ============ HEAD: meta, fonts, styles ============ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14110D;
+  --ink-2:#1E1913;
+  --terra:#C65D3B;
+  --terra-deep:#A34A2D;
+  --signal:#F2B705;
+  --paper:#FAF3E7;
+  --paper-dim:#E8DFCB;
+  --teal:#2E6B64;
+  --line:rgba(250,243,231,.14);
+  --font-d:'Anton',sans-serif;
+  --font-b:'Libre Franklin',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--ink);color:var(--paper);font-family:var(--font-b);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--font-d);text-transform:uppercase;letter-spacing:.01em;line-height:.95;font-weight:400}
+a{color:inherit}
+::selection{background:var(--signal);color:var(--ink)}
+.rc__wrap{max-width:1400px;margin:0 auto;padding:0 24px}
+.rc__eyebrow{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--signal)}
 
+/* ---------- NAV ---------- */
+.rc__nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(20,17,13,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.rc__nav-inner{max-width:1400px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.rc__logo{font-family:var(--font-d);font-size:20px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none}
+.rc__logo span{color:var(--terra)}
+.rc__nav-links{display:flex;gap:28px;list-style:none}
+.rc__nav-links a{text-decoration:none;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--paper-dim);padding:6px 0;border-bottom:2px solid transparent}
+.rc__nav-links a:hover,.rc__nav-links a.rc__active{color:var(--signal);border-bottom-color:var(--signal)}
+.rc__nav-cta{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;background:var(--signal);color:var(--ink);padding:10px 20px}
+.rc__nav-cta:hover{background:var(--paper)}
+.rc__burger{display:none;background:none;border:1px solid var(--line);color:var(--paper);font-size:13px;font-weight:700;letter-spacing:.14em;padding:10px 16px;text-transform:uppercase;cursor:pointer}
+@media(max-width:900px){
+  .rc__nav-links{position:fixed;top:60px;left:0;right:0;background:var(--ink-2);flex-direction:column;gap:0;padding:8px 24px 20px;display:none;border-bottom:1px solid var(--line)}
+  .rc__nav-links.rc__open{display:flex}
+  .rc__nav-links a{display:block;padding:12px 0;border-bottom:1px solid var(--line)}
+  .rc__burger{display:block}
+  .rc__nav-cta{display:none}
+}
+
+/* ---------- HERO: plate pinned to the deal wall ---------- */
+.rc__hero{padding:118px 0 0;position:relative;z-index:5}
+.rc__gate-plate{position:relative;background:var(--signal);color:var(--ink);border-left:12px solid var(--terra);padding:26px 30px;max-width:660px;margin-bottom:-30px;box-shadow:14px 14px 0 rgba(0,0,0,.35)}
+.rc__plate-firm{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;margin-bottom:10px}
+.rc__gate-plate h1{font-size:clamp(34px,4.2vw,58px);color:var(--ink)}
+.rc__gate-plate h1 span{display:block;color:#7E3A22}
+.rc__plate-note{margin-top:12px;font-size:14px;font-weight:600}
+@media(max-width:700px){
+  .rc__hero{padding:96px 0 0}
+  .rc__gate-plate{margin-bottom:-24px;padding:20px 22px;border-left-width:8px;box-shadow:8px 8px 0 rgba(0,0,0,.35)}
+}
+
+/* ---------- DEAL WALL (signature interactive) ---------- */
+.rc__wall{padding:40px 0 90px}
+.rc__wall-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:28px}
+.rc__wall-head h2{font-size:clamp(40px,5vw,72px)}
+.rc__wall-head h2 span{color:var(--signal)}
+.rc__wall-head p{max-width:52ch;color:var(--paper-dim);margin-top:12px}
+.rc__filters{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0}
+.rc__filter{background:transparent;border:1px solid var(--line);color:var(--paper-dim);font-family:var(--font-b);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:10px 18px;cursor:pointer}
+.rc__filter:hover{border-color:var(--signal);color:var(--signal)}
+.rc__filter.rc__on{background:var(--signal);border-color:var(--signal);color:var(--ink)}
+.rc__mosaic{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:1000px){.rc__mosaic{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){.rc__mosaic{grid-template-columns:repeat(2,1fr)}}
+.rc__tile{position:relative;min-height:190px;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer;border:none;text-align:left;font-family:var(--font-b);transition:transform 160ms ease-out}
+.rc__tile:hover{transform:translateY(-3px)}
+.rc__tile:focus-visible{outline:3px solid var(--signal);outline-offset:3px}
+.rc__tile.rc__t-terra{background:var(--terra);color:var(--ink)}
+.rc__tile.rc__t-ink{background:var(--ink-2);color:var(--paper);border:1px solid var(--line)}
+.rc__tile.rc__t-teal{background:var(--teal);color:#fff}
+.rc__tile.rc__t-paper{background:var(--paper);color:var(--ink)}
+.rc__tile.rc__t-signal{background:var(--signal);color:var(--ink)}
+.rc__tile.rc__wide{grid-column:span 2}
+.rc__tile-kind{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;opacity:.85;margin-bottom:auto}
+.rc__tile-name{font-family:var(--font-d);font-size:clamp(22px,2.4vw,34px);text-transform:uppercase;line-height:1;margin:12px 0 8px}
+.rc__tile-meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px;font-weight:600}
+.rc__tile-sector{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+.rc__tile-units{background:rgba(0,0,0,.28);padding:3px 10px;font-size:11px;font-weight:700;letter-spacing:.1em}
+.rc__t-paper .rc__tile-units,.rc__t-signal .rc__tile-units{background:rgba(0,0,0,.12)}
+.rc__tile.rc__hidden{display:none}
+.rc__wall-count{margin-top:18px;font-size:13px;color:var(--paper-dim);letter-spacing:.06em}
+
+/* detail panel */
+.rc__panel{position:fixed;top:0;right:0;bottom:0;width:min(480px,94vw);background:var(--paper);color:var(--ink);z-index:100;transform:translateX(102%);transition:transform 240ms ease-out;display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.5)}
+.rc__panel.rc__open{transform:translateX(0)}
+.rc__panel-head{padding:28px 32px 0;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.rc__panel-kind{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--terra-deep)}
+.rc__panel-close{background:var(--ink);color:var(--paper);border:none;font-size:13px;font-weight:700;letter-spacing:.12em;padding:10px 16px;cursor:pointer;text-transform:uppercase}
+.rc__panel-close:hover{background:var(--terra-deep)}
+.rc__panel-body{padding:20px 32px 40px;overflow-y:auto}
+.rc__panel-body h3{font-size:clamp(30px,4vw,44px);margin:8px 0 16px}
+.rc__panel-facts{list-style:none;margin:20px 0;border-top:2px solid var(--ink)}
+.rc__panel-facts li{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid rgba(20,17,13,.15);font-size:14px}
+.rc__panel-facts li strong{font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.rc__panel-story{margin:20px 0;font-size:15px}
+.rc__panel-quote{margin:24px 0;padding:20px;background:var(--ink);color:var(--paper);font-size:15px;font-style:italic}
+.rc__panel-quote cite{display:block;margin-top:12px;font-style:normal;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--signal)}
+.rc__scrim{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:90;opacity:0;pointer-events:none;transition:opacity 200ms}
+.rc__scrim.rc__open{opacity:1;pointer-events:auto}
+
+/* ---------- SECTIONS ---------- */
+.rc__section{padding:90px 0;border-top:1px solid var(--line)}
+.rc__section.rc__light{background:var(--paper);color:var(--ink)}
+.rc__section.rc__light .rc__eyebrow{color:var(--terra-deep)}
+.rc__section h2{font-size:clamp(40px,5vw,72px);margin:14px 0 20px}
+.rc__section h2 span{color:var(--terra)}
+.rc__section.rc__light h2 span{color:var(--terra-deep)}
+.rc__lede{max-width:64ch;font-size:18px;color:var(--paper-dim)}
+.rc__section.rc__light .rc__lede{color:#4a4438}
+
+/* services: numbered rows */
+.rc__services{list-style:none;margin-top:48px;border-top:2px solid var(--signal)}
+.rc__services li{display:grid;grid-template-columns:80px 1fr 2fr;gap:24px;align-items:baseline;padding:28px 0;border-bottom:1px solid var(--line)}
+.rc__section.rc__light .rc__services{border-top-color:var(--terra-deep)}
+.rc__section.rc__light .rc__services li{border-bottom-color:rgba(20,17,13,.15)}
+.rc__svc-n{font-family:var(--font-d);font-size:32px;color:var(--terra)}
+.rc__section.rc__light .rc__svc-n{color:var(--terra-deep)}
+.rc__services h3{font-size:24px}
+.rc__services p{font-size:15px;color:var(--paper-dim)}
+.rc__section.rc__light .rc__services p{color:#4a4438}
+@media(max-width:700px){.rc__services li{grid-template-columns:48px 1fr}.rc__services p{grid-column:2}}
+
+/* stats band */
+.rc__stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:56px}
+@media(max-width:800px){.rc__stats{grid-template-columns:repeat(2,1fr)}}
+.rc__stat{background:var(--ink-2);border:1px solid var(--line);border-top:4px solid var(--terra);padding:28px 24px}
+.rc__stat b{display:block;font-family:var(--font-d);font-size:clamp(36px,4vw,56px);color:var(--signal);font-weight:400}
+.rc__stat span{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--paper-dim)}
+
+/* deals narrative */
+.rc__deal-rows{margin-top:48px;display:grid;gap:14px}
+.rc__deal-row{display:grid;grid-template-columns:1fr 2fr;gap:32px;background:var(--ink-2);border:1px solid var(--line);padding:36px;align-items:start}
+@media(max-width:800px){.rc__deal-row{grid-template-columns:1fr;padding:28px}}
+.rc__deal-row h3{font-size:clamp(28px,3vw,40px)}
+.rc__deal-row h3 span{color:var(--terra)}
+.rc__deal-units{font-family:var(--font-d);font-size:clamp(48px,5vw,72px);color:var(--signal);line-height:1}
+.rc__deal-units small{display:block;font-family:var(--font-b);font-size:12px;font-weight:700;letter-spacing:.18em;color:var(--paper-dim);margin-top:8px}
+.rc__deal-row p{color:var(--paper-dim);font-size:15px;margin-top:12px}
+.rc__deal-row blockquote{margin-top:20px;padding-left:20px;border-left:3px solid var(--terra);font-style:italic;color:var(--paper)}
+.rc__deal-row blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--signal)}
+
+/* team */
+.rc__team{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:48px}
+@media(max-width:1000px){.rc__team{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.rc__team{grid-template-columns:repeat(2,1fr)}}
+.rc__member{background:var(--paper);color:var(--ink);padding:24px 20px;border-top:6px solid var(--teal)}
+.rc__member:first-child{border-top-color:var(--terra);grid-column:span 2}
+@media(max-width:640px){.rc__member:first-child{grid-column:span 2}}
+.rc__member h3{font-size:22px;margin-bottom:6px}
+.rc__member .rc__role{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--terra-deep)}
+.rc__member p{font-size:13px;margin-top:12px;color:#4a4438}
+
+/* approach steps */
+.rc__steps{list-style:none;margin-top:48px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:800px){.rc__steps{grid-template-columns:1fr}}
+.rc__steps li{background:var(--ink-2);border:1px solid var(--line);padding:32px 28px}
+.rc__steps li b{display:block;font-family:var(--font-d);font-size:20px;text-transform:uppercase;color:var(--signal);margin-bottom:12px;letter-spacing:.03em}
+.rc__steps li p{font-size:14px;color:var(--paper-dim)}
+
+/* contact */
+.rc__contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:48px;align-items:start}
+@media(max-width:800px){.rc__contact-grid{grid-template-columns:1fr}}
+.rc__contact-grid address{font-style:normal;font-size:17px;line-height:2}
+.rc__contact-grid address strong{display:block;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--signal);margin-bottom:8px}
+.rc__contact-grid a{color:var(--paper);text-decoration:none;border-bottom:1px solid var(--terra)}
+.rc__contact-grid a:hover{color:var(--signal);border-color:var(--signal)}
+.rc__big-cta{display:block;margin-top:32px;background:var(--terra);color:#fff;text-decoration:none;font-family:var(--font-d);font-size:clamp(24px,3vw,36px);text-transform:uppercase;padding:28px 32px;text-align:center}
+.rc__big-cta:hover{background:var(--terra-deep)}
+
+/* ---------- FOOTER ---------- */
+.rc__footer{border-top:1px solid var(--line);padding:56px 0 40px;margin-top:0}
+.rc__footer-grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:32px}
+.rc__footer .rc__logo{font-size:24px}
+.rc__footer p{font-size:13px;color:var(--paper-dim);max-width:52ch}
+.rc__fine{margin-top:40px;padding-top:24px;border-top:1px solid var(--line);font-size:12px;color:var(--paper-dim);font-style:italic}
+</style>
 </head>
-<body class="bg-[#090D16] text-slate-100 min-h-screen antialiased flex flex-col">
-  <!-- Top Operator Bar -->
-  <header class="border-b border-slate-800/80 bg-[#0E1424]/90 backdrop-blur sticky top-0 z-50 px-6 py-3 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <div class="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold text-xs uppercase tracking-wider">
-        NI Deliverable Prototype
-      </div>
-      <div class="text-xs text-slate-400">
-        Prepared for <span class="font-semibold text-white">ReInvest Capital</span> (Tampa, FL)
-      </div>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="rc__nav" aria-label="Primary">
+  <div class="rc__nav-inner">
+    <a class="rc__logo" href="#top">ReInvest<span>Capital</span></a>
+    <button class="rc__burger" id="rcBurger" aria-expanded="false" aria-controls="rcNavLinks">Menu</button>
+    <ul class="rc__nav-links" id="rcNavLinks">
+      <li><a href="#wall" data-scroll>The Deal Wall</a></li>
+      <li><a href="#services" data-scroll>Services</a></li>
+      <li><a href="#deals" data-scroll>Deals</a></li>
+      <li><a href="#team" data-scroll>Team</a></li>
+      <li><a href="#contact" data-scroll>Contact</a></li>
+    </ul>
+    <a class="rc__nav-cta" href="#contact" data-scroll>Talk Deals</a>
+  </div>
+</nav>
+
+<!-- ============ HERO: plate pinned to the deal wall ============ -->
+<header class="rc__hero" id="top">
+  <div class="rc__wrap">
+    <div class="rc__gate-plate">
+      <p class="rc__plate-firm">ReInvest Capital — Boutique Investment Bank · Coral Gables, FL</p>
+      <h1>100% Franchise.<br><span>Every Tile a Deal.</span></h1>
+      <p class="rc__plate-note">Buy side · sell side · recaps · restructurings — open any tile below.</p>
     </div>
-    <div class="flex items-center gap-2">
-      <button onclick="window.print()" class="px-3 py-1.5 text-xs font-semibold rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
-        Export / Print PDF
-      </button>
-      <a href="data:text/html;charset=utf-8,%3C!--%20ReInvest%20Capital%20Prototype%20--%3E" download="reinvest-capital-prototype.html" class="px-3 py-1.5 text-xs font-semibold rounded bg-cyan-500 hover:bg-cyan-400 text-black transition">
-        Download Offline HTML
-      </a>
-    </div>
-  </header>
+  </div>
+</header>
 
-  <!-- Prototype Hero -->
-  <main class="flex-1 max-w-6xl w-full mx-auto p-6 md:p-10 space-y-10">
-    <div class="rounded-2xl border border-slate-800 bg-gradient-to-b from-[#131B2E] to-[#0D1322] p-8 md:p-12 relative overflow-hidden shadow-2xl">
-      <div class="absolute -right-20 -top-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
-      
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-xs text-slate-300 mb-6">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>Commercial Real Estate · Interactive Next.js Concept</span>
-      </div>
-
-      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white max-w-3xl leading-tight">
-        Institutional Syndication Portal for Commercial Real Estate
-      </h1>
-
-      <p class="mt-4 text-slate-400 text-base md:text-lg max-w-2xl leading-relaxed">
-        Interactive property portfolio, investor credential gates, and secure inquiry workflows. Engineered with sub-second page transitions, responsive touch controls, and zero legacy CMS script bloat.
-      </p>
-
-      <div class="mt-8 flex flex-wrap gap-4">
-        <button onclick="alert('Interactive demo: Project Showcase Filter Triggered')" class="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-sm shadow-lg shadow-cyan-500/20 transition">
-          Explore Portfolio Archive
-        </button>
-        <button onclick="alert('Interactive demo: Client Inquiry Modal Opened')" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm border border-slate-700 transition">
-          Direct Consultation Request
-        </button>
-      </div>
-    </div>
-
-    <!-- Interactive Features Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          01
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Instant Mobile Speed</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Google Lighthouse 98+ score with modern image compression, eliminating render delays on high-resolution project photography.
-        </p>
-      </div>
-
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          02
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Frictionless Lead Intake</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Streamlined client consultation intake with automatic validation, spam filtering, and direct CRM notification webhooks.
-        </p>
-      </div>
-
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          03
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Zero CMS Maintenance</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Static-first Next.js infrastructure deployed on high-availability edge nodes, completely immune to WordPress plugin vulnerabilities.
-        </p>
-      </div>
-    </div>
-
-    <!-- Verification & Proof Footer -->
-    <div class="rounded-xl border border-slate-800 bg-[#0E1424] p-6 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400">
-      <div class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-        <span>Prototype Status: <strong class="text-white">Active Preview Verified</strong></span>
-      </div>
+<!-- ============ SIGNATURE INTERACTIVE ============ -->
+<section class="rc__wall" id="wall" aria-label="The Deal Wall">
+  <div class="rc__wrap">
+    <div class="rc__wall-head">
       <div>
-        Built by Northside Intelligence · Studio Architecture Division
+        <p class="rc__eyebrow">Signature Interactive</p>
+        <h2>The Deal <span>Wall</span></h2>
+        <p>Twelve franchise brands we've worked inside. Five deals we've closed. Filter by sector, open any tile — the story, the scale, and the people behind it.</p>
       </div>
     </div>
-  </main>
+    <div class="rc__filters" role="group" aria-label="Filter deals by sector">
+      <button class="rc__filter rc__on" data-sector="all">All</button>
+      <button class="rc__filter" data-sector="fb">Food &amp; Beverage</button>
+      <button class="rc__filter" data-sector="health">Healthcare</button>
+      <button class="rc__filter" data-sector="fitness">Fitness</button>
+      <button class="rc__filter" data-sector="retail">Consumer / Retail</button>
+      <button class="rc__filter" data-sector="services">Services</button>
+    </div>
+    <div class="rc__mosaic" id="rcMosaic"><!-- tiles injected by JS --></div>
+    <p class="rc__wall-count" id="rcWallCount" aria-live="polite"></p>
+  </div>
+</section>
+
+<div class="rc__scrim" id="rcScrim"></div>
+<aside class="rc__panel" id="rcPanel" role="dialog" aria-modal="true" aria-labelledby="rcPanelTitle" hidden>
+  <div class="rc__panel-head">
+    <p class="rc__panel-kind" id="rcPanelKind"></p>
+    <button class="rc__panel-close" id="rcPanelClose">Close ✕</button>
+  </div>
+  <div class="rc__panel-body" id="rcPanelBody"></div>
+</aside>
+
+<!-- ============ SECTIONS ============ -->
+
+<section class="rc__section rc__light" id="services">
+  <div class="rc__wrap">
+    <p class="rc__eyebrow">Our Services</p>
+    <h2>Every Way <span>a Deal Gets Done</span></h2>
+    <p class="rc__lede">Six advisory practices, one franchise-only lens. Whether you're buying, selling, recapitalizing, or restructuring, the team that only does franchise deals sees angles generalists miss.</p>
+    <ol class="rc__services">
+      <li><span class="rc__svc-n">01</span><h3>Sell Side M&amp;A</h3><p>Full sale processes tailored to franchise systems — positioning multi-unit portfolios, running competitive bids, and maximizing value whether you're an owner-operator, family office, or stakeholder group.</p></li>
+      <li><span class="rc__svc-n">02</span><h3>Buy Side M&amp;A</h3><p>Targeted acquisition searches inside franchise systems: identifying operators ready to sell, underwriting unit-level economics, and structuring offers franchisors will approve.</p></li>
+      <li><span class="rc__svc-n">03</span><h3>Opinions of Value</h3><p>Independent, defensible valuations grounded in real franchise transaction comps — for sales, buyouts, partner disputes, and estate planning.</p></li>
+      <li><span class="rc__svc-n">04</span><h3>Recapitalization</h3><p>Bringing in growth capital or taking chips off the table without giving up the business — structured around how franchise cash flows actually work.</p></li>
+      <li><span class="rc__svc-n">05</span><h3>Restructuring</h3><p>Navigating distressed franchise situations: 363 sales, lender negotiations, and court-supervised processes. This is where the 90-unit Burger King auction was won.</p></li>
+      <li><span class="rc__svc-n">06</span><h3>Real Estate</h3><p>Sale-leasebacks and real-estate strategy for franchise operators sitting on valuable dirt — freeing capital trapped in the property beneath the business.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="rc__section" id="deals">
+  <div class="rc__wrap">
+    <p class="rc__eyebrow">Success Stories</p>
+    <h2>Deals That <span>Prove the Thesis</span></h2>
+    <p class="rc__lede">Two transactions that show what franchise-only focus buys you: a bankruptcy auction most bankers would run from, and a 176-unit aggregation most bankers couldn't assemble.</p>
+    <div class="rc__stats">
+      <div class="rc__stat"><b>15+</b><span>Year Track Record</span></div>
+      <div class="rc__stat"><b>100%</b><span>Franchise Focused</span></div>
+      <div class="rc__stat"><b>$30B+</b><span>Founder Deal Experience</span></div>
+      <div class="rc__stat"><b>266</b><span>Units in Named Deals</span></div>
+    </div>
+    <div class="rc__deal-rows">
+      <article class="rc__deal-row">
+        <div>
+          <p class="rc__eyebrow">363 Asset Sale</p>
+          <h3>Burger King <span>Restaurants</span></h3>
+          <p class="rc__deal-units">90<small>Restaurants Sold</small></p>
+        </div>
+        <div>
+          <p>A multi-unit portfolio of 90 Burger King restaurants across the Mid-Atlantic and Midwest moved from one ownership group to four different buyers — through a Chapter 11 363 auction. ReInvest ran the marketing and sale process: identifying bidders, working with the debtor-in-possession, the creditors' committee, and the bankruptcy court to land a stalking-horse bid, then driving the auction past it.</p>
+          <blockquote>"The ReInvest Capital team led by David Rego managed the marketing and sale of the 90 Burger King restaurants in the Toms King Chapter 11 case where I was CRO. They did a good job identifying potential bidders and generating strong interest — we signed a stalking horse at a good price and the auction generated an even higher value."<cite>Dan Dooley — Principal and CRO</cite></blockquote>
+        </div>
+      </article>
+      <article class="rc__deal-row">
+        <div>
+          <p class="rc__eyebrow">Portfolio Asset Sale</p>
+          <h3>Subway <span>Restaurants</span></h3>
+          <p class="rc__deal-units">176<small>Restaurants Sold</small></p>
+        </div>
+        <div>
+          <p>176 Subway restaurants across Texas and the Mid-Atlantic transferred from two ownership groups to three buyers. The work was aggregation: rolling units owned by numerous franchisees into a single marketed portfolio, with the franchisor's development team at the table — a structure that benefited sellers and buyers alike.</p>
+          <blockquote>"David Rego and the ReInvest Capital team did a fantastic job assisting us in selling our Subway portfolio. They helped navigate the sales process, and even helped assist after closing."<cite>Vik Agrawal — Owner</cite></blockquote>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="rc__section rc__light" id="approach">
+  <div class="rc__wrap">
+    <p class="rc__eyebrow">Our Approach</p>
+    <h2>We're Committed <span>to You</span></h2>
+    <p class="rc__lede">Boutique means the senior people do the work. Three things the firm promises every engagement — in their own words, sharpened.</p>
+    <ol class="rc__steps">
+      <li><b>Experts of the Trade</b><p>Twenty years inside one niche. When your banker has lived through franchise cycles, the advice stops being generic.</p></li>
+      <li><b>Network on Demand</b><p>Relationships with franchisors, multi-unit operators, private equity, family offices, and lenders — brought to bear on your deal, not sitting in a CRM.</p></li>
+      <li><b>Stay Focused, Go Further</b><p>One lane, deeply run. Every engagement gets singular, best-in-class attention because there is no second practice area competing for it.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="rc__section" id="team">
+  <div class="rc__wrap">
+    <p class="rc__eyebrow">Our Team</p>
+    <h2>Small Team. <span>Deep Bench.</span></h2>
+    <p class="rc__lede">Five people, one niche. The founder has executed more than $30 billion in franchise transactions — and he still runs the deals.</p>
+    <div class="rc__team">
+      <div class="rc__member">
+        <h3>David Rego</h3>
+        <p class="rc__role">Managing Partner, Founder</p>
+        <p>25+ years of corporate finance and M&amp;A advisory, with upwards of $30 billion in franchise-space transactions. Founded ReInvest Capital on a tailored, entrepreneur-first approach to the lower middle market.</p>
+      </div>
+      <div class="rc__member">
+        <h3>Kevin Black</h3>
+        <p class="rc__role">Director, M&amp;A</p>
+        <p>Leads transaction execution across buy-side and sell-side franchise mandates.</p>
+      </div>
+      <div class="rc__member">
+        <h3>Kira Sorbera</h3>
+        <p class="rc__role">Chief of Staff, Director of Business Development</p>
+        <p>Runs the firm's relationship engine — sourcing engagements and keeping the network warm.</p>
+      </div>
+      <div class="rc__member">
+        <h3>Maxwell Singer</h3>
+        <p class="rc__role">Associate</p>
+        <p>Deal analysis, valuation, and process support across active mandates.</p>
+      </div>
+      <div class="rc__member">
+        <h3>Daniel Basar</h3>
+        <p class="rc__role">Associate</p>
+        <p>Financial modeling and buyer outreach for franchise transactions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="rc__section rc__light" id="contact">
+  <div class="rc__wrap">
+    <p class="rc__eyebrow">Partner With Us</p>
+    <h2>Tell Us <span>About Your Deal</span></h2>
+    <div class="rc__contact-grid">
+      <address>
+        <strong>Coral Gables, Florida</strong>
+        121 Alhambra Plaza, Suite 1000<br>
+        Coral Gables, FL 33134<br><br>
+        <strong>Direct</strong>
+        <a href="tel:+13054617093">+1 305 461 7093</a><br>
+        <a href="mailto:info@reinvestcapital.com">info@reinvestcapital.com</a>
+      </address>
+      <div>
+        <p class="rc__lede">Buying, selling, recapitalizing, or restructuring inside the franchise space — the first conversation is about your deal, not our deck.</p>
+        <a class="rc__big-cta" href="mailto:info@reinvestcapital.com">Start the Conversation</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="rc__footer">
+  <div class="rc__wrap">
+    <div class="rc__footer-grid">
+      <div>
+        <a class="rc__logo" href="#top">ReInvest<span>Capital</span></a>
+        <p style="margin-top:16px">Boutique M&amp;A advisory for the franchise space. Lower middle market. Coral Gables, Florida.</p>
+      </div>
+      <p>121 Alhambra Plaza, Suite 1000, Coral Gables, FL 33134<br>+1 305 461 7093 · info@reinvestcapital.com</p>
+    </div>
+    <p class="rc__fine">Interactive redesign concept prepared for ReInvest Capital, LLC — not the firm's live website. Deal summaries are illustrative; brand names belong to their owners.</p>
+  </div>
+</footer>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Deal wall data (researched from reinvestcapital.com) ---------- */
+  var TILES = [
+    {kind:'deal', name:'Burger King 363 Sale', sector:'fb', sectorLabel:'Food & Beverage', units:'90 Units', tone:'t-terra', wide:true,
+     facts:[['Transaction','363 Asset Sale'],['Scale','90 restaurants'],['Geography','Mid-Atlantic + Midwest'],['Structure','1 ownership group \u2192 4 buyers'],['Context','Chapter 11 (Toms King)']],
+     story:'ReInvest ran the marketing and sale process through a bankruptcy auction: identifying bidders alongside the debtor-in-possession, the creditors\u2019 committee, and the court. A stalking-horse bid at a strong price set the floor \u2014 the auction drove it higher.',
+     quote:'They did a good job identifying potential bidders and generating strong interest \u2014 we signed a stalking horse at a good price and the auction generated an even higher value.', by:'Dan Dooley \u2014 Principal and CRO'},
+    {kind:'deal', name:'Subway Portfolio Sale', sector:'fb', sectorLabel:'Food & Beverage', units:'176 Units', tone:'t-signal', wide:true,
+     facts:[['Transaction','Portfolio Asset Sale'],['Scale','176 restaurants'],['Geography','Texas + Mid-Atlantic'],['Structure','2 ownership groups \u2192 3 buyers']],
+     story:'The work was aggregation: rolling units owned by numerous franchisees into a single marketed portfolio, with Subway\u2019s development team at the table \u2014 a structure that benefited sellers and buyers alike.',
+     quote:'They did a fantastic job assisting us in selling our Subway portfolio. They helped navigate the sales process, and even helped assist after closing.', by:'Vik Agrawal \u2014 Owner'},
+    {kind:'deal', name:'South East Subs \u00D7 Subway', sector:'fb', sectorLabel:'Food & Beverage', units:'Sell Side', tone:'t-ink',
+     facts:[['Transaction','Sell-Side Advisory'],['Brand','Subway']],
+     story:'A sell-side mandate inside the Subway system \u2014 marketed to qualified franchise buyers through ReInvest\u2019s operator network.'},
+    {kind:'deal', name:'Agrawal \u00D7 Nothing Bundt Cakes', sector:'fb', sectorLabel:'Food & Beverage', units:'Buy Side', tone:'t-teal',
+     facts:[['Transaction','Buy-Side Advisory'],['Brand','Nothing Bundt Cakes']],
+     story:'Buy-side work for an established multi-unit operator expanding into a high-growth bakery-caf\u00E9 franchise.'},
+    {kind:'deal', name:'Zaske \u00D7 Subway', sector:'fb', sectorLabel:'Food & Beverage', units:'Sell Side', tone:'t-paper',
+     facts:[['Transaction','Sell-Side Advisory'],['Brand','Subway']],
+     story:'A sell-side mandate for a Subway operator \u2014 positioned and marketed inside the franchise buyer network.'},
+    {kind:'brand', name:"Auntie Anne's", sector:'fb', sectorLabel:'Food & Beverage', tone:'t-ink', story:'A brand ReInvest has worked inside \u2014 mall-based pretzel franchising, part of the firm\u2019s deep food-and-beverage roster.'},
+    {kind:'brand', name:'Chick-fil-A', sector:'fb', sectorLabel:'Food & Beverage', tone:'t-terra', story:'A brand ReInvest has worked inside \u2014 the highest-volume chicken franchise in the U.S., and a fixture of the firm\u2019s operator network.'},
+    {kind:'brand', name:'Dunkin\u2019', sector:'fb', sectorLabel:'Food & Beverage', tone:'t-paper', story:'A brand ReInvest has worked inside \u2014 coffee-and-donut franchising at national scale.'},
+    {kind:'brand', name:'DaVita', sector:'health', sectorLabel:'Healthcare', tone:'t-teal', story:'A brand ReInvest has worked inside \u2014 healthcare franchising, one of the firm\u2019s core sectors beyond restaurants.'},
+    {kind:'brand', name:'Firehouse Subs', sector:'fb', sectorLabel:'Food & Beverage', tone:'t-ink', story:'A brand ReInvest has worked inside \u2014 fast-casual sandwich franchising with strong multi-unit operators.'},
+    {kind:'brand', name:'Golden Corral', sector:'fb', sectorLabel:'Food & Beverage', tone:'t-terra', story:'A brand ReInvest has worked inside \u2014 buffet-style family dining, a legacy franchise system.'},
+    {kind:'brand', name:'Popeyes', sector:'fb', sectorLabel:'Food & Beverage', tone:'t-signal', story:'A brand ReInvest has worked inside \u2014 Louisiana chicken franchising with cult-level consumer demand.'},
+    {kind:'brand', name:'Taco Bell', sector:'fb', sectorLabel:'Food & Beverage', tone:'t-ink', story:'A brand ReInvest has worked inside \u2014 the largest Mexican-inspired QSR franchise system in the country.'},
+    {kind:'brand', name:'Zips', sector:'services', sectorLabel:'Services', tone:'t-paper', story:'A brand ReInvest has worked inside \u2014 car-wash franchising, representing the firm\u2019s services-sector practice.'}
+  ];
+
+  var mosaic = document.getElementById('rcMosaic');
+  var wallCount = document.getElementById('rcWallCount');
+  var panel = document.getElementById('rcPanel');
+  var panelKind = document.getElementById('rcPanelKind');
+  var panelBody = document.getElementById('rcPanelBody');
+  var panelClose = document.getElementById('rcPanelClose');
+  var scrim = document.getElementById('rcScrim');
+  var lastFocus = null;
+
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+  function renderTiles(filter){
+    mosaic.innerHTML = '';
+    var shown = 0;
+    TILES.forEach(function(t, i){
+      if(filter !== 'all' && t.sector !== filter) return;
+      shown++;
+      var b = document.createElement('button');
+      b.className = 'rc__tile rc__' + t.tone + (t.wide ? ' rc__wide' : '');
+      b.setAttribute('data-idx', i);
+      b.setAttribute('aria-label', 'Open details: ' + t.name);
+      var html = '<span class="rc__tile-kind">' + (t.kind === 'deal' ? 'Closed Deal' : 'Brand Touched') + '</span>';
+      html += '<span class="rc__tile-name">' + esc(t.name) + '</span>';
+      html += '<span class="rc__tile-meta"><span class="rc__tile-sector">' + esc(t.sectorLabel) + '</span>';
+      if(t.units) html += '<span class="rc__tile-units">' + esc(t.units) + '</span>';
+      html += '</span>';
+      b.innerHTML = html;
+      b.addEventListener('click', function(){ openPanel(i); });
+      mosaic.appendChild(b);
+    });
+    wallCount.textContent = 'Showing ' + shown + ' of ' + TILES.length + ' tiles';
+  }
+
+  function openPanel(i){
+    var t = TILES[i];
+    lastFocus = document.activeElement;
+    panelKind.textContent = (t.kind === 'deal' ? 'Closed Deal' : 'Brand Touched') + ' \u2014 ' + t.sectorLabel;
+    var html = '<h3 id="rcPanelTitle">' + esc(t.name) + '</h3>';
+    if(t.facts){
+      html += '<ul class="rc__panel-facts">';
+      t.facts.forEach(function(f){ html += '<li><strong>' + esc(f[0]) + '</strong><span>' + esc(f[1]) + '</span></li>'; });
+      html += '</ul>';
+    }
+    if(t.story) html += '<p class="rc__panel-story">' + esc(t.story) + '</p>';
+    if(t.quote) html += '<blockquote class="rc__panel-quote">\u201C' + esc(t.quote) + '\u201D<cite>' + esc(t.by) + '</cite></blockquote>';
+    panelBody.innerHTML = html;
+    panel.hidden = false;
+    requestAnimationFrame(function(){
+      panel.classList.add('rc__open');
+      scrim.classList.add('rc__open');
+    });
+    panelClose.focus();
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePanel(){
+    panel.classList.remove('rc__open');
+    scrim.classList.remove('rc__open');
+    document.body.style.overflow = '';
+    setTimeout(function(){ panel.hidden = true; }, reduceMotion ? 0 : 240);
+    if(lastFocus) lastFocus.focus();
+  }
+
+  panelClose.addEventListener('click', closePanel);
+  scrim.addEventListener('click', closePanel);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && !panel.hidden) closePanel();
+  });
+
+  /* filters */
+  var filters = document.querySelectorAll('.rc__filter');
+  filters.forEach(function(f){
+    f.addEventListener('click', function(){
+      filters.forEach(function(x){ x.classList.remove('rc__on'); });
+      f.classList.add('rc__on');
+      renderTiles(f.getAttribute('data-sector'));
+    });
+  });
+  renderTiles('all');
+
+  /* ---------- nav: smooth scroll, active link, mobile menu ---------- */
+  var navLinks = document.querySelectorAll('[data-scroll]');
+  navLinks.forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href');
+      if(!id || id.charAt(0) !== '#') return;
+      var target = document.querySelector(id);
+      if(!target) return;
+      e.preventDefault();
+      if(reduceMotion){ target.scrollIntoView(); }
+      else{ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+      var links = document.getElementById('rcNavLinks');
+      links.classList.remove('rc__open');
+      document.getElementById('rcBurger').setAttribute('aria-expanded','false');
+    });
+  });
+
+  var burger = document.getElementById('rcBurger');
+  burger.addEventListener('click', function(){
+    var links = document.getElementById('rcNavLinks');
+    var open = links.classList.toggle('rc__open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  /* active section highlight */
+  var sections = ['wall','services','deals','team','contact'];
+  var linkMap = {};
+  document.querySelectorAll('.rc__nav-links a[data-scroll]').forEach(function(a){
+    linkMap[a.getAttribute('href').slice(1)] = a;
+  });
+  if('IntersectionObserver' in window && !reduceMotion){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          Object.keys(linkMap).forEach(function(k){ linkMap[k].classList.remove('rc__active'); });
+          var l = linkMap[en.target.id];
+          if(l) l.classList.add('rc__active');
+        }
+      });
+    }, {rootMargin:'-40% 0px -55% 0px'});
+    sections.forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) obs.observe(el);
+    });
+  }
+})();
+</script>
 </body>
 </html>

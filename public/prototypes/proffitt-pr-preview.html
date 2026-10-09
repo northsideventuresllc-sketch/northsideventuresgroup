@@ -1,111 +1,831 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Proffitt PR — Interactive Prototype | Northside Intelligence</title>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .mono { font-family: 'JetBrains Mono', monospace; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proffitt PR — The Emerald Coast's Storyteller</title>
+<meta name="description" content="Proffitt PR is a boutique PR, marketing, and event planning firm in Miramar Beach, FL — the Emerald Coast's storyteller since 2011. Concept redesign prototype.">
+<!-- ============ HEAD: meta, fonts, styles ============ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Karla:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pp-ink:#0B2B2B;
+    --pp-glass:#2E7D74;
+    --pp-glass-deep:#1E5A52;
+    --pp-paper:#F6F2E9;
+    --pp-paper-deep:#EFE8D6;
+    --pp-gold:#C08A2D;
+    --pp-gold-deep:#8A6520;
+    --pp-coral:#E46B5D;
+    --pp-coral-deep:#B94A3C;
+    --pp-coral-light:#EC7A6C;
+    --pp-line:#DDD3BC;
+    --pp-mute:#4A524F;
+    --pp-white:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{transition:none !important;animation:none !important}
+  }
+  body{
+    font-family:'Karla',system-ui,sans-serif;
+    background:var(--pp-paper);
+    color:var(--pp-ink);
+    font-size:17px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--pp-glass);color:var(--pp-white)}
+  .pp__rule{border:none;border-top:1px solid var(--pp-line);margin:0}
 
+  /* ---------- masthead ---------- */
+  .pp__masthead{
+    border-bottom:1px solid var(--pp-line);
+    background:var(--pp-paper);
+    position:sticky;top:0;z-index:50;
+  }
+  .pp__masthead-inner{
+    max-width:1400px;margin:0 auto;padding:14px 6vw;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+  }
+  .pp__wordmark{
+    font-family:'DM Serif Display',serif;font-size:24px;letter-spacing:0.01em;
+    color:var(--pp-ink);text-decoration:none;white-space:nowrap;
+  }
+  .pp__wordmark em{font-style:italic;color:var(--pp-glass-deep)}
+  .pp__issue{
+    font-size:12px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;
+    color:var(--pp-gold-deep);white-space:nowrap;
+  }
+  .pp__nav{display:flex;gap:26px;flex-wrap:wrap}
+  .pp__nav a{
+    font-size:13px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--pp-mute);text-decoration:none;padding:4px 0;
+    border-bottom:2px solid transparent;transition:border-color 150ms ease,color 150ms ease;
+  }
+  .pp__nav a:hover{color:var(--pp-ink)}
+  .pp__nav a.pp__nav--active{color:var(--pp-glass-deep);border-bottom-color:var(--pp-coral)}
+  .pp__nav a:focus-visible{outline:3px solid var(--pp-glass);outline-offset:4px}
+
+  /* ---------- shared editorial bits ---------- */
+  .pp__eyebrow{
+    font-size:12px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;
+    color:var(--pp-gold-deep);margin-bottom:18px;
+  }
+  .pp__feature{
+    max-width:1400px;margin:0 auto;padding:96px 6vw;
+    display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:6vw;
+  }
+  .pp__feature h2{
+    font-family:'DM Serif Display',serif;font-weight:400;
+    font-size:clamp(40px,5vw,72px);line-height:1.04;letter-spacing:-0.01em;
+    margin-bottom:24px;max-width:16ch;
+  }
+  .pp__feature h2 em{font-style:italic;color:var(--pp-glass-deep)}
+  .pp__lede{font-size:20px;line-height:1.6;color:var(--pp-mute);max-width:56ch}
+  .pp__body p{margin-bottom:18px;max-width:62ch}
+  .pp__margin{border-left:1px solid var(--pp-line);padding-left:28px;align-self:start}
+  .pp__margin dt{
+    font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+    color:var(--pp-gold-deep);margin-bottom:6px;
+  }
+  .pp__margin dd{margin:0 0 22px;font-size:15px;color:var(--pp-mute)}
+  .pp__margin dd strong{color:var(--pp-ink)}
+  .pp__pullquote{
+    font-family:'DM Serif Display',serif;font-style:italic;font-size:22px;line-height:1.4;
+    color:var(--pp-glass-deep);margin:0 0 8px;
+  }
+  .pp__pullquote-src{font-size:13px;color:var(--pp-mute);letter-spacing:0.06em}
+
+  /* ---------- buttons ---------- */
+  .pp__btn{
+    display:inline-block;font-weight:700;font-size:15px;letter-spacing:0.04em;
+    text-decoration:none;padding:14px 30px;border-radius:999px;
+    transition:background-color 150ms ease,color 150ms ease;
+  }
+  .pp__btn--coral{background:var(--pp-coral-deep);color:var(--pp-white)}
+  .pp__btn--coral:hover{background:#9E3F32}
+  .pp__btn--ghost{border:2px solid var(--pp-ink);color:var(--pp-ink)}
+  .pp__btn--ghost:hover{background:var(--pp-ink);color:var(--pp-paper)}
+  .pp__btn:focus-visible{outline:3px solid var(--pp-glass);outline-offset:4px}
+  .pp__cta-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:32px}
+
+  /* ---------- newsstand cover hero ---------- */
+  .pp__cover{background:var(--pp-ink);color:var(--pp-paper)}
+  .pp__cover-inner{max-width:1400px;margin:0 auto;padding:60px 6vw 68px}
+  .pp__cover-dateline{
+    display:flex;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;
+    font-size:11px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;
+    color:var(--pp-gold);border-bottom:1px solid rgba(246,242,233,.24);
+    padding-bottom:18px;margin:0 0 40px;
+  }
+  .pp__cover-name{
+    font-family:'DM Serif Display',serif;font-weight:400;
+    font-size:clamp(64px,11vw,160px);line-height:0.95;letter-spacing:0.005em;
+    color:var(--pp-paper);margin:0;
+  }
+  .pp__cover-name em{font-style:italic;color:var(--pp-coral-light)}
+  .pp__cover-vol{
+    font-size:13px;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;
+    color:var(--pp-gold);margin:22px 0 48px;
+  }
+  .pp__cover-lines{
+    list-style:none;margin:0 0 52px;padding:0;
+    display:grid;grid-template-columns:1fr 1fr;gap:0 6vw;
+  }
+  .pp__cover-lines a{
+    display:block;text-decoration:none;color:var(--pp-paper);
+    padding:20px 0;border-top:1px solid rgba(246,242,233,.24);
+  }
+  .pp__cover-tag{
+    display:block;font-size:11px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;
+    color:var(--pp-gold);margin-bottom:10px;
+  }
+  .pp__cover-head{
+    font-family:'DM Serif Display',serif;font-size:clamp(22px,2.6vw,32px);line-height:1.18;
+    transition:color 150ms ease;
+  }
+  .pp__cover-lines a:hover .pp__cover-head{color:var(--pp-coral-light)}
+  .pp__cover-arrow{color:var(--pp-coral-light);white-space:nowrap}
+  .pp__cover-lines a:focus-visible{outline:3px solid var(--pp-gold);outline-offset:4px}
+  .pp__cover-colophon{
+    margin:0;max-width:74ch;font-size:14px;letter-spacing:0.04em;
+    color:rgba(246,242,233,.74);
+    border-top:1px solid rgba(246,242,233,.24);padding-top:22px;
+  }
+  @media (max-width:900px){
+    .pp__cover-lines{grid-template-columns:1fr}
+  }
+
+  /* ---------- toolbox (services index) ---------- */
+  .pp__toolbox{list-style:none;margin-top:36px;counter-reset:pp-tool}
+  .pp__toolbox li{
+    counter-increment:pp-tool;
+    display:grid;grid-template-columns:56px 1fr;gap:20px;
+    padding:18px 0;border-top:1px solid var(--pp-line);align-items:baseline;
+  }
+  .pp__toolbox li:last-child{border-bottom:1px solid var(--pp-line)}
+  .pp__toolbox li::before{
+    content:counter(pp-tool,decimal-leading-zero);
+    font-family:'DM Serif Display',serif;font-size:20px;color:var(--pp-gold-deep);
+  }
+  .pp__toolbox strong{display:block;font-size:18px;letter-spacing:0.01em}
+  .pp__toolbox span{color:var(--pp-mute);font-size:16px}
+
+  /* ---------- steps (process) ---------- */
+  .pp__steps{list-style:none;margin-top:36px;counter-reset:pp-step}
+  .pp__steps li{
+    counter-increment:pp-step;position:relative;
+    padding:0 0 34px 84px;
+  }
+  .pp__steps li::before{
+    content:counter(pp-step);
+    position:absolute;left:0;top:-6px;
+    font-family:'DM Serif Display',serif;font-size:56px;line-height:1;
+    color:var(--pp-paper-deep);
+    -webkit-text-stroke:1.5px var(--pp-glass);
+  }
+  .pp__steps h3{
+    font-family:'DM Serif Display',serif;font-weight:400;font-size:28px;margin-bottom:8px;
+  }
+  .pp__steps p{color:var(--pp-mute);max-width:58ch}
+
+  /* ---------- stories ---------- */
+  .pp__story{
+    margin-top:44px;padding-top:36px;border-top:2px solid var(--pp-ink);
+  }
+  .pp__story:first-of-type{margin-top:36px}
+  .pp__story-kicker{
+    font-size:11px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;
+    color:var(--pp-coral-deep);margin-bottom:10px;
+  }
+  .pp__story h3{
+    font-family:'DM Serif Display',serif;font-weight:400;
+    font-size:clamp(28px,3vw,40px);line-height:1.1;margin-bottom:16px;max-width:22ch;
+  }
+  .pp__story p{margin-bottom:16px;max-width:64ch;color:var(--pp-mute)}
+  .pp__story p:first-of-type{color:var(--pp-ink)}
+  .pp__roster{margin-top:48px;background:var(--pp-paper-deep);padding:32px;border-radius:4px}
+  .pp__roster-kicker{
+    font-size:11px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;
+    color:var(--pp-gold-deep);margin-bottom:12px;
+  }
+  .pp__roster p:last-child{font-size:15px;line-height:1.9;color:var(--pp-mute)}
+  .pp__roster em{color:var(--pp-glass-deep);font-style:normal;font-weight:700}
+
+  /* ---------- team ---------- */
+  .pp__team-h{
+    font-family:'DM Serif Display',serif;font-weight:400;font-size:32px;
+    margin:40px 0 16px;
+  }
+  .pp__team{list-style:none}
+  .pp__team li{padding:14px 0;border-top:1px solid var(--pp-line)}
+  .pp__team li:last-child{border-bottom:1px solid var(--pp-line)}
+  .pp__team strong{display:block;font-size:18px}
+  .pp__team span{color:var(--pp-mute);font-size:15px}
+
+  /* ---------- season ledger (signature interactive) ---------- */
+  .pp__season{background:var(--pp-ink);color:var(--pp-paper)}
+  .pp__season-inner{max-width:1400px;margin:0 auto;padding:96px 6vw}
+  .pp__season .pp__eyebrow{color:var(--pp-gold)}
+  .pp__season h2{
+    font-family:'DM Serif Display',serif;font-weight:400;
+    font-size:clamp(40px,5vw,72px);line-height:1.04;margin-bottom:20px;max-width:16ch;
+  }
+  .pp__season h2 em{font-style:italic;color:var(--pp-glass)}
+  .pp__season .pp__lede{color:#C9CFC9}
+  .pp__season-note{font-size:13px;color:#9AA39F;margin-top:12px;letter-spacing:0.04em}
+  .pp__months{
+    display:flex;gap:10px;flex-wrap:wrap;margin:36px 0 8px;
+  }
+  .pp__month-btn{
+    font-family:'Karla',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+    background:transparent;color:#C9CFC9;border:1px solid #3A4A48;border-radius:999px;
+    padding:8px 16px;cursor:pointer;transition:background-color 150ms ease,color 150ms ease,border-color 150ms ease;
+  }
+  .pp__month-btn:hover{color:var(--pp-paper);border-color:var(--pp-glass)}
+  .pp__month-btn[aria-selected="true"]{background:var(--pp-coral-deep);border-color:var(--pp-coral-deep);color:var(--pp-white)}
+  .pp__month-btn:focus-visible{outline:3px solid var(--pp-gold);outline-offset:3px}
+  .pp__ledger-wrap{position:relative;margin-top:24px}
+  .pp__ledger{
+    display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:8px 4px 28px;cursor:grab;
+    scrollbar-width:thin;scrollbar-color:var(--pp-glass) transparent;
+  }
+  .pp__ledger.pp__ledger--dragging{cursor:grabbing;scroll-snap-type:none}
+  .pp__ledger:focus-visible{outline:3px solid var(--pp-gold);outline-offset:4px}
+  .pp__event{
+    flex:0 0 340px;scroll-snap-align:start;
+    background:#102F2F;border:1px solid #23403E;border-radius:6px;padding:28px;
+    display:flex;flex-direction:column;gap:12px;
+  }
+  .pp__event-month{
+    font-size:11px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:var(--pp-gold);
+  }
+  .pp__event h3{
+    font-family:'DM Serif Display',serif;font-weight:400;font-size:30px;line-height:1.12;
+  }
+  .pp__event-venue{font-size:14px;color:#9AA39F;font-style:italic}
+  .pp__event p{font-size:15px;line-height:1.6;color:#C9CFC9}
+  .pp__event-tag{
+    margin-top:auto;align-self:flex-start;
+    font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;
+    color:var(--pp-coral-light);border:1px solid var(--pp-coral-light);border-radius:999px;padding:5px 14px;
+  }
+  .pp__ledger-nav{display:flex;gap:12px;margin-top:8px}
+  .pp__ledger-btn{
+    width:48px;height:48px;border-radius:50%;border:1px solid #3A4A48;background:transparent;
+    color:var(--pp-paper);font-size:20px;cursor:pointer;line-height:1;
+    transition:background-color 150ms ease,border-color 150ms ease;
+  }
+  .pp__ledger-btn:hover{background:var(--pp-glass-deep);border-color:var(--pp-glass-deep)}
+  .pp__ledger-btn:focus-visible{outline:3px solid var(--pp-gold);outline-offset:3px}
+  .pp__ledger-hint{font-size:13px;color:#9AA39F;margin-top:14px}
+
+  /* ---------- footer / contact ---------- */
+  .pp__footer{background:var(--pp-paper);border-top:2px solid var(--pp-ink)}
+  .pp__footer-inner{max-width:1400px;margin:0 auto;padding:96px 6vw 48px}
+  .pp__footer h2{
+    font-family:'DM Serif Display',serif;font-weight:400;
+    font-size:clamp(40px,5vw,72px);line-height:1.04;margin-bottom:20px;
+  }
+  .pp__footer h2 em{font-style:italic;color:var(--pp-glass-deep)}
+  .pp__contact-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:32px;
+    margin:40px 0;
+  }
+  .pp__contact-grid dt{
+    font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+    color:var(--pp-gold-deep);margin-bottom:8px;
+  }
+  .pp__contact-grid dd{margin:0;font-size:17px}
+  .pp__contact-grid a{color:var(--pp-glass-deep);font-weight:700;text-decoration:none;border-bottom:2px solid var(--pp-coral)}
+  .pp__contact-grid a:hover{color:var(--pp-ink)}
+  .pp__fine{
+    margin-top:56px;padding-top:24px;border-top:1px solid var(--pp-line);
+    font-size:13px;color:var(--pp-mute);font-style:italic;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:900px){
+    .pp__feature{grid-template-columns:1fr;padding:64px 6vw}
+    .pp__margin{border-left:none;border-top:1px solid var(--pp-line);padding:24px 0 0}
+    .pp__masthead-inner{gap:12px}
+    .pp__issue{display:none}
+    .pp__nav{gap:16px}
+    .pp__steps li{padding-left:68px}
+    .pp__event{flex-basis:300px}
+  }
+</style>
 </head>
-<body class="bg-[#090D16] text-slate-100 min-h-screen antialiased flex flex-col">
-  <!-- Top Operator Bar -->
-  <header class="border-b border-slate-800/80 bg-[#0E1424]/90 backdrop-blur sticky top-0 z-50 px-6 py-3 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <div class="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold text-xs uppercase tracking-wider">
-        NI Deliverable Prototype
-      </div>
-      <div class="text-xs text-slate-400">
-        Prepared for <span class="font-semibold text-white">Proffitt PR</span> (Santa Rosa Beach, FL)
-      </div>
+<body id="top">
+
+<!-- ============ HERO ============ -->
+<header class="pp__masthead">
+  <div class="pp__masthead-inner">
+    <a class="pp__wordmark" href="#top" data-scroll>Proffitt <em>PR</em></a>
+    <span class="pp__issue">Vol. 14 &mdash; The Emerald Coast Issue</span>
+    <nav class="pp__nav" aria-label="Primary">
+      <a href="#hello" data-scroll>Hello</a>
+      <a href="#services" data-scroll>Services</a>
+      <a href="#process" data-scroll>Process</a>
+      <a href="#stories" data-scroll>Stories</a>
+      <a href="#season" data-scroll>The Season</a>
+      <a href="#firm" data-scroll>The Firm</a>
+      <a href="#contact" data-scroll>Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ============ HERO: newsstand cover ============ -->
+<section class="pp__cover" aria-labelledby="pp-cover-h">
+  <div class="pp__cover-inner">
+    <p class="pp__cover-dateline">
+      <span>October 2026</span>
+      <span>Miramar Beach, Florida</span>
+      <span>Price: One Good Story</span>
+    </p>
+    <h1 class="pp__cover-name" id="pp-cover-h">Proffitt <em>PR</em></h1>
+    <p class="pp__cover-vol">Vol. 14 &mdash; The Emerald Coast Issue</p>
+    <ul class="pp__cover-lines">
+      <li>
+        <a href="#season" data-scroll>
+          <span class="pp__cover-tag">Inside: The Season</span>
+          <span class="pp__cover-head">Twelve Months of Festivals, Galas &amp; Grand Openings <span class="pp__cover-arrow" aria-hidden="true">&rarr;</span></span>
+        </a>
+      </li>
+      <li>
+        <a href="#stories" data-scroll>
+          <span class="pp__cover-tag">Client Stories</span>
+          <span class="pp__cover-head">200+ Brands, One Very Busy Phone <span class="pp__cover-arrow" aria-hidden="true">&rarr;</span></span>
+        </a>
+      </li>
+      <li>
+        <a href="#services" data-scroll>
+          <span class="pp__cover-tag">The Toolbox</span>
+          <span class="pp__cover-head">Step Zero: Coffee. Always Coffee First <span class="pp__cover-arrow" aria-hidden="true">&rarr;</span></span>
+        </a>
+      </li>
+      <li>
+        <a href="#contact" data-scroll>
+          <span class="pp__cover-tag">Your Turn</span>
+          <span class="pp__cover-head">Start Your Story &mdash; We&rsquo;ll Bring the Hustle <span class="pp__cover-arrow" aria-hidden="true">&rarr;</span></span>
+        </a>
+      </li>
+    </ul>
+    <p class="pp__cover-colophon">Est. 2011 &mdash; The Emerald Coast&rsquo;s storyteller. Where good ideas meet a powerful network and a whole lot of hustle.</p>
+  </div>
+</section>
+
+<hr class="pp__rule">
+
+<!-- ============ SECTIONS ============ -->
+<section class="pp__feature" id="hello" aria-labelledby="pp-hello-h">
+  <div class="pp__body">
+    <p class="pp__eyebrow">Chapter One &mdash; Hello</p>
+    <h2 id="pp-hello-h">Hello, We&rsquo;re <em>Proffitt PR</em></h2>
+    <p>We&rsquo;re a savvy, boutique consulting firm specializing in making you and your brand look good. Public relations, strategic marketing, social media management, advertising, community relations, branding and identity, digital marketing, sponsorships &mdash; every tool in the toolbox, wielded with Southern hospitality and a work ethic our mamas would brag about.</p>
+    <p>Over the past decade we&rsquo;ve helped more than 200 local, national, and international brands leave with greater visibility along the Emerald Coast and a lot more excitement for what they do. Our community has noticed: they&rsquo;ve repeatedly named us the best public relations, event planning, and advertising firm around, and we couldn&rsquo;t be more grateful.</p>
+    <p>We didn&rsquo;t start in a boardroom. We started at coffee shop tables, showing up to every networking event on the coast until everybody knew our name. Fourteen years later, we still show up &mdash; just with better shoes.</p>
+  </div>
+  <aside class="pp__margin" aria-label="Margin notes">
+    <dl>
+      <dt>Founded</dt>
+      <dd><strong>2011</strong>, on hustle and coffee</dd>
+      <dt>Home Base</dt>
+      <dd>The Market Shops,<br>Unit 24, Miramar Beach</dd>
+      <dt>Crew</dt>
+      <dd><strong>6 people</strong>, zero egos</dd>
+      <dt>House Rule</dt>
+      <dd class="pp__pullquote">&ldquo;Persistence removes resistance.&rdquo;</dd>
+      <dd class="pp__pullquote-src">&mdash; Jessica&rsquo;s dad, firm motto</dd>
+    </dl>
+  </aside>
+</section>
+
+<hr class="pp__rule">
+
+<section class="pp__feature" id="services" aria-labelledby="pp-services-h">
+  <div class="pp__body">
+    <p class="pp__eyebrow">Chapter Two &mdash; What We Do</p>
+    <h2 id="pp-services-h">The Full <em>Toolbox</em></h2>
+    <p class="pp__lede">Eleven disciplines, one team, zero hand-offs to strangers. If it touches your reputation, we&rsquo;ve got a tool for it.</p>
+    <ol class="pp__toolbox">
+      <li><strong>Social Media Management</strong><span>Your feeds, fed daily &mdash; content, community, and conversation.</span></li>
+      <li><strong>Press Release Creation &amp; Distribution</strong><span>News written like news, sent where it actually lands.</span></li>
+      <li><strong>Coordination of Media Coverage</strong><span>We know the assignment desks by first name.</span></li>
+      <li><strong>Event Planning &amp; Coordination</strong><span>Festivals, galas, grand openings &mdash; our home turf.</span></li>
+      <li><strong>Sponsorship Procurement</strong><span>The right logos on the right banners.</span></li>
+      <li><strong>Community Relations</strong><span>Goodwill you can measure in handshakes.</span></li>
+      <li><strong>Identification of Strategic Partnerships</strong><span>Introductions that turn into revenue.</span></li>
+      <li><strong>Media Planning &amp; Buying</strong><span>Every dollar placed where eyes actually go.</span></li>
+      <li><strong>Advertising Design &amp; Creation</strong><span>Ads people remember on purpose.</span></li>
+      <li><strong>Brand Identity &amp; Collateral Development</strong><span>Logos, looks, and leave-behinds with a point of view.</span></li>
+      <li><strong>Website Design &amp; Content Management</strong><span>Sites that work as hard as you do.</span></li>
+    </ol>
+  </div>
+  <aside class="pp__margin" aria-label="Margin notes">
+    <dl>
+      <dt>Filed Under</dt>
+      <dd><strong>Capabilities</strong>, A&ndash;Z</dd>
+      <dt>Most Requested</dt>
+      <dd>Events, social media,<br>grand openings</dd>
+      <dt>Best Kept Secret</dt>
+      <dd>We write a <em>mean</em><br>press release.</dd>
+    </dl>
+  </aside>
+</section>
+
+<hr class="pp__rule">
+
+<section class="pp__feature" id="process" aria-labelledby="pp-process-h">
+  <div class="pp__body">
+    <p class="pp__eyebrow">Chapter Three &mdash; How We Work</p>
+    <h2 id="pp-process-h">How the Work <em>Gets Done</em></h2>
+    <p class="pp__lede">Five steps, no mystery. Here&rsquo;s exactly what happens when you hire us.</p>
+    <ol class="pp__steps">
+      <li>
+        <h3>Listen First</h3>
+        <p>Before we can help you grow, we immerse ourselves in your brand &mdash; uncovering who you are and where you want to go.</p>
+      </li>
+      <li>
+        <h3>Innovate Next</h3>
+        <p>This is where we put our brains and our high heels together and devise a creative strategy custom-fit to your goals, your target market, and your identity.</p>
+      </li>
+      <li>
+        <h3>Work It</h3>
+        <p>The plan hits the street. We flex our muscles, engage our powerful network, and drum up some excitement.</p>
+      </li>
+      <li>
+        <h3>Crunch Numbers</h3>
+        <p>Before, during, and after &mdash; we track metrics and analyze data so everyone gets results and your audience keeps growing.</p>
+      </li>
+      <li>
+        <h3>Keep Momentum</h3>
+        <p>We don&rsquo;t stop looking for ways to enhance your brand and keep excitement brewing, all while staying top of mind.</p>
+      </li>
+    </ol>
+  </div>
+  <aside class="pp__margin" aria-label="Margin notes">
+    <dl>
+      <dt>Filed Under</dt>
+      <dd><strong>Process</strong>, Five Steps</dd>
+      <dt>Step Zero</dt>
+      <dd>Coffee. Always<br>coffee first.</dd>
+      <dt>Timeline</dt>
+      <dd>Most campaigns<br>run <strong>90 days</strong><br>to full stride.</dd>
+    </dl>
+  </aside>
+</section>
+
+<hr class="pp__rule">
+
+<section class="pp__feature" id="stories" aria-labelledby="pp-stories-h">
+  <div class="pp__body">
+    <p class="pp__eyebrow">Chapter Four &mdash; Client Stories</p>
+    <h2 id="pp-stories-h">Stories From <em>the Coast</em></h2>
+    <p class="pp__lede">We don&rsquo;t do logo walls. Every name below comes with a story &mdash; here are three favorites.</p>
+
+    <article class="pp__story">
+      <p class="pp__story-kicker">Filed Under: Festivals</p>
+      <h3>The Festival That Sells Out the Parking Lot</h3>
+      <p>Every fall, The Market Shops&rsquo; main lawn fills with tents, tasting cups, and a very happy crowd &mdash; that&rsquo;s the Bloody Mary Festival, and we&rsquo;ve run point on it for years. Media alerts, sponsor wrangling, social buzz, day-of coordination: the whole production, down to the celery garnish. It&rsquo;s become one of the coast&rsquo;s can&rsquo;t-miss fall traditions, and the phones at the surrounding restaurants don&rsquo;t stop ringing after.</p>
+      <p class="pp__pullquote">&ldquo;The lawn was packed by noon.&rdquo;</p>
+      <p class="pp__pullquote-src">&mdash; Festival regular, probably holding a tasting cup</p>
+    </article>
+
+    <article class="pp__story">
+      <p class="pp__story-kicker">Filed Under: Community</p>
+      <h3>A Night Out That Gives Back</h3>
+      <p>In 2011 Jessica gathered a few dozen local women for camaraderie and called it Girls&rsquo; Night Out. It grew into hundreds of women raising thousands of dollars for local charities &mdash; one holiday soiree at Marlin Grill raised $4,682.38 for breast cancer awareness. We plan it, promote it, and pour the wine. Some clients hire us for reach; this one&rsquo;s for the soul.</p>
+    </article>
+
+    <article class="pp__story">
+      <p class="pp__story-kicker">Filed Under: Grand Openings</p>
+      <h3>Open for Business, Loudly</h3>
+      <p>Amazing Lash Studio&rsquo;s Destin debut. Bracken Law&rsquo;s second office on 30A. Clean Juice landing at The Market Shops with 20+ new jobs. Our grand openings come with ribbon cuttings, press, crowds, and lines out the door &mdash; because &ldquo;now open&rdquo; should feel like an event, not a footnote.</p>
+    </article>
+
+    <div class="pp__roster">
+      <p class="pp__roster-kicker">Also In Our Address Book</p>
+      <p>Hilton Sandestin Beach Golf Resort &amp; Spa &middot; Brotula&rsquo;s Seafood House &amp; Steamer &middot; Cafe Thirty-A &middot; Grayton Beer Company &middot; Ruth&rsquo;s Chris &middot; LuLu&rsquo;s &middot; The Henderson &middot; Epic Photo Co. &middot; Fab&rsquo;rik &middot; Century 21 Blue Marlin &middot; Clear Harbor Wealth Management &middot; Emerald Bay Golf Club &middot; Destin Jewelers &middot; Fisher&rsquo;s Pharmacy &middot; Coyote Ugly &middot; Chi-Mar Construction &middot; CHELCO &middot; Costa Family McDonald&rsquo;s &middot; The Honey Hutch &middot; 30A BBQ Festival &middot; <em>&hellip;and 180 more.</em></p>
     </div>
-    <div class="flex items-center gap-2">
-      <button onclick="window.print()" class="px-3 py-1.5 text-xs font-semibold rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
-        Export / Print PDF
-      </button>
-      <a href="data:text/html;charset=utf-8,%3C!--%20Proffitt%20PR%20Prototype%20--%3E" download="proffitt-pr-prototype.html" class="px-3 py-1.5 text-xs font-semibold rounded bg-cyan-500 hover:bg-cyan-400 text-black transition">
-        Download Offline HTML
-      </a>
-    </div>
-  </header>
+  </div>
+  <aside class="pp__margin" aria-label="Margin notes">
+    <dl>
+      <dt>Filed Under</dt>
+      <dd><strong>Case Files</strong>, Selected</dd>
+      <dt>By The Numbers</dt>
+      <dd><strong>200+</strong> brands<br>and counting</dd>
+      <dt>Full Roster</dt>
+      <dd>Ask us &mdash; we&rsquo;ll<br>gossip (nicely).</dd>
+    </dl>
+  </aside>
+</section>
 
-  <!-- Prototype Hero -->
-  <main class="flex-1 max-w-6xl w-full mx-auto p-6 md:p-10 space-y-10">
-    <div class="rounded-2xl border border-slate-800 bg-gradient-to-b from-[#131B2E] to-[#0D1322] p-8 md:p-12 relative overflow-hidden shadow-2xl">
-      <div class="absolute -right-20 -top-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
-      
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-xs text-slate-300 mb-6">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>Luxury Hospitality PR · Interactive Next.js Concept</span>
-      </div>
+<hr class="pp__rule">
 
-      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white max-w-3xl leading-tight">
-        Vibrant Editorial Media Kit & Press Showcase
-      </h1>
+<section class="pp__feature" id="firm" aria-labelledby="pp-firm-h">
+  <div class="pp__body">
+    <p class="pp__eyebrow">Chapter Five &mdash; The Firm</p>
+    <h2 id="pp-firm-h">The Woman Behind <em>the Hustle</em></h2>
+    <p>In 2011, Jessica Proffitt Bracken decided to venture out on her own. She started by attending every networking event on the Emerald Coast she could find. Five years later, she hosted a grand opening at The Market Shops with 300 friends, three chambers of commerce, client-supplied cocktails, a photo booth, and selfie sticks for the first hundred guests &mdash; because of course there were selfie sticks.</p>
+    <p>She learned traditional PR at the elbow of Kay Phelan, the matriarch of Emerald Coast PR, and she runs on a motto her dad instilled early: <em>persistence removes resistance.</em> In 2022, 850 Business Magazine gave her the Pinnacle Award. She&rsquo;s still trying to resurrect Girls&rsquo; Night Out. Stay tuned, ladies.</p>
+    <h3 class="pp__team-h">The Crew</h3>
+    <ul class="pp__team">
+      <li><strong>Jessica Proffitt Bracken</strong><span>Founder &amp; CEO &mdash; chief storyteller, professional show-er-upper</span></li>
+      <li><strong>Whitney Ladwig</strong><span>Vice President &mdash; keeps the trains (and the galas) on time</span></li>
+      <li><strong>Taylor Sheekley</strong><span>Marketing Manager &mdash; UF PR grad, glue of the operation</span></li>
+    </ul>
+  </div>
+  <aside class="pp__margin" aria-label="Margin notes">
+    <dl>
+      <dt>Filed Under</dt>
+      <dd><strong>Masthead</strong></dd>
+      <dt>Honors</dt>
+      <dd>Voted <strong>Best PR Firm</strong><br>by the community,<br>repeatedly</dd>
+      <dt>Also</dt>
+      <dd><strong>2022 Pinnacle Award</strong><br>850 Business Magazine</dd>
+      <dt>Mentors</dt>
+      <dd>Kay Phelan &mdash;<br>the matriarch of<br>coast PR</dd>
+    </dl>
+  </aside>
+</section>
 
-      <p class="mt-4 text-slate-400 text-base md:text-lg max-w-2xl leading-relaxed">
-        Smooth animation galleries, one-click press releases, and client roster features. Engineered with sub-second page transitions, responsive touch controls, and zero legacy CMS script bloat.
-      </p>
+<hr class="pp__rule">
 
-      <div class="mt-8 flex flex-wrap gap-4">
-        <button onclick="alert('Interactive demo: Project Showcase Filter Triggered')" class="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-sm shadow-lg shadow-cyan-500/20 transition">
-          Explore Portfolio Archive
-        </button>
-        <button onclick="alert('Interactive demo: Client Inquiry Modal Opened')" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm border border-slate-700 transition">
-          Direct Consultation Request
-        </button>
-      </div>
-    </div>
+<!-- ============ SIGNATURE INTERACTIVE ============ -->
+<section class="pp__season" id="season" aria-labelledby="pp-season-h">
+  <div class="pp__season-inner">
+    <p class="pp__eyebrow">The Centerfold &mdash; Interactive</p>
+    <h2 id="pp-season-h">The <em>Season</em></h2>
+    <p class="pp__lede">A year on the Emerald Coast, according to us. Pick a month &mdash; or drag the ledger sideways &mdash; and see what we&rsquo;re planning, promoting, or packing the house for.</p>
+    <p class="pp__season-note">Illustrative calendar: flagship events are real, dates shift year to year.</p>
 
-    <!-- Interactive Features Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          01
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Instant Mobile Speed</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Google Lighthouse 98+ score with modern image compression, eliminating render delays on high-resolution project photography.
-        </p>
-      </div>
-
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          02
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Frictionless Lead Intake</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Streamlined client consultation intake with automatic validation, spam filtering, and direct CRM notification webhooks.
-        </p>
-      </div>
-
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          03
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Zero CMS Maintenance</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Static-first Next.js infrastructure deployed on high-availability edge nodes, completely immune to WordPress plugin vulnerabilities.
-        </p>
-      </div>
+    <div class="pp__months" role="tablist" aria-label="Months">
+      <button class="pp__month-btn" role="tab" aria-selected="true" data-month="0">Jan</button>
+      <button class="pp__month-btn" role="tab" aria-selected="false" data-month="1">Feb</button>
+      <button class="pp__month-btn" role="tab" aria-selected="false" data-month="2">Mar</button>
+      <button class="pp__month-btn" role="tab" aria-selected="false" data-month="3">Apr</button>
+      <button class="pp__month-btn" role="tab" aria-selected="false" data-month="4">May</button>
+      <button class="pp__month-btn" role="tab" aria-selected="false" data-month="5">Jun</button>
+      <button class="pp__month-btn" role="tab" aria-selected="false" data-month="6">Jul</button>
+      <button class="pp__month-btn" role="tab" aria-selected="false" data-month="7">Aug</button>
+      <button class="pp__month-btn" role="tab" aria-selected="false" data-month="8">Sep</button>
+      <button class="pp__month-btn" role="tab" aria-selected="false" data-month="9">Oct</button>
+      <button class="pp__month-btn" role="tab" aria-selected="false" data-month="10">Nov</button>
+      <button class="pp__month-btn" role="tab" aria-selected="false" data-month="11">Dec</button>
     </div>
 
-    <!-- Verification & Proof Footer -->
-    <div class="rounded-xl border border-slate-800 bg-[#0E1424] p-6 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400">
-      <div class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-        <span>Prototype Status: <strong class="text-white">Active Preview Verified</strong></span>
+    <div class="pp__ledger-wrap">
+      <div class="pp__ledger" id="pp-ledger" tabindex="0" role="region" aria-label="Events ledger — drag or use arrow keys">
+        <article class="pp__event" data-month="0">
+          <p class="pp__event-month">January</p>
+          <h3>Winter Concerts, Part One</h3>
+          <p class="pp__event-venue">The Market Shops &middot; Main Lawn</p>
+          <p>Free concerts to shake off the winter quiet &mdash; we book the acts, spread the word, and fill the lawn with blankets and regulars.</p>
+          <span class="pp__event-tag">Signature Series</span>
+        </article>
+        <article class="pp__event" data-month="1">
+          <p class="pp__event-month">February</p>
+          <h3>Winter Concerts, Part Two</h3>
+          <p class="pp__event-venue">The Market Shops &middot; Main Lawn</p>
+          <p>Round two of the winter series. Same lawn, new crowd &mdash; snowbirds telling their friends back home they should&rsquo;ve come sooner.</p>
+          <span class="pp__event-tag">Signature Series</span>
+        </article>
+        <article class="pp__event" data-month="2">
+          <p class="pp__event-month">March</p>
+          <h3>Spring Grand Opening Season</h3>
+          <p class="pp__event-venue">Up and down the coast</p>
+          <p>New season, new doors. We launch spring&rsquo;s crop of restaurants, boutiques, and studios with ribbon cuttings the press actually attends.</p>
+          <span class="pp__event-tag">Grand Openings</span>
+        </article>
+        <article class="pp__event" data-month="3">
+          <p class="pp__event-month">April</p>
+          <h3>30A BBQ Festival</h3>
+          <p class="pp__event-venue">South Walton</p>
+          <p>Smoke, sauce, and a crowd that plans vacations around it. Festival PR: media, sponsors, and social that smells like victory.</p>
+          <span class="pp__event-tag">Festival</span>
+        </article>
+        <article class="pp__event" data-month="4">
+          <p class="pp__event-month">May</p>
+          <h3>Anniversary Season</h3>
+          <p class="pp__event-venue">Our house &middot; The Market Shops</p>
+          <p>May is when we threw our own 5-year party &mdash; 300 guests, three chambers, selfie sticks. We never miss a chance to celebrate a milestone, yours or ours.</p>
+          <span class="pp__event-tag">House Party</span>
+        </article>
+        <article class="pp__event" data-month="5">
+          <p class="pp__event-month">June</p>
+          <h3>Summer Kickoff Parties</h3>
+          <p class="pp__event-venue">Resorts &amp; rooftops</p>
+          <p>Tourist season opens and every resort wants a splash. Launch parties, pool decks, sunset guest lists &mdash; summer starts when we say so.</p>
+          <span class="pp__event-tag">Launch Party</span>
+        </article>
+        <article class="pp__event" data-month="6">
+          <p class="pp__event-month">July</p>
+          <h3>Red, White &amp; Blue on the Coast</h3>
+          <p class="pp__event-venue">Destin Harbor &amp; beyond</p>
+          <p>Fourth of July on the Emerald Coast is a contact sport. We coordinate the celebrations clients use to own the holiday.</p>
+          <span class="pp__event-tag">Community</span>
+        </article>
+        <article class="pp__event" data-month="7">
+          <p class="pp__event-month">August</p>
+          <h3>Back-to-Business Networking</h3>
+          <p class="pp__event-venue">Chamber halls &amp; patios</p>
+          <p>Fall planning starts in August. We put clients in the rooms where the next season&rsquo;s deals get made.</p>
+          <span class="pp__event-tag">Networking</span>
+        </article>
+        <article class="pp__event" data-month="8">
+          <p class="pp__event-month">September</p>
+          <h3>Fall Festival Prep</h3>
+          <p class="pp__event-venue">Behind the scenes</p>
+          <p>The unglamorous month that makes the glamorous months work &mdash; sponsors signed, media pitched, timelines locked.</p>
+          <span class="pp__event-tag">The Grind</span>
+        </article>
+        <article class="pp__event" data-month="9">
+          <p class="pp__event-month">October</p>
+          <h3>Bloody Mary Festival</h3>
+          <p class="pp__event-venue">The Market Shops &middot; Main Lawn</p>
+          <p>Our flagship fall festival: tasting tents, live music, and a lawn packed by noon. Media alerts, sponsor wrangling, day-of command &mdash; the full production.</p>
+          <span class="pp__event-tag">Flagship Festival</span>
+        </article>
+        <article class="pp__event" data-month="10">
+          <p class="pp__event-month">November</p>
+          <h3>Destin Crafted Festival</h3>
+          <p class="pp__event-venue">The Henderson</p>
+          <p>A celebration of makers and craftspeople, second year running. We handle the story: who&rsquo;s pouring, who&rsquo;s playing, why it matters.</p>
+          <span class="pp__event-tag">Festival</span>
+        </article>
+        <article class="pp__event" data-month="10">
+          <p class="pp__event-month">November</p>
+          <h3>Girls&rsquo; Night Out: Holiday Soiree</h3>
+          <p class="pp__event-venue">Marlin Grill</p>
+          <p>Jessica&rsquo;s own creation, back for the holidays &mdash; hundreds of women, one great cause. We plan it, promote it, and pour the wine.</p>
+          <span class="pp__event-tag">Charity</span>
+        </article>
+        <article class="pp__event" data-month="11">
+          <p class="pp__event-month">December</p>
+          <h3>Holiday Galas &amp; Giving Season</h3>
+          <p class="pp__event-venue">Ballrooms &amp; beach houses</p>
+          <p>Black tie, bright lights, big checks for good causes. We close the year the way the coast likes it: celebrating, together.</p>
+          <span class="pp__event-tag">Gala Season</span>
+        </article>
+      </div>
+      <div class="pp__ledger-nav">
+        <button class="pp__ledger-btn" id="pp-prev" aria-label="Previous events">&larr;</button>
+        <button class="pp__ledger-btn" id="pp-next" aria-label="Next events">&rarr;</button>
+      </div>
+      <p class="pp__ledger-hint">Tip: drag the ledger, tap a month, or use your arrow keys.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="pp__footer" id="contact">
+  <div class="pp__footer-inner">
+    <p class="pp__eyebrow">The Back Page &mdash; Contact</p>
+    <h2>Tell Us <em>Your Story</em></h2>
+    <p class="pp__lede">Got a brand that deserves a bigger stage? A grand opening, a festival, a story nobody&rsquo;s telling right? That&rsquo;s our favorite kind of phone call.</p>
+    <div class="pp__cta-row">
+      <a class="pp__btn pp__btn--coral" href="mailto:Jessica@ProffittPR.com">Start the Conversation</a>
+      <a class="pp__btn pp__btn--ghost" href="tel:+18504607777">(850) 460-7777</a>
+    </div>
+    <dl class="pp__contact-grid">
+      <div>
+        <dt>Visit</dt>
+        <dd>The Market Shops, Unit 24<br>9375 Emerald Coast Parkway<br>Miramar Beach, FL 32550</dd>
       </div>
       <div>
-        Built by Northside Intelligence · Studio Architecture Division
+        <dt>Call</dt>
+        <dd><a href="tel:+18504607777">(850) 460-7777</a><br>Mon&ndash;Fri, 9am&ndash;5pm CT</dd>
       </div>
-    </div>
-  </main>
+      <div>
+        <dt>Write</dt>
+        <dd><a href="mailto:Jessica@ProffittPR.com">Jessica@ProffittPR.com</a></dd>
+      </div>
+      <div>
+        <dt>Follow</dt>
+        <dd>@proffittpr &mdash; the coast,<br>documented daily</dd>
+      </div>
+    </dl>
+    <p class="pp__fine">Concept redesign prototype prepared for Proffitt PR&rsquo;s review &mdash; not published. Content rewritten from proffittpr.com; event calendar is illustrative. Imagery is code-generated; no stock or AI images used.</p>
+  </div>
+</footer>
+</main>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* smooth scroll for nav + cta links */
+  document.querySelectorAll('[data-scroll]').forEach(function(link){
+    link.addEventListener('click', function(e){
+      var target = document.querySelector(link.getAttribute('href'));
+      if(!target) return;
+      e.preventDefault();
+      target.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block: 'start'});
+      target.setAttribute('tabindex','-1');
+      target.focus({preventScroll:true});
+    });
+  });
+
+  /* active nav highlighting */
+  var navLinks = document.querySelectorAll('.pp__nav a[data-scroll]');
+  var sections = [];
+  navLinks.forEach(function(link){
+    var s = document.querySelector(link.getAttribute('href'));
+    if(s) sections.push({link:link, el:s});
+  });
+  if('IntersectionObserver' in window && sections.length){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          navLinks.forEach(function(l){ l.classList.remove('pp__nav--active'); });
+          var match = sections.filter(function(x){ return x.el === en.target; })[0];
+          if(match) match.link.classList.add('pp__nav--active');
+        }
+      });
+    }, {rootMargin:'-40% 0px -55% 0px'});
+    sections.forEach(function(x){ obs.observe(x.el); });
+  }
+
+  /* season ledger: drag-to-scroll */
+  var ledger = document.getElementById('pp-ledger');
+  var isDown = false, startX = 0, startScroll = 0;
+  ledger.addEventListener('pointerdown', function(e){
+    isDown = true; startX = e.clientX; startScroll = ledger.scrollLeft;
+    ledger.classList.add('pp__ledger--dragging');
+    ledger.setPointerCapture(e.pointerId);
+  });
+  ledger.addEventListener('pointermove', function(e){
+    if(!isDown) return;
+    ledger.scrollLeft = startScroll - (e.clientX - startX);
+  });
+  ['pointerup','pointercancel','pointerleave'].forEach(function(ev){
+    ledger.addEventListener(ev, function(){
+      isDown = false;
+      ledger.classList.remove('pp__ledger--dragging');
+    });
+  });
+  ledger.addEventListener('keydown', function(e){
+    var step = 364;
+    if(e.key === 'ArrowRight'){ ledger.scrollBy({left: step, behavior: reduceMotion ? 'auto' : 'smooth'}); e.preventDefault(); }
+    if(e.key === 'ArrowLeft'){ ledger.scrollBy({left: -step, behavior: reduceMotion ? 'auto' : 'smooth'}); e.preventDefault(); }
+    if(e.key === 'Home'){ ledger.scrollTo({left: 0, behavior: reduceMotion ? 'auto' : 'smooth'}); e.preventDefault(); }
+    if(e.key === 'End'){ ledger.scrollTo({left: ledger.scrollWidth, behavior: reduceMotion ? 'auto' : 'smooth'}); e.preventDefault(); }
+  });
+
+  /* month buttons jump to first event of that month */
+  var monthBtns = document.querySelectorAll('.pp__month-btn');
+  function selectMonth(btn){
+    monthBtns.forEach(function(b){ b.setAttribute('aria-selected','false'); });
+    btn.setAttribute('aria-selected','true');
+    var m = btn.getAttribute('data-month');
+    var card = ledger.querySelector('.pp__event[data-month="'+m+'"]');
+    if(card){
+      ledger.scrollTo({left: card.offsetLeft - 24, behavior: reduceMotion ? 'auto' : 'smooth'});
+    }
+  }
+  monthBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){ selectMonth(btn); });
+  });
+
+  /* prev / next buttons */
+  document.getElementById('pp-prev').addEventListener('click', function(){
+    ledger.scrollBy({left: -364, behavior: reduceMotion ? 'auto' : 'smooth'});
+  });
+  document.getElementById('pp-next').addEventListener('click', function(){
+    ledger.scrollBy({left: 364, behavior: reduceMotion ? 'auto' : 'smooth'});
+  });
+
+  /* sync month buttons with scroll position */
+  var ticking = false;
+  ledger.addEventListener('scroll', function(){
+    if(ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function(){
+      var cards = ledger.querySelectorAll('.pp__event');
+      var best = null, bestDist = Infinity;
+      cards.forEach(function(c){
+        var d = Math.abs(c.offsetLeft - ledger.scrollLeft - 24);
+        if(d < bestDist){ bestDist = d; best = c; }
+      });
+      if(best){
+        var m = best.getAttribute('data-month');
+        monthBtns.forEach(function(b){
+          b.setAttribute('aria-selected', b.getAttribute('data-month') === m ? 'true' : 'false');
+        });
+      }
+      ticking = false;
+    });
+  }, {passive:true});
+})();
+</script>
 </body>
 </html>

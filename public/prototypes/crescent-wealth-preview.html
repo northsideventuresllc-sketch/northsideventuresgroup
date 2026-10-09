@@ -1,111 +1,633 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crescent Wealth Advisory — Interactive Prototype | Northside Intelligence</title>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .mono { font-family: 'JetBrains Mono', monospace; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crescent Wealth Advisory — Your Family's Ledger, Kept Honestly</title>
+<meta name="description" content="Crescent Wealth Advisory is an independent, employee-owned wealth advisory firm in Winter Park, Florida. A redesign concept.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- ============ HEAD: meta, fonts, styles ============ -->
+<style>
+  :root{
+    --paper:#FAF6EE;
+    --ink:#1F2A37;
+    --ledger-red:#9C3D2E;
+    --faded:#4E5B6C;
+    --rule:#E7DFC9;
+    --rule-strong:#D8CBAE;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{transition:none !important;animation:none !important}
+  }
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Newsreader',Georgia,serif;
+    font-size:18px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--ledger-red);color:var(--paper)}
 
+  .cw__mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+
+  /* ---------- ledger masthead / nav ---------- */
+  .cw__masthead{
+    border-bottom:2px solid var(--ink);
+    padding:18px 6vw;
+    display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+    position:sticky;top:0;background:var(--paper);z-index:50;
+  }
+  .cw__wordmark{font-weight:700;font-size:20px;letter-spacing:0.01em;text-decoration:none;color:var(--ink)}
+  .cw__wordmark .cw__mono{font-size:11px;font-weight:500;color:var(--faded);letter-spacing:0.18em;display:block}
+  .cw__nav{display:flex;gap:28px;list-style:none}
+  .cw__nav a{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--faded);text-decoration:none;padding:4px 2px;border-bottom:2px solid transparent;
+  }
+  .cw__nav a:hover{color:var(--ink)}
+  .cw__nav a.cw__active{color:var(--ledger-red);border-bottom-color:var(--ledger-red)}
+  .cw__nav a:focus-visible{outline:2px solid var(--ledger-red);outline-offset:4px}
+  .cw__pillnav{display:none}
+
+  /* ---------- ledger entries (layout primitive) ---------- */
+  .cw__entry{
+    border-bottom:1px solid var(--rule);
+    padding:88px 6vw;
+    max-width:1200px;margin:0 auto;
+    display:grid;grid-template-columns:120px 1fr;gap:40px;
+  }
+  .cw__margin{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.16em;color:var(--ledger-red);text-transform:uppercase;line-height:2}
+  .cw__margin span{display:block;color:var(--faded)}
+  .cw__eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
+    letter-spacing:0.2em;text-transform:uppercase;color:var(--ledger-red);margin-bottom:20px;
+  }
+  .cw__entry h2{
+    font-weight:600;font-size:clamp(32px,4vw,52px);line-height:1.08;letter-spacing:-0.01em;
+    margin-bottom:24px;max-width:20ch;
+  }
+  .cw__entry .cw__lede{font-size:21px;line-height:1.6;max-width:62ch;color:var(--ink)}
+  .cw__entry p{max-width:65ch;margin-bottom:16px}
+  .cw__fine{font-size:15px;color:var(--faded)}
+
+  /* ---------- hero: an open ledger page ---------- */
+  .cw__folio{border-bottom:2px solid var(--ink);padding:0 6vw}
+  .cw__folio-sheet{
+    max-width:1200px;margin:0 auto;padding:88px 0 80px;
+    display:grid;grid-template-columns:130px 1fr;gap:0 44px;
+  }
+  .cw__folio-margin{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--faded);line-height:2.1;padding-top:4px;
+  }
+  .cw__folio-margin b{display:block;color:var(--ledger-red);font-weight:600;font-size:13px;letter-spacing:0.1em}
+  .cw__folio-margin span{display:block}
+  .cw__folio-body{border-left:1px solid var(--ledger-red);padding-left:44px;min-width:0}
+  .cw__folio-line,.cw__folio-head{
+    font-family:'IBM Plex Mono',monospace;
+    border-bottom:1px solid var(--rule);
+    padding:15px 0;display:flex;gap:22px;align-items:baseline;
+  }
+  .cw__folio-line{font-size:clamp(13px,1.5vw,15.5px);letter-spacing:0.03em;color:var(--ink)}
+  .cw__folio-no{color:var(--ledger-red);font-weight:600;font-size:0.82em;min-width:2ch}
+  h1.cw__folio-head{
+    font-size:clamp(25px,3.4vw,42px);font-weight:600;line-height:1.18;letter-spacing:-0.01em;
+    color:var(--ink);padding:20px 0;
+  }
+  h1.cw__folio-head .cw__folio-no{font-size:13px;letter-spacing:0.08em}
+  .cw__folio-carry{
+    display:flex;justify-content:space-between;align-items:baseline;gap:24px;flex-wrap:wrap;
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--faded);padding:20px 0 4px;
+  }
+  .cw__folio-carry a{
+    color:var(--ink);text-decoration:underline;text-decoration-color:var(--ledger-red);
+    text-underline-offset:4px;text-decoration-thickness:1px;
+  }
+  .cw__folio-carry a:hover{color:var(--ledger-red)}
+  .cw__folio-carry a:focus-visible{outline:2px solid var(--ledger-red);outline-offset:4px}
+
+  /* ---------- signature interactive: the independence ledger ---------- */
+  .cw__ledger{border:2px solid var(--ink);margin-top:40px;background:var(--paper)}
+  .cw__ledger-head{
+    display:grid;grid-template-columns:1fr 1fr;
+    border-bottom:2px solid var(--ink);
+    font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;
+  }
+  .cw__ledger-head div{padding:18px 24px}
+  .cw__ledger-head div:last-child{border-left:1px solid var(--rule-strong);color:var(--ledger-red)}
+  .cw__ledger-row{border-bottom:1px solid var(--rule)}
+  .cw__ledger-row:last-child{border-bottom:none}
+  .cw__ledger-toggle{
+    width:100%;background:none;border:none;cursor:pointer;text-align:left;
+    display:grid;grid-template-columns:1fr 1fr;align-items:stretch;
+    font-family:inherit;color:inherit;padding:0;
+  }
+  .cw__ledger-toggle > span{padding:20px 24px;display:block}
+  .cw__ledger-toggle > span:first-child{font-size:17px}
+  .cw__ledger-toggle > span:first-child .cw__mono{display:block;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--faded);margin-bottom:6px}
+  .cw__ledger-toggle > span:last-child{border-left:1px solid var(--rule-strong);font-size:17px}
+  .cw__ledger-toggle > span:last-child .cw__mono{display:block;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ledger-red);margin-bottom:6px}
+  .cw__ledger-toggle:hover{background:#F4EDDD}
+  .cw__ledger-toggle:focus-visible{outline:2px solid var(--ledger-red);outline-offset:-2px}
+  .cw__ledger-toggle .cw__plus{float:right;font-family:'IBM Plex Mono',monospace;color:var(--ledger-red);font-weight:600}
+  .cw__ledger-detail{display:none;padding:0 24px 24px 24px;font-size:16px;color:var(--faded);max-width:70ch}
+  .cw__ledger-detail.cw__open{display:block}
+  .cw__ledger-note{margin-top:24px;font-size:15px;color:var(--faded);font-style:italic;max-width:65ch}
+  .cw__ledger-note b{color:var(--ledger-red);font-style:normal}
+
+  /* ---------- services: ledger line items ---------- */
+  .cw__service{border-top:1px solid var(--rule);padding:36px 0}
+  .cw__service:first-of-type{border-top:none}
+  .cw__service-head{display:flex;align-items:baseline;gap:20px;margin-bottom:16px}
+  .cw__service-num{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--ledger-red);letter-spacing:0.1em}
+  .cw__service h3{font-size:28px;font-weight:600}
+  .cw__service > p{margin-bottom:20px}
+  .cw__service ul{list-style:none;columns:2;column-gap:48px;max-width:900px}
+  .cw__service li{
+    font-family:'IBM Plex Mono',monospace;font-size:14px;line-height:1.5;color:var(--ink);
+    padding:10px 0 10px 28px;border-top:1px dotted var(--rule-strong);break-inside:avoid;position:relative;
+  }
+  .cw__service li::before{content:"—";position:absolute;left:0;color:var(--ledger-red)}
+
+  /* ---------- approach pillars ---------- */
+  .cw__pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--rule-strong);margin-top:32px}
+  .cw__pillar{padding:32px 28px;border-left:1px solid var(--rule-strong)}
+  .cw__pillar:first-child{border-left:none}
+  .cw__pillar .cw__mono{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ledger-red);display:block;margin-bottom:14px}
+  .cw__pillar h3{font-size:22px;font-weight:600;margin-bottom:12px}
+  .cw__pillar p{font-size:16px;color:var(--faded)}
+  .cw__process{margin-top:32px;display:flex;gap:0;border-top:2px solid var(--ink)}
+  .cw__step{flex:1;padding:24px 20px 0 0}
+  .cw__step + .cw__step{padding-left:24px;border-left:1px solid var(--rule)}
+  .cw__step .cw__mono{font-size:12px;color:var(--ledger-red);letter-spacing:0.14em}
+  .cw__step h4{font-size:19px;font-weight:600;margin:8px 0 6px}
+  .cw__step p{font-size:15px;color:var(--faded)}
+
+  /* ---------- founding entries ---------- */
+  .cw__chron{margin-top:32px;border-top:2px solid var(--ink)}
+  .cw__chron-item{display:grid;grid-template-columns:110px 1fr;gap:28px;padding:28px 0;border-bottom:1px solid var(--rule)}
+  .cw__chron-item .cw__mono{font-size:15px;font-weight:600;color:var(--ledger-red);letter-spacing:0.06em}
+  .cw__chron-item h3{font-size:22px;font-weight:600;margin-bottom:8px}
+  .cw__chron-item p{font-size:16px;color:var(--faded);max-width:60ch}
+
+  /* ---------- team roster ---------- */
+  .cw__roster{margin-top:32px;border-top:2px solid var(--ink)}
+  .cw__roster-row{
+    display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:baseline;
+    padding:18px 0;border-bottom:1px solid var(--rule);
+  }
+  .cw__roster-row h3{font-size:20px;font-weight:600}
+  .cw__roster-row .cw__mono{font-size:12.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--faded);text-align:right}
+  .cw__roster-row.cw__founder h3::after{
+    content:" · FOUNDER";font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;color:var(--ledger-red);font-weight:600;
+  }
+
+  /* ---------- who we serve ---------- */
+  .cw__serve-list{list-style:none;margin-top:28px}
+  .cw__serve-list li{padding:16px 0;border-top:1px solid var(--rule);font-size:19px;display:flex;gap:16px;align-items:baseline}
+  .cw__serve-list li::before{content:"§";font-family:'IBM Plex Mono',monospace;color:var(--ledger-red);font-size:15px}
+  .cw__concerns{margin-top:28px;font-size:16px;color:var(--faded);max-width:65ch}
+  .cw__concerns b{color:var(--ink);font-weight:600}
+
+  /* ---------- contact ---------- */
+  .cw__offices{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--rule-strong);margin-top:32px}
+  .cw__office{padding:36px 32px}
+  .cw__office + .cw__office{border-left:1px solid var(--rule-strong)}
+  .cw__office .cw__mono{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ledger-red);display:block;margin-bottom:14px}
+  .cw__office h3{font-size:24px;font-weight:600;margin-bottom:12px}
+  .cw__office p{font-size:16px;color:var(--faded);margin-bottom:4px}
+  .cw__office a{color:var(--ink)}
+  .cw__contact-line{margin-top:32px;font-size:20px}
+  .cw__contact-line a{color:var(--ledger-red);text-decoration-thickness:1px;text-underline-offset:3px}
+
+  /* ---------- footer ---------- */
+  .cw__footer{border-top:2px solid var(--ink);padding:48px 6vw;max-width:1200px;margin:0 auto}
+  .cw__footer-grid{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:32px}
+  .cw__footer .cw__mono{font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--faded)}
+  .cw__footer .cw__disclaimer{font-size:13.5px;font-style:italic;color:var(--faded);max-width:75ch;border-top:1px solid var(--rule);padding-top:24px}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:900px){
+    .cw__folio-sheet{grid-template-columns:1fr;gap:20px;padding:56px 0 48px}
+    .cw__folio-margin{line-height:1.9;padding-top:0}
+    .cw__folio-margin b{display:inline;margin-right:10px}
+    .cw__folio-margin span{display:inline}
+    .cw__folio-margin span + span::before{content:"· "}
+    .cw__folio-body{border-left:none;border-top:1px solid var(--ledger-red);padding-left:0;padding-top:6px}
+    .cw__folio-line,.cw__folio-head{gap:14px}
+    .cw__entry{grid-template-columns:1fr;gap:16px;padding:64px 6vw}
+    .cw__margin span{display:inline;margin-left:12px}
+    .cw__nav{display:none}
+    .cw__pillnav{
+      display:flex;gap:8px;overflow-x:auto;padding:12px 6vw;
+      border-bottom:1px solid var(--rule);background:var(--paper);
+      position:sticky;top:73px;z-index:40;
+    }
+    .cw__pillnav a{
+      flex:0 0 auto;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+      color:var(--ink);text-decoration:none;border:1px solid var(--rule-strong);border-radius:999px;padding:8px 16px;background:var(--paper);
+    }
+    .cw__pillnav a.cw__active{color:var(--paper);background:var(--ledger-red);border-color:var(--ledger-red)}
+    .cw__pillars{grid-template-columns:1fr}
+    .cw__pillar{border-left:none;border-top:1px solid var(--rule-strong)}
+    .cw__pillar:first-child{border-top:none}
+    .cw__process{flex-direction:column}
+    .cw__step + .cw__step{border-left:none;border-top:1px solid var(--rule);padding-left:0;padding-top:20px;margin-top:4px}
+    .cw__service ul{columns:1}
+    .cw__offices{grid-template-columns:1fr}
+    .cw__office + .cw__office{border-left:none;border-top:1px solid var(--rule-strong)}
+    .cw__ledger-toggle > span{padding:16px}
+    .cw__ledger-toggle > span:first-child{font-size:15px}
+    .cw__ledger-toggle > span:last-child{font-size:15px}
+    .cw__roster-row{grid-template-columns:1fr;gap:4px}
+    .cw__roster-row .cw__mono{text-align:left}
+  }
+</style>
 </head>
-<body class="bg-[#090D16] text-slate-100 min-h-screen antialiased flex flex-col">
-  <!-- Top Operator Bar -->
-  <header class="border-b border-slate-800/80 bg-[#0E1424]/90 backdrop-blur sticky top-0 z-50 px-6 py-3 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <div class="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold text-xs uppercase tracking-wider">
-        NI Deliverable Prototype
-      </div>
-      <div class="text-xs text-slate-400">
-        Prepared for <span class="font-semibold text-white">Crescent Wealth Advisory</span> (Atlanta, GA)
-      </div>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="cw__masthead">
+  <a class="cw__wordmark" href="#top" data-scroll>Crescent Wealth Advisory<span class="cw__mono">Winter Park · Florida</span></a>
+  <nav aria-label="Primary">
+    <ul class="cw__nav">
+      <li><a href="#independence" data-scroll>Independence</a></li>
+      <li><a href="#services" data-scroll>Services</a></li>
+      <li><a href="#firm" data-scroll>The Firm</a></li>
+      <li><a href="#people" data-scroll>People</a></li>
+      <li><a href="#contact" data-scroll>Contact</a></li>
+    </ul>
+  </nav>
+</header>
+<nav class="cw__pillnav" aria-label="Primary mobile">
+  <a href="#independence" data-scroll>Independence</a>
+  <a href="#services" data-scroll>Services</a>
+  <a href="#firm" data-scroll>The Firm</a>
+  <a href="#people" data-scroll>People</a>
+  <a href="#contact" data-scroll>Contact</a>
+</nav>
+
+<main id="top">
+<!-- ============ HERO: AN OPEN LEDGER PAGE ============ -->
+<section class="cw__folio" aria-label="Introduction">
+  <div class="cw__folio-sheet">
+    <div class="cw__folio-margin" aria-hidden="true">
+      <b>Nº 01</b>
+      <span>Folio</span>
+      <span>Winter Park · Fla.</span>
+      <span>Opened 2003</span>
     </div>
-    <div class="flex items-center gap-2">
-      <button onclick="window.print()" class="px-3 py-1.5 text-xs font-semibold rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
-        Export / Print PDF
-      </button>
-      <a href="data:text/html;charset=utf-8,%3C!--%20Crescent%20Wealth%20Advisory%20Prototype%20--%3E" download="crescent-wealth-advisory-prototype.html" class="px-3 py-1.5 text-xs font-semibold rounded bg-cyan-500 hover:bg-cyan-400 text-black transition">
-        Download Offline HTML
-      </a>
+    <div class="cw__folio-body">
+      <p class="cw__folio-line"><span class="cw__folio-no" aria-hidden="true">1</span><span>Crescent Wealth Advisory</span></p>
+      <h1 class="cw__folio-head"><span class="cw__folio-no" aria-hidden="true">2</span><span>Your Family's Ledger, Kept Honestly</span></h1>
+      <p class="cw__folio-line"><span class="cw__folio-no" aria-hidden="true">3</span><span>Independent · Employee-Owned · SEC-Registered Fiduciary</span></p>
+      <p class="cw__folio-line"><span class="cw__folio-no" aria-hidden="true">4</span><span>Roots 2003 · RIA Est. 2016 · Winter Park, FL — Baton Rouge, LA</span></p>
+      <p class="cw__folio-carry"><span>Balance carried forward</span><a href="#independence" data-scroll>Nº 02 · Independence &#8594;</a></p>
     </div>
-  </header>
+  </div>
+</section>
 
-  <!-- Prototype Hero -->
-  <main class="flex-1 max-w-6xl w-full mx-auto p-6 md:p-10 space-y-10">
-    <div class="rounded-2xl border border-slate-800 bg-gradient-to-b from-[#131B2E] to-[#0D1322] p-8 md:p-12 relative overflow-hidden shadow-2xl">
-      <div class="absolute -right-20 -top-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
-      
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-xs text-slate-300 mb-6">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>Boutique Wealth Advisory · Interactive Next.js Concept</span>
+<!-- ============ SECTIONS ============ -->
+
+<!-- ============ SIGNATURE INTERACTIVE ============ -->
+<section class="cw__entry" id="independence" aria-label="The Independence Ledger">
+  <div class="cw__margin cw__mono">Nº 02<span>Independence</span></div>
+  <div>
+    <p class="cw__eyebrow cw__mono">The Signature Question</p>
+    <h2>Who Does Your Advisor Work For?</h2>
+    <p class="cw__lede">Most firms can't answer that cleanly. Open each line of the ledger and compare — the big brokerage on the left, Crescent on the right.</p>
+
+    <div class="cw__ledger" role="region" aria-label="Independence comparison">
+      <div class="cw__ledger-head cw__mono" aria-hidden="true">
+        <div>The Big Brokerage</div>
+        <div>Crescent</div>
       </div>
 
-      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white max-w-3xl leading-tight">
-        Institutional Fiduciary Polish & High-Trust Client Portal
-      </h1>
-
-      <p class="mt-4 text-slate-400 text-base md:text-lg max-w-2xl leading-relaxed">
-        Clean, secure digital interface built for high-net-worth family office consultations. Engineered with sub-second page transitions, responsive touch controls, and zero legacy CMS script bloat.
-      </p>
-
-      <div class="mt-8 flex flex-wrap gap-4">
-        <button onclick="alert('Interactive demo: Project Showcase Filter Triggered')" class="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-sm shadow-lg shadow-cyan-500/20 transition">
-          Explore Portfolio Archive
+      <div class="cw__ledger-row">
+        <button class="cw__ledger-toggle" aria-expanded="false" data-detail="d1">
+          <span><span class="cw__mono">Line 01 · Allegiance</span>Who they answer to<span class="cw__plus" aria-hidden="true">+</span></span>
+          <span><span class="cw__mono">Line 01 · Allegiance</span>You — and only you<span class="cw__plus" aria-hidden="true">+</span></span>
         </button>
-        <button onclick="alert('Interactive demo: Client Inquiry Modal Opened')" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm border border-slate-700 transition">
-          Direct Consultation Request
+        <p class="cw__ledger-detail" id="d1">Large firms answer to shareholders and sales targets. Crescent is independent and employee-owned — no parent company, no quotas, no house products to push. Our only constituency sits across the desk.</p>
+      </div>
+
+      <div class="cw__ledger-row">
+        <button class="cw__ledger-toggle" aria-expanded="false" data-detail="d2">
+          <span><span class="cw__mono">Line 02 · Compensation</span>How they're paid<span class="cw__plus" aria-hidden="true">+</span></span>
+          <span><span class="cw__mono">Line 02 · Compensation</span>Transparently, by you<span class="cw__plus" aria-hidden="true">+</span></span>
         </button>
+        <p class="cw__ledger-detail" id="d2">Commissions and product markups can quietly reward selling over advising. Crescent works on a transparent, fee-based footing — when we recommend something, it's because it fits your plan, not because it pays us more.</p>
+      </div>
+
+      <div class="cw__ledger-row">
+        <button class="cw__ledger-toggle" aria-expanded="false" data-detail="d3">
+          <span><span class="cw__mono">Line 03 · Menu</span>What they can recommend<span class="cw__plus" aria-hidden="true">+</span></span>
+          <span><span class="cw__mono">Line 03 · Menu</span>Anything best-in-class<span class="cw__plus" aria-hidden="true">+</span></span>
+        </button>
+        <p class="cw__ledger-detail" id="d3">Captive advisors often choose from their own firm's shelf. Crescent runs an open-architecture platform — ETFs to private equity, any manager, any vehicle — with institutional-level due diligence and reporting that aggregates everything you own into one view.</p>
+      </div>
+
+      <div class="cw__ledger-row">
+        <button class="cw__ledger-toggle" aria-expanded="false" data-detail="d4">
+          <span><span class="cw__mono">Line 04 · Conflicts</span>Where the conflicts live<span class="cw__plus" aria-hidden="true">+</span></span>
+          <span><span class="cw__mono">Line 04 · Conflicts</span>Nowhere in the model<span class="cw__plus" aria-hidden="true">+</span></span>
+        </button>
+        <p class="cw__ledger-detail" id="d4">We're fiduciaries — legally bound to act in your best interest, in an unbiased and conflict-free manner. Not as a marketing line. As the structure of the firm.</p>
+      </div>
+
+      <div class="cw__ledger-row">
+        <button class="cw__ledger-toggle" aria-expanded="false" data-detail="d5">
+          <span><span class="cw__mono">Line 05 · Origin</span>Why the firm exists<span class="cw__plus" aria-hidden="true">+</span></span>
+          <span><span class="cw__mono">Line 05 · Origin</span>Because clients asked<span class="cw__plus" aria-hidden="true">+</span></span>
+        </button>
+        <p class="cw__ledger-detail" id="d5">Tim Wyrobek and Jeff Taylor ran an asset-protection consultancy since 2003. Their own clients asked them to handle investing and planning with the same care — so they built the advisory firm their clients designed.</p>
       </div>
     </div>
+    <p class="cw__ledger-note"><b>Illustrative comparison.</b> Firms differ; the point here is structural — independence you can verify, not independence you have to take on faith.</p>
+  </div>
+</section>
 
-    <!-- Interactive Features Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          01
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Instant Mobile Speed</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Google Lighthouse 98+ score with modern image compression, eliminating render delays on high-resolution project photography.
-        </p>
-      </div>
+<section class="cw__entry" id="services" aria-label="Services">
+  <div class="cw__margin cw__mono">Nº 03<span>Services</span></div>
+  <div>
+    <p class="cw__eyebrow cw__mono">What We Handle</p>
+    <h2>Everything a Family's Money Touches</h2>
+    <p class="cw__lede">Four practices, one ledger. Each line below is something we take off your desk.</p>
 
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          02
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Frictionless Lead Intake</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Streamlined client consultation intake with automatic validation, spam filtering, and direct CRM notification webhooks.
-        </p>
-      </div>
-
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          03
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Zero CMS Maintenance</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Static-first Next.js infrastructure deployed on high-availability edge nodes, completely immune to WordPress plugin vulnerabilities.
-        </p>
-      </div>
+    <div class="cw__service">
+      <div class="cw__service-head"><span class="cw__service-num cw__mono">3.1</span><h3>Comprehensive Planning</h3></div>
+      <p>A complete approach to your goals: personalized portfolio management, investment solutions, estate planning, and dedicated support for business owners and entrepreneurs.</p>
+      <ul>
+        <li>Goals &amp; risk profile assessment</li>
+        <li>Portfolio analysis &amp; asset allocation</li>
+        <li>ETFs, mutual funds &amp; equities</li>
+        <li>Annuities &amp; fixed income</li>
+        <li>Alternative investments</li>
+        <li>Separately managed accounts</li>
+        <li>Private equity &amp; real estate</li>
+        <li>Estate plan design &amp; tax evaluation</li>
+        <li>Living &amp; irrevocable trusts</li>
+        <li>Wealth transfer &amp; family gifting</li>
+        <li>Business succession planning</li>
+        <li>401(k) &amp; group retirement plans</li>
+      </ul>
     </div>
 
-    <!-- Verification & Proof Footer -->
-    <div class="rounded-xl border border-slate-800 bg-[#0E1424] p-6 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400">
-      <div class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-        <span>Prototype Status: <strong class="text-white">Active Preview Verified</strong></span>
+    <div class="cw__service">
+      <div class="cw__service-head"><span class="cw__service-num cw__mono">3.2</span><h3>Family Office Services</h3></div>
+      <p>For families whose wealth has outgrown DIY: we run the back office of your financial life, from bill pay to aviation.</p>
+      <ul>
+        <li>Bill pay &amp; accounting records</li>
+        <li>Aggregated reporting package</li>
+        <li>Insurance assessment &amp; management</li>
+        <li>Fine art &amp; jewelry inventory</li>
+        <li>Multi-generational wealth transfer</li>
+        <li>Family education on wealth strategy</li>
+        <li>Strategic philanthropic planning</li>
+        <li>Trust administration</li>
+        <li>Special projects: real estate, aviation</li>
+      </ul>
+    </div>
+
+    <div class="cw__service">
+      <div class="cw__service-head"><span class="cw__service-num cw__mono">3.3</span><h3>Insurance Consulting</h3></div>
+      <p>Our roots. We determine the exact role life insurance should play in your plan — then manage it like the asset it is.</p>
+      <ul>
+        <li>Policy review &amp; pricing analysis</li>
+        <li>Carrier negotiations</li>
+        <li>Stress tests &amp; policy design</li>
+        <li>On-demand policy values</li>
+        <li>Performance tracking &amp; alerts</li>
+        <li>Premium financing &amp; private placement</li>
+        <li>Key-man &amp; business succession</li>
+        <li>Captives &amp; asset protection</li>
+      </ul>
+    </div>
+
+    <div class="cw__service">
+      <div class="cw__service-head"><span class="cw__service-num cw__mono">3.4</span><h3>Sports Consulting</h3></div>
+      <p>Professional athletes face financial challenges unlike anyone else — compressed earning years, sudden wealth, long retirements. Led by Drew Butler.</p>
+      <ul>
+        <li>Personal financial management</li>
+        <li>Investment advisory</li>
+        <li>Budgeting for career &amp; after</li>
+        <li>Tailored credit solutions</li>
+        <li>Insurance assessment</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="cw__entry" id="approach" aria-label="Our approach">
+  <div class="cw__margin cw__mono">Nº 04<span>Approach</span></div>
+  <div>
+    <p class="cw__eyebrow cw__mono">How We Work</p>
+    <h2>Disciplined, Then Personal</h2>
+    <p class="cw__lede">Institutional rigor underneath; a family-office conversation on top.</p>
+    <div class="cw__pillars">
+      <div class="cw__pillar">
+        <span class="cw__mono">Pillar I</span>
+        <h3>Customization</h3>
+        <p>Risk profiles and manager selection built around each client — never a model portfolio with your name on it.</p>
       </div>
-      <div>
-        Built by Northside Intelligence · Studio Architecture Division
+      <div class="cw__pillar">
+        <span class="cw__mono">Pillar II</span>
+        <h3>Institutional Due Diligence</h3>
+        <p>Every manager, security, and allocation passes an institutional-grade review before it touches your money.</p>
+      </div>
+      <div class="cw__pillar">
+        <span class="cw__mono">Pillar III</span>
+        <h3>Whole Balance Sheet</h3>
+        <p>For larger relationships we look at your whole balance sheet — public and private holdings — to cut concentration risk.</p>
       </div>
     </div>
-  </main>
+    <div class="cw__process">
+      <div class="cw__step">
+        <span class="cw__mono">STEP 1</span>
+        <h4>Asset Allocation</h4>
+        <p>Income needs, risk tolerance, horizon, liquidity, and taxes shape the mix — built to maximize after-tax, risk-adjusted returns.</p>
+      </div>
+      <div class="cw__step">
+        <span class="cw__mono">STEP 2</span>
+        <h4>Portfolio Construction</h4>
+        <p>Disciplined allocation plus optimization models; every vehicle evaluated for performance and fit, alternatives where they help.</p>
+      </div>
+      <div class="cw__step">
+        <span class="cw__mono">STEP 3</span>
+        <h4>Monitor &amp; Meet</h4>
+        <p>Continuous monitoring, quarterly reporting, and at least one full review with you every year — more when life changes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cw__entry" id="firm" aria-label="The firm">
+  <div class="cw__margin cw__mono">Nº 05<span>The Firm</span></div>
+  <div>
+    <p class="cw__eyebrow cw__mono">Our Founding</p>
+    <h2>Asked Into Existence</h2>
+    <p class="cw__lede">Most firms are founded to find clients. Crescent was founded because it already had them.</p>
+    <div class="cw__chron">
+      <div class="cw__chron-item">
+        <span class="cw__mono">2003</span>
+        <div><h3>The Consultancy</h3><p>Tim Wyrobek and Jeff Taylor found Crescent Wealth Management, a high-touch asset-protection consultancy. Clients trust them with the most sensitive part of their wealth: keeping it safe.</p></div>
+      </div>
+      <div class="cw__chron-item">
+        <span class="cw__mono">2016</span>
+        <div><h3>The Request</h3><p>Those same clients ask Wyrobek and Taylor to handle their investing and financial planning with the same comprehensive care. Crescent Wealth Advisory is launched — at their clients' direct request.</p></div>
+      </div>
+      <div class="cw__chron-item">
+        <span class="cw__mono">2017</span>
+        <div><h3>The Platform</h3><p>Crescent joins the Dynasty Financial Partners network, gaining institutional custody, reporting, and manager research — while staying independent and employee-owned.</p></div>
+      </div>
+      <div class="cw__chron-item">
+        <span class="cw__mono">Today</span>
+        <div><h3>Two Offices, One Ledger</h3><p>Winter Park, Florida and Baton Rouge, Louisiana. A ten-person team serving individuals, families, and family offices across the Southeast — still answering only to clients.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cw__entry" id="people" aria-label="The team">
+  <div class="cw__margin cw__mono">Nº 06<span>People</span></div>
+  <div>
+    <p class="cw__eyebrow cw__mono">The Roster</p>
+    <h2>People, Not Headshots</h2>
+    <p class="cw__lede">Seasoned professionals, one shared habit: answering the phone.</p>
+    <div class="cw__roster">
+      <div class="cw__roster-row cw__founder"><h3>Tim Wyrobek</h3><span class="cw__mono">Founder / Principal</span></div>
+      <div class="cw__roster-row cw__founder"><h3>Jeff Taylor</h3><span class="cw__mono">Founder / Principal</span></div>
+      <div class="cw__roster-row"><h3>Meridith Mimbs</h3><span class="cw__mono">Director of Private Client Services</span></div>
+      <div class="cw__roster-row"><h3>John C. Endriss, CFP®</h3><span class="cw__mono">Director of Advanced Case Design</span></div>
+      <div class="cw__roster-row"><h3>Drew Butler</h3><span class="cw__mono">Director of Sports Consulting Group</span></div>
+      <div class="cw__roster-row"><h3>Dora Meyer, CFP®</h3><span class="cw__mono">Financial Planning Specialist</span></div>
+      <div class="cw__roster-row"><h3>Jim Nolan, CLU®</h3><span class="cw__mono">Private Wealth Specialist</span></div>
+      <div class="cw__roster-row"><h3>Kathryn Bulloch</h3><span class="cw__mono">Advanced Case Manager</span></div>
+      <div class="cw__roster-row"><h3>Gwen Bundy</h3><span class="cw__mono">Advanced Case Manager</span></div>
+      <div class="cw__roster-row"><h3>Tina Edwards</h3><span class="cw__mono">Director of Administrative Services</span></div>
+    </div>
+    <p class="cw__fine" style="margin-top:24px">Tim Wyrobek has been named a Five Star Wealth Manager by Atlanta Magazine six years running and profiled in Forbes — but around here, the credential that matters is the one clients gave us in 2016: their trust.</p>
+  </div>
+</section>
+
+<section class="cw__entry" id="serve" aria-label="Who we serve">
+  <div class="cw__margin cw__mono">Nº 07<span>Clients</span></div>
+  <div>
+    <p class="cw__eyebrow cw__mono">Who We Serve</p>
+    <h2>Wealth With Questions</h2>
+    <p class="cw__lede">Our clients built their wealth every way there is — legacies, businesses, careers. They share the same concerns:</p>
+    <ul class="cw__serve-list">
+      <li>Achieving the right mix of assets and investments</li>
+      <li>Growing investments while guarding against losses</li>
+      <li>Evaluating opportunities without the sales pitch</li>
+      <li>Minimizing taxes, legally and intelligently</li>
+      <li>Supporting family members and favorite charities</li>
+      <li>Building a legacy that outlasts a generation</li>
+      <li>Balancing today's spending with tomorrow's security</li>
+    </ul>
+    <p class="cw__concerns"><b>For business owners and their families,</b> we address the questions that keep founders up at night: continuity, succession, and what the business means for the family's future.</p>
+  </div>
+</section>
+
+<section class="cw__entry" id="contact" aria-label="Contact">
+  <div class="cw__margin cw__mono">Nº 08<span>Contact</span></div>
+  <div>
+    <p class="cw__eyebrow cw__mono">Start the Conversation</p>
+    <h2>Come See the Ledger</h2>
+    <p class="cw__lede">Two offices, one phone number. Ask us anything — including the hard questions about how we're paid.</p>
+    <div class="cw__offices">
+      <div class="cw__office">
+        <span class="cw__mono">Headquarters</span>
+        <h3>Winter Park, Florida</h3>
+        <p>1089 West Morse Blvd., Suite C</p>
+        <p>Winter Park, FL 32789</p>
+      </div>
+      <div class="cw__office">
+        <span class="cw__mono">Louisiana</span>
+        <h3>Baton Rouge</h3>
+        <p>1700 City Farm Dr, Suite C</p>
+        <p>Baton Rouge, LA 70806</p>
+      </div>
+    </div>
+    <p class="cw__contact-line"><a href="tel:8005207106">800-520-7106</a> &nbsp;·&nbsp; <a href="mailto:info@crescentwealthadvisory.com">info@crescentwealthadvisory.com</a></p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="cw__footer">
+  <div class="cw__footer-grid">
+    <div>
+      <p style="font-weight:700;font-size:19px;margin-bottom:6px">Crescent Wealth Advisory</p>
+      <p class="cw__mono">Independent · Employee-Owned · Fiduciary</p>
+    </div>
+    <p class="cw__mono">Winter Park, FL — Baton Rouge, LA</p>
+  </div>
+  <p class="cw__disclaimer">Concept prototype: an interactive redesign mockup built from Crescent Wealth Advisory's own public website content, for review only — not published. Illustrative copy in the Independence Ledger comparison is drawn from the firm's stated independence claims. Crescent Wealth Advisory does not provide tax or legal advice.</p>
+</footer>
+</main>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* smooth scroll for nav links */
+  function scrollToTarget(hash){
+    var el = document.querySelector(hash);
+    if(!el) return;
+    if(reduceMotion){ el.scrollIntoView(); }
+    else{ el.scrollIntoView({behavior:'smooth', block:'start'}); }
+  }
+  document.querySelectorAll('[data-scroll]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var href = a.getAttribute('href');
+      if(href && href.charAt(0) === '#'){
+        e.preventDefault();
+        scrollToTarget(href);
+        history.replaceState(null, '', href);
+      }
+    });
+  });
+
+  /* active-section highlighting */
+  var sections = ['independence','services','firm','people','contact'];
+  var navLinks = document.querySelectorAll('.cw__nav a, .cw__pillnav a');
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          var id = en.target.id;
+          navLinks.forEach(function(l){
+            l.classList.toggle('cw__active', l.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, {rootMargin:'-40% 0px -55% 0px'});
+    sections.forEach(function(id){
+      var s = document.getElementById(id);
+      if(s) obs.observe(s);
+    });
+  }
+
+  /* independence ledger: expandable rows */
+  document.querySelectorAll('.cw__ledger-toggle').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var detail = document.getElementById(btn.getAttribute('data-detail'));
+      if(!detail) return;
+      var open = detail.classList.toggle('cw__open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      var plus = btn.querySelectorAll('.cw__plus');
+      plus.forEach(function(p){ p.textContent = open ? '–' : '+'; });
+    });
+  });
+})();
+</script>
 </body>
 </html>

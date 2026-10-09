@@ -43,23 +43,60 @@
   nav a.on{color:var(--brass-deep)}
   .mobilenav{display:none}
 
-  /* ============ HERO ============ */
-  .hero{padding:88px 6vw 40px;max-width:1400px}
+  /* ============ HERO — MONOGRAPH TITLE PAGE ============ */
   .eyebrow{
     font-size:13px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;
     color:var(--brass-deep);margin-bottom:28px;
   }
+  .hero{
+    position:relative;
+    padding:52px 6vw 44px;
+    border-bottom:2px solid var(--ink);
+  }
+  /* Inset cover frame: the double rule of a clothbound title page. */
+  .hero::before{
+    content:"";position:absolute;inset:14px;
+    border:1px solid var(--brass);pointer-events:none;
+  }
+  .hero::after{
+    content:"";position:absolute;inset:19px;
+    border:1px solid var(--line);pointer-events:none;
+  }
+  .cover-top{
+    display:flex;justify-content:space-between;align-items:baseline;gap:12px 24px;flex-wrap:wrap;
+    font-size:12px;font-weight:600;letter-spacing:0.24em;text-transform:uppercase;
+    color:var(--brass-deep);
+    padding-bottom:20px;border-bottom:1px solid var(--brass);
+    margin-bottom:44px;
+  }
   .hero h1{
     font-family:'Fraunces',serif;font-weight:900;
-    font-size:clamp(56px,9vw,128px);
+    font-size:clamp(52px,8.6vw,124px);
     line-height:0.98;letter-spacing:-0.02em;
-    color:var(--ink);max-width:12ch;
+    color:var(--ink);max-width:14ch;
   }
-  .hero h1 em{font-style:normal;color:var(--canopy)}
-  .hero .lede{
-    margin-top:32px;max-width:62ch;font-size:19px;color:#3a3f42;
+  .cover-sub{
+    margin-top:28px;max-width:64ch;
+    font-family:'Fraunces',serif;font-size:19px;line-height:1.55;color:#2C3134;
   }
-  .hero .lede strong{color:var(--ink)}
+  .cover-foot{
+    display:flex;justify-content:space-between;align-items:center;gap:12px 24px;flex-wrap:wrap;
+    margin-top:44px;padding-top:20px;border-top:1px solid var(--brass);
+    font-size:12px;font-weight:600;letter-spacing:0.24em;text-transform:uppercase;
+    color:var(--brass-deep);
+  }
+  .cover-open{
+    color:var(--ink);text-decoration:none;
+    border-bottom:2px solid var(--brass);padding-bottom:2px;
+  }
+  .cover-open:hover{color:var(--brass-deep);border-color:var(--brass-deep)}
+  .cover-open:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
+  @media (max-width:860px){
+    .hero::before{inset:8px}
+    .hero::after{inset:12px}
+    .cover-top{margin-bottom:32px}
+    .cover-foot{margin-top:32px}
+  }
 
   /* ============ TIMELINE SCRUBBER ============ */
   .scrubber-wrap{
@@ -343,11 +380,18 @@
   <a href="#contact" data-scroll>Contact</a>
 </nav>
 
-<!-- ================= HERO ================= -->
-<section class="hero">
-  <p class="eyebrow">Atlanta &middot; Est. 1964</p>
-  <h1>Sixty Years of Atlanta, <em>Drawn by Hand.</em></h1>
-  <p class="lede">Warner Summers is a boutique architecture and interior design firm that has shaped this city since 1964 — <strong>corporate headquarters, banks, hospitals, campuses,</strong> and the second lives of old buildings. Agile, responsive, and experienced in every aspect of design, from ground-up buildings to the interiors people touch every day. <strong>Drag the timeline below.</strong></p>
+<!-- ================= HERO — MONOGRAPH TITLE PAGE ================= -->
+<section class="hero" aria-label="Warner Summers monograph cover">
+  <div class="cover-top">
+    <span>Warner Summers &middot; Atlanta</span>
+    <span>Vol. 60 &mdash; 1964&ndash;2024</span>
+  </div>
+  <h1>Sixty Years of Atlanta,<br>Drawn by Hand.</h1>
+  <p class="cover-sub">The architecture and interior design firm that has shaped this city since 1964 &mdash; corporate headquarters, banks, hospitals, campuses, and the second lives of old buildings. Certified woman-owned since 2020. The archive opens below: drag through six decades.</p>
+  <div class="cover-foot">
+    <span>Est. 1964 &middot; Architecture &amp; Interior Design</span>
+    <a class="cover-open" href="#timeline" data-scroll>Open the Archive &darr;</a>
+  </div>
 </section>
 
 <!-- ================= TIMELINE SCRUBBER ================= -->

@@ -1,111 +1,463 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Westgate Capital Consultants — Interactive Prototype | Northside Intelligence</title>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .mono { font-family: 'JetBrains Mono', monospace; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Westgate Capital Consultants — Fiduciary Before It Was Fashionable</title>
+<meta name="description" content="Tacoma fiduciary firm since 1986. Retirement plan consulting for employers, wealth management for individuals. Prototype redesign concept.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<!-- ============ HEAD: meta, fonts, styles ============ -->
+<style>
+  :root{
+    --spruce:#22382F; --mist:#EDF1EE; --ink:#161B19; --cedar:#8A6D4B;
+    --cedar-deep:#6E5639; --rain:#5C6E64; --line:#D4DCD6; --cedar-pale:#C9B48E;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *,*::before,*::after{transition:none!important;animation:none!important} }
+  body{font-family:'Libre Franklin',system-ui,sans-serif;background:var(--mist);color:var(--ink);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--spruce);color:var(--mist)}
 
+  .wg__header{position:sticky;top:0;z-index:50;background:rgba(237,241,238,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .wg__header-inner{max-width:1200px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .wg__wordmark{font-weight:700;font-size:17px;letter-spacing:.02em;color:var(--spruce);text-decoration:none}
+  .wg__wordmark span{font-weight:400;color:var(--rain)}
+  .wg__nav{display:flex;gap:28px;align-items:center}
+  .wg__nav a{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--rain);text-decoration:none;padding:6px 2px;border-bottom:2px solid transparent;transition:border-color 150ms,color 150ms}
+  .wg__nav a:hover{color:var(--ink)}
+  .wg__nav a.wg__nav--active{color:var(--spruce);border-bottom-color:var(--cedar)}
+  .wg__nav-cta{background:var(--spruce);color:var(--mist)!important;border-radius:4px;padding:10px 18px!important;border-bottom:none!important}
+  .wg__nav-cta:hover{background:#1A2C24}
+
+  .wg__entry{max-width:1440px;margin:0 auto;min-height:calc(100vh - 58px);min-height:calc(100svh - 58px);display:flex;flex-direction:column;padding:36px 32px 48px}
+  .wg__entry-firm{font-size:13px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--rain);text-align:center}
+  .wg__entry-firm span{font-weight:400}
+  .wg__entry-hint{margin-top:24px;text-align:center;font-size:14px;color:var(--rain)}
+  .wg__doors{flex:1;display:grid;grid-template-columns:1fr 1fr;margin-top:28px;min-height:440px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .wg__door{position:relative;text-align:left;border:none;padding:48px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;font-family:inherit;transition:background-color 150ms}
+  .wg__door--employer{background:var(--spruce);color:var(--mist)}
+  .wg__door--individual{background:#fff;color:var(--ink)}
+  .wg__door--employer + .wg__door--individual{border-left:3px solid var(--cedar-deep)}
+  .wg__door--employer:hover{background:#1B2E26}
+  .wg__door--individual:hover{background:#F2F6F3}
+  .wg__door--employer:focus-visible{outline:3px solid var(--cedar-pale);outline-offset:-6px}
+  .wg__door--individual:focus-visible{outline:3px solid var(--cedar-deep);outline-offset:-6px}
+  .wg__door--employer[aria-checked="true"]{box-shadow:inset 0 0 0 2px var(--cedar-pale)}
+  .wg__door--individual[aria-checked="true"]{box-shadow:inset 0 0 0 2px var(--cedar)}
+  .wg__door-kicker{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px}
+  .wg__door--employer .wg__door-kicker{color:var(--cedar-pale)}
+  .wg__door--individual .wg__door-kicker{color:var(--cedar-deep)}
+  .wg__door h2{font-size:clamp(30px,3.6vw,46px);font-weight:700;line-height:1.08;letter-spacing:-0.015em;margin-bottom:16px}
+  .wg__door--employer h2{color:var(--mist)}
+  .wg__door--individual h2{color:var(--spruce)}
+  .wg__door p{font-size:16px;max-width:40ch}
+  .wg__door--employer p{color:#C7D2CB}
+  .wg__door--individual p{color:var(--ink)}
+  .wg__door-state{margin-top:28px;font-size:13px;font-weight:600}
+  .wg__door--employer .wg__door-state{color:var(--cedar-pale)}
+  .wg__door--individual .wg__door-state{color:var(--cedar-deep)}
+
+  .wg__record{background:var(--spruce);color:var(--mist);padding:88px 0}
+  .wg__record-inner{max-width:1200px;margin:0 auto;padding:0 32px}
+  .wg__record .wg__eyebrow{color:var(--cedar-pale)}
+  .wg__record h2{font-size:clamp(32px,4vw,48px);font-weight:700;letter-spacing:-0.015em;line-height:1.1;max-width:20ch;margin-bottom:16px}
+  .wg__record-lede{color:#C7D2CB;max-width:64ch;font-size:17px;margin-bottom:56px}
+  .wg__record-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid rgba(237,241,238,.22)}
+  .wg__record-card{padding:32px 28px 40px;border-left:1px solid rgba(237,241,238,.22)}
+  .wg__record-card:first-child{border-left:none;padding-left:0}
+  .wg__record-year{font-size:44px;font-weight:700;color:var(--cedar-pale);font-variant-numeric:tabular-nums;line-height:1;margin-bottom:16px}
+  .wg__record-card h3{font-size:17px;font-weight:600;margin-bottom:10px;line-height:1.35}
+  .wg__record-card p{font-size:14px;color:#C7D2CB;line-height:1.6}
+  .wg__record-foot{margin-top:48px;padding-top:24px;border-top:1px solid rgba(237,241,238,.22);font-size:14px;color:#C7D2CB;max-width:72ch;font-style:italic}
+
+  .wg__path{max-width:1200px;margin:0 auto;padding:96px 32px}
+  .wg__path-head{display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin-bottom:16px;flex-wrap:wrap}
+  .wg__path h2{font-size:clamp(32px,4vw,48px);font-weight:700;color:var(--spruce);letter-spacing:-0.015em}
+  .wg__path-switch{font-size:13px;font-weight:600;color:var(--rain)}
+  .wg__path-switch button{background:none;border:none;font:inherit;color:var(--cedar-deep);font-weight:700;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:2px}
+  .wg__path-lede{font-size:17px;max-width:62ch;margin-bottom:48px}
+  .wg__path-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+  .wg__svc-list{list-style:none;border-top:2px solid var(--spruce)}
+  .wg__svc-list li{padding:20px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:32px 1fr;gap:16px;align-items:start}
+  .wg__svc-n{font-size:13px;font-weight:700;color:var(--cedar-deep);padding-top:3px}
+  .wg__svc-list h3{font-size:17px;font-weight:600;color:var(--ink);margin-bottom:6px}
+  .wg__svc-list p{font-size:15px;color:var(--rain)}
+  .wg__path-proof{background:#fff;border:1px solid var(--line);border-radius:6px;padding:36px}
+  .wg__path-proof h3{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cedar-deep);margin-bottom:20px}
+  .wg__proof-item{padding:16px 0;border-bottom:1px solid var(--line);font-size:15px}
+  .wg__proof-item:last-child{border-bottom:none}
+  .wg__proof-item strong{color:var(--spruce);font-weight:700}
+  .wg__path-cta{margin-top:32px}
+  .wg__btn{display:inline-block;background:var(--spruce);color:var(--mist);font-weight:600;font-size:15px;padding:16px 32px;border-radius:4px;text-decoration:none;border:none;cursor:pointer;font-family:inherit;transition:background 150ms}
+  .wg__btn:hover{background:#1A2C24}
+
+  .wg__phil{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
+  .wg__phil-inner{max-width:1200px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+  .wg__phil h2{font-size:clamp(28px,3.4vw,40px);font-weight:700;color:var(--spruce);letter-spacing:-0.015em;line-height:1.12;margin-bottom:20px}
+  .wg__phil-sub{color:var(--rain);max-width:52ch}
+  .wg__phil-quote{font-size:20px;line-height:1.55;color:var(--ink);border-left:4px solid var(--cedar);padding-left:24px;font-style:italic}
+  .wg__phil-quote footer{margin-top:16px;font-size:14px;font-style:normal;color:var(--rain)}
+  .wg__phil-tri{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+  .wg__phil-tri h3{font-size:15px;font-weight:700;letter-spacing:.06em;color:var(--spruce);margin-bottom:8px}
+  .wg__phil-tri p{font-size:14px;color:var(--rain)}
+
+  .wg__contact{max-width:1200px;margin:0 auto;padding:96px 32px}
+  .wg__contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+  .wg__contact h2{font-size:clamp(32px,4vw,48px);font-weight:700;color:var(--spruce);letter-spacing:-0.015em;margin-bottom:16px}
+  .wg__contact-lede{font-size:17px;margin-bottom:32px;max-width:44ch}
+  .wg__contact-block{font-size:15px;line-height:1.7}
+  .wg__contact-block strong{display:block;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--cedar-deep);margin:24px 0 8px}
+  .wg__contact-block strong:first-child{margin-top:0}
+  .wg__contact-block a{color:var(--spruce);font-weight:600}
+  .wg__fee-note{margin-top:32px;padding:20px 24px;background:#fff;border:1px solid var(--line);border-radius:6px;font-size:14px;color:var(--rain)}
+  .wg__fee-note strong{color:var(--ink)}
+
+  .wg__footer{background:var(--ink);color:#9AA5A0;padding:56px 0 40px}
+  .wg__footer-inner{max-width:1200px;margin:0 auto;padding:0 32px}
+  .wg__footer-top{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:32px}
+  .wg__footer-brand{font-weight:700;color:var(--mist);font-size:16px}
+  .wg__footer-brand span{font-weight:400;color:#9AA5A0}
+  .wg__footer nav{display:flex;gap:24px;flex-wrap:wrap}
+  .wg__footer nav a{color:#9AA5A0;font-size:13px;text-decoration:none}
+  .wg__footer nav a:hover{color:var(--mist)}
+  .wg__footer-fine{font-size:12px;line-height:1.7;border-top:1px solid #2A332F;padding-top:24px;color:#7D8883}
+
+  .wg__mnav{display:none}
+  @media (max-width:900px){
+    .wg__nav{display:none}
+    .wg__mnav{display:flex;gap:8px;overflow-x:auto;padding:12px 16px;background:rgba(237,241,238,.94);border-bottom:1px solid var(--line);position:sticky;top:57px;z-index:40}
+    .wg__mnav a{white-space:nowrap;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--rain);text-decoration:none;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:#fff}
+    .wg__mnav a.wg__nav--active{color:var(--spruce);border-color:var(--cedar-deep)}
+    .wg__doors{grid-template-columns:1fr}
+    .wg__entry{padding:28px 20px 40px;min-height:0}
+    .wg__door{min-height:320px;padding:36px 28px}
+    .wg__door--employer + .wg__door--individual{border-left:none;border-top:3px solid var(--cedar-deep)}
+    .wg__record-grid{grid-template-columns:1fr 1fr}
+    .wg__record-card{border-left:none;border-top:1px solid rgba(237,241,238,.22);padding-left:0}
+    .wg__record-card:nth-child(-n+2){border-top:none}
+    .wg__path-grid,.wg__phil-inner,.wg__contact-grid{grid-template-columns:1fr}
+    .wg__phil-tri{grid-template-columns:1fr}
+  }
+  @media (max-width:560px){
+    .wg__record-grid{grid-template-columns:1fr}
+    .wg__record-card{border-top:1px solid rgba(237,241,238,.22)}
+    .wg__record-card:first-child{border-top:none}
+  }
+</style>
 </head>
-<body class="bg-[#090D16] text-slate-100 min-h-screen antialiased flex flex-col">
-  <!-- Top Operator Bar -->
-  <header class="border-b border-slate-800/80 bg-[#0E1424]/90 backdrop-blur sticky top-0 z-50 px-6 py-3 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <div class="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold text-xs uppercase tracking-wider">
-        NI Deliverable Prototype
-      </div>
-      <div class="text-xs text-slate-400">
-        Prepared for <span class="font-semibold text-white">Westgate Capital Consultants</span> (Tacoma, WA)
-      </div>
-    </div>
-    <div class="flex items-center gap-2">
-      <button onclick="window.print()" class="px-3 py-1.5 text-xs font-semibold rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
-        Export / Print PDF
+<body data-path="employer">
+
+<!-- ============ HERO ============ -->
+<header class="wg__header">
+  <div class="wg__header-inner">
+    <a class="wg__wordmark" href="#top" data-scroll>Westgate Capital <span>/ HUB Retirement &amp; Wealth</span></a>
+    <nav class="wg__nav" aria-label="Primary">
+      <a href="#record" data-scroll data-section="record">The Record</a>
+      <a href="#path" data-scroll data-section="path" data-setpath="employer">For Employers</a>
+      <a href="#path" data-scroll data-section="path" data-setpath="individual">For Individuals</a>
+      <a href="#philosophy" data-scroll data-section="philosophy">Philosophy</a>
+      <a href="#contact" data-scroll data-section="contact" class="wg__nav-cta" id="wgNavCta">Talk to Our Plan Team</a>
+    </nav>
+  </div>
+</header>
+<nav class="wg__mnav" aria-label="Mobile">
+  <a href="#record" data-scroll data-section="record">The Record</a>
+  <a href="#path" data-scroll data-section="path" data-setpath="employer">Employers</a>
+  <a href="#path" data-scroll data-section="path" data-setpath="individual">Individuals</a>
+  <a href="#philosophy" data-scroll data-section="philosophy">Philosophy</a>
+  <a href="#contact" data-scroll data-section="contact">Contact</a>
+</nav>
+
+<main id="top">
+  <!-- ============ HERO: THE TWO DOORS ============ -->
+  <section class="wg__entry">
+    <h1 class="wg__entry-firm">Westgate Capital <span>/ HUB Retirement &amp; Wealth</span></h1>
+    <div class="wg__doors" role="radiogroup" aria-label="Choose your path">
+      <button class="wg__door wg__door--employer" role="radio" aria-checked="true" data-pathval="employer" id="wgDoorEmployer">
+        <p class="wg__door-kicker">Door One</p>
+        <h2>For Employers</h2>
+        <p>Retirement plan consulting: plan health, fee reviews, participant education, and fiduciary guidance for the people responsible for other people's retirements.</p>
+        <p class="wg__door-state" data-doorstate>Currently viewing</p>
       </button>
-      <a href="data:text/html;charset=utf-8,%3C!--%20Westgate%20Capital%20Consultants%20Prototype%20--%3E" download="westgate-capital-consultants-prototype.html" class="px-3 py-1.5 text-xs font-semibold rounded bg-cyan-500 hover:bg-cyan-400 text-black transition">
-        Download Offline HTML
-      </a>
+      <button class="wg__door wg__door--individual" role="radio" aria-checked="false" data-pathval="individual" id="wgDoorIndividual" tabindex="-1">
+        <p class="wg__door-kicker">Door Two</p>
+        <h2>For Individuals</h2>
+        <p>Wealth management: a goals-based strategy built around your life, from an advisor bound to act in your best interest.</p>
+        <p class="wg__door-state" data-doorstate>Select to view</p>
+      </button>
     </div>
-  </header>
+    <p class="wg__entry-hint">Choose a door — the page arranges itself around you.</p>
+  </section>
 
-  <!-- Prototype Hero -->
-  <main class="flex-1 max-w-6xl w-full mx-auto p-6 md:p-10 space-y-10">
-    <div class="rounded-2xl border border-slate-800 bg-gradient-to-b from-[#131B2E] to-[#0D1322] p-8 md:p-12 relative overflow-hidden shadow-2xl">
-      <div class="absolute -right-20 -top-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
-      
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-xs text-slate-300 mb-6">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>Wealth Management · Interactive Next.js Concept</span>
+<!-- ============ SECTIONS ============ -->
+  <section class="wg__record" id="record" aria-labelledby="wgRecordH">
+    <div class="wg__record-inner">
+      <p class="wg__eyebrow">The Record</p>
+      <h2 id="wgRecordH">The Record, Not the Claim</h2>
+      <p class="wg__record-lede">Any firm can say "fiduciary." Westgate has the dates. Four entries, four decades, one through-line: the client's interest first, with or without a law requiring it.</p>
+      <div class="wg__record-grid">
+        <div class="wg__record-card">
+          <p class="wg__record-year">1986</p>
+          <h3>Founded in Tacoma</h3>
+          <p>Westgate Capital Consultants opens in the Puget Sound area as an independent firm — no proprietary products, no house mandates.</p>
+        </div>
+        <div class="wg__record-card">
+          <p class="wg__record-year">2009</p>
+          <h3>The AIF Designation</h3>
+          <p>An advisor earns the Accredited Investment Fiduciary mark — one of two in Tacoma, 73 in Washington. Sought out, not imposed.</p>
+        </div>
+        <div class="wg__record-card">
+          <p class="wg__record-year">2011</p>
+          <h3>The Standard Spreads</h3>
+          <p>Ian Hartley earns his AIF designation. The fiduciary standard becomes the firm's operating system, not one advisor's credential.</p>
+        </div>
+        <div class="wg__record-card">
+          <p class="wg__record-year">2025</p>
+          <h3>Joins HUB International</h3>
+          <p>Becomes HUB Retirement and Wealth Management — University Place. Four decades of local trust, now with national resources behind it.</p>
+        </div>
       </div>
-
-      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white max-w-3xl leading-tight">
-        Fiduciary Digital Flagship & Executive Client Access
-      </h1>
-
-      <p class="mt-4 text-slate-400 text-base md:text-lg max-w-2xl leading-relaxed">
-        Sub-second client login redirects and institutional wealth advisory positioning. Engineered with sub-second page transitions, responsive touch controls, and zero legacy CMS script bloat.
-      </p>
-
-      <div class="mt-8 flex flex-wrap gap-4">
-        <button onclick="alert('Interactive demo: Project Showcase Filter Triggered')" class="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-sm shadow-lg shadow-cyan-500/20 transition">
-          Explore Portfolio Archive
-        </button>
-        <button onclick="alert('Interactive demo: Client Inquiry Modal Opened')" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm border border-slate-700 transition">
-          Direct Consultation Request
-        </button>
-      </div>
+      <p class="wg__record-foot">Along the way: one of the first firms in the region to offer individual account-based retirement plans — and a standing invitation to ask how the firm is paid, answered plainly.</p>
     </div>
+  </section>
 
-    <!-- Interactive Features Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          01
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Instant Mobile Speed</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Google Lighthouse 98+ score with modern image compression, eliminating render delays on high-resolution project photography.
-        </p>
-      </div>
-
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          02
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Frictionless Lead Intake</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Streamlined client consultation intake with automatic validation, spam filtering, and direct CRM notification webhooks.
-        </p>
-      </div>
-
-      <div class="rounded-xl border border-slate-800/80 bg-[#101728] p-6 hover:border-cyan-500/40 transition">
-        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold mb-4">
-          03
-        </div>
-        <h3 class="font-bold text-lg text-white mb-2">Zero CMS Maintenance</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Static-first Next.js infrastructure deployed on high-availability edge nodes, completely immune to WordPress plugin vulnerabilities.
-        </p>
-      </div>
+  <section class="wg__path" id="path" aria-labelledby="wgPathH">
+    <div class="wg__path-head">
+      <h2 id="wgPathH">For Employers</h2>
+      <p class="wg__path-switch">Not you? <button type="button" id="wgPathToggle">Switch to For Individuals</button></p>
     </div>
-
-    <!-- Verification & Proof Footer -->
-    <div class="rounded-xl border border-slate-800 bg-[#0E1424] p-6 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400">
-      <div class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-        <span>Prototype Status: <strong class="text-white">Active Preview Verified</strong></span>
-      </div>
+    <p class="wg__path-lede" id="wgPathLede">If you run a retirement plan, you carry a fiduciary duty whether you asked for it or not. Westgate's plan team exists to make that duty manageable — and defensible.</p>
+    <div class="wg__path-grid">
+      <ol class="wg__svc-list" id="wgSvcList"></ol>
       <div>
-        Built by Northside Intelligence · Studio Architecture Division
+        <div class="wg__path-proof">
+          <h3 id="wgProofH">Why Employers Stay</h3>
+          <div id="wgProofList"></div>
+        </div>
+        <div class="wg__path-cta">
+          <a class="wg__btn" href="#contact" data-scroll id="wgPathCta">Talk to Our Plan Team</a>
+        </div>
       </div>
     </div>
-  </main>
+  </section>
+
+  <section class="wg__phil" id="philosophy" aria-labelledby="wgPhilH">
+    <div class="wg__phil-inner">
+      <div>
+        <p class="wg__eyebrow">Philosophy</p>
+        <h2 id="wgPhilH">Integrity, As a Practice</h2>
+        <p class="wg__phil-sub">Three words the firm has used for decades — not as a slogan, as an operating manual.</p>
+        <div class="wg__phil-tri">
+          <div><h3>People</h3><p>Participants educated, sponsors supported, clients known by name.</p></div>
+          <div><h3>Passion</h3><p>Retirement security treated as a craft, not a product line.</p></div>
+          <div><h3>Education</h3><p>An educated participant is the foundation of a healthy plan.</p></div>
+        </div>
+      </div>
+      <blockquote class="wg__phil-quote">
+        "Our work requires that we build a solid foundation of professionalism between our team and our clients. We rely on our philosophy of integrity as the driving force behind all of our decisions, communication, and actions."
+        <footer>— Westgate's stated philosophy, westgatecapital.com</footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="wg__contact" id="contact" aria-labelledby="wgContactH">
+    <div class="wg__contact-grid">
+      <div>
+        <p class="wg__eyebrow">Contact</p>
+        <h2 id="wgContactH">Start With a Conversation</h2>
+        <p class="wg__contact-lede" id="wgContactLede">Bring your current plan — or your questions about it. The first conversation is about whether we're the right fit, not a pitch.</p>
+        <a class="wg__btn" href="tel:+12537590100" id="wgContactCta">Talk to Our Plan Team</a>
+        <div class="wg__fee-note"><strong>On fees:</strong> ask how the firm is paid in the first meeting. Independence means no proprietary products — the answer should be short.</div>
+      </div>
+      <div class="wg__contact-block">
+        <strong>Office</strong>
+        3560 Bridgeport Way West, Suite 3G<br>
+        University Place, WA 98466
+        <strong>Phone</strong>
+        <a href="tel:+12537590100">(253) 759-0100</a><br>
+        Fax: (253) 759-0200
+        <strong>Email</strong>
+        <a href="mailto:NOW.advisor@hubinternational.com">NOW.advisor@hubinternational.com</a>
+        <strong>Planning Tools</strong>
+        Retirement calculators for running your own what-if scenarios — saving, spending, timing.
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="wg__footer">
+  <div class="wg__footer-inner">
+    <div class="wg__footer-top">
+      <p class="wg__footer-brand">Westgate Capital <span>/ HUB Retirement &amp; Wealth Management</span></p>
+      <nav aria-label="Footer">
+        <a href="#record" data-scroll>The Record</a>
+        <a href="#path" data-scroll data-setpath="employer">For Employers</a>
+        <a href="#path" data-scroll data-setpath="individual">For Individuals</a>
+        <a href="#contact" data-scroll>Contact</a>
+      </nav>
+    </div>
+    <p class="wg__footer-fine">Concept redesign mockup for Westgate Capital Consultants (now HUB Retirement and Wealth Management — University Place). Content rewritten from the firm's public website for demonstration; not published. Illustrative only — not investment advice.</p>
+  </div>
+</footer>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var PATHS = {
+    employer: {
+      title: "For Employers",
+      lede: "If you run a retirement plan, you carry a fiduciary duty whether you asked for it or not. Westgate's plan team exists to make that duty manageable — and defensible.",
+      services: [
+        ["Plan Health Reviews", "A clear read on where your plan stands: participation, deferral rates, and the gaps costing your people their retirements."],
+        ["Fee Benchmarking", "What the plan costs, line by line, measured against the market. Excessive fees are found here or they compound quietly."],
+        ["Participant Education", "The firm's founding conviction: educated participants make healthy plans. Ongoing, in plain language."],
+        ["Fiduciary Guidance", "Investment advice and value-based fiduciary support for sponsors, grounded in ethical standards and regulatory compliance."],
+        ["Issue Resolution", "Financial wellness, service problems, compliance questions — the unglamorous work that keeps a plan running."]
+      ],
+      proof: [
+        "<strong>2009:</strong> AIF designation held since before it was fashionable — one of two in Tacoma at the time.",
+        "<strong>First movers:</strong> among the first in Puget Sound to offer individual account-based retirement plans.",
+        "<strong>Educators first:</strong> participant education treated as the key to plan health, not an add-on."
+      ],
+      cta: "Talk to Our Plan Team",
+      toggle: "Switch to For Individuals",
+      contactLede: "Bring your current plan — or your questions about it. The first conversation is about whether we're the right fit, not a pitch."
+    },
+    individual: {
+      title: "For Individuals",
+      lede: "Retirement isn't a number, it's the life the number has to support. Westgate's advisors start with your priorities and build the strategy around them.",
+      services: [
+        ["Goals-Based Strategy", "Your goals and priorities first, the portfolio second. The plan serves the life, not the other way around."],
+        ["Retirement Income Planning", "Turning savings into a paycheck that lasts — sequencing withdrawals, timing Social Security, managing taxes."],
+        ["Best-Interest Standard", "Advice held to the fiduciary standard the firm adopted voluntarily in 2009. Your interest first, structurally."],
+        ["Independent Advice", "No proprietary investment requirements. Recommendations come from the market, not a house list."],
+        ["Ongoing Guidance", "Plans reviewed as life changes — the strategy that fit at 45 rarely fits at 60."]
+      ],
+      proof: [
+        "<strong>Independent:</strong> no proprietary products means advice starts from your needs, not a sales quota.",
+        "<strong>Fiduciary-trained:</strong> the AIF standard applied to individual relationships, not just plan sponsors.",
+        "<strong>Do-your-own-math tools:</strong> retirement calculators so you can pressure-test scenarios yourself."
+      ],
+      cta: "Talk to an Advisor",
+      toggle: "Switch to For Employers",
+      contactLede: "Bring your questions, your statements, or just your uncertainty. The first conversation is about fit, not a pitch."
+    }
+  };
+
+  var doorEmployer = document.getElementById('wgDoorEmployer');
+  var doorIndividual = document.getElementById('wgDoorIndividual');
+  var pathH = document.getElementById('wgPathH');
+  var pathLede = document.getElementById('wgPathLede');
+  var svcList = document.getElementById('wgSvcList');
+  var proofList = document.getElementById('wgProofList');
+  var proofH = document.getElementById('wgProofH');
+  var pathCta = document.getElementById('wgPathCta');
+  var navCta = document.getElementById('wgNavCta');
+  var contactCta = document.getElementById('wgContactCta');
+  var contactLede = document.getElementById('wgContactLede');
+  var pathToggle = document.getElementById('wgPathToggle');
+
+  function renderPath(path){
+    var d = PATHS[path];
+    document.body.setAttribute('data-path', path);
+    pathH.textContent = d.title;
+    pathLede.textContent = d.lede;
+    svcList.innerHTML = '';
+    d.services.forEach(function(s, i){
+      var li = document.createElement('li');
+      var num = String(i + 1).padStart(2, '0');
+      var wrap = document.createElement('div');
+      var h = document.createElement('h3');
+      var p = document.createElement('p');
+      var n = document.createElement('span');
+      n.className = 'wg__svc-n';
+      n.textContent = num;
+      h.textContent = s[0];
+      p.textContent = s[1];
+      wrap.appendChild(h);
+      wrap.appendChild(p);
+      li.appendChild(n);
+      li.appendChild(wrap);
+      svcList.appendChild(li);
+    });
+    proofList.innerHTML = '';
+    proofH.textContent = path === 'employer' ? 'Why Employers Stay' : 'Why Individuals Stay';
+    d.proof.forEach(function(p){
+      var div = document.createElement('div');
+      div.className = 'wg__proof-item';
+      div.innerHTML = p;
+      proofList.appendChild(div);
+    });
+    pathCta.textContent = d.cta;
+    navCta.textContent = d.cta;
+    contactCta.textContent = d.cta;
+    contactLede.textContent = d.contactLede;
+    pathToggle.textContent = d.toggle;
+    var isEmp = path === 'employer';
+    doorEmployer.setAttribute('aria-checked', isEmp ? 'true' : 'false');
+    doorIndividual.setAttribute('aria-checked', isEmp ? 'false' : 'true');
+    doorEmployer.tabIndex = isEmp ? 0 : -1;
+    doorIndividual.tabIndex = isEmp ? -1 : 0;
+    doorEmployer.querySelector('[data-doorstate]').textContent = isEmp ? 'Currently viewing' : 'Select to view';
+    doorIndividual.querySelector('[data-doorstate]').textContent = isEmp ? 'Select to view' : 'Currently viewing';
+  }
+
+  function setPath(path){ renderPath(path); }
+
+  doorEmployer.addEventListener('click', function(){ setPath('employer'); });
+  doorIndividual.addEventListener('click', function(){ setPath('individual'); });
+  pathToggle.addEventListener('click', function(){
+    setPath(document.body.getAttribute('data-path') === 'employer' ? 'individual' : 'employer');
+  });
+
+  document.querySelector('.wg__doors').addEventListener('keydown', function(e){
+    if(e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    e.preventDefault();
+    var next = document.body.getAttribute('data-path') === 'employer' ? 'individual' : 'employer';
+    setPath(next);
+    (next === 'employer' ? doorEmployer : doorIndividual).focus();
+  });
+
+  function scrollToId(id){
+    var el = document.getElementById(id);
+    if(!el) return;
+    if(reduceMotion){ el.scrollIntoView(); }
+    else{ el.scrollIntoView({behavior:'smooth', block:'start'}); }
+  }
+  document.querySelectorAll('[data-scroll]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var href = a.getAttribute('href');
+      if(!href || href.charAt(0) !== '#') return;
+      e.preventDefault();
+      var sp = a.getAttribute('data-setpath');
+      if(sp) setPath(sp);
+      scrollToId(href.slice(1));
+      if(history.replaceState) history.replaceState(null, '', href);
+    });
+  });
+
+  var secLinks = document.querySelectorAll('[data-section]');
+  var sections = ['record', 'path', 'philosophy', 'contact'].map(function(id){ return document.getElementById(id); }).filter(Boolean);
+  if('IntersectionObserver' in window && !reduceMotion){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          var id = en.target.id;
+          secLinks.forEach(function(l){ l.classList.toggle('wg__nav--active', l.getAttribute('data-section') === id); });
+        }
+      });
+    }, {rootMargin:'-40% 0px -55% 0px'});
+    sections.forEach(function(s){ obs.observe(s); });
+  }
+
+  renderPath('employer');
+})();
+</script>
 </body>
 </html>
