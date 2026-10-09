@@ -1281,6 +1281,42 @@ Start free today at northsideintelligence.com/bridgeai.
         size: "712 KB (1080x1440)",
         source: "agent",
         uploadedAt: "Today 1:26 PM"
+      },
+      {
+        id: "gen-ba-oct9-2",
+        name: "bridgeai_oct9_slide2.jpg",
+        url: "/media/bridge-ai/2026-10-09/bridgeai_oct9_slide2.jpg",
+        type: "image",
+        size: "640 KB (1080x1440)",
+        source: "agent",
+        uploadedAt: "Today 5:09 PM"
+      },
+      {
+        id: "gen-ba-oct9-3",
+        name: "bridgeai_oct9_slide3.jpg",
+        url: "/media/bridge-ai/2026-10-09/bridgeai_oct9_slide3.jpg",
+        type: "image",
+        size: "544 KB (1080x1440)",
+        source: "agent",
+        uploadedAt: "Today 5:09 PM"
+      },
+      {
+        id: "gen-ba-oct9-4",
+        name: "bridgeai_oct9_slide4.jpg",
+        url: "/media/bridge-ai/2026-10-09/bridgeai_oct9_slide4.jpg",
+        type: "image",
+        size: "583 KB (1080x1440)",
+        source: "agent",
+        uploadedAt: "Today 5:09 PM"
+      },
+      {
+        id: "gen-ba-oct9-5",
+        name: "bridgeai_oct9_slide5.jpg",
+        url: "/media/bridge-ai/2026-10-09/bridgeai_oct9_slide5.jpg",
+        type: "image",
+        size: "600 KB (1080x1440)",
+        source: "agent",
+        uploadedAt: "Today 5:09 PM"
       }
     ],
     referenceMedia: [
