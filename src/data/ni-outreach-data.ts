@@ -162,12 +162,12 @@ export const INITIAL_WEBDESIGN: OutreachLeadItem[] = [
       ]
     },
     deliverablePrototype: {
-      title: "Sculptural Digital Showcase for Warner Summers",
+      title: "Atlanta Heritage Editorial Monograph for Warner Summers",
       type: "interactive_html",
       previewUrl: "/prototypes/warner-summers-preview.html",
       downloadUrl: "/prototypes/warner-summers-preview.html",
-      downloadFilename: "warner-summers-nextjs-prototype.html",
-      description: "Interactive responsive Next.js prototype with sub-second portfolio transitions, mobile touch navigation, and zero render-blocking plugins.",
+      downloadFilename: "warner-summers-prototype.html",
+      description: "Single-file editorial showcase: 55-year heritage timeline scrubber, real services, projects, leadership and awards, working mobile nav, zero dependencies.",
       receipts: [
         {
           id: "rcpt-ws-1",
