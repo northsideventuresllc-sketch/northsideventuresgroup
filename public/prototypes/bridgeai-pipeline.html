@@ -54,7 +54,7 @@
           <p class="text-xs text-slate-400">Test live output generation with sample data</p>
         </div>
         <span class="px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs">
-          Engine: AXON Heuristic v2
+          Engine: Heuristic Engine v2
         </span>
       </div>
 
@@ -62,7 +62,7 @@
         <div>
           <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Sample Input Parameter</label>
           <textarea id="sampleInput" rows="3" class="w-full bg-[#090D18] border border-slate-700/80 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 mono">Source: Incoming Webhook / CRM Lead
-Transform: AXON Heuristic Qualification Filter
+Transform: Heuristic Qualification Filter
 Destination: Private Supabase DB + Slack Channel Alert</textarea>
         </div>
 
@@ -77,7 +77,7 @@ Destination: Private Supabase DB + Slack Channel Alert</textarea>
           <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Generated Output Preview</label>
           <div id="sampleOutput" class="w-full bg-[#090D18] border border-slate-800 rounded-xl p-4 text-sm text-slate-200 mono whitespace-pre-wrap leading-relaxed">BridgeAI Pipeline Execution Log:
 [0.01s] Ingested webhook payload from HubSpot (New Enterprise Inquiry)
-[0.04s] AXON classified intent: 'High-Value Advisory Pilot ($5k+)'
+[0.04s] Engine classified intent: 'High-Value Advisory Pilot ($5k+)'
 [0.07s] Pushed validated lead to Supabase 'Context' table (ID #8491)
 [0.09s] Dispatched instant Slack card to #executive-briefing with 1-click approve button.</div>
         </div>
@@ -89,7 +89,7 @@ Destination: Private Supabase DB + Slack Channel Alert</textarea>
     function runSimulation() {
       const status = document.getElementById('statusNote');
       const out = document.getElementById('sampleOutput');
-      status.innerText = 'Synthesizing with AXON LLM...';
+      status.innerText = 'Synthesizing...';
       status.className = 'text-xs text-purple-400 animate-pulse';
       setTimeout(() => {
         status.innerText = 'Completed (120ms latency)';

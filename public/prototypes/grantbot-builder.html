@@ -54,7 +54,7 @@
           <p class="text-xs text-slate-400">Test live output generation with sample data</p>
         </div>
         <span class="px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs">
-          Engine: AXON Heuristic v2
+          Engine: Heuristic Engine v2
         </span>
       </div>
 
@@ -86,7 +86,7 @@ Amount Requested: $25,000</textarea>
     function runSimulation() {
       const status = document.getElementById('statusNote');
       const out = document.getElementById('sampleOutput');
-      status.innerText = 'Synthesizing with AXON LLM...';
+      status.innerText = 'Synthesizing...';
       status.className = 'text-xs text-purple-400 animate-pulse';
       setTimeout(() => {
         status.innerText = 'Completed (120ms latency)';

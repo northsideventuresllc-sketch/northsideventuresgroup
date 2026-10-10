@@ -62,7 +62,7 @@ export const BIO = {
     },
     {
       heading: "Foundation of Northside Ventures Group",
-      body: "In May of 2026, Jonny founded Northside Ventures Group LLC, which is what exists today! NVG is built to be the parent company of all Jonny’s ventures he continues to build. Jonny has so many different areas of interest and expertise that general entrepreneurship is what he has decided to pursue full time. Northside Ventures Group LLC also is the sole member of the non-profit organization founded by Jonny in June of 2026, The Northside Foundation Inc. The Northside Foundation is the non-profit entity that fuels all of NVG’s social ventures and community involvement projects. Jonny figured out that being able to have the freedom of jumping from venture to venture while actively working in the ventures he is most passionate about is the best way for him to go. Northside Ventures Group is responsible for multiple different for profit ventures that are growing and will continue to grow as time goes on including Northside Intelligence (housing projects such as Match Fit, AXON, and the Smart Store) and Northside Creator Collective (housing the record label and producer collective of Northside Beats, the Artist Brand of NORTHSiDE, the UGC collective, and more creative ventures). The Northside Foundation is responsible for fueling the rebirth of Northside Swim Academy in The North-Stars Swim School and also will be funding many other social ventures within the community.",
+      body: "In May of 2026, Jonny founded Northside Ventures Group LLC, which is what exists today! NVG is built to be the parent company of all Jonny’s ventures he continues to build. Jonny has so many different areas of interest and expertise that general entrepreneurship is what he has decided to pursue full time. Northside Ventures Group LLC also is the sole member of the non-profit organization founded by Jonny in June of 2026, The Northside Foundation Inc. The Northside Foundation is the non-profit entity that fuels all of NVG’s social ventures and community involvement projects. Jonny figured out that being able to have the freedom of jumping from venture to venture while actively working in the ventures he is most passionate about is the best way for him to go. Northside Ventures Group is responsible for multiple different for profit ventures that are growing and will continue to grow as time goes on including Northside Intelligence (housing projects such as Match Fit and the Smart Store) and Northside Creator Collective (housing the record label and producer collective of Northside Beats, the Artist Brand of NORTHSiDE, the UGC collective, and more creative ventures). The Northside Foundation is responsible for fueling the rebirth of Northside Swim Academy in The North-Stars Swim School and also will be funding many other social ventures within the community.",
     },
     {
       heading: "Conclusion",
@@ -137,14 +137,6 @@ export const VENTURE_TREE: VentureNode[] = [
         logo: "/logos/wavscope.svg",
         status: "placeholder",
         blurb: "Audio intelligence and waveform analysis. URL pending.",
-      },
-      {
-        id: "axon",
-        name: "AXON",
-        href: "https://northsideintelligence.com/axon",
-        logo: "/logos/axon.svg",
-        status: "live",
-        blurb: "Autonomous outreach and systems — AXON Home.",
       },
       // —— Intelligence Tools (ITs) ——
       // When a new IT ships, add it here with isIntelligenceTool: true.

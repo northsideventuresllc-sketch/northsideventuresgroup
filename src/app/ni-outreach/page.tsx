@@ -172,7 +172,7 @@ export default function NiOutreachPage() {
 
     setTimeout(() => {
       setEditProgress(65);
-      setEditStatusText("Synthesizing agentic redesign with AXON engine...");
+      setEditStatusText("Synthesizing agentic redesign...");
     }, 1300);
 
     setTimeout(() => {
