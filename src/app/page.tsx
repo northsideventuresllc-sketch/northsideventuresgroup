@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { SiteHeader } from "@/components/SiteHeader";
+import { TrialPromoBanner } from "@/components/TrialPromoBanner";
 import { HoloCarousel } from "@/components/HoloCarousel";
 import { LogoBanner } from "@/components/LogoBanner";
 import { BioSection } from "@/components/BioSection";
@@ -18,6 +19,7 @@ export default function HomePage() {
   return (
     <div className="atmosphere min-h-screen">
       <SiteHeader />
+      <TrialPromoBanner />
 
       <main>
         {/* Hero — brand first, one composition */}
